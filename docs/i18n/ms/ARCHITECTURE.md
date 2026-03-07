@@ -1,71 +1,71 @@
-# Seni Bina OmniRoute
+# OmniRoute Architecture
 
-🌐 **Languages:** 🇺🇸 [English](../../ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](../es/ARCHITECTURE.md) | 🇫🇷 [Français](../fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](../it/ARCHITECTURE.md) | 🇷🇺 [Русский](../ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](../zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](../de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](../in/ARCHITECTURE.md) | 🇹🇭 [ไทย](../th/ARCHITECTURE.md) | 🇺🇦 [Українська](../uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](../ar/ARCHITECTURE.md) | 🇯🇵 [日本語](../ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](../vi/ARCHITECTURE.md) | 🇧🇬 [Български](../bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](../da/ARCHITECTURE.md) | 🇫🇮 [Suomi](../fi/ARCHITECTURE.md) | 🇮🇱 [עברית](../he/ARCHITECTURE.md) | 🇭🇺 [Magyar](../hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](../id/ARCHITECTURE.md) | 🇰🇷 [한국어](../ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](../ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](../nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](../no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](../pt/ARCHITECTURE.md) | 🇷🇴 [Română](../ro/ARCHITECTURE.md) | 🇵🇱 [Polski](../pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](../sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](../sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](../phi/ARCHITECTURE.md)
+🌐 **Languages:** 🇺🇸 [English](ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](i18n/es/ARCHITECTURE.md) | 🇫🇷 [Français](i18n/fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](i18n/it/ARCHITECTURE.md) | 🇷🇺 [Русский](i18n/ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](i18n/de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](i18n/in/ARCHITECTURE.md) | 🇹🇭 [ไทย](i18n/th/ARCHITECTURE.md) | 🇺🇦 [Українська](i18n/uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](i18n/ar/ARCHITECTURE.md) | 🇯🇵 [日本語](i18n/ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/ARCHITECTURE.md) | 🇧🇬 [Български](i18n/bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](i18n/da/ARCHITECTURE.md) | 🇫🇮 [Suomi](i18n/fi/ARCHITECTURE.md) | 🇮🇱 [עברית](i18n/he/ARCHITECTURE.md) | 🇭🇺 [Magyar](i18n/hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/ARCHITECTURE.md) | 🇰🇷 [한국어](i18n/ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](i18n/nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](i18n/no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/ARCHITECTURE.md) | 🇷🇴 [Română](i18n/ro/ARCHITECTURE.md) | 🇵🇱 [Polski](i18n/pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](i18n/sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](i18n/sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](i18n/phi/ARCHITECTURE.md)
 
-_Terakhir dikemas kini: 2026-02-18_
+_Last updated: 2026-03-04_
 
-## Ringkasan Eksekutif
+## Executive Summary
 
-OmniRoute ialah get laluan dan papan pemuka penghalaan AI tempatan yang dibina pada Next.js.
-Ia menyediakan satu titik akhir serasi OpenAI (`/v1/*`) dan mengarahkan trafik merentasi berbilang penyedia huluan dengan terjemahan, sandaran, penyegaran token dan penjejakan penggunaan.
+OmniRoute is a local AI routing gateway and dashboard built on Next.js.
+It provides a single OpenAI-compatible endpoint (`/v1/*`) and routes traffic across multiple upstream providers with translation, fallback, token refresh, and usage tracking.
 
-Keupayaan teras:
+Core capabilities:
 
-- Permukaan API serasi OpenAI untuk CLI/alat (28 pembekal)
-- Permintaan/tindak balas terjemahan merentas format pembekal
-- Model kombo mundur (jujukan berbilang model)
-- Saling balik peringkat akaun (berbilang akaun setiap pembekal)
-- Pengurusan sambungan pembekal kunci OAuth + API
-- Membenamkan penjanaan melalui `/v1/embeddings` (6 pembekal, 9 model)
-- Penjanaan imej melalui `/v1/images/generations` (4 pembekal, 9 model)
-- Penghuraian teg Fikir (`<think>...</think>`) untuk model penaakulan
-- Pembersihan tindak balas untuk keserasian OpenAI SDK yang ketat
-- Normalisasi peranan (pembangun→sistem, sistem→pengguna) untuk keserasian silang penyedia
-- Penukaran output berstruktur (json_schema → Gemini responseSchema)
-- Kegigihan setempat untuk pembekal, kunci, alias, kombo, tetapan, harga
-- Penjejakan penggunaan/kos dan pengelogan permintaan
-- Penyegerakan awan pilihan untuk penyegerakan berbilang peranti/keadaan
-- Senarai dibenarkan/senarai sekatan IP untuk kawalan akses API
-- Pengurusan belanjawan berfikir (laluan/auto/tersuai/adaptif)
-- Suntikan segera sistem global
-- Penjejakan sesi dan cap jari
-- Pengehadan kadar dipertingkatkan setiap akaun dengan profil khusus pembekal
-- Corak pemutus litar untuk daya tahan pembekal
-- Perlindungan kumpulan anti-gemuruh dengan penguncian mutex
-- Cache penyahduplikasi permintaan berasaskan tandatangan
-- Lapisan domain: ketersediaan model, peraturan kos, dasar sandaran, dasar sekat keluar
-- Kegigihan keadaan domain (cache tulis-melalui SQLite untuk sandaran, belanjawan, sekatan, pemutus litar)
-- Enjin dasar untuk penilaian permintaan terpusat (kunci → belanjawan → sandaran)
-- Minta telemetri dengan pengagregatan kependaman p50/p95/p99
-- ID Korelasi (X-Request-Id) untuk pengesanan hujung ke hujung
-- Pengelogan audit pematuhan dengan memilih keluar setiap kunci API
-- Rangka kerja Eval untuk jaminan kualiti LLM
-- Papan pemuka UI Ketahanan dengan status pemutus litar masa nyata
-- Pembekal OAuth modular (12 modul individu di bawah `src/lib/oauth/providers/`)
+- OpenAI-compatible API surface for CLI/tools (28 providers)
+- Request/response translation across provider formats
+- Model combo fallback (multi-model sequence)
+- Account-level fallback (multi-account per provider)
+- OAuth + API-key provider connection management
+- Embedding generation via `/v1/embeddings` (6 providers, 9 models)
+- Image generation via `/v1/images/generations` (4 providers, 9 models)
+- Think tag parsing (`<think>...</think>`) for reasoning models
+- Response sanitization for strict OpenAI SDK compatibility
+- Role normalization (developer→system, system→user) for cross-provider compatibility
+- Structured output conversion (json_schema → Gemini responseSchema)
+- Local persistence for providers, keys, aliases, combos, settings, pricing
+- Usage/cost tracking and request logging
+- Optional cloud sync for multi-device/state sync
+- IP allowlist/blocklist for API access control
+- Thinking budget management (passthrough/auto/custom/adaptive)
+- Global system prompt injection
+- Session tracking and fingerprinting
+- Per-account enhanced rate limiting with provider-specific profiles
+- Circuit breaker pattern for provider resilience
+- Anti-thundering herd protection with mutex locking
+- Signature-based request deduplication cache
+- Domain layer: model availability, cost rules, fallback policy, lockout policy
+- Domain state persistence (SQLite write-through cache for fallbacks, budgets, lockouts, circuit breakers)
+- Policy engine for centralized request evaluation (lockout → budget → fallback)
+- Request telemetry with p50/p95/p99 latency aggregation
+- Correlation ID (X-Request-Id) for end-to-end tracing
+- Compliance audit logging with opt-out per API key
+- Eval framework for LLM quality assurance
+- Resilience UI dashboard with real-time circuit breaker status
+- Modular OAuth providers (12 individual modules under `src/lib/oauth/providers/`)
 
-Model masa jalan utama:
+Primary runtime model:
 
-- Laluan apl Next.js di bawah `src/app/api/*` melaksanakan kedua-dua API papan pemuka dan API keserasian
-- SSE kongsi/tera laluan dalam `src/sse/*` + `open-sse/*` mengendalikan pelaksanaan pembekal, terjemahan, penstriman, sandaran dan penggunaan
+- Next.js app routes under `src/app/api/*` implement both dashboard APIs and compatibility APIs
+- A shared SSE/routing core in `src/sse/*` + `open-sse/*` handles provider execution, translation, streaming, fallback, and usage
 
-## Skop dan Sempadan
+## Scope and Boundaries
 
-### Dalam Skop
+### In Scope
 
-- Masa jalan gerbang tempatan
-- API pengurusan papan pemuka
-- Pengesahan pembekal dan penyegaran token
-- Minta terjemahan dan penstriman SSE
-- Keadaan setempat + kegigihan penggunaan
-- Orkestrasi penyegerakan awan pilihan
+- Local gateway runtime
+- Dashboard management APIs
+- Provider authentication and token refresh
+- Request translation and SSE streaming
+- Local state + usage persistence
+- Optional cloud sync orchestration
 
-### Di Luar Skop
+### Out of Scope
 
-- Pelaksanaan perkhidmatan awan di belakang `NEXT_PUBLIC_CLOUD_URL`
-- Pembekal SLA/pesawat kawalan di luar proses tempatan
-- Perduaan CLI luaran sendiri (Claude CLI, Codex CLI, dll.)
+- Cloud service implementation behind `NEXT_PUBLIC_CLOUD_URL`
+- Provider SLA/control plane outside local process
+- External CLI binaries themselves (Claude CLI, Codex CLI, etc.)
 
-## Konteks Sistem Aras Tinggi
+## High-Level System Context
 
 ```mermaid
 flowchart LR
@@ -81,8 +81,8 @@ flowchart LR
         API[V1 Compatibility API\n/v1/*]
         DASH[Dashboard + Management API\n/api/*]
         CORE[SSE + Translation Core\nopen-sse + src/sse]
-        DB[(db.json)]
-        UDB[(usage.json + log.txt)]
+        DB[(storage.sqlite)]
+        UDB[(usage tables + log artifacts)]
     end
 
     subgraph Upstreams[Upstream Providers]
@@ -113,151 +113,152 @@ flowchart LR
     DASH --> CLOUD
 ```
 
-## Komponen Masa Jalan Teras
+## Core Runtime Components
 
-## 1) API dan Lapisan Penghalaan (Laluan Apl Next.js)
+## 1) API and Routing Layer (Next.js App Routes)
 
-Direktori utama:
+Main directories:
 
-- `src/app/api/v1/*` dan `src/app/api/v1beta/*` untuk API keserasian
-- `src/app/api/*` untuk API pengurusan/konfigurasi
-- Seterusnya menulis semula dalam peta `next.config.mjs` `/v1/*` kepada `/api/v1/*`
+- `src/app/api/v1/*` and `src/app/api/v1beta/*` for compatibility APIs
+- `src/app/api/*` for management/configuration APIs
+- Next rewrites in `next.config.mjs` map `/v1/*` to `/api/v1/*`
 
-Laluan keserasian penting:
+Important compatibility routes:
 
 - `src/app/api/v1/chat/completions/route.ts`
 - `src/app/api/v1/messages/route.ts`
 - `src/app/api/v1/responses/route.ts`
-- `src/app/api/v1/models/route.ts` — termasuk model tersuai dengan `custom: true`
-- `src/app/api/v1/embeddings/route.ts` — penjanaan benam (6 pembekal)
-- `src/app/api/v1/images/generations/route.ts` — penjanaan imej (4+ penyedia termasuk Antigraviti/Nebius)
+- `src/app/api/v1/models/route.ts` — includes custom models with `custom: true`
+- `src/app/api/v1/embeddings/route.ts` — embedding generation (6 providers)
+- `src/app/api/v1/images/generations/route.ts` — image generation (4+ providers incl. Antigravity/Nebius)
 - `src/app/api/v1/messages/count_tokens/route.ts`
-- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — sembang khusus bagi setiap pembekal
-- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — benam setiap pembekal khusus
-- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — imej setiap pembekal khusus
+- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — dedicated per-provider chat
+- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — dedicated per-provider embeddings
+- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — dedicated per-provider images
 - `src/app/api/v1beta/models/route.ts`
 - `src/app/api/v1beta/models/[...path]/route.ts`
 
-Domain pengurusan:
+Management domains:
 
-- Pengesahan/tetapan: `src/app/api/auth/*`, `src/app/api/settings/*`
-- Pembekal/sambungan: `src/app/api/providers*`
-- Nod pembekal: `src/app/api/provider-nodes*`
-- Model tersuai: `src/app/api/provider-models` (DAPAT/POS/PADAM)
-- Katalog model: `src/app/api/models/catalog` (GET)
-- Konfigurasi proksi: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
+- Auth/settings: `src/app/api/auth/*`, `src/app/api/settings/*`
+- Providers/connections: `src/app/api/providers*`
+- Provider nodes: `src/app/api/provider-nodes*`
+- Custom models: `src/app/api/provider-models` (GET/POST/DELETE)
+- Model catalog: `src/app/api/models/route.ts` (GET)
+- Proxy config: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
 - OAuth: `src/app/api/oauth/*`
-- Kunci/alias/kombo/harga: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
-- Penggunaan: `src/app/api/usage/*`
-- Penyegerakan/awan: `src/app/api/sync/*`, `src/app/api/cloud/*`
-- Pembantu perkakas CLI: `src/app/api/cli-tools/*`
-- Penapis IP: `src/app/api/settings/ip-filter` (GET/PUT)
-- Belanjawan berfikir: `src/app/api/settings/thinking-budget` (GET/PUT)
-- Gesaan sistem: `src/app/api/settings/system-prompt` (GET/PUT)
-- Sesi: `src/app/api/sessions` (GET)
-- Had kadar: `src/app/api/rate-limits` (GET)
-- Ketahanan: `src/app/api/resilience` (GET/PATCH) — profil pembekal, pemutus litar, keadaan had kadar
-- Tetapan semula daya tahan: `src/app/api/resilience/reset` (POST) — set semula pemutus + cooldown
-- Statistik cache: `src/app/api/cache/stats` (DAPAT/DELETE)
-- Ketersediaan model: `src/app/api/models/availability` (GET/POST)
-- Telemetri: `src/app/api/telemetry/summary` (GET)
-- Belanjawan: `src/app/api/usage/budget` (DAPAT/POS)
-- Rantaian mundur: `src/app/api/fallback/chains` (DAPAT/POST/PADAM)
-- Audit pematuhan: `src/app/api/compliance/audit-log` (GET)
+- Keys/aliases/combos/pricing: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
+- Usage: `src/app/api/usage/*`
+- Sync/cloud: `src/app/api/sync/*`, `src/app/api/cloud/*`
+- CLI tooling helpers: `src/app/api/cli-tools/*`
+- IP filter: `src/app/api/settings/ip-filter` (GET/PUT)
+- Thinking budget: `src/app/api/settings/thinking-budget` (GET/PUT)
+- System prompt: `src/app/api/settings/system-prompt` (GET/PUT)
+- Sessions: `src/app/api/sessions` (GET)
+- Rate limits: `src/app/api/rate-limits` (GET)
+- Resilience: `src/app/api/resilience` (GET/PATCH) — provider profiles, circuit breaker, rate limit state
+- Resilience reset: `src/app/api/resilience/reset` (POST) — reset breakers + cooldowns
+- Cache stats: `src/app/api/cache/stats` (GET/DELETE)
+- Model availability: `src/app/api/models/availability` (GET/POST)
+- Telemetry: `src/app/api/telemetry/summary` (GET)
+- Budget: `src/app/api/usage/budget` (GET/POST)
+- Fallback chains: `src/app/api/fallback/chains` (GET/POST/DELETE)
+- Compliance audit: `src/app/api/compliance/audit-log` (GET)
 - Evals: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
-- Dasar: `src/app/api/policies` (DAPAT/POS)
+- Policies: `src/app/api/policies` (GET/POST)
 
-## 2) SSE + Teras Terjemahan
+## 2) SSE + Translation Core
 
-Modul aliran utama:
+Main flow modules:
 
-- Kemasukan: `src/sse/handlers/chat.ts`
-- Orkestrasi teras: `open-sse/handlers/chatCore.ts`
-- Penyesuai pelaksanaan pembekal: `open-sse/executors/*`
-- Konfigurasi pengesanan format/pembekal: `open-sse/services/provider.ts`
-- Penghuraian/penyelesaian model: `src/sse/services/model.ts`, `open-sse/services/model.ts`
-- Logik sandaran akaun: `open-sse/services/accountFallback.ts`
-- Pendaftaran terjemahan: `open-sse/translator/index.ts`
-- Transformasi strim: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
-- Pengekstrakan/penormalan penggunaan: `open-sse/utils/usageTracking.ts`
-- Penghurai teg Fikir: `open-sse/utils/thinkTagParser.ts`
-- Pengendali benam: `open-sse/handlers/embeddings.ts`
-- Membenamkan pendaftaran pembekal: `open-sse/config/embeddingRegistry.ts`
-- Pengendali penjanaan imej: `open-sse/handlers/imageGeneration.ts`
-- Pendaftaran pembekal imej: `open-sse/config/imageRegistry.ts`
-- Pembersihan tindak balas: `open-sse/handlers/responseSanitizer.ts`
-- Normalisasi peranan: `open-sse/services/roleNormalizer.ts`
+- Entry: `src/sse/handlers/chat.ts`
+- Core orchestration: `open-sse/handlers/chatCore.ts`
+- Provider execution adapters: `open-sse/executors/*`
+- Format detection/provider config: `open-sse/services/provider.ts`
+- Model parse/resolve: `src/sse/services/model.ts`, `open-sse/services/model.ts`
+- Account fallback logic: `open-sse/services/accountFallback.ts`
+- Translation registry: `open-sse/translator/index.ts`
+- Stream transformations: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
+- Usage extraction/normalization: `open-sse/utils/usageTracking.ts`
+- Think tag parser: `open-sse/utils/thinkTagParser.ts`
+- Embedding handler: `open-sse/handlers/embeddings.ts`
+- Embedding provider registry: `open-sse/config/embeddingRegistry.ts`
+- Image generation handler: `open-sse/handlers/imageGeneration.ts`
+- Image provider registry: `open-sse/config/imageRegistry.ts`
+- Response sanitization: `open-sse/handlers/responseSanitizer.ts`
+- Role normalization: `open-sse/services/roleNormalizer.ts`
 
-Perkhidmatan (logik perniagaan):
+Services (business logic):
 
-- Pemilihan/pemarkahan akaun: `open-sse/services/accountSelector.ts`
-- Pengurusan kitaran hayat konteks: `open-sse/services/contextManager.ts`
-- Penguatkuasaan penapis IP: `open-sse/services/ipFilter.ts`
-- Penjejakan sesi: `open-sse/services/sessionManager.ts`
-- Minta penduaan: `open-sse/services/signatureCache.ts`
-- Suntikan gesaan sistem: `open-sse/services/systemPrompt.ts`
-- Pemikiran pengurusan belanjawan: `open-sse/services/thinkingBudget.ts`
-- Penghalaan model kad liar: `open-sse/services/wildcardRouter.ts`
-- Pengurusan had kadar: `open-sse/services/rateLimitManager.ts`
-- Pemutus litar: `open-sse/services/circuitBreaker.ts`
+- Account selection/scoring: `open-sse/services/accountSelector.ts`
+- Context lifecycle management: `open-sse/services/contextManager.ts`
+- IP filter enforcement: `open-sse/services/ipFilter.ts`
+- Session tracking: `open-sse/services/sessionManager.ts`
+- Request deduplication: `open-sse/services/signatureCache.ts`
+- System prompt injection: `open-sse/services/systemPrompt.ts`
+- Thinking budget management: `open-sse/services/thinkingBudget.ts`
+- Wildcard model routing: `open-sse/services/wildcardRouter.ts`
+- Rate limit management: `open-sse/services/rateLimitManager.ts`
+- Circuit breaker: `open-sse/services/circuitBreaker.ts`
 
-Modul lapisan domain:
+Domain layer modules:
 
-- Ketersediaan model: `src/lib/domain/modelAvailability.ts`
-- Peraturan/belanjawan kos: `src/lib/domain/costRules.ts`
-- Dasar mundur: `src/lib/domain/fallbackPolicy.ts`
-- Penyelesai kombo: `src/lib/domain/comboResolver.ts`
-- Dasar penguncian: `src/lib/domain/lockoutPolicy.ts`
-- Enjin dasar: `src/domain/policyEngine.ts` — kunci keluar berpusat → belanjawan → penilaian mundur
-- Katalog kod ralat: `src/lib/domain/errorCodes.ts`
-- ID Permintaan: `src/lib/domain/requestId.ts`
-- Ambil tamat masa: `src/lib/domain/fetchTimeout.ts`
-- Permintaan telemetri: `src/lib/domain/requestTelemetry.ts`
-- Pematuhan/audit: `src/lib/domain/compliance/index.ts`
-- Pelari eval: `src/lib/domain/evalRunner.ts`
-- Kegigihan keadaan domain: `src/lib/db/domainState.ts` — SQLite CRUD untuk rantaian sandaran, belanjawan, sejarah kos, keadaan sekat keluar, pemutus litar
+- Model availability: `src/lib/domain/modelAvailability.ts`
+- Cost rules/budgets: `src/lib/domain/costRules.ts`
+- Fallback policy: `src/lib/domain/fallbackPolicy.ts`
+- Combo resolver: `src/lib/domain/comboResolver.ts`
+- Lockout policy: `src/lib/domain/lockoutPolicy.ts`
+- Policy engine: `src/domain/policyEngine.ts` — centralized lockout → budget → fallback evaluation
+- Error codes catalog: `src/lib/domain/errorCodes.ts`
+- Request ID: `src/lib/domain/requestId.ts`
+- Fetch timeout: `src/lib/domain/fetchTimeout.ts`
+- Request telemetry: `src/lib/domain/requestTelemetry.ts`
+- Compliance/audit: `src/lib/domain/compliance/index.ts`
+- Eval runner: `src/lib/domain/evalRunner.ts`
+- Domain state persistence: `src/lib/db/domainState.ts` — SQLite CRUD for fallback chains, budgets, cost history, lockout state, circuit breakers
 
-Modul pembekal OAuth (12 fail individu di bawah `src/lib/oauth/providers/`):
+OAuth provider modules (12 individual files under `src/lib/oauth/providers/`):
 
-- Indeks pendaftaran: `src/lib/oauth/providers/index.ts`
-- Pembekal individu: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
-- Pembalut nipis: `src/lib/oauth/providers.ts` — eksport semula daripada modul individu
+- Registry index: `src/lib/oauth/providers/index.ts`
+- Individual providers: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `kimi-coding.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
+- Thin wrapper: `src/lib/oauth/providers.ts` — re-exports from individual modules
 
-## 3) Lapisan Kegigihan
+## 3) Persistence Layer
 
-DB keadaan utama:
+Primary state DB (SQLite):
 
-- `src/lib/localDb.ts`
-- fail: `${DATA_DIR}/db.json` (atau `$XDG_CONFIG_HOME/omniroute/db.json` apabila ditetapkan, jika tidak `~/.omniroute/db.json`)
-- entiti: providerConnections, providerNodes, modelAliases, combo, apiKeys, tetapan, harga, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
+- Core infra: `src/lib/db/core.ts` (better-sqlite3, migrations, WAL)
+- Re-export facade: `src/lib/localDb.ts` (thin compatibility layer for callers)
+- file: `${DATA_DIR}/storage.sqlite` (or `$XDG_CONFIG_HOME/omniroute/storage.sqlite` when set, else `~/.omniroute/storage.sqlite`)
+- entities (tables + KV namespaces): providerConnections, providerNodes, modelAliases, combos, apiKeys, settings, pricing, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
 
-Penggunaan DB:
+Usage persistence:
 
-- `src/lib/usageDb.ts`
-- fail: `${DATA_DIR}/usage.json`, `${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`
-- mengikut dasar direktori asas yang sama seperti `localDb` (`DATA_DIR`, kemudian `XDG_CONFIG_HOME/omniroute` apabila ditetapkan)
-- diuraikan kepada sub-modul terfokus: `migrations.ts`, `usageHistory.ts`, `costCalculator.ts`, `usageStats.ts`, `callLogs.ts`
+- facade: `src/lib/usageDb.ts` (decomposed modules in `src/lib/usage/*`)
+- SQLite tables in `storage.sqlite`: `usage_history`, `call_logs`, `proxy_logs`
+- optional file artifacts remain for compatibility/debug (`${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`, `<repo>/logs/...`)
+- legacy JSON files are migrated to SQLite by startup migrations when present
 
-DB Keadaan Domain (SQLite):
+Domain State DB (SQLite):
 
-- `src/lib/db/domainState.ts` — Operasi CRUD untuk keadaan domain
-- Jadual (dicipta dalam `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
-- Corak cache tulis-lalu: Peta dalam ingatan adalah berwibawa pada masa jalan; mutasi ditulis serentak kepada SQLite; keadaan dipulihkan daripada DB pada permulaan sejuk
+- `src/lib/db/domainState.ts` — CRUD operations for domain state
+- Tables (created in `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
+- Write-through cache pattern: in-memory Maps are authoritative at runtime; mutations are written synchronously to SQLite; state is restored from DB on cold start
 
 ## 4) Auth + Security Surfaces
 
-- Pengesahan kuki papan pemuka: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
-- Penjanaan/pengesahan kunci API: `src/shared/utils/apiKey.ts`
-- Rahsia pembekal kekal dalam entri `providerConnections`
-- Sokongan proksi keluar melalui `open-sse/utils/proxyFetch.ts` (env vars) dan `open-sse/utils/networkProxy.ts` (boleh dikonfigurasikan setiap pembekal atau global)
+- Dashboard cookie auth: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
+- API key generation/verification: `src/shared/utils/apiKey.ts`
+- Provider secrets persisted in `providerConnections` entries
+- Outbound proxy support via `open-sse/utils/proxyFetch.ts` (env vars) and `open-sse/utils/networkProxy.ts` (configurable per-provider or global)
 
-## 5) Penyegerakan Awan
+## 5) Cloud Sync
 
-- Penjadual init: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
-- Tugasan berkala: `src/shared/services/cloudSyncScheduler.ts`
-- Laluan kawalan: `src/app/api/sync/cloud/route.ts`
+- Scheduler init: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
+- Periodic task: `src/shared/services/cloudSyncScheduler.ts`
+- Control route: `src/app/api/sync/cloud/route.ts`
 
-## Permintaan Kitaran Hayat (`/v1/chat/completions`)
+## Request Lifecycle (`/v1/chat/completions`)
 
 ```mermaid
 sequenceDiagram
@@ -304,7 +305,7 @@ sequenceDiagram
     Stream->>Usage: extract usage + persist history/log
 ```
 
-## Kombo + Aliran Saling Balik Akaun
+## Combo + Account Fallback Flow
 
 ```mermaid
 flowchart TD
@@ -334,9 +335,9 @@ flowchart TD
     Q -- No --> R[Return all unavailable]
 ```
 
-Keputusan sandaran didorong oleh `open-sse/services/accountFallback.ts` menggunakan kod status dan heuristik mesej ralat.
+Fallback decisions are driven by `open-sse/services/accountFallback.ts` using status codes and error-message heuristics.
 
-## OAuth Onboarding dan Kitaran Hayat Penyegaran Token
+## OAuth Onboarding and Token Refresh Lifecycle
 
 ```mermaid
 sequenceDiagram
@@ -366,9 +367,9 @@ sequenceDiagram
     Test-->>UI: validation result
 ```
 
-Muat semula semasa trafik langsung dilaksanakan di dalam `open-sse/handlers/chatCore.ts` melalui pelaksana `refreshCredentials()`.
+Refresh during live traffic is executed inside `open-sse/handlers/chatCore.ts` via executor `refreshCredentials()`.
 
-## Kitaran Hayat Penyegerakan Awan (Dayakan / Segerakkan / Lumpuhkan)
+## Cloud Sync Lifecycle (Enable / Sync / Disable)
 
 ```mermaid
 sequenceDiagram
@@ -400,9 +401,9 @@ sequenceDiagram
     Sync-->>UI: disabled
 ```
 
-Penyegerakan berkala dicetuskan oleh `CloudSyncScheduler` apabila awan didayakan.
+Periodic sync is triggered by `CloudSyncScheduler` when cloud is enabled.
 
-## Model Data dan Peta Storan
+## Data Model and Storage Map
 
 ```mermaid
 erDiagram
@@ -503,14 +504,14 @@ erDiagram
     }
 ```
 
-Fail storan fizikal:
+Physical storage files:
 
-- keadaan utama: `${DATA_DIR}/db.json` (atau `$XDG_CONFIG_HOME/omniroute/db.json` apabila ditetapkan, jika tidak `~/.omniroute/db.json`)
-- statistik penggunaan: `${DATA_DIR}/usage.json`
-- permintaan baris log: `${DATA_DIR}/log.txt`
-- pilihan penterjemah/permintaan sesi nyahpepijat: `<repo>/logs/...`
+- primary runtime DB: `${DATA_DIR}/storage.sqlite`
+- request log lines: `${DATA_DIR}/log.txt` (compat/debug artifact)
+- structured call payload archives: `${DATA_DIR}/call_logs/`
+- optional translator/request debug sessions: `<repo>/logs/...`
 
-## Topologi Penerapan
+## Deployment Topology
 
 ```mermaid
 flowchart LR
@@ -522,8 +523,8 @@ flowchart LR
     subgraph ContainerOrProcess[OmniRoute Runtime]
         Next[Next.js Server\nPORT=20128]
         Core[SSE Core + Executors]
-        MainDB[(db.json)]
-        UsageDB[(usage.json/log.txt)]
+        MainDB[(storage.sqlite)]
+        UsageDB[(usage tables + log artifacts)]
     end
 
     subgraph External[External Services]
@@ -541,241 +542,242 @@ flowchart LR
     Next --> SyncCloud
 ```
 
-## Pemetaan Modul (Keputusan-Kritis)
+## Module Mapping (Decision-Critical)
 
-### Laluan dan Modul API
+### Route and API Modules
 
-- `src/app/api/v1/*`, `src/app/api/v1beta/*`: API keserasian
-- `src/app/api/v1/providers/[provider]/*`: laluan khusus setiap pembekal (sembang, benam, imej)
-- `src/app/api/providers*`: penyedia CRUD, pengesahan, ujian
-- `src/app/api/provider-nodes*`: pengurusan nod serasi tersuai
-- `src/app/api/provider-models`: pengurusan model tersuai (CRUD)
-- `src/app/api/models/catalog`: API katalog model penuh (semua jenis dikumpulkan mengikut pembekal)
-- `src/app/api/oauth/*`: Aliran OAuth/kod peranti
-- `src/app/api/keys*`: kitaran hayat kunci API tempatan
-- `src/app/api/models/alias`: pengurusan alias
-- `src/app/api/combos*`: pengurusan kombo sandaran
-- `src/app/api/pricing`: penentuan harga untuk pengiraan kos
-- `src/app/api/settings/proxy`: konfigurasi proksi (GET/PUT/DELETE)
-- `src/app/api/settings/proxy/test`: ujian sambungan proksi keluar (POST)
-- `src/app/api/usage/*`: API penggunaan dan log
-- `src/app/api/sync/*` + `src/app/api/cloud/*`: penyegerakan awan dan pembantu yang menghadap awan
-- `src/app/api/cli-tools/*`: penulis/pemeriksa konfigurasi CLI tempatan
-- `src/app/api/settings/ip-filter`: Senarai dibenarkan/senarai sekat IP (GET/PUT)
-- `src/app/api/settings/thinking-budget`: konfigurasi belanjawan token pemikiran (GET/PUT)
-- `src/app/api/settings/system-prompt`: gesaan sistem global (GET/PUT)
-- `src/app/api/sessions`: penyenaraian sesi aktif (GET)
-- `src/app/api/rate-limits`: status had kadar setiap akaun (GET)
+- `src/app/api/v1/*`, `src/app/api/v1beta/*`: compatibility APIs
+- `src/app/api/v1/providers/[provider]/*`: dedicated per-provider routes (chat, embeddings, images)
+- `src/app/api/providers*`: provider CRUD, validation, testing
+- `src/app/api/provider-nodes*`: custom compatible node management
+- `src/app/api/provider-models`: custom model management (CRUD)
+- `src/app/api/models/route.ts`: model catalog API (aliases + custom models)
+- `src/app/api/oauth/*`: OAuth/device-code flows
+- `src/app/api/keys*`: local API key lifecycle
+- `src/app/api/models/alias`: alias management
+- `src/app/api/combos*`: fallback combo management
+- `src/app/api/pricing`: pricing overrides for cost calculation
+- `src/app/api/settings/proxy`: proxy configuration (GET/PUT/DELETE)
+- `src/app/api/settings/proxy/test`: outbound proxy connectivity test (POST)
+- `src/app/api/usage/*`: usage and logs APIs
+- `src/app/api/sync/*` + `src/app/api/cloud/*`: cloud sync and cloud-facing helpers
+- `src/app/api/cli-tools/*`: local CLI config writers/checkers
+- `src/app/api/settings/ip-filter`: IP allowlist/blocklist (GET/PUT)
+- `src/app/api/settings/thinking-budget`: thinking token budget config (GET/PUT)
+- `src/app/api/settings/system-prompt`: global system prompt (GET/PUT)
+- `src/app/api/sessions`: active session listing (GET)
+- `src/app/api/rate-limits`: per-account rate limit status (GET)
 
-### Penghalaan dan Teras Pelaksanaan
+### Routing and Execution Core
 
-- `src/sse/handlers/chat.ts`: menghuraikan permintaan, pengendalian kombo, gelung pemilihan akaun
-- `open-sse/handlers/chatCore.ts`: terjemahan, penghantaran pelaksana, cuba semula/segar semula pengendalian, persediaan strim
-- `open-sse/executors/*`: rangkaian khusus pembekal dan tingkah laku format
+- `src/sse/handlers/chat.ts`: request parse, combo handling, account selection loop
+- `open-sse/handlers/chatCore.ts`: translation, executor dispatch, retry/refresh handling, stream setup
+- `open-sse/executors/*`: provider-specific network and format behavior
 
-### Pendaftar Terjemahan dan Penukar Format
+### Translation Registry and Format Converters
 
-- `open-sse/translator/index.ts`: pendaftaran penterjemah dan orkestrasi
-- Minta penterjemah: `open-sse/translator/request/*`
-- Penterjemah respons: `open-sse/translator/response/*`
-- Pemalar format: `open-sse/translator/formats.ts`
+- `open-sse/translator/index.ts`: translator registry and orchestration
+- Request translators: `open-sse/translator/request/*`
+- Response translators: `open-sse/translator/response/*`
+- Format constants: `open-sse/translator/formats.ts`
 
-### Kegigihan
+### Persistence
 
-- `src/lib/localDb.ts`: konfigurasi/keadaan berterusan
-- `src/lib/usageDb.ts`: sejarah penggunaan dan log permintaan bergulir
+- `src/lib/db/*`: persistent config/state and domain persistence on SQLite
+- `src/lib/localDb.ts`: compatibility re-export for DB modules
+- `src/lib/usageDb.ts`: usage history/call logs facade on top of SQLite tables
 
-## Liputan Pelaksana Penyedia (Corak Strategi)
+## Provider Executor Coverage (Strategy Pattern)
 
-Setiap pembekal mempunyai pelaksana khusus yang memanjangkan `BaseExecutor` (dalam `open-sse/executors/base.ts`), yang menyediakan pembinaan URL, pembinaan pengepala, cuba semula dengan pengunduran eksponen, cangkuk penyegaran semula kelayakan dan kaedah orkestra `execute()`.
+Each provider has a specialized executor extending `BaseExecutor` (in `open-sse/executors/base.ts`), which provides URL building, header construction, retry with exponential backoff, credential refresh hooks, and the `execute()` orchestration method.
 
-| Pelaksana             | Pembekal                                                                                                                                                     | Pengendalian Khas                                                                 |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | URL dinamik/konfigurasi pengepala bagi setiap pembekal                            |
-| `AntigravityExecutor` | Antigraviti Google                                                                                                                                           | ID projek/sesi tersuai, Cuba Semula-Selepas menghuraikan                          |
-| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | Menyuntik arahan sistem, memaksa usaha penaakulan                                 |
-| `CursorExecutor`      | IDE kursor                                                                                                                                                   | Protokol ConnectRPC, pengekodan Protobuf, tandatangan permintaan melalui checksum |
-| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | Penyegaran token salinan, pengepala meniru VSCode                                 |
-| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | Format binari AWS EventStream → penukaran SSE                                     |
-| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | Kitaran muat semula token Google OAuth                                            |
+| Executor              | Provider(s)                                                                                                                                                  | Special Handling                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | Dynamic URL/header config per provider                               |
+| `AntigravityExecutor` | Google Antigravity                                                                                                                                           | Custom project/session IDs, Retry-After parsing                      |
+| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | Injects system instructions, forces reasoning effort                 |
+| `CursorExecutor`      | Cursor IDE                                                                                                                                                   | ConnectRPC protocol, Protobuf encoding, request signing via checksum |
+| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | Copilot token refresh, VSCode-mimicking headers                      |
+| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | AWS EventStream binary format → SSE conversion                       |
+| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | Google OAuth token refresh cycle                                     |
 
-Semua pembekal lain (termasuk nod serasi tersuai) menggunakan `DefaultExecutor`.
+All other providers (including custom compatible nodes) use the `DefaultExecutor`.
 
-## Matriks Keserasian Pembekal
+## Provider Compatibility Matrix
 
-| Pembekal         | Format         | Pengesahan            | Strim            | Bukan Strim | Token Refresh | API Penggunaan       |
-| ---------------- | -------------- | --------------------- | ---------------- | ----------- | ------------- | -------------------- |
-| Claude           | claude         | Kunci API / OAuth     | ✅               | ✅          | ✅            | ⚠️ Admin sahaja      |
-| Gemini           | gemini         | Kunci API / OAuth     | ✅               | ✅          | ✅            | ⚠️ Cloud Console     |
-| Gemini CLI       | gemini-cli     | OAuth                 | ✅               | ✅          | ✅            | ⚠️ Cloud Console     |
-| Antigraviti      | antigraviti    | OAuth                 | ✅               | ✅          | ✅            | ✅ API kuota penuh   |
-| OpenAI           | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Codex            | openai-respons | OAuth                 | ✅ terpaksa      | ❌          | ✅            | ✅ Had kadar         |
-| GitHub Copilot   | openai         | OAuth + Token Copilot | ✅               | ✅          | ✅            | ✅ Gambar kuota      |
-| Kursor           | kursor         | Jumlah semak tersuai  | ✅               | ✅          | ❌            | ❌                   |
-| Kiro             | kiro           | AWS SSO OIDC          | ✅ (EventStream) | ❌          | ✅            | ✅ Had penggunaan    |
-| Qwen             | openai         | OAuth                 | ✅               | ✅          | ✅            | ⚠️ Setiap permintaan |
-| iFlow            | openai         | OAuth (Asas)          | ✅               | ✅          | ✅            | ⚠️ Setiap permintaan |
-| OpenRouter       | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| GLM/Kimi/MiniMax | claude         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| DeepSeek         | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Groq             | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| xAI (Grok)       | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Mistral          | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Kebingungan      | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Bersama AI       | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Bunga Api AI     | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Serebral         | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| Cohere           | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
-| NVIDIA NIM       | openai         | Kunci API             | ✅               | ✅          | ❌            | ❌                   |
+| Provider         | Format           | Auth                  | Stream           | Non-Stream | Token Refresh | Usage API          |
+| ---------------- | ---------------- | --------------------- | ---------------- | ---------- | ------------- | ------------------ |
+| Claude           | claude           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Admin only      |
+| Gemini           | gemini           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Gemini CLI       | gemini-cli       | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Antigravity      | antigravity      | OAuth                 | ✅               | ✅         | ✅            | ✅ Full quota API  |
+| OpenAI           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Codex            | openai-responses | OAuth                 | ✅ forced        | ❌         | ✅            | ✅ Rate limits     |
+| GitHub Copilot   | openai           | OAuth + Copilot Token | ✅               | ✅         | ✅            | ✅ Quota snapshots |
+| Cursor           | cursor           | Custom checksum       | ✅               | ✅         | ❌            | ❌                 |
+| Kiro             | kiro             | AWS SSO OIDC          | ✅ (EventStream) | ❌         | ✅            | ✅ Usage limits    |
+| Qwen             | openai           | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| iFlow            | openai           | OAuth (Basic)         | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| OpenRouter       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| GLM/Kimi/MiniMax | claude           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| DeepSeek         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Groq             | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| xAI (Grok)       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Mistral          | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Perplexity       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Together AI      | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Fireworks AI     | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cerebras         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cohere           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| NVIDIA NIM       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
 
-## Liputan Terjemahan Format
+## Format Translation Coverage
 
-Format sumber yang dikesan termasuk:
+Detected source formats include:
 
 - `openai`
 - `openai-responses`
 - `claude`
 - `gemini`
 
-Format sasaran termasuk:
+Target formats include:
 
-- Sembang/Respons OpenAI
+- OpenAI chat/Responses
 - Claude
-- Sampul surat Gemini/Gemini-CLI/Antigraviti
+- Gemini/Gemini-CLI/Antigravity envelope
 - Kiro
-- Kursor
+- Cursor
 
-Terjemahan menggunakan **OpenAI sebagai format hab** — semua penukaran melalui OpenAI sebagai perantaraan:
+Translations use **OpenAI as the hub format** — all conversions go through OpenAI as intermediate:
 
 ```
 Source Format → OpenAI (hub) → Target Format
 ```
 
-Terjemahan dipilih secara dinamik berdasarkan bentuk muatan sumber dan format sasaran pembekal.
+Translations are selected dynamically based on source payload shape and provider target format.
 
-Lapisan pemprosesan tambahan dalam saluran paip terjemahan:
+Additional processing layers in the translation pipeline:
 
-- **Pembersihan respons** — Menghapuskan medan bukan standard daripada respons format OpenAI (kedua-dua penstriman dan bukan penstriman) untuk memastikan pematuhan SDK yang ketat
-- **Penormalan peranan** — Menukar `developer` → `system` untuk sasaran bukan OpenAI; menggabungkan `system` → `user` untuk model yang menolak peranan sistem (GLM, ERNIE)
-- **Fikirkan pengekstrakan teg** — Menghuraikan `<think>...</think>` blok daripada kandungan ke dalam medan `reasoning_content`
-- **Output berstruktur** — Menukar OpenAI `response_format.json_schema` kepada `responseMimeType` + `responseSchema` Gemini
+- **Response sanitization** — Strips non-standard fields from OpenAI-format responses (both streaming and non-streaming) to ensure strict SDK compliance
+- **Role normalization** — Converts `developer` → `system` for non-OpenAI targets; merges `system` → `user` for models that reject the system role (GLM, ERNIE)
+- **Think tag extraction** — Parses `<think>...</think>` blocks from content into `reasoning_content` field
+- **Structured output** — Converts OpenAI `response_format.json_schema` to Gemini's `responseMimeType` + `responseSchema`
 
-## Titik Akhir API Disokong
+## Supported API Endpoints
 
-| Titik akhir                                        | Format               | Pengendali                                          |
-| -------------------------------------------------- | -------------------- | --------------------------------------------------- |
-| `POST /v1/chat/completions`                        | Sembang OpenAI       | `src/sse/handlers/chat.ts`                          |
-| `POST /v1/messages`                                | Mesej Claude         | Pengendali yang sama (dikesan secara automatik)     |
-| `POST /v1/responses`                               | Respons OpenAI       | `open-sse/handlers/responsesHandler.ts`             |
-| `POST /v1/embeddings`                              | Pembenaman OpenAI    | `open-sse/handlers/embeddings.ts`                   |
-| `GET /v1/embeddings`                               | Penyenaraian model   | Laluan API                                          |
-| `POST /v1/images/generations`                      | Imej OpenAI          | `open-sse/handlers/imageGeneration.ts`              |
-| `GET /v1/images/generations`                       | Penyenaraian model   | Laluan API                                          |
-| `POST /v1/providers/{provider}/chat/completions`   | Sembang OpenAI       | Khas bagi setiap pembekal dengan pengesahan model   |
-| `POST /v1/providers/{provider}/embeddings`         | Pembenaman OpenAI    | Khusus bagi setiap pembekal dengan pengesahan model |
-| `POST /v1/providers/{provider}/images/generations` | Imej OpenAI          | Khusus bagi setiap pembekal dengan pengesahan model |
-| `POST /v1/messages/count_tokens`                   | Kiraan Token Claude  | Laluan API                                          |
-| `GET /v1/models`                                   | Senarai Model OpenAI | Laluan API (sembang + benam + imej + model tersuai) |
-| `GET /api/models/catalog`                          | Katalog              | Semua model dikumpulkan mengikut pembekal + jenis   |
-| `POST /v1beta/models/*:streamGenerateContent`      | Gemini asli          | Laluan API                                          |
-| `GET/PUT/DELETE /api/settings/proxy`               | Konfigurasi Proksi   | Konfigurasi proksi rangkaian                        |
-| `POST /api/settings/proxy/test`                    | Kesambungan Proksi   | Titik akhir ujian kesihatan/ketersambungan proksi   |
-| `GET/POST/DELETE /api/provider-models`             | Model Tersuai        | Pengurusan model tersuai setiap pembekal            |
+| Endpoint                                           | Format             | Handler                                              |
+| -------------------------------------------------- | ------------------ | ---------------------------------------------------- |
+| `POST /v1/chat/completions`                        | OpenAI Chat        | `src/sse/handlers/chat.ts`                           |
+| `POST /v1/messages`                                | Claude Messages    | Same handler (auto-detected)                         |
+| `POST /v1/responses`                               | OpenAI Responses   | `open-sse/handlers/responsesHandler.ts`              |
+| `POST /v1/embeddings`                              | OpenAI Embeddings  | `open-sse/handlers/embeddings.ts`                    |
+| `GET /v1/embeddings`                               | Model listing      | API route                                            |
+| `POST /v1/images/generations`                      | OpenAI Images      | `open-sse/handlers/imageGeneration.ts`               |
+| `GET /v1/images/generations`                       | Model listing      | API route                                            |
+| `POST /v1/providers/{provider}/chat/completions`   | OpenAI Chat        | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/embeddings`         | OpenAI Embeddings  | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/images/generations` | OpenAI Images      | Dedicated per-provider with model validation         |
+| `POST /v1/messages/count_tokens`                   | Claude Token Count | API route                                            |
+| `GET /v1/models`                                   | OpenAI Models list | API route (chat + embedding + image + custom models) |
+| `GET /api/models/catalog`                          | Catalog            | All models grouped by provider + type                |
+| `POST /v1beta/models/*:streamGenerateContent`      | Gemini native      | API route                                            |
+| `GET/PUT/DELETE /api/settings/proxy`               | Proxy Config       | Network proxy configuration                          |
+| `POST /api/settings/proxy/test`                    | Proxy Connectivity | Proxy health/connectivity test endpoint              |
+| `GET/POST/DELETE /api/provider-models`             | Custom Models      | Custom model management per provider                 |
 
-## Pengendali Pintasan
+## Bypass Handler
 
-Pengendali pintasan (`open-sse/utils/bypassHandler.ts`) memintas permintaan "buang" yang diketahui daripada Claude CLI — ping pemanasan, pengekstrakan tajuk dan kiraan token — dan mengembalikan **tindak balas palsu** tanpa menggunakan token penyedia huluan. Ini dicetuskan hanya apabila `User-Agent` mengandungi `claude-cli`.
+The bypass handler (`open-sse/utils/bypassHandler.ts`) intercepts known "throwaway" requests from Claude CLI — warmup pings, title extractions, and token counts — and returns a **fake response** without consuming upstream provider tokens. This is triggered only when `User-Agent` contains `claude-cli`.
 
-## Permintaan Talian Logger
+## Request Logger Pipeline
 
-Logger permintaan (`open-sse/utils/requestLogger.ts`) menyediakan saluran paip pengelogan nyahpepijat 7 peringkat, dilumpuhkan secara lalai, didayakan melalui `ENABLE_REQUEST_LOGS=true`:
+The request logger (`open-sse/utils/requestLogger.ts`) provides a 7-stage debug logging pipeline, disabled by default, enabled via `ENABLE_REQUEST_LOGS=true`:
 
 ```
 1_req_client.json → 2_req_source.json → 3_req_openai.json → 4_req_target.json
 → 5_res_provider.txt → 6_res_openai.txt → 7_res_client.txt
 ```
 
-Fail ditulis kepada `<repo>/logs/<session>/` untuk setiap sesi permintaan.
+Files are written to `<repo>/logs/<session>/` for each request session.
 
-## Mod Kegagalan dan Ketahanan
+## Failure Modes and Resilience
 
-## 1) Ketersediaan Akaun/Pembekal
+## 1) Account/Provider Availability
 
-- cooldown akaun pembekal pada ralat sementara/kadar/auth
-- sandaran akaun sebelum permintaan gagal
-- sandaran model kombo apabila model semasa/laluan pembekal telah habis
+- provider account cooldown on transient/rate/auth errors
+- account fallback before failing request
+- combo model fallback when current model/provider path is exhausted
 
-## 2) Tamat Tempoh Token
+## 2) Token Expiry
 
-- prasemak dan muat semula dengan mencuba semula untuk pembekal yang boleh dimuat semula
-- 401/403 cuba semula selepas percubaan muat semula dalam laluan teras
+- pre-check and refresh with retry for refreshable providers
+- 401/403 retry after refresh attempt in core path
 
-## 3) Keselamatan Aliran
+## 3) Stream Safety
 
-- pengawal strim sedar putus sambungan
-- strim terjemahan dengan siram hujung strim dan pengendalian `[DONE]`
-- sandaran anggaran penggunaan apabila metadata penggunaan pembekal tiada
+- disconnect-aware stream controller
+- translation stream with end-of-stream flush and `[DONE]` handling
+- usage estimation fallback when provider usage metadata is missing
 
-## 4) Kemerosotan Penyegerakan Awan
+## 4) Cloud Sync Degradation
 
-- ralat penyegerakan muncul tetapi masa jalan tempatan diteruskan
-- penjadual mempunyai logik yang mampu mencuba semula, tetapi pelaksanaan berkala pada masa ini memanggil penyegerakan percubaan tunggal secara lalai
+- sync errors are surfaced but local runtime continues
+- scheduler has retry-capable logic, but periodic execution currently calls single-attempt sync by default
 
-## 5) Integriti Data
+## 5) Data Integrity
 
-- Penghijrahan/pembaikan bentuk DB untuk kunci yang hilang
-- perlindungan semula JSON yang rosak untuk localDb dan usageDb
+- SQLite schema migrations and auto-upgrade hooks at startup
+- legacy JSON → SQLite migration compatibility path
 
-## Kebolehlihatan dan Isyarat Operasi
+## Observability and Operational Signals
 
-Sumber keterlihatan masa jalan:
+Runtime visibility sources:
 
-- log konsol daripada `src/sse/utils/logger.ts`
-- agregat penggunaan setiap permintaan dalam `usage.json`
-- log masuk status permintaan teks `log.txt`
-- log permintaan/terjemahan dalam pilihan di bawah `logs/` apabila `ENABLE_REQUEST_LOGS=true`
-- titik akhir penggunaan papan pemuka (`/api/usage/*`) untuk penggunaan UI
+- console logs from `src/sse/utils/logger.ts`
+- per-request usage aggregates in SQLite (`usage_history`, `call_logs`, `proxy_logs`)
+- textual request status log in `log.txt` (optional/compat)
+- optional deep request/translation logs under `logs/` when `ENABLE_REQUEST_LOGS=true`
+- dashboard usage endpoints (`/api/usage/*`) for UI consumption
 
-## Sempadan Sensitif Keselamatan
+## Security-Sensitive Boundaries
 
-- Rahsia JWT (`JWT_SECRET`) menjamin pengesahan/penandatanganan kuki sesi papan pemuka
-- Saling balik kata laluan awal (`INITIAL_PASSWORD`, lalai `123456`) mesti ditindih dalam penggunaan sebenar
-- Rahsia HMAC kunci API (`API_KEY_SECRET`) menjamin format kunci API tempatan yang dijana
-- Rahsia pembekal (kunci/token API) dikekalkan dalam DB tempatan dan harus dilindungi pada peringkat sistem fail
-- Titik akhir penyegerakan awan bergantung pada pengesahan kunci API + semantik id mesin
+- JWT secret (`JWT_SECRET`) secures dashboard session cookie verification/signing
+- Initial password bootstrap (`INITIAL_PASSWORD`) should be explicitly configured for first-run provisioning
+- API key HMAC secret (`API_KEY_SECRET`) secures generated local API key format
+- Provider secrets (API keys/tokens) are persisted in local DB and should be protected at filesystem level
+- Cloud sync endpoints rely on API key auth + machine id semantics
 
-## Persekitaran dan Matriks Masa Jalan
+## Environment and Runtime Matrix
 
-Pembolehubah persekitaran digunakan secara aktif oleh kod:
+Environment variables actively used by code:
 
-- Apl/auth: `JWT_SECRET`, `INITIAL_PASSWORD`
-- Storan: `DATA_DIR`
-- Tingkah laku nod yang serasi: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
-- Penggantian asas storan pilihan (Linux/macOS apabila `DATA_DIR` dinyahset): `XDG_CONFIG_HOME`
-- Pencincangan keselamatan: `API_KEY_SECRET`, `MACHINE_ID_SALT`
-- Pembalakan: `ENABLE_REQUEST_LOGS`
-- URL penyegerakan/awan: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
-- Proksi keluar: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` dan varian huruf kecil
-- Bendera ciri SOCKS5: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
-- Pembantu platform/masa jalanan (bukan konfigurasi khusus apl): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
+- App/auth: `JWT_SECRET`, `INITIAL_PASSWORD`
+- Storage: `DATA_DIR`
+- Compatible node behavior: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
+- Optional storage base override (Linux/macOS when `DATA_DIR` unset): `XDG_CONFIG_HOME`
+- Security hashing: `API_KEY_SECRET`, `MACHINE_ID_SALT`
+- Logging: `ENABLE_REQUEST_LOGS`
+- Sync/cloud URLing: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
+- Outbound proxy: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` and lowercase variants
+- SOCKS5 feature flags: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
+- Platform/runtime helpers (not app-specific config): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
 
-## Nota Seni Bina Terkenal
+## Known Architectural Notes
 
-1. `usageDb` dan `localDb` kini berkongsi dasar direktori asas yang sama (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) dengan pemindahan fail lama.
-2. `/api/v1/route.ts` mengembalikan senarai model statik dan bukan sumber model utama yang digunakan oleh `/v1/models`.
-3. Permintaan logger menulis tajuk/badan penuh apabila didayakan; anggap direktori log sebagai sensitif.
-4. Gelagat awan bergantung pada `NEXT_PUBLIC_BASE_URL` dan kebolehcapaian titik akhir awan yang betul.
-5. Direktori `open-sse/` diterbitkan sebagai `@omniroute/open-sse` **pakej ruang kerja npm**. Kod sumber mengimportnya melalui `@omniroute/open-sse/...` (diselesaikan oleh Next.js `transpilePackages`). Laluan fail dalam dokumen ini masih menggunakan nama direktori `open-sse/` untuk konsistensi.
-6. Carta dalam papan pemuka menggunakan **Recharts** (berasaskan SVG) untuk visualisasi analitik interaktif yang boleh diakses (carta bar penggunaan model, jadual pecahan pembekal dengan kadar kejayaan).
-7. Ujian E2E menggunakan **Playwright** (`tests/e2e/`), dijalankan melalui `npm run test:e2e`. Ujian unit menggunakan **Node.js test runner** (`tests/unit/`), dijalankan melalui `npm run test:plan3`. Kod sumber di bawah `src/` ialah **TypeScript** (`.ts`/`.tsx`); ruang kerja `open-sse/` kekal sebagai JavaScript (`.js`).
-8. Halaman tetapan disusun dalam 5 tab: Keselamatan, Penghalaan (6 strategi global: isikan dahulu, round-robin, p2c, rawak, paling kurang digunakan, dioptimumkan kos), Ketahanan (had kadar boleh diedit, pemutus litar, dasar), AI (belanjawan berfikir, gesaan sistem, cache segera), Lanjutan (proksi).
+1. `usageDb` and `localDb` share the same base directory policy (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) with legacy file migration.
+2. `/api/v1/route.ts` delegates to the same unified catalog builder used by `/api/v1/models` (`src/app/api/v1/models/catalog.ts`) to avoid semantic drift.
+3. Request logger writes full headers/body when enabled; treat log directory as sensitive.
+4. Cloud behavior depends on correct `NEXT_PUBLIC_BASE_URL` and cloud endpoint reachability.
+5. The `open-sse/` directory is published as the `@omniroute/open-sse` **npm workspace package**. Source code imports it via `@omniroute/open-sse/...` (resolved by Next.js `transpilePackages`). File paths in this document still use the directory name `open-sse/` for consistency.
+6. Charts in the dashboard use **Recharts** (SVG-based) for accessible, interactive analytics visualizations (model usage bar charts, provider breakdown tables with success rates).
+7. E2E tests use **Playwright** (`tests/e2e/`), run via `npm run test:e2e`. Unit tests use **Node.js test runner** (`tests/unit/`), run via `npm run test:unit`. Source code under `src/` is **TypeScript** (`.ts`/`.tsx`); the `open-sse/` workspace remains JavaScript (`.js`).
+8. Settings page is organized into 5 tabs: Security, Routing (6 global strategies: fill-first, round-robin, p2c, random, least-used, cost-optimized), Resilience (editable rate limits, circuit breaker, policies), AI (thinking budget, system prompt, prompt cache), Advanced (proxy).
 
-## Senarai Semak Pengesahan Operasi
+## Operational Verification Checklist
 
-- Bina daripada sumber: `npm run build`
-- Bina imej Docker: `docker build -t omniroute .`
-- Mulakan perkhidmatan dan sahkan:
+- Build from source: `npm run build`
+- Build Docker image: `docker build -t omniroute .`
+- Start service and verify:
 - `GET /api/settings`
 - `GET /api/v1/models`
-- URL asas sasaran CLI hendaklah `http://<host>:20128/v1` apabila `PORT=20128`
+- CLI target base URL should be `http://<host>:20128/v1` when `PORT=20128`

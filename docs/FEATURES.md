@@ -16,7 +16,7 @@ Manage AI provider connections: OAuth providers (Claude Code, Codex, Gemini CLI)
 
 ## 🎨 Combos
 
-Create model routing combos with 6 strategies: fill-first, round-robin, power-of-two-choices, random, least-used, and cost-optimized. Each combo chains multiple models with automatic fallback.
+Create model routing combos with 6 strategies: priority, weighted, round-robin, random, least-used, and cost-optimized. Each combo chains multiple models with automatic fallback and includes quick templates and readiness checks.
 
 ![Combos Dashboard](screenshots/02-combos.png)
 
@@ -46,9 +46,28 @@ Four modes for debugging API translations: **Playground** (format converter), **
 
 ---
 
+## 🎮 Model Playground _(v2.0.9+)_
+
+Test any model directly from the dashboard. Select provider, model, and endpoint, write prompts with Monaco Editor, stream responses in real-time, abort mid-stream, and view timing metrics.
+
+---
+
+## 🎨 Themes _(v2.0.5+)_
+
+Customizable color themes for the entire dashboard. Choose from 7 preset colors (Coral, Blue, Red, Green, Violet, Orange, Cyan) or create a custom theme by picking any hex color. Supports light, dark, and system mode.
+
+---
+
 ## ⚙️ Settings
 
-General settings, system storage, backup management (export/import database), appearance (dark/light mode), security (includes API endpoint protection and custom provider blocking), routing (model aliases, background task degradation), resilience (rate limit persistence), and advanced configuration.
+Comprehensive settings panel with tabs:
+
+- **General** — System storage, backup management (export/import database)
+- **Appearance** — Theme selector (dark/light/system), color theme presets and custom colors, health log visibility
+- **Security** — API endpoint protection, custom provider blocking, IP filtering, session info
+- **Routing** — Model aliases, background task degradation
+- **Resilience** — Rate limit persistence, circuit breaker tuning
+- **Advanced** — Configuration overrides
 
 ![Settings Dashboard](screenshots/06-settings.png)
 
@@ -56,9 +75,26 @@ General settings, system storage, backup management (export/import database), ap
 
 ## 🔧 CLI Tools
 
-One-click configuration for AI coding tools: Claude Code, Codex CLI, Gemini CLI, OpenClaw, Kilo Code, Antigravity, and **GitHub Copilot** (config generator for `chatLanguageModels.json`).
+One-click configuration for AI coding tools: Claude Code, Codex CLI, Gemini CLI, OpenClaw, Kilo Code, Antigravity, Cline, Continue, Cursor, and Factory Droid. Features automated config apply/reset, connection profiles, and model mapping.
 
 ![CLI Tools Dashboard](screenshots/07-cli-tools.png)
+
+---
+
+## 🤖 CLI Agents _(v2.0.11+)_
+
+Dashboard for discovering and managing CLI agents. Shows a grid of 14 built-in agents (Codex, Claude, Goose, Gemini CLI, OpenClaw, Aider, OpenCode, Cline, Qwen Code, ForgeCode, Amazon Q, Open Interpreter, Cursor CLI, Warp) with:
+
+- **Installation status** — Installed / Not Found with version detection
+- **Protocol badges** — stdio, HTTP, etc.
+- **Custom agents** — Register any CLI tool via form (name, binary, version command, spawn args)
+- **CLI Fingerprint Matching** — Per-provider toggle to match native CLI request signatures, reducing ban risk while preserving proxy IP
+
+---
+
+## 🖼️ Media _(v2.0.3+)_
+
+Generate images, videos, and music from the dashboard. Supports OpenAI, xAI, Together, Hyperbolic, SD WebUI, ComfyUI, AnimateDiff, Stable Audio Open, and MusicGen.
 
 ---
 
@@ -72,15 +108,27 @@ Real-time request logging with filtering by provider, model, account, and API ke
 
 ## 🌐 API Endpoint
 
-Your unified API endpoint with capability breakdown: Chat Completions, Embeddings, Image Generation, Reranking, Audio Transcription, and registered API keys.
+Your unified API endpoint with capability breakdown: Chat Completions, Responses API, Embeddings, Image Generation, Reranking, Audio Transcription, Text-to-Speech, Moderations, and registered API keys. Cloud proxy support for remote access.
 
 ![Endpoint Dashboard](screenshots/09-endpoint.png)
 
 ---
 
+## 🔑 API Key Management
+
+Create, scope, and revoke API keys. Each key can be restricted to specific models/providers with full access or read-only permissions. Visual key management with usage tracking.
+
+---
+
+## 📋 Audit Log
+
+Administrative action tracking with filtering by action type, actor, target, IP address, and timestamp. Full security event history.
+
+---
+
 ## 🖥️ Desktop Application
 
-Native Electron desktop app for Windows, macOS, and Linux. Run OmniRoute as a standalone application with system tray integration, offline support, and one-click install.
+Native Electron desktop app for Windows, macOS, and Linux. Run OmniRoute as a standalone application with system tray integration, offline support, auto-update, and one-click install.
 
 Key features:
 
@@ -88,6 +136,7 @@ Key features:
 - System tray with port management
 - Content Security Policy
 - Single-instance lock
+- Auto-update on restart
 - Platform-conditional UI (macOS traffic lights, Windows/Linux default titlebar)
 
 📖 See [`electron/README.md`](../electron/README.md) for full documentation.

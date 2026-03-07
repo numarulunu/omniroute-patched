@@ -1,71 +1,71 @@
-# OmniRoute-arkitektur
+# OmniRoute Architecture
 
-🌐 **Languages:** 🇺🇸 [English](../../ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](../es/ARCHITECTURE.md) | 🇫🇷 [Français](../fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](../it/ARCHITECTURE.md) | 🇷🇺 [Русский](../ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](../zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](../de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](../in/ARCHITECTURE.md) | 🇹🇭 [ไทย](../th/ARCHITECTURE.md) | 🇺🇦 [Українська](../uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](../ar/ARCHITECTURE.md) | 🇯🇵 [日本語](../ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](../vi/ARCHITECTURE.md) | 🇧🇬 [Български](../bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](../da/ARCHITECTURE.md) | 🇫🇮 [Suomi](../fi/ARCHITECTURE.md) | 🇮🇱 [עברית](../he/ARCHITECTURE.md) | 🇭🇺 [Magyar](../hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](../id/ARCHITECTURE.md) | 🇰🇷 [한국어](../ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](../ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](../nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](../no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](../pt/ARCHITECTURE.md) | 🇷🇴 [Română](../ro/ARCHITECTURE.md) | 🇵🇱 [Polski](../pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](../sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](../sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](../phi/ARCHITECTURE.md)
+🌐 **Languages:** 🇺🇸 [English](ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](i18n/es/ARCHITECTURE.md) | 🇫🇷 [Français](i18n/fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](i18n/it/ARCHITECTURE.md) | 🇷🇺 [Русский](i18n/ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](i18n/de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](i18n/in/ARCHITECTURE.md) | 🇹🇭 [ไทย](i18n/th/ARCHITECTURE.md) | 🇺🇦 [Українська](i18n/uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](i18n/ar/ARCHITECTURE.md) | 🇯🇵 [日本語](i18n/ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/ARCHITECTURE.md) | 🇧🇬 [Български](i18n/bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](i18n/da/ARCHITECTURE.md) | 🇫🇮 [Suomi](i18n/fi/ARCHITECTURE.md) | 🇮🇱 [עברית](i18n/he/ARCHITECTURE.md) | 🇭🇺 [Magyar](i18n/hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/ARCHITECTURE.md) | 🇰🇷 [한국어](i18n/ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](i18n/nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](i18n/no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/ARCHITECTURE.md) | 🇷🇴 [Română](i18n/ro/ARCHITECTURE.md) | 🇵🇱 [Polski](i18n/pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](i18n/sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](i18n/sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](i18n/phi/ARCHITECTURE.md)
 
-_Senast uppdaterad: 2026-02-18_
+_Last updated: 2026-03-04_
 
-## Sammanfattning
+## Executive Summary
 
-OmniRoute är en lokal AI-routinggateway och instrumentpanel byggd på Next.js.
-Den tillhandahåller en enda OpenAI-kompatibel slutpunkt (`/v1/*`) och dirigerar trafik över flera uppströmsleverantörer med översättning, reserv, tokenuppdatering och användningsspårning.
+OmniRoute is a local AI routing gateway and dashboard built on Next.js.
+It provides a single OpenAI-compatible endpoint (`/v1/*`) and routes traffic across multiple upstream providers with translation, fallback, token refresh, and usage tracking.
 
-Kärnfunktioner:
+Core capabilities:
 
-- OpenAI-kompatibel API-yta för CLI/verktyg (28 leverantörer)
-- Begäran/svar översättning över leverantörsformat
-- Modellkombination fallback (flermodellsekvens)
-- Reservkonto på kontonivå (flera konto per leverantör)
-- Anslutningshantering för OAuth + API-nyckelleverantör
-- Inbäddningsgenerering via `/v1/embeddings` (6 leverantörer, 9 modeller)
-- Bildgenerering via `/v1/images/generations` (4 leverantörer, 9 modeller)
-- Tänk taggparsning (`<think>...</think>`) för resonemangsmodeller
-- Svarssanering för strikt OpenAI SDK-kompatibilitet
-- Rollnormalisering (utvecklare→system, system→användare) för kompatibilitet mellan olika leverantörer
-- Strukturerad utdatakonvertering (json_schema → Gemini responseSchema)
-- Lokal beständighet för leverantörer, nycklar, alias, kombinationer, inställningar, prissättning
-- Användnings-/kostnadsspårning och förfrågningsloggning
-- Valfri molnsynkronisering för synkronisering av flera enheter/tillstånd
-- IP-godkännandelista/blockeringslista för API-åtkomstkontroll
-- Tänkande budgethantering (genomföring/auto/custom/adaptiv)
-- Global systeminjektion
-- Sessionsspårning och fingeravtryck
-- Förbättrad prisbegränsning per konto med leverantörsspecifika profiler
-- Strömbrytarmönster för leverantörens motståndskraft
-- Åskskyddande flockskydd med mutex-låsning
-- Signaturbaserad cache för begärandeduplicering
-- Domänlager: modelltillgänglighet, kostnadsregler, reservpolicy, lockoutpolicy
-- Beständig domäntillstånd (SQLite-genomskrivningscache för reservdelar, budgetar, lockouter, strömbrytare)
-- Policymotor för centraliserad förfrågningsutvärdering (lockout → budget → reserv)
-- Begär telemetri med p50/p95/p99 latensaggregation
-- Korrelations-ID (X-Request-Id) för spårning från början till slut
-- Loggning av efterlevnadsrevision med opt-out per API-nyckel
-- Utvärderingsramverk för LLM kvalitetssäkring
-- Resilience UI-instrumentpanel med strömbrytarstatus i realtid
-- Modulära OAuth-leverantörer (12 individuella moduler under `src/lib/oauth/providers/`)
+- OpenAI-compatible API surface for CLI/tools (28 providers)
+- Request/response translation across provider formats
+- Model combo fallback (multi-model sequence)
+- Account-level fallback (multi-account per provider)
+- OAuth + API-key provider connection management
+- Embedding generation via `/v1/embeddings` (6 providers, 9 models)
+- Image generation via `/v1/images/generations` (4 providers, 9 models)
+- Think tag parsing (`<think>...</think>`) for reasoning models
+- Response sanitization for strict OpenAI SDK compatibility
+- Role normalization (developer→system, system→user) for cross-provider compatibility
+- Structured output conversion (json_schema → Gemini responseSchema)
+- Local persistence for providers, keys, aliases, combos, settings, pricing
+- Usage/cost tracking and request logging
+- Optional cloud sync for multi-device/state sync
+- IP allowlist/blocklist for API access control
+- Thinking budget management (passthrough/auto/custom/adaptive)
+- Global system prompt injection
+- Session tracking and fingerprinting
+- Per-account enhanced rate limiting with provider-specific profiles
+- Circuit breaker pattern for provider resilience
+- Anti-thundering herd protection with mutex locking
+- Signature-based request deduplication cache
+- Domain layer: model availability, cost rules, fallback policy, lockout policy
+- Domain state persistence (SQLite write-through cache for fallbacks, budgets, lockouts, circuit breakers)
+- Policy engine for centralized request evaluation (lockout → budget → fallback)
+- Request telemetry with p50/p95/p99 latency aggregation
+- Correlation ID (X-Request-Id) for end-to-end tracing
+- Compliance audit logging with opt-out per API key
+- Eval framework for LLM quality assurance
+- Resilience UI dashboard with real-time circuit breaker status
+- Modular OAuth providers (12 individual modules under `src/lib/oauth/providers/`)
 
-Primär körtidsmodell:
+Primary runtime model:
 
-- Next.js-apprutter under `src/app/api/*` implementerar både instrumentpanelens API:er och kompatibilitets-API:er
-- En delad SSE/routingkärna i `src/sse/*` + `open-sse/*` hanterar leverantörsexekvering, översättning, streaming, reserv och användning
+- Next.js app routes under `src/app/api/*` implement both dashboard APIs and compatibility APIs
+- A shared SSE/routing core in `src/sse/*` + `open-sse/*` handles provider execution, translation, streaming, fallback, and usage
 
-## Omfattning och gränser
+## Scope and Boundaries
 
-### I omfattning
+### In Scope
 
-- Lokal gateway körtid
-- Dashboard management API:er
-- Leverantörsautentisering och tokenuppdatering
-- Begär översättning och SSE-streaming
-- Lokal stat + användningsbeständighet
-- Valfri molnsynkroniseringsorkestrering
+- Local gateway runtime
+- Dashboard management APIs
+- Provider authentication and token refresh
+- Request translation and SSE streaming
+- Local state + usage persistence
+- Optional cloud sync orchestration
 
-### Utanför räckvidd
+### Out of Scope
 
-- Implementering av molntjänster bakom `NEXT_PUBLIC_CLOUD_URL`
-- Leverantör SLA/kontrollplan utanför lokal process
-- Externa CLI-binärer själva (Claude CLI, Codex CLI, etc.)
+- Cloud service implementation behind `NEXT_PUBLIC_CLOUD_URL`
+- Provider SLA/control plane outside local process
+- External CLI binaries themselves (Claude CLI, Codex CLI, etc.)
 
-## Systemkontext på hög nivå
+## High-Level System Context
 
 ```mermaid
 flowchart LR
@@ -81,8 +81,8 @@ flowchart LR
         API[V1 Compatibility API\n/v1/*]
         DASH[Dashboard + Management API\n/api/*]
         CORE[SSE + Translation Core\nopen-sse + src/sse]
-        DB[(db.json)]
-        UDB[(usage.json + log.txt)]
+        DB[(storage.sqlite)]
+        UDB[(usage tables + log artifacts)]
     end
 
     subgraph Upstreams[Upstream Providers]
@@ -115,149 +115,150 @@ flowchart LR
 
 ## Core Runtime Components
 
-## 1) API och Routing Layer (Next.js App Routes)
+## 1) API and Routing Layer (Next.js App Routes)
 
-Huvudkataloger:
+Main directories:
 
-- `src/app/api/v1/*` och `src/app/api/v1beta/*` för kompatibilitets-API:er
-- `src/app/api/*` för hanterings-/konfigurations-API:er
-- Nästa omskrivning i `next.config.mjs` kartan `/v1/*` till `/api/v1/*`
+- `src/app/api/v1/*` and `src/app/api/v1beta/*` for compatibility APIs
+- `src/app/api/*` for management/configuration APIs
+- Next rewrites in `next.config.mjs` map `/v1/*` to `/api/v1/*`
 
-Viktiga kompatibilitetsvägar:
+Important compatibility routes:
 
 - `src/app/api/v1/chat/completions/route.ts`
 - `src/app/api/v1/messages/route.ts`
 - `src/app/api/v1/responses/route.ts`
-- `src/app/api/v1/models/route.ts` — inkluderar anpassade modeller med `custom: true`
-- `src/app/api/v1/embeddings/route.ts` — inbäddningsgenerering (6 leverantörer)
-- `src/app/api/v1/images/generations/route.ts` — bildgenerering (4+ leverantörer inkl. Antigravity/Nebius)
+- `src/app/api/v1/models/route.ts` — includes custom models with `custom: true`
+- `src/app/api/v1/embeddings/route.ts` — embedding generation (6 providers)
+- `src/app/api/v1/images/generations/route.ts` — image generation (4+ providers incl. Antigravity/Nebius)
 - `src/app/api/v1/messages/count_tokens/route.ts`
-- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — dedikerad chatt per leverantör
-- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — dedikerade inbäddningar per leverantör
-- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — dedikerade bilder per leverantör
+- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — dedicated per-provider chat
+- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — dedicated per-provider embeddings
+- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — dedicated per-provider images
 - `src/app/api/v1beta/models/route.ts`
 - `src/app/api/v1beta/models/[...path]/route.ts`
 
-Hanteringsdomäner:
+Management domains:
 
-- Auth/inställningar: `src/app/api/auth/*`, `src/app/api/settings/*`
-- Leverantörer/anslutningar: `src/app/api/providers*`
-- Leverantörsnoder: `src/app/api/provider-nodes*`
-- Anpassade modeller: `src/app/api/provider-models` (GET/POST/DELETE)
-- Modellkatalog: `src/app/api/models/catalog` (GET)
-- Proxykonfiguration: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
+- Auth/settings: `src/app/api/auth/*`, `src/app/api/settings/*`
+- Providers/connections: `src/app/api/providers*`
+- Provider nodes: `src/app/api/provider-nodes*`
+- Custom models: `src/app/api/provider-models` (GET/POST/DELETE)
+- Model catalog: `src/app/api/models/route.ts` (GET)
+- Proxy config: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
 - OAuth: `src/app/api/oauth/*`
-- Nycklar/alias/kombinationer/prissättning: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
-- Användning: `src/app/api/usage/*`
-- Synkronisera/moln: `src/app/api/sync/*`, `src/app/api/cloud/*`
-- CLI-verktygshjälpare: `src/app/api/cli-tools/*`
-- IP-filter: `src/app/api/settings/ip-filter` (GET/PUT)
-- Tänkande budget: `src/app/api/settings/thinking-budget` (GET/PUT)
-- Systemprompt: `src/app/api/settings/system-prompt` (GET/PUT)
-- Sessioner: `src/app/api/sessions` (GET)
-- Prisgränser: `src/app/api/rate-limits` (GET)
-- Motståndskraft: `src/app/api/resilience` (GET/PATCH) — leverantörsprofiler, strömbrytare, hastighetsgränstillstånd
-- Återställning av motståndskraft: `src/app/api/resilience/reset` (POST) — återställ brytare + nedkylningar
-- Cachestatistik: `src/app/api/cache/stats` (GET/DELETE)
-- Modelltillgänglighet: `src/app/api/models/availability` (GET/POST)
-- Telemetri: `src/app/api/telemetry/summary` (GET)
+- Keys/aliases/combos/pricing: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
+- Usage: `src/app/api/usage/*`
+- Sync/cloud: `src/app/api/sync/*`, `src/app/api/cloud/*`
+- CLI tooling helpers: `src/app/api/cli-tools/*`
+- IP filter: `src/app/api/settings/ip-filter` (GET/PUT)
+- Thinking budget: `src/app/api/settings/thinking-budget` (GET/PUT)
+- System prompt: `src/app/api/settings/system-prompt` (GET/PUT)
+- Sessions: `src/app/api/sessions` (GET)
+- Rate limits: `src/app/api/rate-limits` (GET)
+- Resilience: `src/app/api/resilience` (GET/PATCH) — provider profiles, circuit breaker, rate limit state
+- Resilience reset: `src/app/api/resilience/reset` (POST) — reset breakers + cooldowns
+- Cache stats: `src/app/api/cache/stats` (GET/DELETE)
+- Model availability: `src/app/api/models/availability` (GET/POST)
+- Telemetry: `src/app/api/telemetry/summary` (GET)
 - Budget: `src/app/api/usage/budget` (GET/POST)
-- Reservkedjor: `src/app/api/fallback/chains` (GET/POST/DELETE)
-- Efterlevnadsrevision: `src/app/api/compliance/audit-log` (GET)
-- Evaler: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
-- Policyer: `src/app/api/policies` (GET/POST)
+- Fallback chains: `src/app/api/fallback/chains` (GET/POST/DELETE)
+- Compliance audit: `src/app/api/compliance/audit-log` (GET)
+- Evals: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
+- Policies: `src/app/api/policies` (GET/POST)
 
 ## 2) SSE + Translation Core
 
-Huvudflödesmoduler:
+Main flow modules:
 
-- Inträde: `src/sse/handlers/chat.ts`
-- Kärnorkestrering: `open-sse/handlers/chatCore.ts`
-- Leverantörs exekveringsadaptrar: `open-sse/executors/*`
-- Formatidentifiering/leverantörskonfiguration: `open-sse/services/provider.ts`
-- Modellanalys/upplösning: `src/sse/services/model.ts`, `open-sse/services/model.ts`
-- Reservlogik för konto: `open-sse/services/accountFallback.ts`
-- Översättningsregister: `open-sse/translator/index.ts`
-- Strömomvandlingar: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
-- Användningsextraktion/normalisering: `open-sse/utils/usageTracking.ts`
-- Tänk taggtolkare: `open-sse/utils/thinkTagParser.ts`
-- Inbäddningshanterare: `open-sse/handlers/embeddings.ts`
-- Inbäddningsleverantörsregister: `open-sse/config/embeddingRegistry.ts`
-- Hanterare för bildgenerering: `open-sse/handlers/imageGeneration.ts`
-- Bildleverantörsregister: `open-sse/config/imageRegistry.ts`
-- Svarssanering: `open-sse/handlers/responseSanitizer.ts`
-- Rollnormalisering: `open-sse/services/roleNormalizer.ts`
+- Entry: `src/sse/handlers/chat.ts`
+- Core orchestration: `open-sse/handlers/chatCore.ts`
+- Provider execution adapters: `open-sse/executors/*`
+- Format detection/provider config: `open-sse/services/provider.ts`
+- Model parse/resolve: `src/sse/services/model.ts`, `open-sse/services/model.ts`
+- Account fallback logic: `open-sse/services/accountFallback.ts`
+- Translation registry: `open-sse/translator/index.ts`
+- Stream transformations: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
+- Usage extraction/normalization: `open-sse/utils/usageTracking.ts`
+- Think tag parser: `open-sse/utils/thinkTagParser.ts`
+- Embedding handler: `open-sse/handlers/embeddings.ts`
+- Embedding provider registry: `open-sse/config/embeddingRegistry.ts`
+- Image generation handler: `open-sse/handlers/imageGeneration.ts`
+- Image provider registry: `open-sse/config/imageRegistry.ts`
+- Response sanitization: `open-sse/handlers/responseSanitizer.ts`
+- Role normalization: `open-sse/services/roleNormalizer.ts`
 
-Tjänster (affärslogik):
+Services (business logic):
 
-- Val av konto/poäng: `open-sse/services/accountSelector.ts`
-- Kontextlivscykelhantering: `open-sse/services/contextManager.ts`
-- IP-filtertillämpning: `open-sse/services/ipFilter.ts`
-- Sessionsspårning: `open-sse/services/sessionManager.ts`
-- Begär deduplicering: `open-sse/services/signatureCache.ts`
-- Systemprompt injektion: `open-sse/services/systemPrompt.ts`
-- Tänkande budgethantering: `open-sse/services/thinkingBudget.ts`
-- Jokertecken modell routing: `open-sse/services/wildcardRouter.ts`
-- Hantering av prisgränser: `open-sse/services/rateLimitManager.ts`
-- Strömbrytare: `open-sse/services/circuitBreaker.ts`
+- Account selection/scoring: `open-sse/services/accountSelector.ts`
+- Context lifecycle management: `open-sse/services/contextManager.ts`
+- IP filter enforcement: `open-sse/services/ipFilter.ts`
+- Session tracking: `open-sse/services/sessionManager.ts`
+- Request deduplication: `open-sse/services/signatureCache.ts`
+- System prompt injection: `open-sse/services/systemPrompt.ts`
+- Thinking budget management: `open-sse/services/thinkingBudget.ts`
+- Wildcard model routing: `open-sse/services/wildcardRouter.ts`
+- Rate limit management: `open-sse/services/rateLimitManager.ts`
+- Circuit breaker: `open-sse/services/circuitBreaker.ts`
 
-Domänlagermoduler:
+Domain layer modules:
 
-- Modelltillgänglighet: `src/lib/domain/modelAvailability.ts`
-- Kostnadsregler/budgetar: `src/lib/domain/costRules.ts`
-- Reservpolicy: `src/lib/domain/fallbackPolicy.ts`
-- Kombinationslösare: `src/lib/domain/comboResolver.ts`
-- Lockoutpolicy: `src/lib/domain/lockoutPolicy.ts`
-- Policymotor: `src/domain/policyEngine.ts` — centraliserad lockout → budget → reservutvärdering
-- Felkodskatalog: `src/lib/domain/errorCodes.ts`
-- Begärans ID: `src/lib/domain/requestId.ts`
-- Timeout för hämtning: `src/lib/domain/fetchTimeout.ts`
-- Begär telemetri: `src/lib/domain/requestTelemetry.ts`
-- Efterlevnad/revision: `src/lib/domain/compliance/index.ts`
-- Eval löpare: `src/lib/domain/evalRunner.ts`
-- Beständig domäntillstånd: `src/lib/db/domainState.ts` — SQLite CRUD för reservkedjor, budgetar, kostnadshistorik, lockout-tillstånd, strömbrytare
+- Model availability: `src/lib/domain/modelAvailability.ts`
+- Cost rules/budgets: `src/lib/domain/costRules.ts`
+- Fallback policy: `src/lib/domain/fallbackPolicy.ts`
+- Combo resolver: `src/lib/domain/comboResolver.ts`
+- Lockout policy: `src/lib/domain/lockoutPolicy.ts`
+- Policy engine: `src/domain/policyEngine.ts` — centralized lockout → budget → fallback evaluation
+- Error codes catalog: `src/lib/domain/errorCodes.ts`
+- Request ID: `src/lib/domain/requestId.ts`
+- Fetch timeout: `src/lib/domain/fetchTimeout.ts`
+- Request telemetry: `src/lib/domain/requestTelemetry.ts`
+- Compliance/audit: `src/lib/domain/compliance/index.ts`
+- Eval runner: `src/lib/domain/evalRunner.ts`
+- Domain state persistence: `src/lib/db/domainState.ts` — SQLite CRUD for fallback chains, budgets, cost history, lockout state, circuit breakers
 
-OAuth-leverantörsmoduler (12 enskilda filer under `src/lib/oauth/providers/`):
+OAuth provider modules (12 individual files under `src/lib/oauth/providers/`):
 
-- Registerindex: `src/lib/oauth/providers/index.ts`
-- Individuella leverantörer: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, **\*119**, **\_119**, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
-- Tunt omslag: `src/lib/oauth/providers.ts` — återexport från enskilda moduler
+- Registry index: `src/lib/oauth/providers/index.ts`
+- Individual providers: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `kimi-coding.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
+- Thin wrapper: `src/lib/oauth/providers.ts` — re-exports from individual modules
 
-## 3) Persistenslager
+## 3) Persistence Layer
 
-Primärt tillstånd DB:
+Primary state DB (SQLite):
 
-- `src/lib/localDb.ts`
-- fil: `${DATA_DIR}/db.json` (eller `$XDG_CONFIG_HOME/omniroute/db.json` när inställd, annars `~/.omniroute/db.json`)
-- enheter: providerConnections, providerNodes, modelAlias, combos, apiKeys, settings, prissättning, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
+- Core infra: `src/lib/db/core.ts` (better-sqlite3, migrations, WAL)
+- Re-export facade: `src/lib/localDb.ts` (thin compatibility layer for callers)
+- file: `${DATA_DIR}/storage.sqlite` (or `$XDG_CONFIG_HOME/omniroute/storage.sqlite` when set, else `~/.omniroute/storage.sqlite`)
+- entities (tables + KV namespaces): providerConnections, providerNodes, modelAliases, combos, apiKeys, settings, pricing, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
 
-Användnings-DB:
+Usage persistence:
 
-- `src/lib/usageDb.ts`
-- filer: `${DATA_DIR}/usage.json`, `${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`
-- följer samma baskatalogpolicy som `localDb` (`DATA_DIR`, sedan `XDG_CONFIG_HOME/omniroute` när inställd)
-- uppdelad i fokuserade undermoduler: `migrations.ts`, `usageHistory.ts`, `costCalculator.ts`, `usageStats.ts`, `callLogs.ts`
+- facade: `src/lib/usageDb.ts` (decomposed modules in `src/lib/usage/*`)
+- SQLite tables in `storage.sqlite`: `usage_history`, `call_logs`, `proxy_logs`
+- optional file artifacts remain for compatibility/debug (`${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`, `<repo>/logs/...`)
+- legacy JSON files are migrated to SQLite by startup migrations when present
 
 Domain State DB (SQLite):
 
-- `src/lib/db/domainState.ts` — CRUD-operationer för domäntillstånd
-- Tabeller (skapade i `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
-- Genomskrivningscachemönster: i minneskartor är auktoritativa under körning; mutationer skrivs synkront till SQLite; tillståndet återställs från DB vid kallstart
+- `src/lib/db/domainState.ts` — CRUD operations for domain state
+- Tables (created in `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
+- Write-through cache pattern: in-memory Maps are authoritative at runtime; mutations are written synchronously to SQLite; state is restored from DB on cold start
 
-## 4) Auth + Säkerhetsytor
+## 4) Auth + Security Surfaces
 
-- Dashboard-cookieauth: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
-- Generering/verifiering av API-nyckel: `src/shared/utils/apiKey.ts`
-- Leverantörshemligheter kvarstod i `providerConnections`-poster
-- Utgående proxystöd via `open-sse/utils/proxyFetch.ts` (env vars) och `open-sse/utils/networkProxy.ts` (konfigurerbart per leverantör eller globalt)
+- Dashboard cookie auth: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
+- API key generation/verification: `src/shared/utils/apiKey.ts`
+- Provider secrets persisted in `providerConnections` entries
+- Outbound proxy support via `open-sse/utils/proxyFetch.ts` (env vars) and `open-sse/utils/networkProxy.ts` (configurable per-provider or global)
 
-## 5) Molnsynkronisering
+## 5) Cloud Sync
 
-- Schemaläggare init: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
-- Periodisk uppgift: `src/shared/services/cloudSyncScheduler.ts`
-- Kontrollrutt: `src/app/api/sync/cloud/route.ts`
+- Scheduler init: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
+- Periodic task: `src/shared/services/cloudSyncScheduler.ts`
+- Control route: `src/app/api/sync/cloud/route.ts`
 
-## Begär livscykel (`/v1/chat/completions`)
+## Request Lifecycle (`/v1/chat/completions`)
 
 ```mermaid
 sequenceDiagram
@@ -304,7 +305,7 @@ sequenceDiagram
     Stream->>Usage: extract usage + persist history/log
 ```
 
-## Combo + konto reservflöde
+## Combo + Account Fallback Flow
 
 ```mermaid
 flowchart TD
@@ -334,9 +335,9 @@ flowchart TD
     Q -- No --> R[Return all unavailable]
 ```
 
-Reservbeslut drivs av `open-sse/services/accountFallback.ts` med hjälp av statuskoder och felmeddelandeheuristik.
+Fallback decisions are driven by `open-sse/services/accountFallback.ts` using status codes and error-message heuristics.
 
-## OAuth Onboarding och Token Refresh Lifecycle
+## OAuth Onboarding and Token Refresh Lifecycle
 
 ```mermaid
 sequenceDiagram
@@ -366,9 +367,9 @@ sequenceDiagram
     Test-->>UI: validation result
 ```
 
-Uppdatering under livetrafik utförs inuti `open-sse/handlers/chatCore.ts` via executorn `refreshCredentials()`.
+Refresh during live traffic is executed inside `open-sse/handlers/chatCore.ts` via executor `refreshCredentials()`.
 
-## Cloud Sync Lifecycle (Aktivera / Synkronisera / Inaktivera)
+## Cloud Sync Lifecycle (Enable / Sync / Disable)
 
 ```mermaid
 sequenceDiagram
@@ -400,9 +401,9 @@ sequenceDiagram
     Sync-->>UI: disabled
 ```
 
-Periodisk synkronisering utlöses av `CloudSyncScheduler` när molnet är aktiverat.
+Periodic sync is triggered by `CloudSyncScheduler` when cloud is enabled.
 
-## Datamodell och lagringskarta
+## Data Model and Storage Map
 
 ```mermaid
 erDiagram
@@ -503,14 +504,14 @@ erDiagram
     }
 ```
 
-Fysiska lagringsfiler:
+Physical storage files:
 
-- huvudtillstånd: `${DATA_DIR}/db.json` (eller `$XDG_CONFIG_HOME/omniroute/db.json` när inställt, annars `~/.omniroute/db.json`)
-- användningsstatistik: `${DATA_DIR}/usage.json`
-- begär loggrader: `${DATA_DIR}/log.txt`
-- valfria översättare/begäran felsökningssessioner: `<repo>/logs/...`
+- primary runtime DB: `${DATA_DIR}/storage.sqlite`
+- request log lines: `${DATA_DIR}/log.txt` (compat/debug artifact)
+- structured call payload archives: `${DATA_DIR}/call_logs/`
+- optional translator/request debug sessions: `<repo>/logs/...`
 
-## Distributionstopologi
+## Deployment Topology
 
 ```mermaid
 flowchart LR
@@ -522,8 +523,8 @@ flowchart LR
     subgraph ContainerOrProcess[OmniRoute Runtime]
         Next[Next.js Server\nPORT=20128]
         Core[SSE Core + Executors]
-        MainDB[(db.json)]
-        UsageDB[(usage.json/log.txt)]
+        MainDB[(storage.sqlite)]
+        UsageDB[(usage tables + log artifacts)]
     end
 
     subgraph External[External Services]
@@ -541,241 +542,242 @@ flowchart LR
     Next --> SyncCloud
 ```
 
-## Modulmappning (beslutskritisk)
+## Module Mapping (Decision-Critical)
 
-### Rutt- och API-moduler
+### Route and API Modules
 
-- `src/app/api/v1/*`, `src/app/api/v1beta/*`: kompatibilitets-API:er
-- `src/app/api/v1/providers/[provider]/*`: dedikerade rutter per leverantör (chatt, inbäddningar, bilder)
-- `src/app/api/providers*`: leverantör CRUD, validering, testning
-- `src/app/api/provider-nodes*`: anpassad kompatibel nodhantering
-- `src/app/api/provider-models`: anpassad modellhantering (CRUD)
-- `src/app/api/models/catalog`: fullständig modellkatalog API (alla typer grupperade efter leverantör)
-- `src/app/api/oauth/*`: OAuth/enhetskod flöden
-- `src/app/api/keys*`: lokal API-nyckellivscykel
-- `src/app/api/models/alias`: aliashantering
-- `src/app/api/combos*`: reservkombohantering
-- `src/app/api/pricing`: åsidosättande av prissättning för kostnadsberäkning
-- `src/app/api/settings/proxy`: proxykonfiguration (GET/PUT/DELETE)
-- `src/app/api/settings/proxy/test`: test av utgående proxyanslutning (POST)
-- `src/app/api/usage/*`: API:er för användning och loggar
-- `src/app/api/sync/*` + `src/app/api/cloud/*`: molnsynkronisering och molnvända hjälpare
-- `src/app/api/cli-tools/*`: lokala CLI-konfigurationsförfattare/checkers
-- `src/app/api/settings/ip-filter`: IP-godkännandelista/blockeringslista (GET/PUT)
-- `src/app/api/settings/thinking-budget`: budgetkonfig för tänkande token (GET/PUT)
-- `src/app/api/settings/system-prompt`: global systemprompt (GET/PUT)
-- `src/app/api/sessions`: aktiv sessionslista (GET)
-- `src/app/api/rate-limits`: räntegränsstatus per konto (GET)
+- `src/app/api/v1/*`, `src/app/api/v1beta/*`: compatibility APIs
+- `src/app/api/v1/providers/[provider]/*`: dedicated per-provider routes (chat, embeddings, images)
+- `src/app/api/providers*`: provider CRUD, validation, testing
+- `src/app/api/provider-nodes*`: custom compatible node management
+- `src/app/api/provider-models`: custom model management (CRUD)
+- `src/app/api/models/route.ts`: model catalog API (aliases + custom models)
+- `src/app/api/oauth/*`: OAuth/device-code flows
+- `src/app/api/keys*`: local API key lifecycle
+- `src/app/api/models/alias`: alias management
+- `src/app/api/combos*`: fallback combo management
+- `src/app/api/pricing`: pricing overrides for cost calculation
+- `src/app/api/settings/proxy`: proxy configuration (GET/PUT/DELETE)
+- `src/app/api/settings/proxy/test`: outbound proxy connectivity test (POST)
+- `src/app/api/usage/*`: usage and logs APIs
+- `src/app/api/sync/*` + `src/app/api/cloud/*`: cloud sync and cloud-facing helpers
+- `src/app/api/cli-tools/*`: local CLI config writers/checkers
+- `src/app/api/settings/ip-filter`: IP allowlist/blocklist (GET/PUT)
+- `src/app/api/settings/thinking-budget`: thinking token budget config (GET/PUT)
+- `src/app/api/settings/system-prompt`: global system prompt (GET/PUT)
+- `src/app/api/sessions`: active session listing (GET)
+- `src/app/api/rate-limits`: per-account rate limit status (GET)
 
 ### Routing and Execution Core
 
-- `src/sse/handlers/chat.ts`: begäran om analys, kombinationshantering, kontovalsloop
-- `open-sse/handlers/chatCore.ts`: översättning, exekutorutskick, försök igen/uppdatera hantering, strömkonfiguration
-- `open-sse/executors/*`: leverantörsspecifikt nätverk och formatbeteende
+- `src/sse/handlers/chat.ts`: request parse, combo handling, account selection loop
+- `open-sse/handlers/chatCore.ts`: translation, executor dispatch, retry/refresh handling, stream setup
+- `open-sse/executors/*`: provider-specific network and format behavior
 
-### Översättningsregister och formatomvandlare
+### Translation Registry and Format Converters
 
-- `open-sse/translator/index.ts`: översättarregister och orkestrering
-- Begär översättare: `open-sse/translator/request/*`
-- Svarsöversättare: `open-sse/translator/response/*`
-- Formatkonstanter: `open-sse/translator/formats.ts`
+- `open-sse/translator/index.ts`: translator registry and orchestration
+- Request translators: `open-sse/translator/request/*`
+- Response translators: `open-sse/translator/response/*`
+- Format constants: `open-sse/translator/formats.ts`
 
-### Uthållighet
+### Persistence
 
-- `src/lib/localDb.ts`: beständig konfiguration/tillstånd
-- `src/lib/usageDb.ts`: användningshistorik och rullande förfrågningsloggar
+- `src/lib/db/*`: persistent config/state and domain persistence on SQLite
+- `src/lib/localDb.ts`: compatibility re-export for DB modules
+- `src/lib/usageDb.ts`: usage history/call logs facade on top of SQLite tables
 
-## Provider Executor Täckning (strategimönster)
+## Provider Executor Coverage (Strategy Pattern)
 
-Varje leverantör har en specialiserad exekutor som utökar `BaseExecutor` (i `open-sse/executors/base.ts`), som tillhandahåller URL-byggande, rubrikkonstruktion, återförsök med exponentiell backoff, autentiseringsuppdateringskrokar och `execute()` orkestreringsmetoden.
+Each provider has a specialized executor extending `BaseExecutor` (in `open-sse/executors/base.ts`), which provides URL building, header construction, retry with exponential backoff, credential refresh hooks, and the `execute()` orchestration method.
 
-| Exekutor              | Leverantör(er)                                                                                                                                               | Specialhantering                                                               |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | Dynamisk URL/header-konfiguration per leverantör                               |
-| `AntigravityExecutor` | Google Antigravity                                                                                                                                           | Anpassade projekt-/sessions-ID:n, försök igen-efter analys                     |
-| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | Injicerar systeminstruktioner, tvingar fram resonemang                         |
-| `CursorExecutor`      | Markör IDE                                                                                                                                                   | ConnectRPC-protokoll, Protobuf-kodning, begäran om signering via kontrollsumma |
-| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | Copilot token uppdatering, VSCode-härmar rubriker                              |
-| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | AWS EventStream binärt format → SSE-konvertering                               |
-| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | Uppdateringscykel för Google OAuth-token                                       |
+| Executor              | Provider(s)                                                                                                                                                  | Special Handling                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | Dynamic URL/header config per provider                               |
+| `AntigravityExecutor` | Google Antigravity                                                                                                                                           | Custom project/session IDs, Retry-After parsing                      |
+| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | Injects system instructions, forces reasoning effort                 |
+| `CursorExecutor`      | Cursor IDE                                                                                                                                                   | ConnectRPC protocol, Protobuf encoding, request signing via checksum |
+| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | Copilot token refresh, VSCode-mimicking headers                      |
+| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | AWS EventStream binary format → SSE conversion                       |
+| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | Google OAuth token refresh cycle                                     |
 
-Alla andra leverantörer (inklusive anpassade kompatibla noder) använder `DefaultExecutor`.
+All other providers (including custom compatible nodes) use the `DefaultExecutor`.
 
-## Leverantörskompatibilitetsmatris
+## Provider Compatibility Matrix
 
-| Leverantör       | Format          | Auth                   | Streama          | Icke-stream | Token Refresh | Användnings-API       |
-| ---------------- | --------------- | ---------------------- | ---------------- | ----------- | ------------- | --------------------- |
-| Claude           | claude          | API-nyckel / OAuth     | ✅               | ✅          | ✅            | ⚠️ Endast admin       |
-| Tvillingarna     | Tvillingarna    | API-nyckel / OAuth     | ✅               | ✅          | ✅            | ⚠️ Cloud Console      |
-| Gemini CLI       | gemini-cli      | OAuth                  | ✅               | ✅          | ✅            | ⚠️ Cloud Console      |
-| Antigravitation  | antigravitation | OAuth                  | ✅               | ✅          | ✅            | ✅ Full kvot API      |
-| OpenAI           | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Codex            | openai-svar     | OAuth                  | ✅ tvingad       | ❌          | ✅            | ✅ Prisgränser        |
-| GitHub Copilot   | openai          | OAuth + Copilot Token  | ✅               | ✅          | ✅            | ✅ Kvotbilder         |
-| Markör           | markören        | Anpassad kontrollsumma | ✅               | ✅          | ❌            | ❌                    |
-| Kiro             | kiro            | AWS SSO OIDC           | ✅ (EventStream) | ❌          | ✅            | ✅ Användningsgränser |
-| Qwen             | openai          | OAuth                  | ✅               | ✅          | ✅            | ⚠️ Per förfrågan      |
-| iFlow            | openai          | OAuth (Grundläggande)  | ✅               | ✅          | ✅            | ⚠️ Per förfrågan      |
-| OpenRouter       | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| GLM/Kimi/MiniMax | claude          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| DeepSeek         | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Groq             | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| xAI (Grok)       | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Mistral          | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Förvirring       | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Tillsammans AI   | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Fireworks AI     | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Cerebras         | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| Sammanhålla      | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
-| NVIDIA NIM       | openai          | API-nyckel             | ✅               | ✅          | ❌            | ❌                    |
+| Provider         | Format           | Auth                  | Stream           | Non-Stream | Token Refresh | Usage API          |
+| ---------------- | ---------------- | --------------------- | ---------------- | ---------- | ------------- | ------------------ |
+| Claude           | claude           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Admin only      |
+| Gemini           | gemini           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Gemini CLI       | gemini-cli       | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Antigravity      | antigravity      | OAuth                 | ✅               | ✅         | ✅            | ✅ Full quota API  |
+| OpenAI           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Codex            | openai-responses | OAuth                 | ✅ forced        | ❌         | ✅            | ✅ Rate limits     |
+| GitHub Copilot   | openai           | OAuth + Copilot Token | ✅               | ✅         | ✅            | ✅ Quota snapshots |
+| Cursor           | cursor           | Custom checksum       | ✅               | ✅         | ❌            | ❌                 |
+| Kiro             | kiro             | AWS SSO OIDC          | ✅ (EventStream) | ❌         | ✅            | ✅ Usage limits    |
+| Qwen             | openai           | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| iFlow            | openai           | OAuth (Basic)         | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| OpenRouter       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| GLM/Kimi/MiniMax | claude           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| DeepSeek         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Groq             | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| xAI (Grok)       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Mistral          | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Perplexity       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Together AI      | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Fireworks AI     | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cerebras         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cohere           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| NVIDIA NIM       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
 
-## Formatöversättningstäckning
+## Format Translation Coverage
 
-Upptäckta källformat inkluderar:
+Detected source formats include:
 
 - `openai`
 - `openai-responses`
 - `claude`
 - `gemini`
 
-Målformat inkluderar:
+Target formats include:
 
-- OpenAI chatt/svar
+- OpenAI chat/Responses
 - Claude
-- Gemini/Gemini-CLI/Antigravity kuvert
+- Gemini/Gemini-CLI/Antigravity envelope
 - Kiro
-- Markör
+- Cursor
 
-Översättningar använder **OpenAI som navformat** — alla konverteringar går via OpenAI som mellanliggande:
+Translations use **OpenAI as the hub format** — all conversions go through OpenAI as intermediate:
 
 ```
 Source Format → OpenAI (hub) → Target Format
 ```
 
-Översättningar väljs dynamiskt baserat på källnyttolastens form och leverantörens målformat.
+Translations are selected dynamically based on source payload shape and provider target format.
 
-Ytterligare bearbetningslager i översättningspipelinen:
+Additional processing layers in the translation pipeline:
 
-- **Responssanering** — Tar bort icke-standardiserade fält från svar i OpenAI-format (både strömmande och icke-strömmande) för att säkerställa strikt SDK-efterlevnad
-- **Rollnormalisering** — Konverterar `developer` → `system` för icke-OpenAI-mål; slår samman `system` → `user` för modeller som avvisar systemrollen (GLM, ERNIE)
-- **Tänk taggextraktion** — Parsar `<think>...</think>` block från innehåll till fältet `reasoning_content`
-- **Structured output** — Konverterar OpenAI `response_format.json_schema` till Gemini's `responseMimeType` + `responseSchema`
+- **Response sanitization** — Strips non-standard fields from OpenAI-format responses (both streaming and non-streaming) to ensure strict SDK compliance
+- **Role normalization** — Converts `developer` → `system` for non-OpenAI targets; merges `system` → `user` for models that reject the system role (GLM, ERNIE)
+- **Think tag extraction** — Parses `<think>...</think>` blocks from content into `reasoning_content` field
+- **Structured output** — Converts OpenAI `response_format.json_schema` to Gemini's `responseMimeType` + `responseSchema`
 
-## API-slutpunkter som stöds
+## Supported API Endpoints
 
-| Slutpunkt                                          | Format              | Handlare                                                  |
-| -------------------------------------------------- | ------------------- | --------------------------------------------------------- |
-| `POST /v1/chat/completions`                        | OpenAI Chat         | `src/sse/handlers/chat.ts`                                |
-| `POST /v1/messages`                                | Claude Meddelanden  | Samma hanterare (automatiskt upptäckt)                    |
-| `POST /v1/responses`                               | OpenAI-svar         | `open-sse/handlers/responsesHandler.ts`                   |
-| `POST /v1/embeddings`                              | OpenAI Inbäddningar | `open-sse/handlers/embeddings.ts`                         |
-| `GET /v1/embeddings`                               | Modelllista         | API-rutt                                                  |
-| `POST /v1/images/generations`                      | OpenAI bilder       | `open-sse/handlers/imageGeneration.ts`                    |
-| `GET /v1/images/generations`                       | Modelllista         | API-rutt                                                  |
-| `POST /v1/providers/{provider}/chat/completions`   | OpenAI Chat         | Dedikerad per leverantör med modellvalidering             |
-| `POST /v1/providers/{provider}/embeddings`         | OpenAI Inbäddningar | Dedikerad per leverantör med modellvalidering             |
-| `POST /v1/providers/{provider}/images/generations` | OpenAI bilder       | Dedikerad per leverantör med modellvalidering             |
-| `POST /v1/messages/count_tokens`                   | Claude Token Count  | API-rutt                                                  |
-| `GET /v1/models`                                   | OpenAI-modelllista  | API-rutt (chatt + inbäddning + bild + anpassade modeller) |
-| `GET /api/models/catalog`                          | Katalog             | Alla modeller grupperade efter leverantör + typ           |
-| `POST /v1beta/models/*:streamGenerateContent`      | Tvillinginfödd      | API-rutt                                                  |
-| `GET/PUT/DELETE /api/settings/proxy`               | Proxykonfiguration  | Nätverksproxykonfiguration                                |
-| `POST /api/settings/proxy/test`                    | Proxyanslutning     | Proxy hälsa/anslutningstest slutpunkt                     |
-| `GET/POST/DELETE /api/provider-models`             | Anpassade modeller  | Anpassad modellhantering per leverantör                   |
+| Endpoint                                           | Format             | Handler                                              |
+| -------------------------------------------------- | ------------------ | ---------------------------------------------------- |
+| `POST /v1/chat/completions`                        | OpenAI Chat        | `src/sse/handlers/chat.ts`                           |
+| `POST /v1/messages`                                | Claude Messages    | Same handler (auto-detected)                         |
+| `POST /v1/responses`                               | OpenAI Responses   | `open-sse/handlers/responsesHandler.ts`              |
+| `POST /v1/embeddings`                              | OpenAI Embeddings  | `open-sse/handlers/embeddings.ts`                    |
+| `GET /v1/embeddings`                               | Model listing      | API route                                            |
+| `POST /v1/images/generations`                      | OpenAI Images      | `open-sse/handlers/imageGeneration.ts`               |
+| `GET /v1/images/generations`                       | Model listing      | API route                                            |
+| `POST /v1/providers/{provider}/chat/completions`   | OpenAI Chat        | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/embeddings`         | OpenAI Embeddings  | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/images/generations` | OpenAI Images      | Dedicated per-provider with model validation         |
+| `POST /v1/messages/count_tokens`                   | Claude Token Count | API route                                            |
+| `GET /v1/models`                                   | OpenAI Models list | API route (chat + embedding + image + custom models) |
+| `GET /api/models/catalog`                          | Catalog            | All models grouped by provider + type                |
+| `POST /v1beta/models/*:streamGenerateContent`      | Gemini native      | API route                                            |
+| `GET/PUT/DELETE /api/settings/proxy`               | Proxy Config       | Network proxy configuration                          |
+| `POST /api/settings/proxy/test`                    | Proxy Connectivity | Proxy health/connectivity test endpoint              |
+| `GET/POST/DELETE /api/provider-models`             | Custom Models      | Custom model management per provider                 |
 
-## Bypass-hanterare
+## Bypass Handler
 
-Bypass-hanteraren (`open-sse/utils/bypassHandler.ts`) fångar upp kända "kastningsförfrågningar" från Claude CLI – uppvärmningsping, titelextraktioner och tokenräkningar – och returnerar ett **falskt svar** utan att konsumera uppströmsleverantörstokens. Detta utlöses endast när `User-Agent` innehåller `claude-cli`.
+The bypass handler (`open-sse/utils/bypassHandler.ts`) intercepts known "throwaway" requests from Claude CLI — warmup pings, title extractions, and token counts — and returns a **fake response** without consuming upstream provider tokens. This is triggered only when `User-Agent` contains `claude-cli`.
 
-## Begär Logger Pipeline
+## Request Logger Pipeline
 
-Begäranloggaren (`open-sse/utils/requestLogger.ts`) tillhandahåller en 7-stegs felsökningsloggningspipeline, inaktiverad som standard, aktiverad via `ENABLE_REQUEST_LOGS=true`:
+The request logger (`open-sse/utils/requestLogger.ts`) provides a 7-stage debug logging pipeline, disabled by default, enabled via `ENABLE_REQUEST_LOGS=true`:
 
 ```
 1_req_client.json → 2_req_source.json → 3_req_openai.json → 4_req_target.json
 → 5_res_provider.txt → 6_res_openai.txt → 7_res_client.txt
 ```
 
-Filer skrivs till `<repo>/logs/<session>/` för varje begäranssession.
+Files are written to `<repo>/logs/<session>/` for each request session.
 
-## Fellägen och motståndskraft
+## Failure Modes and Resilience
 
-## 1) Tillgänglighet för konto/leverantör
+## 1) Account/Provider Availability
 
-- Nedkylning av leverantörskonto på övergående/hastighets-/auth-fel
-- reservkonto innan begäran misslyckas
-- kombimodell fallback när nuvarande modell/leverantörsväg är uttömd
+- provider account cooldown on transient/rate/auth errors
+- account fallback before failing request
+- combo model fallback when current model/provider path is exhausted
 
-## 2) Tokens utgång
+## 2) Token Expiry
 
-- Förkontroll och uppdatera med ett nytt försök för uppdateringsbara leverantörer
-- 401/403 försök igen efter uppdateringsförsök i kärnvägen
+- pre-check and refresh with retry for refreshable providers
+- 401/403 retry after refresh attempt in core path
 
-## 3) Strömsäkerhet
+## 3) Stream Safety
 
-- frånkopplingsmedveten strömkontroller
-- översättningsström med end-of-stream-spolning och `[DONE]`-hantering
-- användningsuppskattning fallback när leverantörens användningsmetadata saknas
+- disconnect-aware stream controller
+- translation stream with end-of-stream flush and `[DONE]` handling
+- usage estimation fallback when provider usage metadata is missing
 
-## 4) Molnsynkroniseringsförsämring
+## 4) Cloud Sync Degradation
 
-- Synkroniseringsfel dyker upp men den lokala körtiden fortsätter
-- Schemaläggaren har logik som kan försöka igen, men periodisk exekvering anropar för närvarande synkronisering med ett enda försök som standard
+- sync errors are surfaced but local runtime continues
+- scheduler has retry-capable logic, but periodic execution currently calls single-attempt sync by default
 
-## 5) Dataintegritet
+## 5) Data Integrity
 
-- DB-formmigrering/reparation för saknade nycklar
-- korrupta JSON-återställningsskydd för localDb och usageDb
+- SQLite schema migrations and auto-upgrade hooks at startup
+- legacy JSON → SQLite migration compatibility path
 
-## Observerbarhet och operativa signaler
+## Observability and Operational Signals
 
-Källor för synlighet vid körning:
+Runtime visibility sources:
 
-- konsolloggar från `src/sse/utils/logger.ts`
-- användningsaggregat per begäran i `usage.json`
-- textförfrågan status logga in `log.txt`
-- valfria djupa förfrågningar/översättningsloggar under `logs/` när `ENABLE_REQUEST_LOGS=true`
-- slutpunkter för användning av instrumentpanelen (`/api/usage/*`) för användargränssnittsförbrukning
+- console logs from `src/sse/utils/logger.ts`
+- per-request usage aggregates in SQLite (`usage_history`, `call_logs`, `proxy_logs`)
+- textual request status log in `log.txt` (optional/compat)
+- optional deep request/translation logs under `logs/` when `ENABLE_REQUEST_LOGS=true`
+- dashboard usage endpoints (`/api/usage/*`) for UI consumption
 
-## Säkerhetskänsliga gränser
+## Security-Sensitive Boundaries
 
-- JWT-hemlighet (`JWT_SECRET`) säkrar verifiering/signering av cookies på instrumentpanelen
-- Initialt reservlösenord (`INITIAL_PASSWORD`, standard `123456`) måste åsidosättas i verkliga distributioner
-- API-nyckel HMAC-hemlighet (`API_KEY_SECRET`) säkrar genererat lokalt API-nyckelformat
-- Leverantörshemligheter (API-nycklar/tokens) finns kvar i lokal DB och bör skyddas på filsystemnivå
-- Slutpunkter för molnsynkronisering är beroende av API-nyckelbehörighet + maskin-id-semantik
+- JWT secret (`JWT_SECRET`) secures dashboard session cookie verification/signing
+- Initial password bootstrap (`INITIAL_PASSWORD`) should be explicitly configured for first-run provisioning
+- API key HMAC secret (`API_KEY_SECRET`) secures generated local API key format
+- Provider secrets (API keys/tokens) are persisted in local DB and should be protected at filesystem level
+- Cloud sync endpoints rely on API key auth + machine id semantics
 
-## Miljö- och körtidsmatris
+## Environment and Runtime Matrix
 
-Miljövariabler som används aktivt av kod:
+Environment variables actively used by code:
 
 - App/auth: `JWT_SECRET`, `INITIAL_PASSWORD`
-- Lagring: `DATA_DIR`
-- Kompatibelt nodbeteende: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
-- Valfri åsidosättning av lagringsbas (Linux/macOS när `DATA_DIR` inte är inställd): `XDG_CONFIG_HOME`
-- Säkerhetshashing: `API_KEY_SECRET`, `MACHINE_ID_SALT`
-- Loggning: `ENABLE_REQUEST_LOGS`
-- Synkronisera/molnwebbadress: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
-- Utgående proxy: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` och varianter med små bokstäver
-- SOCKS5-funktionsflaggor: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
-- Plattforms-/runtime-hjälpare (inte appspecifik konfiguration): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
+- Storage: `DATA_DIR`
+- Compatible node behavior: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
+- Optional storage base override (Linux/macOS when `DATA_DIR` unset): `XDG_CONFIG_HOME`
+- Security hashing: `API_KEY_SECRET`, `MACHINE_ID_SALT`
+- Logging: `ENABLE_REQUEST_LOGS`
+- Sync/cloud URLing: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
+- Outbound proxy: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` and lowercase variants
+- SOCKS5 feature flags: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
+- Platform/runtime helpers (not app-specific config): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
 
-## Kända arkitektoniska anteckningar
+## Known Architectural Notes
 
-1. `usageDb` och `localDb` delar nu samma baskatalogpolicy (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) med äldre filmigrering.
-2. `/api/v1/route.ts` returnerar en statisk modelllista och är inte den huvudsakliga modellkällan som används av `/v1/models`.
-3. Request logger skriver fullständiga rubriker/text när den är aktiverad; behandla loggkatalogen som känslig.
-4. Molnets beteende beror på korrekt `NEXT_PUBLIC_BASE_URL` och molnets slutpunkts tillgänglighet.
-5. Katalogen `open-sse/` publiceras som `@omniroute/open-sse` **npm workspace-paketet**. Källkoden importerar den via `@omniroute/open-sse/...` (löst av Next.js `transpilePackages`). Filsökvägar i det här dokumentet använder fortfarande katalognamnet `open-sse/` för konsekvens.
-6. Diagram i instrumentpanelen använder **Recharts** (SVG-baserad) för tillgängliga, interaktiva analysvisualiseringar (stapeldiagram för modellanvändning, leverantörsuppdelningstabeller med framgångsfrekvenser).
-7. E2E-tester använder **dramatiker** (`tests/e2e/`), körs via `npm run test:e2e`. Enhetstester använder **Node.js testrunner** (`tests/unit/`), körs via `npm run test:plan3`. Källkoden under `src/` är **TypeScript** (`.ts`/`.tsx`); arbetsytan `open-sse/` förblir JavaScript (`.js`).
-8. Inställningssidan är organiserad i 5 flikar: Säkerhet, Routing (6 globala strategier: fill-first, round-robin, p2c, slumpmässig, minst använda, kostnadsoptimerad), Resiliens (redigerbara hastighetsgränser, strömbrytare, policyer), AI (tänkande budget, systemprompt, promptcache), Advanced (proxy).
+1. `usageDb` and `localDb` share the same base directory policy (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) with legacy file migration.
+2. `/api/v1/route.ts` delegates to the same unified catalog builder used by `/api/v1/models` (`src/app/api/v1/models/catalog.ts`) to avoid semantic drift.
+3. Request logger writes full headers/body when enabled; treat log directory as sensitive.
+4. Cloud behavior depends on correct `NEXT_PUBLIC_BASE_URL` and cloud endpoint reachability.
+5. The `open-sse/` directory is published as the `@omniroute/open-sse` **npm workspace package**. Source code imports it via `@omniroute/open-sse/...` (resolved by Next.js `transpilePackages`). File paths in this document still use the directory name `open-sse/` for consistency.
+6. Charts in the dashboard use **Recharts** (SVG-based) for accessible, interactive analytics visualizations (model usage bar charts, provider breakdown tables with success rates).
+7. E2E tests use **Playwright** (`tests/e2e/`), run via `npm run test:e2e`. Unit tests use **Node.js test runner** (`tests/unit/`), run via `npm run test:unit`. Source code under `src/` is **TypeScript** (`.ts`/`.tsx`); the `open-sse/` workspace remains JavaScript (`.js`).
+8. Settings page is organized into 5 tabs: Security, Routing (6 global strategies: fill-first, round-robin, p2c, random, least-used, cost-optimized), Resilience (editable rate limits, circuit breaker, policies), AI (thinking budget, system prompt, prompt cache), Advanced (proxy).
 
-## Checklista för operativ verifiering
+## Operational Verification Checklist
 
-- Bygg från källa: `npm run build`
-- Bygg Docker-bild: `docker build -t omniroute .`
-- Starta tjänsten och verifiera:
+- Build from source: `npm run build`
+- Build Docker image: `docker build -t omniroute .`
+- Start service and verify:
 - `GET /api/settings`
 - `GET /api/v1/models`
-- CLI-målbasadressen ska vara `http://<host>:20128/v1` när `PORT=20128`
+- CLI target base URL should be `http://<host>:20128/v1` when `PORT=20128`

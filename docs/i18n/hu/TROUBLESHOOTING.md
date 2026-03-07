@@ -1,87 +1,87 @@
-# Hibaelhárítás
+# Troubleshooting
 
-🌐 **Languages:** 🇺🇸 [English](../../TROUBLESHOOTING.md) | 🇧🇷 [Português (Brasil)](../pt-BR/TROUBLESHOOTING.md) | 🇪🇸 [Español](../es/TROUBLESHOOTING.md) | 🇫🇷 [Français](../fr/TROUBLESHOOTING.md) | 🇮🇹 [Italiano](../it/TROUBLESHOOTING.md) | 🇷🇺 [Русский](../ru/TROUBLESHOOTING.md) | 🇨🇳 [中文 (简体)](../zh-CN/TROUBLESHOOTING.md) | 🇩🇪 [Deutsch](../de/TROUBLESHOOTING.md) | 🇮🇳 [हिन्दी](../in/TROUBLESHOOTING.md) | 🇹🇭 [ไทย](../th/TROUBLESHOOTING.md) | 🇺🇦 [Українська](../uk-UA/TROUBLESHOOTING.md) | 🇸🇦 [العربية](../ar/TROUBLESHOOTING.md) | 🇯🇵 [日本語](../ja/TROUBLESHOOTING.md) | 🇻🇳 [Tiếng Việt](../vi/TROUBLESHOOTING.md) | 🇧🇬 [Български](../bg/TROUBLESHOOTING.md) | 🇩🇰 [Dansk](../da/TROUBLESHOOTING.md) | 🇫🇮 [Suomi](../fi/TROUBLESHOOTING.md) | 🇮🇱 [עברית](../he/TROUBLESHOOTING.md) | 🇭🇺 [Magyar](../hu/TROUBLESHOOTING.md) | 🇮🇩 [Bahasa Indonesia](../id/TROUBLESHOOTING.md) | 🇰🇷 [한국어](../ko/TROUBLESHOOTING.md) | 🇲🇾 [Bahasa Melayu](../ms/TROUBLESHOOTING.md) | 🇳🇱 [Nederlands](../nl/TROUBLESHOOTING.md) | 🇳🇴 [Norsk](../no/TROUBLESHOOTING.md) | 🇵🇹 [Português (Portugal)](../pt/TROUBLESHOOTING.md) | 🇷🇴 [Română](../ro/TROUBLESHOOTING.md) | 🇵🇱 [Polski](../pl/TROUBLESHOOTING.md) | 🇸🇰 [Slovenčina](../sk/TROUBLESHOOTING.md) | 🇸🇪 [Svenska](../sv/TROUBLESHOOTING.md) | 🇵🇭 [Filipino](../phi/TROUBLESHOOTING.md)
+🌐 **Languages:** 🇺🇸 [English](TROUBLESHOOTING.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/TROUBLESHOOTING.md) | 🇪🇸 [Español](i18n/es/TROUBLESHOOTING.md) | 🇫🇷 [Français](i18n/fr/TROUBLESHOOTING.md) | 🇮🇹 [Italiano](i18n/it/TROUBLESHOOTING.md) | 🇷🇺 [Русский](i18n/ru/TROUBLESHOOTING.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/TROUBLESHOOTING.md) | 🇩🇪 [Deutsch](i18n/de/TROUBLESHOOTING.md) | 🇮🇳 [हिन्दी](i18n/in/TROUBLESHOOTING.md) | 🇹🇭 [ไทย](i18n/th/TROUBLESHOOTING.md) | 🇺🇦 [Українська](i18n/uk-UA/TROUBLESHOOTING.md) | 🇸🇦 [العربية](i18n/ar/TROUBLESHOOTING.md) | 🇯🇵 [日本語](i18n/ja/TROUBLESHOOTING.md) | 🇻🇳 [Tiếng Việt](i18n/vi/TROUBLESHOOTING.md) | 🇧🇬 [Български](i18n/bg/TROUBLESHOOTING.md) | 🇩🇰 [Dansk](i18n/da/TROUBLESHOOTING.md) | 🇫🇮 [Suomi](i18n/fi/TROUBLESHOOTING.md) | 🇮🇱 [עברית](i18n/he/TROUBLESHOOTING.md) | 🇭🇺 [Magyar](i18n/hu/TROUBLESHOOTING.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/TROUBLESHOOTING.md) | 🇰🇷 [한국어](i18n/ko/TROUBLESHOOTING.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/TROUBLESHOOTING.md) | 🇳🇱 [Nederlands](i18n/nl/TROUBLESHOOTING.md) | 🇳🇴 [Norsk](i18n/no/TROUBLESHOOTING.md) | 🇵🇹 [Português (Portugal)](i18n/pt/TROUBLESHOOTING.md) | 🇷🇴 [Română](i18n/ro/TROUBLESHOOTING.md) | 🇵🇱 [Polski](i18n/pl/TROUBLESHOOTING.md) | 🇸🇰 [Slovenčina](i18n/sk/TROUBLESHOOTING.md) | 🇸🇪 [Svenska](i18n/sv/TROUBLESHOOTING.md) | 🇵🇭 [Filipino](i18n/phi/TROUBLESHOOTING.md)
 
-Az OmniRoute gyakori problémái és megoldásai.
-
----
-
-## Gyors javítások
-
-| Probléma                            | Megoldás                                                                      |
-| ----------------------------------- | ----------------------------------------------------------------------------- | ---------- |
-| Az első bejelentkezés nem működik   | `INITIAL_PASSWORD` ellenőrzése itt: `.env` (alapértelmezett: `123456`)        |
-| A műszerfal rossz porton nyílik meg | `PORT=20128` és `NEXT_PUBLIC_BASE_URL=http://localhost:20128` beállítása      |
-| Nincsenek kérésnaplók a `logs/`     | alatt `ENABLE_REQUEST_LOGS=true`                                              | beállítása |
-| EACCES: engedély megtagadva         | `DATA_DIR=/path/to/writable/dir` beállítása a `~/.omniroute` felülbírálásához |
-| Az útválasztási stratégia nem menti | Frissítés v1.4.11+ verzióra (Zod-séma javítása a beállítások fennmaradásához) |
+Common problems and solutions for OmniRoute.
 
 ---
 
-## Szolgáltatói problémák
+## Quick Fixes
 
-### "A nyelvi modell nem adott üzenetet"
-
-**Ok:** A szolgáltatói kvóta kimerült.
-
-**Javítás:**
-
-1. Ellenőrizze az irányítópult kvótakövetőjét
-2. Használjon kombót tartalék szintekkel
-3. Váltson olcsóbb/ingyenes szintre
-
-### Díjkorlátozás
-
-**Ok:** Az előfizetési kvóta kimerült.
-
-**Javítás:**
-
-- Tartalék hozzáadása: `cc/claude-opus-4-6 → glm/glm-4.7 → if/kimi-k2-thinking`
-- Használja a GLM/MiniMax-ot olcsó tartalékként
-
-### OAuth-token lejárt
-
-Az OmniRoute automatikusan frissíti a tokeneket. Ha a problémák továbbra is fennállnak:
-
-1. Irányítópult → Szolgáltató → Újracsatlakozás
-2. Törölje és adja hozzá újra a szolgáltatói kapcsolatot
+| Problem                       | Solution                                                           |
+| ----------------------------- | ------------------------------------------------------------------ |
+| First login not working       | Set `INITIAL_PASSWORD` in `.env` (no hardcoded default)            |
+| Dashboard opens on wrong port | Set `PORT=20128` and `NEXT_PUBLIC_BASE_URL=http://localhost:20128` |
+| No request logs under `logs/` | Set `ENABLE_REQUEST_LOGS=true`                                     |
+| EACCES: permission denied     | Set `DATA_DIR=/path/to/writable/dir` to override `~/.omniroute`    |
+| Routing strategy not saving   | Update to v1.4.11+ (Zod schema fix for settings persistence)       |
 
 ---
 
-## Felhővel kapcsolatos problémák
+## Provider Issues
 
-### Felhőszinkronizálási hibák
+### "Language model did not provide messages"
 
-1. Ellenőrizze, hogy a futó példány `BASE_URL` pontja (pl. `http://localhost:20128`)
-2. Igazoljon `CLOUD_URL` pontot a felhő-végponthoz (pl. `https://omniroute.dev`)
-3. Tartsa az `NEXT_PUBLIC_*` értékeket a szerveroldali értékekkel összhangban
+**Cause:** Provider quota exhausted.
 
-### Felhő `stream=false` 500-at tér vissza
+**Fix:**
 
-**Tünet:** `Unexpected token 'd'...` a felhő-végponton nem streaming hívásokhoz.
+1. Check dashboard quota tracker
+2. Use a combo with fallback tiers
+3. Switch to cheaper/free tier
 
-**Ok:** Az Upstream SSE hasznos adatot ad vissza, miközben az ügyfél a JSON-t várja.
+### Rate Limiting
 
-**Megkerülő megoldás:** Használja a `stream=true`-t a felhőalapú közvetlen hívásokhoz. A helyi futási környezet tartalmazza az SSE→JSON tartalékot.
+**Cause:** Subscription quota exhausted.
 
-### A felhő azt mondja, hogy csatlakoztatva van, de "érvénytelen API-kulcs"
+**Fix:**
 
-1. Hozzon létre egy új kulcsot a helyi irányítópultról (`/api/keys`)
-2. Futtassa a felhőszinkronizálást: Engedélyezze a Felhőt → Szinkronizálás most
-3. A régi/nem szinkronizált kulcsok továbbra is visszaadhatják a következőt: `401` a felhőben
+- Add fallback: `cc/claude-opus-4-6 → glm/glm-4.7 → if/kimi-k2-thinking`
+- Use GLM/MiniMax as cheap backup
+
+### OAuth Token Expired
+
+OmniRoute auto-refreshes tokens. If issues persist:
+
+1. Dashboard → Provider → Reconnect
+2. Delete and re-add the provider connection
 
 ---
 
-## Docker problémák
+## Cloud Issues
 
-### A CLI eszköz azt mutatja, hogy nincs telepítve
+### Cloud Sync Errors
 
-1. Ellenőrizze a futásidejű mezőket: `curl http://localhost:20128/api/cli-tools/runtime/codex | jq`
-2. Hordozható módhoz: használja a `runner-cli` képcélt (csomagolt CLI-k)
-3. Gazda beillesztési módhoz: állítsa be a `CLI_EXTRA_PATHS` értéket, és csatlakoztassa a gazdagép bin könyvtárát csak olvashatóként
-4. Ha `installed=true` és `runnable=false`: bináris fájl található, de az állapotellenőrzés sikertelen
+1. Verify `BASE_URL` points to your running instance (e.g., `http://localhost:20128`)
+2. Verify `CLOUD_URL` points to your cloud endpoint (e.g., `https://omniroute.dev`)
+3. Keep `NEXT_PUBLIC_*` values aligned with server-side values
 
-### Gyors futásidejű érvényesítés
+### Cloud `stream=false` Returns 500
+
+**Symptom:** `Unexpected token 'd'...` on cloud endpoint for non-streaming calls.
+
+**Cause:** Upstream returns SSE payload while client expects JSON.
+
+**Workaround:** Use `stream=true` for cloud direct calls. Local runtime includes SSE→JSON fallback.
+
+### Cloud Says Connected but "Invalid API key"
+
+1. Create a fresh key from local dashboard (`/api/keys`)
+2. Run cloud sync: Enable Cloud → Sync Now
+3. Old/non-synced keys can still return `401` on cloud
+
+---
+
+## Docker Issues
+
+### CLI Tool Shows Not Installed
+
+1. Check runtime fields: `curl http://localhost:20128/api/cli-tools/runtime/codex | jq`
+2. For portable mode: use image target `runner-cli` (bundled CLIs)
+3. For host mount mode: set `CLI_EXTRA_PATHS` and mount host bin directory as read-only
+4. If `installed=true` and `runnable=false`: binary was found but failed healthcheck
+
+### Quick Runtime Validation
 
 ```bash
 curl -s http://localhost:20128/api/cli-tools/codex-settings | jq '{installed,runnable,commandPath,runtimeMode,reason}'
@@ -91,24 +91,24 @@ curl -s http://localhost:20128/api/cli-tools/openclaw-settings | jq '{installed,
 
 ---
 
-## Költségproblémák
+## Cost Issues
 
-### Magas költségek
+### High Costs
 
-1. Ellenőrizze a használati statisztikákat az Irányítópult → Használat menüpontban
-2. Állítsa át az elsődleges modellt GLM/MiniMax-ra
-3. Használjon ingyenes réteget (Gemini CLI, iFlow) a nem kritikus feladatokhoz
-4. Állítsa be a költségkereteket API-kulcsonként: Irányítópult → API-kulcsok → Költségvetés
+1. Check usage stats in Dashboard → Usage
+2. Switch primary model to GLM/MiniMax
+3. Use free tier (Gemini CLI, iFlow) for non-critical tasks
+4. Set cost budgets per API key: Dashboard → API Keys → Budget
 
 ---
 
-## Hibakeresés
+## Debugging
 
-### Kérelemnaplók engedélyezése
+### Enable Request Logs
 
-Állítsa be az `ENABLE_REQUEST_LOGS=true` értéket a `.env` fájlban. A naplók a `logs/` könyvtárban jelennek meg.
+Set `ENABLE_REQUEST_LOGS=true` in your `.env` file. Logs appear under `logs/` directory.
 
-### Ellenőrizze a szolgáltató állapotát
+### Check Provider Health
 
 ```bash
 # Health dashboard
@@ -118,102 +118,137 @@ http://localhost:20128/dashboard/health
 curl http://localhost:20128/api/monitoring/health
 ```
 
-### Futásidejű tárhely
+### Runtime Storage
 
-- Fő állapot: `${DATA_DIR}/db.json` (szolgáltatók, kombinációk, álnevek, kulcsok, beállítások)
-- Használat: `${DATA_DIR}/usage.json`, `${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`
-- Kérelemnaplók: `<repo>/logs/...` (amikor `ENABLE_REQUEST_LOGS=true`)
-
----
-
-## Áramköri megszakítóval kapcsolatos problémák
-
-### A szolgáltató NYITOTT állapotban ragadt
-
-Amikor egy szolgáltató megszakítója NYITVA van, a kérések blokkolva vannak, amíg a leállás le nem jár.
-
-**Javítás:**
-
-1. Lépjen az **Irányítópult → Beállítások → Rugalmasság** menüpontra.
-2. Ellenőrizze az érintett szolgáltató megszakítókártyáját
-3. Kattintson a **Reset All** elemre az összes megszakító törléséhez, vagy várja meg, amíg a lehűlés lejár
-4. A visszaállítás előtt ellenőrizze, hogy a szolgáltató valóban elérhető-e
-
-### A szolgáltató folyamatosan kioldja a megszakítót
-
-Ha egy szolgáltató ismételten NYITOTT állapotba lép:
-
-1. Ellenőrizze a **Irányítópult → Állapot → Szolgáltató állapota** menüpontban a hibamintát
-2. Lépjen a **Beállítások → Ellenállás → Szolgáltatói profilok** menüpontra, és növelje a meghibásodási küszöböt.
-3. Ellenőrizze, hogy a szolgáltató megváltoztatta-e az API-korlátokat, vagy nem igényel-e újbóli hitelesítést
-4. Tekintse át a késleltetési telemetriát – a magas késleltetés időtúllépésen alapuló hibákat okozhat
+- Main state: `${DATA_DIR}/storage.sqlite` (providers, combos, aliases, keys, settings)
+- Usage: SQLite tables in `storage.sqlite` (`usage_history`, `call_logs`, `proxy_logs`) + optional `${DATA_DIR}/log.txt` and `${DATA_DIR}/call_logs/`
+- Request logs: `<repo>/logs/...` (when `ENABLE_REQUEST_LOGS=true`)
 
 ---
 
-## Hangátírási problémák
+## Circuit Breaker Issues
 
-### "Nem támogatott modell" hiba
+### Provider stuck in OPEN state
 
-- Győződjön meg arról, hogy a megfelelő előtagot használja: `deepgram/nova-3` vagy `assemblyai/best`
-- Ellenőrizze, hogy a szolgáltató csatlakoztatva van-e az **Irányítópult → Szolgáltatók** menüpontban.
+When a provider's circuit breaker is OPEN, requests are blocked until the cooldown expires.
 
-### Az átírás üresen tér vissza, vagy meghiúsul
+**Fix:**
 
-- Ellenőrizze a támogatott hangformátumokat: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`
-- Ellenőrizze, hogy a fájl mérete a szolgáltatói korlátokon belül van (általában < 25 MB)
-- Ellenőrizze a szolgáltatói API kulcs érvényességét a szolgáltatói kártyán
+1. Go to **Dashboard → Settings → Resilience**
+2. Check the circuit breaker card for the affected provider
+3. Click **Reset All** to clear all breakers, or wait for the cooldown to expire
+4. Verify the provider is actually available before resetting
 
----
+### Provider keeps tripping the circuit breaker
 
-## Fordítói hibakeresés
+If a provider repeatedly enters OPEN state:
 
-Használja az **Irányítópult → Fordító** lehetőséget a formátumfordítási problémák elhárításához:
-
-| mód                   | Mikor kell használni                                                                                                                |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| **Játszótér**         | Hasonlítsa össze a bemeneti/kimeneti formátumokat egymás mellett – illesszen be egy hibás kérést, hogy megtudja, hogyan fordítja le |
-| **Csevegés tesztelő** | Küldjön élő üzeneteket, és ellenőrizze a teljes kérés/válasz hasznos adatot, beleértve a fejléceket                                 |
-| **Próbapad**          | Futtasson kötegelt teszteket a formátumkombinációk között, hogy megtudja, mely fordítások hibásak                                   |
-| **Élő monitor**       | Nézze meg a valós idejű kérések folyamatát az időszakos fordítási problémák észleléséhez                                            |
-
-### Gyakori formátumproblémák
-
-- **Nem jelennek meg a gondolkodási címkék** — Ellenőrizze, hogy a célszolgáltató támogatja-e a gondolkodást és a gondolkodási költségvetés beállítását
-- **Eszközhívások megszakítása** — Egyes formátumfordítások eltávolíthatják a nem támogatott mezőket; ellenőrizze Playground módban
-- **Rendszerprompt hiányzik** — Claude és Gemini fogantyúrendszere eltérő módon szól; ellenőrizze a fordítás kimenetét
-- **Az SDK nyers karakterláncot ad vissza az objektum helyett** - Javítva az 1.1.0 verzióban: a válasz-fertőtlenítő mostantól eltávolítja azokat a nem szabványos mezőket (`x_groq`, `usage_breakdown` stb.), amelyek az OpenAI SDK Pydantic ellenőrzési hibáit okozzák
-- **GLM/ERNIE elutasítja a `system` szerepkört** - Javítva az 1.1.0 verzióban: a szerepnormalizáló automatikusan egyesíti a rendszerüzeneteket felhasználói üzenetekké az inkompatibilis modelleknél
-- **`developer` szerepkör nem ismerhető fel** - Javítva az 1.1.0 verzióban: automatikusan `system`-ra konvertálva a nem OpenAI szolgáltatók számára
-- **`json_schema` nem működik a Geminivel** - Javítva az 1.1.0-s verzióban: `response_format` mostantól Gemini `responseMimeType` + `responseSchema`
+1. Check **Dashboard → Health → Provider Health** for the failure pattern
+2. Go to **Settings → Resilience → Provider Profiles** and increase the failure threshold
+3. Check if the provider has changed API limits or requires re-authentication
+4. Review latency telemetry — high latency may cause timeout-based failures
 
 ---
 
-## Rugalmassági beállítások
+## Audio Transcription Issues
 
-### Az automatikus sebességkorlátozás nem aktiválódik
+### "Unsupported model" error
 
-- Az automatikus díjkorlát csak az API-kulcs-szolgáltatókra vonatkozik (nem az OAuth-ra/előfizetésre)
-- Ellenőrizze, hogy a **Beállítások → Ellenállás → Szolgáltatói profilok** engedélyezve van-e az automatikus díjkorlátozás
-- Ellenőrizze, hogy a szolgáltató `429` állapotkódokat vagy `Retry-After` fejlécet ad-e vissza
+- Ensure you're using the correct prefix: `deepgram/nova-3` or `assemblyai/best`
+- Verify the provider is connected in **Dashboard → Providers**
 
-### Exponenciális visszalépés hangolása
+### Transcription returns empty or fails
 
-A szolgáltatói profilok az alábbi beállításokat támogatják:
-
-- **Alapkésleltetés** - Kezdeti várakozási idő az első hiba után (alapértelmezett: 1 mp)
-- **Maximális késleltetés** - Maximális várakozási idő (alapértelmezett: 30 mp)
-- **Szorzó** - Mennyivel növelhető a késleltetés egy egymást követő hiba esetén (alapértelmezett: 2x)
-
-### Mennydörgés elleni csorda
-
-Amikor sok egyidejű kérés ér egy korlátozott sebességű szolgáltatót, az OmniRoute mutex + automatikus sebességkorlátozást használ a kérések sorba rendezésére és a lépcsőzetes hibák megelőzésére. Ez automatikus az API-kulcs-szolgáltatók számára.
+- Check supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`
+- Verify file size is within provider limits (typically < 25MB)
+- Check provider API key validity in the provider card
 
 ---
 
-## Még mindig elakadt?
+## Translator Debugging
 
-- **GitHub-problémák**: [github.com/diegosouzapw/OmniRoute/issues](https://github.com/diegosouzapw/OmniRoute/issues)
-- **Architektúra**: A belső részletekért lásd: [link](ARCHITECTURE.md)
-- **API-referencia**: Lásd: [link](API_REFERENCE.md) az összes végponthoz
-- **Egészségügyi irányítópult**: Az **Irányítópult → Egészség** menüpontban ellenőrizze a valós idejű rendszerállapotot
-- **Fordító**: Használja az **Irányítópult → Fordító** lehetőséget a formátumhibák elhárításához
+Use **Dashboard → Translator** to debug format translation issues:
+
+| Mode             | When to Use                                                                                  |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| **Playground**   | Compare input/output formats side by side — paste a failing request to see how it translates |
+| **Chat Tester**  | Send live messages and inspect the full request/response payload including headers           |
+| **Test Bench**   | Run batch tests across format combinations to find which translations are broken             |
+| **Live Monitor** | Watch real-time request flow to catch intermittent translation issues                        |
+
+### Common format issues
+
+- **Thinking tags not appearing** — Check if the target provider supports thinking and the thinking budget setting
+- **Tool calls dropping** — Some format translations may strip unsupported fields; verify in Playground mode
+- **System prompt missing** — Claude and Gemini handle system prompts differently; check translation output
+- **SDK returns raw string instead of object** — Fixed in v1.1.0: response sanitizer now strips non-standard fields (`x_groq`, `usage_breakdown`, etc.) that cause OpenAI SDK Pydantic validation failures
+- **GLM/ERNIE rejects `system` role** — Fixed in v1.1.0: role normalizer automatically merges system messages into user messages for incompatible models
+- **`developer` role not recognized** — Fixed in v1.1.0: automatically converted to `system` for non-OpenAI providers
+- **`json_schema` not working with Gemini** — Fixed in v1.1.0: `response_format` is now converted to Gemini's `responseMimeType` + `responseSchema`
+
+---
+
+## Resilience Settings
+
+### Auto rate-limit not triggering
+
+- Auto rate-limit only applies to API key providers (not OAuth/subscription)
+- Verify **Settings → Resilience → Provider Profiles** has auto-rate-limit enabled
+- Check if the provider returns `429` status codes or `Retry-After` headers
+
+### Tuning exponential backoff
+
+Provider profiles support these settings:
+
+- **Base delay** — Initial wait time after first failure (default: 1s)
+- **Max delay** — Maximum wait time cap (default: 30s)
+- **Multiplier** — How much to increase delay per consecutive failure (default: 2x)
+
+### Anti-thundering herd
+
+When many concurrent requests hit a rate-limited provider, OmniRoute uses mutex + auto rate-limiting to serialize requests and prevent cascading failures. This is automatic for API key providers.
+
+---
+
+## Optional RAG / LLM failure taxonomy (16 problems)
+
+Some OmniRoute users place the gateway in front of RAG or agent stacks. In those setups it is common to see a strange pattern: OmniRoute looks healthy (providers up, routing profiles ok, no rate limit alerts) but the final answer is still wrong.
+
+In practice these incidents usually come from the downstream RAG pipeline, not from the gateway itself.
+
+If you want a shared vocabulary to describe those failures you can use the WFGY ProblemMap, an external MIT license text resource that defines sixteen recurring RAG / LLM failure patterns. At a high level it covers:
+
+- retrieval drift and broken context boundaries
+- empty or stale indexes and vector stores
+- embedding versus semantic mismatch
+- prompt assembly and context window issues
+- logic collapse and overconfident answers
+- long chain and agent coordination failures
+- multi agent memory and role drift
+- deployment and bootstrap ordering problems
+
+The idea is simple:
+
+1. When you investigate a bad response, capture:
+   - user task and request
+   - route or provider combo in OmniRoute
+   - any RAG context used downstream (retrieved documents, tool calls, etc)
+2. Map the incident to one or two WFGY ProblemMap numbers (`No.1` … `No.16`).
+3. Store the number in your own dashboard, runbook, or incident tracker next to the OmniRoute logs.
+4. Use the corresponding WFGY page to decide whether you need to change your RAG stack, retriever, or routing strategy.
+
+Full text and concrete recipes live here (MIT license, text only):
+
+[WFGY ProblemMap README](https://github.com/onestardao/WFGY/blob/main/ProblemMap/README.md)
+
+You can ignore this section if you do not run RAG or agent pipelines behind OmniRoute.
+
+---
+
+## Still Stuck?
+
+- **GitHub Issues**: [github.com/diegosouzapw/OmniRoute/issues](https://github.com/diegosouzapw/OmniRoute/issues)
+- **Architecture**: See [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) for internal details
+- **API Reference**: See [`docs/API_REFERENCE.md`](API_REFERENCE.md) for all endpoints
+- **Health Dashboard**: Check **Dashboard → Health** for real-time system status
+- **Translator**: Use **Dashboard → Translator** to debug format issues

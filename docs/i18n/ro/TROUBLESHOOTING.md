@@ -1,87 +1,87 @@
-# Depanare
+# Troubleshooting
 
-🌐 **Languages:** 🇺🇸 [English](../../TROUBLESHOOTING.md) | 🇧🇷 [Português (Brasil)](../pt-BR/TROUBLESHOOTING.md) | 🇪🇸 [Español](../es/TROUBLESHOOTING.md) | 🇫🇷 [Français](../fr/TROUBLESHOOTING.md) | 🇮🇹 [Italiano](../it/TROUBLESHOOTING.md) | 🇷🇺 [Русский](../ru/TROUBLESHOOTING.md) | 🇨🇳 [中文 (简体)](../zh-CN/TROUBLESHOOTING.md) | 🇩🇪 [Deutsch](../de/TROUBLESHOOTING.md) | 🇮🇳 [हिन्दी](../in/TROUBLESHOOTING.md) | 🇹🇭 [ไทย](../th/TROUBLESHOOTING.md) | 🇺🇦 [Українська](../uk-UA/TROUBLESHOOTING.md) | 🇸🇦 [العربية](../ar/TROUBLESHOOTING.md) | 🇯🇵 [日本語](../ja/TROUBLESHOOTING.md) | 🇻🇳 [Tiếng Việt](../vi/TROUBLESHOOTING.md) | 🇧🇬 [Български](../bg/TROUBLESHOOTING.md) | 🇩🇰 [Dansk](../da/TROUBLESHOOTING.md) | 🇫🇮 [Suomi](../fi/TROUBLESHOOTING.md) | 🇮🇱 [עברית](../he/TROUBLESHOOTING.md) | 🇭🇺 [Magyar](../hu/TROUBLESHOOTING.md) | 🇮🇩 [Bahasa Indonesia](../id/TROUBLESHOOTING.md) | 🇰🇷 [한국어](../ko/TROUBLESHOOTING.md) | 🇲🇾 [Bahasa Melayu](../ms/TROUBLESHOOTING.md) | 🇳🇱 [Nederlands](../nl/TROUBLESHOOTING.md) | 🇳🇴 [Norsk](../no/TROUBLESHOOTING.md) | 🇵🇹 [Português (Portugal)](../pt/TROUBLESHOOTING.md) | 🇷🇴 [Română](../ro/TROUBLESHOOTING.md) | 🇵🇱 [Polski](../pl/TROUBLESHOOTING.md) | 🇸🇰 [Slovenčina](../sk/TROUBLESHOOTING.md) | 🇸🇪 [Svenska](../sv/TROUBLESHOOTING.md) | 🇵🇭 [Filipino](../phi/TROUBLESHOOTING.md)
+🌐 **Languages:** 🇺🇸 [English](TROUBLESHOOTING.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/TROUBLESHOOTING.md) | 🇪🇸 [Español](i18n/es/TROUBLESHOOTING.md) | 🇫🇷 [Français](i18n/fr/TROUBLESHOOTING.md) | 🇮🇹 [Italiano](i18n/it/TROUBLESHOOTING.md) | 🇷🇺 [Русский](i18n/ru/TROUBLESHOOTING.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/TROUBLESHOOTING.md) | 🇩🇪 [Deutsch](i18n/de/TROUBLESHOOTING.md) | 🇮🇳 [हिन्दी](i18n/in/TROUBLESHOOTING.md) | 🇹🇭 [ไทย](i18n/th/TROUBLESHOOTING.md) | 🇺🇦 [Українська](i18n/uk-UA/TROUBLESHOOTING.md) | 🇸🇦 [العربية](i18n/ar/TROUBLESHOOTING.md) | 🇯🇵 [日本語](i18n/ja/TROUBLESHOOTING.md) | 🇻🇳 [Tiếng Việt](i18n/vi/TROUBLESHOOTING.md) | 🇧🇬 [Български](i18n/bg/TROUBLESHOOTING.md) | 🇩🇰 [Dansk](i18n/da/TROUBLESHOOTING.md) | 🇫🇮 [Suomi](i18n/fi/TROUBLESHOOTING.md) | 🇮🇱 [עברית](i18n/he/TROUBLESHOOTING.md) | 🇭🇺 [Magyar](i18n/hu/TROUBLESHOOTING.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/TROUBLESHOOTING.md) | 🇰🇷 [한국어](i18n/ko/TROUBLESHOOTING.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/TROUBLESHOOTING.md) | 🇳🇱 [Nederlands](i18n/nl/TROUBLESHOOTING.md) | 🇳🇴 [Norsk](i18n/no/TROUBLESHOOTING.md) | 🇵🇹 [Português (Portugal)](i18n/pt/TROUBLESHOOTING.md) | 🇷🇴 [Română](i18n/ro/TROUBLESHOOTING.md) | 🇵🇱 [Polski](i18n/pl/TROUBLESHOOTING.md) | 🇸🇰 [Slovenčina](i18n/sk/TROUBLESHOOTING.md) | 🇸🇪 [Svenska](i18n/sv/TROUBLESHOOTING.md) | 🇵🇭 [Filipino](i18n/phi/TROUBLESHOOTING.md)
 
-Probleme și soluții comune pentru OmniRoute.
-
----
-
-## Remedieri rapide
-
-| Problemă                                     | Soluție                                                                       |
-| -------------------------------------------- | ----------------------------------------------------------------------------- |
-| Prima conectare nu funcționează              | Verificați `INITIAL_PASSWORD` în `.env` (implicit: `123456`)                  |
-| Tabloul de bord se deschide pe portul greșit | Setați `PORT=20128` și `NEXT_PUBLIC_BASE_URL=http://localhost:20128`          |
-| Niciun jurnal de solicitare sub `logs/`      | Setați `ENABLE_REQUEST_LOGS=true`                                             |
-| EACCES: permisiunea refuzată                 | Setați `DATA_DIR=/path/to/writable/dir` să înlocuiască `~/.omniroute`         |
-| Strategia de rutare nu se salvează           | Actualizare la v1.4.11+ (remedierea schemei Zod pentru persistența setărilor) |
+Common problems and solutions for OmniRoute.
 
 ---
 
-## Probleme cu furnizorii
+## Quick Fixes
 
-### „Modelul de limbă nu a furnizat mesaje”
-
-**Cauza:** Cota de furnizor epuizată.
-
-**Remediere:**
-
-1. Verificați instrumentul de urmărire a cotelor din tabloul de bord
-2. Utilizați un combo cu niveluri de rezervă
-3. Treceți la nivelul mai ieftin/gratuit
-
-### Limitarea ratei
-
-**Cauza:** Cota de abonament epuizată.
-
-**Remediere:**
-
-- Adăugați alternativă: `cc/claude-opus-4-6 → glm/glm-4.7 → if/kimi-k2-thinking`
-- Utilizați GLM/MiniMax ca rezervă ieftină
-
-### Token OAuth a expirat
-
-OmniRoute reîmprospătează automat jetoanele. Dacă problemele persistă:
-
-1. Tabloul de bord → Furnizor → Reconectare
-2. Ștergeți și adăugați din nou conexiunea la furnizor
+| Problem                       | Solution                                                           |
+| ----------------------------- | ------------------------------------------------------------------ |
+| First login not working       | Set `INITIAL_PASSWORD` in `.env` (no hardcoded default)            |
+| Dashboard opens on wrong port | Set `PORT=20128` and `NEXT_PUBLIC_BASE_URL=http://localhost:20128` |
+| No request logs under `logs/` | Set `ENABLE_REQUEST_LOGS=true`                                     |
+| EACCES: permission denied     | Set `DATA_DIR=/path/to/writable/dir` to override `~/.omniroute`    |
+| Routing strategy not saving   | Update to v1.4.11+ (Zod schema fix for settings persistence)       |
 
 ---
 
-## Probleme cu cloudul
+## Provider Issues
 
-### Erori de sincronizare în cloud
+### "Language model did not provide messages"
 
-1. Verificați `BASE_URL` puncte către instanța dvs. care rulează (de exemplu, `http://localhost:20128`)
-2. Verificați `CLOUD_URL` puncte către punctul final de cloud (de exemplu, `https://omniroute.dev`)
-3. Păstrați valorile `NEXT_PUBLIC_*` aliniate cu valorile de pe server
+**Cause:** Provider quota exhausted.
 
-### Cloud `stream=false` Returnează 500
+**Fix:**
 
-**Simptom:** `Unexpected token 'd'...` pe punctul final cloud pentru apeluri care nu sunt transmise în flux.
+1. Check dashboard quota tracker
+2. Use a combo with fallback tiers
+3. Switch to cheaper/free tier
 
-**Cauza:** Upstream returnează sarcina utilă SSE în timp ce clientul așteaptă JSON.
+### Rate Limiting
 
-**Soluție:** utilizați `stream=true` pentru apelurile directe în cloud. Timpul de rulare local include SSE→JSON fallback.
+**Cause:** Subscription quota exhausted.
 
-### Cloud spune Conectat, dar „Cheie API nevalidă”
+**Fix:**
 
-1. Creați o cheie nouă din tabloul de bord local (`/api/keys`)
-2. Rulați sincronizarea în cloud: Activați Cloud → Sincronizare acum
-3. Cheile vechi/nesincronizate pot reveni în continuare `401` pe cloud
+- Add fallback: `cc/claude-opus-4-6 → glm/glm-4.7 → if/kimi-k2-thinking`
+- Use GLM/MiniMax as cheap backup
+
+### OAuth Token Expired
+
+OmniRoute auto-refreshes tokens. If issues persist:
+
+1. Dashboard → Provider → Reconnect
+2. Delete and re-add the provider connection
 
 ---
 
-## Probleme cu Docker
+## Cloud Issues
 
-### Instrumentul CLI arată că nu este instalat
+### Cloud Sync Errors
 
-1. Verificați câmpurile de rulare: `curl http://localhost:20128/api/cli-tools/runtime/codex | jq`
-2. Pentru modul portabil: utilizați imaginea țintă `runner-cli` (CLI-uri incluse)
-3. Pentru modul de montare gazdă: setați `CLI_EXTRA_PATHS` și montați directorul bin gazdă ca doar citire
-4. Dacă `installed=true` și `runnable=false`: binarul a fost găsit, dar verificarea de sănătate a eșuat
+1. Verify `BASE_URL` points to your running instance (e.g., `http://localhost:20128`)
+2. Verify `CLOUD_URL` points to your cloud endpoint (e.g., `https://omniroute.dev`)
+3. Keep `NEXT_PUBLIC_*` values aligned with server-side values
 
-### Validare rapidă de rulare
+### Cloud `stream=false` Returns 500
+
+**Symptom:** `Unexpected token 'd'...` on cloud endpoint for non-streaming calls.
+
+**Cause:** Upstream returns SSE payload while client expects JSON.
+
+**Workaround:** Use `stream=true` for cloud direct calls. Local runtime includes SSE→JSON fallback.
+
+### Cloud Says Connected but "Invalid API key"
+
+1. Create a fresh key from local dashboard (`/api/keys`)
+2. Run cloud sync: Enable Cloud → Sync Now
+3. Old/non-synced keys can still return `401` on cloud
+
+---
+
+## Docker Issues
+
+### CLI Tool Shows Not Installed
+
+1. Check runtime fields: `curl http://localhost:20128/api/cli-tools/runtime/codex | jq`
+2. For portable mode: use image target `runner-cli` (bundled CLIs)
+3. For host mount mode: set `CLI_EXTRA_PATHS` and mount host bin directory as read-only
+4. If `installed=true` and `runnable=false`: binary was found but failed healthcheck
+
+### Quick Runtime Validation
 
 ```bash
 curl -s http://localhost:20128/api/cli-tools/codex-settings | jq '{installed,runnable,commandPath,runtimeMode,reason}'
@@ -91,24 +91,24 @@ curl -s http://localhost:20128/api/cli-tools/openclaw-settings | jq '{installed,
 
 ---
 
-## Probleme de cost
+## Cost Issues
 
-### Costuri ridicate
+### High Costs
 
-1. Verificați statisticile de utilizare în Tabloul de bord → Utilizare
-2. Comutați modelul principal la GLM/MiniMax
-3. Utilizați nivelul gratuit (Gemini CLI, iFlow) pentru sarcini necritice
-4. Setați bugete de cost pentru fiecare cheie API: Tabloul de bord → Chei API → Buget
+1. Check usage stats in Dashboard → Usage
+2. Switch primary model to GLM/MiniMax
+3. Use free tier (Gemini CLI, iFlow) for non-critical tasks
+4. Set cost budgets per API key: Dashboard → API Keys → Budget
 
 ---
 
-## Depanare
+## Debugging
 
-### Activați jurnalele de solicitări
+### Enable Request Logs
 
-Setați `ENABLE_REQUEST_LOGS=true` în fișierul dvs. `.env`. Jurnalele apar în directorul `logs/`.
+Set `ENABLE_REQUEST_LOGS=true` in your `.env` file. Logs appear under `logs/` directory.
 
-### Verificați sănătatea furnizorului
+### Check Provider Health
 
 ```bash
 # Health dashboard
@@ -118,102 +118,137 @@ http://localhost:20128/dashboard/health
 curl http://localhost:20128/api/monitoring/health
 ```
 
-### Spațiu de rulare
+### Runtime Storage
 
-- Stare principală: `${DATA_DIR}/db.json` (furnizori, combo-uri, aliasuri, chei, setări)
-- Utilizare: `${DATA_DIR}/usage.json`, `${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`
-- Jurnalele de solicitare: `<repo>/logs/...` (când `ENABLE_REQUEST_LOGS=true`)
-
----
-
-## Probleme cu întrerupătorul de circuit
-
-### Furnizor blocat în stare DESCHIS
-
-Când întrerupătorul unui furnizor este DESCHIS, cererile sunt blocate până la expirarea perioadei de răcire.
-
-**Remediere:**
-
-1. Accesați **Tabloul de bord → Setări → Reziliență**
-2. Verificați cardul întreruptorului pentru furnizorul afectat
-3. Faceți clic pe **Reset All** pentru a șterge toate întrerupătoarele sau așteptați ca perioada de răcire să expire
-4. Verificați că furnizorul este efectiv disponibil înainte de resetare
-
-### Furnizorul continuă să declanșeze întrerupătorul
-
-Dacă un furnizor intră în mod repetat în starea DESCHIS:
-
-1. Verificați **Tabloul de bord → Sănătate → Sănătatea furnizorului** pentru modelul de eșec
-2. Accesați **Setări → Reziliență → Profiluri furnizor** și creșteți pragul de eșec
-3. Verificați dacă furnizorul a modificat limitele API sau dacă necesită re-autentificare
-4. Examinați telemetria latenței — latența mare poate cauza eșecuri bazate pe timeout
+- Main state: `${DATA_DIR}/storage.sqlite` (providers, combos, aliases, keys, settings)
+- Usage: SQLite tables in `storage.sqlite` (`usage_history`, `call_logs`, `proxy_logs`) + optional `${DATA_DIR}/log.txt` and `${DATA_DIR}/call_logs/`
+- Request logs: `<repo>/logs/...` (when `ENABLE_REQUEST_LOGS=true`)
 
 ---
 
-## Probleme cu transcrierea audio
+## Circuit Breaker Issues
 
-### Eroare „Model neacceptat”.
+### Provider stuck in OPEN state
 
-- Asigurați-vă că utilizați prefixul corect: `deepgram/nova-3` sau `assemblyai/best`
-- Verificați că furnizorul este conectat în **Tabloul de bord → Furnizori**
+When a provider's circuit breaker is OPEN, requests are blocked until the cooldown expires.
 
-### Transcrierea revine goală sau eșuează
+**Fix:**
 
-- Verificați formatele audio acceptate: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`
-- Verificați că dimensiunea fișierului este în limitele furnizorului (de obicei < 25 MB)
-- Verificați valabilitatea cheii API a furnizorului în cardul furnizorului
+1. Go to **Dashboard → Settings → Resilience**
+2. Check the circuit breaker card for the affected provider
+3. Click **Reset All** to clear all breakers, or wait for the cooldown to expire
+4. Verify the provider is actually available before resetting
 
----
+### Provider keeps tripping the circuit breaker
 
-## Depanare a traducătorului
+If a provider repeatedly enters OPEN state:
 
-Utilizați **Tabloul de bord → Traducător** pentru a depana problemele de traducere de format:
-
-| Modul               | Când să utilizați                                                                                                 |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Teren de joacă**  | Comparați formatele de intrare/ieșire una lângă alta — inserați o solicitare eșuată pentru a vedea cum se traduce |
-| **Tester de chat**  | Trimiteți mesaje live și inspectați întreaga sarcină de solicitare/răspuns, inclusiv antetele                     |
-| **Banc de testare** | Rulați teste în loturi în combinații de formate pentru a afla ce traduceri sunt întrerupte                        |
-| **Monitor live**    | Urmăriți fluxul de solicitări în timp real pentru a detecta problemele intermitente de traducere                  |
-
-### Probleme frecvente de format
-
-- **Nu apar etichete de gândire** — Verificați dacă furnizorul țintă acceptă gândirea și setarea bugetului de gândire
-- **Scăderea apelurilor de instrumente** — Unele traduceri în format pot elimina câmpurile neacceptate; verificați în modul Playground
-- **Lipsește promptul de sistem** — Claude și Gemini gestionează prompturile în mod diferit; verificați rezultatul traducerii
-- **SDK returnează șir brut în loc de obiect** — Remediat în v1.1.0: dezinfectantul de răspuns acum elimină câmpurile nestandard (`x_groq`, `usage_breakdown` etc.) care cauzează eșecuri de validare OpenAI SDK Pydantic
-- **GLM/ERNIE respinge rolul `system`** — Remediat în v1.1.0: normalizatorul de roluri îmbină automat mesajele de sistem în mesajele utilizatorului pentru modele incompatibile
-- **`developer` rol nerecunoscut** — Remediat în v1.1.0: convertit automat în `system` pentru furnizorii non-OpenAI
-- **`json_schema` nu funcționează cu Gemini** — Remediat în v1.1.0: `response_format` este acum convertit în `responseMimeType` + `responseSchema` al lui Gemini
+1. Check **Dashboard → Health → Provider Health** for the failure pattern
+2. Go to **Settings → Resilience → Provider Profiles** and increase the failure threshold
+3. Check if the provider has changed API limits or requires re-authentication
+4. Review latency telemetry — high latency may cause timeout-based failures
 
 ---
 
-## Setări de rezistență
+## Audio Transcription Issues
 
-### Limita automată a ratei nu se declanșează
+### "Unsupported model" error
 
-- Limita automată a ratei se aplică numai furnizorilor de chei API (nu OAuth/abonament)
-- Verificați că **Setări → Reziliență → Profiluri furnizorului** are limita de rata automată activată
-- Verificați dacă furnizorul returnează codurile de stare `429` sau anteturile `Retry-After`
+- Ensure you're using the correct prefix: `deepgram/nova-3` or `assemblyai/best`
+- Verify the provider is connected in **Dashboard → Providers**
 
-### Reglarea retragerii exponențiale
+### Transcription returns empty or fails
 
-Profilurile furnizorilor acceptă aceste setări:
-
-- **Întârziere de bază** — Timp de așteptare inițial după prima defecțiune (implicit: 1s)
-- **Întârziere maximă** — Limită maximă a timpului de așteptare (implicit: 30s)
-- **Multiplicator** — Cât de mult se mărește întârzierea pentru fiecare defecțiune consecutivă (implicit: 2x)
-
-### Turma anti-tunet
-
-Când multe solicitări concurente ajung la un furnizor cu o rată limitată, OmniRoute folosește mutex + limitarea automată a ratei pentru a serializa cererile și a preveni eșecurile în cascadă. Acest lucru este automat pentru furnizorii de chei API.
+- Check supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`
+- Verify file size is within provider limits (typically < 25MB)
+- Check provider API key validity in the provider card
 
 ---
 
-## Încă blocat?
+## Translator Debugging
 
-- **Probleme GitHub**: [github.com/diegosouzapw/OmniRoute/issues](https://github.com/diegosouzapw/OmniRoute/issues)
-- **Arhitectură**: Consultați [link](ARCHITECTURE.md) pentru detalii interne
-- **Referință API**: Consultați [link](API_REFERENCE.md) pentru toate punctele finale
-- **Tabloul de bord pentru sănătate**: verificați **Tabloul de bord → Sănătate** pentru starea sistemului în timp real
-- **Translator**: utilizați **Tabloul de bord → Translator** pentru a depana problemele de format
+Use **Dashboard → Translator** to debug format translation issues:
+
+| Mode             | When to Use                                                                                  |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| **Playground**   | Compare input/output formats side by side — paste a failing request to see how it translates |
+| **Chat Tester**  | Send live messages and inspect the full request/response payload including headers           |
+| **Test Bench**   | Run batch tests across format combinations to find which translations are broken             |
+| **Live Monitor** | Watch real-time request flow to catch intermittent translation issues                        |
+
+### Common format issues
+
+- **Thinking tags not appearing** — Check if the target provider supports thinking and the thinking budget setting
+- **Tool calls dropping** — Some format translations may strip unsupported fields; verify in Playground mode
+- **System prompt missing** — Claude and Gemini handle system prompts differently; check translation output
+- **SDK returns raw string instead of object** — Fixed in v1.1.0: response sanitizer now strips non-standard fields (`x_groq`, `usage_breakdown`, etc.) that cause OpenAI SDK Pydantic validation failures
+- **GLM/ERNIE rejects `system` role** — Fixed in v1.1.0: role normalizer automatically merges system messages into user messages for incompatible models
+- **`developer` role not recognized** — Fixed in v1.1.0: automatically converted to `system` for non-OpenAI providers
+- **`json_schema` not working with Gemini** — Fixed in v1.1.0: `response_format` is now converted to Gemini's `responseMimeType` + `responseSchema`
+
+---
+
+## Resilience Settings
+
+### Auto rate-limit not triggering
+
+- Auto rate-limit only applies to API key providers (not OAuth/subscription)
+- Verify **Settings → Resilience → Provider Profiles** has auto-rate-limit enabled
+- Check if the provider returns `429` status codes or `Retry-After` headers
+
+### Tuning exponential backoff
+
+Provider profiles support these settings:
+
+- **Base delay** — Initial wait time after first failure (default: 1s)
+- **Max delay** — Maximum wait time cap (default: 30s)
+- **Multiplier** — How much to increase delay per consecutive failure (default: 2x)
+
+### Anti-thundering herd
+
+When many concurrent requests hit a rate-limited provider, OmniRoute uses mutex + auto rate-limiting to serialize requests and prevent cascading failures. This is automatic for API key providers.
+
+---
+
+## Optional RAG / LLM failure taxonomy (16 problems)
+
+Some OmniRoute users place the gateway in front of RAG or agent stacks. In those setups it is common to see a strange pattern: OmniRoute looks healthy (providers up, routing profiles ok, no rate limit alerts) but the final answer is still wrong.
+
+In practice these incidents usually come from the downstream RAG pipeline, not from the gateway itself.
+
+If you want a shared vocabulary to describe those failures you can use the WFGY ProblemMap, an external MIT license text resource that defines sixteen recurring RAG / LLM failure patterns. At a high level it covers:
+
+- retrieval drift and broken context boundaries
+- empty or stale indexes and vector stores
+- embedding versus semantic mismatch
+- prompt assembly and context window issues
+- logic collapse and overconfident answers
+- long chain and agent coordination failures
+- multi agent memory and role drift
+- deployment and bootstrap ordering problems
+
+The idea is simple:
+
+1. When you investigate a bad response, capture:
+   - user task and request
+   - route or provider combo in OmniRoute
+   - any RAG context used downstream (retrieved documents, tool calls, etc)
+2. Map the incident to one or two WFGY ProblemMap numbers (`No.1` … `No.16`).
+3. Store the number in your own dashboard, runbook, or incident tracker next to the OmniRoute logs.
+4. Use the corresponding WFGY page to decide whether you need to change your RAG stack, retriever, or routing strategy.
+
+Full text and concrete recipes live here (MIT license, text only):
+
+[WFGY ProblemMap README](https://github.com/onestardao/WFGY/blob/main/ProblemMap/README.md)
+
+You can ignore this section if you do not run RAG or agent pipelines behind OmniRoute.
+
+---
+
+## Still Stuck?
+
+- **GitHub Issues**: [github.com/diegosouzapw/OmniRoute/issues](https://github.com/diegosouzapw/OmniRoute/issues)
+- **Architecture**: See [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) for internal details
+- **API Reference**: See [`docs/API_REFERENCE.md`](API_REFERENCE.md) for all endpoints
+- **Health Dashboard**: Check **Dashboard → Health** for real-time system status
+- **Translator**: Use **Dashboard → Translator** to debug format issues

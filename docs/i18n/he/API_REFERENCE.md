@@ -1,12 +1,12 @@
-# הפניה ל-API
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-הפניה מלאה עבור כל נקודות הקצה של OmniRoute API.
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## תוכן העניינים
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@
 
 ---
 
-## השלמות של צ'אט
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### כותרות מותאמות אישית
+### Custom Headers
 
-| כותרת                    | כיוון | תיאור                             |
-| ------------------------ | ----- | --------------------------------- |
-| `X-OmniRoute-No-Cache`   | בקשה  | הגדר ל-`true` כדי לעקוף את המטמון |
-| `X-OmniRoute-Progress`   | בקשה  | הגדר ל-`true` עבור אירועי התקדמות |
-| `Idempotency-Key`        | בקשה  | מפתח Dedup (חלון 5 שניות)         |
-| `X-Request-Id`           | בקשה  | מפתח ניקוי חלופי                  |
-| `X-OmniRoute-Cache`      | תגובה | `HIT` או `MISS` (לא סטרימינג)     |
-| `X-OmniRoute-Idempotent` | תגובה | `true` אם ביטול כפילות            |
-| `X-OmniRoute-Progress`   | תגובה | `enabled` אם מעקב ההתקדמות ב-     |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## הטבעות
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-ספקים זמינים: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## יצירת תמונה
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-ספקים זמינים: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## רשימת דגמים
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## נקודות קצה של תאימות
+## Compatibility Endpoints
 
-| שיטה | נתיב                        | פורמט             |
-| ---- | --------------------------- | ----------------- |
-| פוסט | `/v1/chat/completions`      | OpenAI            |
-| פוסט | `/v1/messages`              | אנתרופית          |
-| פוסט | `/v1/responses`             | OpenAI תגובות     |
-| פוסט | `/v1/embeddings`            | OpenAI            |
-| פוסט | `/v1/images/generations`    | OpenAI            |
-| קבל  | `/v1/models`                | OpenAI            |
-| פוסט | `/v1/messages/count_tokens` | אנתרופית          |
-| קבל  | `/v1beta/models`            | מזל תאומים        |
-| פוסט | `/v1beta/models/{...path}`  | תאומים ליצור תוכן |
-| פוסט | `/v1/api/chat`              | אולמה             |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### מסלולי ספקים ייעודיים
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-קידומת הספק מתווספת אוטומטית אם חסרה. דגמים לא תואמים מחזירים `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## מטמון סמנטי
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-דוגמה לתגובה:
+Response example:
 
 ```json
 {
@@ -162,154 +162,164 @@ DELETE /api/cache
 
 ---
 
-## לוח מחוונים וניהול
+## Dashboard & Management
 
-### אימות
+### Authentication
 
-| נקודת קצה                     | שיטה    | תיאור             |
-| ----------------------------- | ------- | ----------------- |
-| `/api/auth/login`             | פוסט    | כניסה             |
-| `/api/auth/logout`            | פוסט    | התנתק             |
-| `/api/settings/require-login` | GET/PUT | החלפת כניסה נדרשת |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### ניהול ספקים
+### Provider Management
 
-| נקודת קצה                    | שיטה           | תיאור               |
-| ---------------------------- | -------------- | ------------------- |
-| `/api/providers`             | קבל/פוסט       | רשימת / צור ספקים   |
-| `/api/providers/[id]`        | GET/PUT/DELETE | ניהול ספק           |
-| `/api/providers/[id]/test`   | פוסט           | בדיקת חיבור ספק     |
-| `/api/providers/[id]/models` | קבל            | רשימת דגמי ספקים    |
-| `/api/providers/validate`    | פוסט           | אימות תצורת ספק     |
-| `/api/provider-nodes*`       | שונים          | ניהול צומת ספק      |
-| `/api/provider-models`       | קבל/פרסם/מחק   | דגמים מותאמים אישית |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
 ### OAuth Flows
 
-| נקודת קצה                        | שיטה  | תיאור             |
-| -------------------------------- | ----- | ----------------- |
-| `/api/oauth/[provider]/[action]` | שונים | OAuth ספציפי לספק |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### ניתוב ותצורה
+### Routing & Config
 
-| נקודת קצה             | שיטה     | תיאור                   |
-| --------------------- | -------- | ----------------------- |
-| `/api/models/alias`   | קבל/פוסט | כינויי מודל             |
-| `/api/models/catalog` | קבל      | כל הדגמים לפי ספק + סוג |
-| `/api/combos*`        | שונים    | ניהול קומבו             |
-| `/api/keys*`          | שונים    | ניהול מפתחות API        |
-| `/api/pricing`        | קבל      | תמחור דגם               |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### שימוש וניתוח
+### Usage & Analytics
 
-| נקודת קצה                   | שיטה | תיאור             |
-| --------------------------- | ---- | ----------------- |
-| `/api/usage/history`        | קבל  | היסטוריית שימוש   |
-| `/api/usage/logs`           | קבל  | יומני שימוש       |
-| `/api/usage/request-logs`   | קבל  | יומנים ברמת הבקשה |
-| `/api/usage/[connectionId]` | קבל  | שימוש לכל חיבור   |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### הגדרות
+### Settings
 
-| נקודת קצה                       | שיטה    | תיאור                       |
-| ------------------------------- | ------- | --------------------------- |
-| `/api/settings`                 | GET/PUT | הגדרות כלליות               |
-| `/api/settings/proxy`           | GET/PUT | תצורת proxy של רשת          |
-| `/api/settings/proxy/test`      | פוסט    | בדיקת חיבור פרוקסי          |
-| `/api/settings/ip-filter`       | GET/PUT | רשימת הרשאות IP/רשימת חסימה |
-| `/api/settings/thinking-budget` | GET/PUT | תקציב סמלי מנמק             |
-| `/api/settings/system-prompt`   | GET/PUT | הודעת מערכת גלובלית         |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### ניטור
+### Monitoring
 
-| נקודת קצה                | שיטה    | תיאור                  |
-| ------------------------ | ------- | ---------------------- |
-| `/api/sessions`          | קבל     | מעקב הפעלה פעיל        |
-| `/api/rate-limits`       | קבל     | מגבלות תעריף לחשבון    |
-| `/api/monitoring/health` | קבל     | בדיקת בריאות           |
-| `/api/cache`             | קבל/מחק | סטטיסטיקות מטמון / נקה |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### גיבוי וייצוא/ייבוא
+### Backup & Export/Import
 
-| נקודת קצה                   | שיטה | תיאור                                  |
-| --------------------------- | ---- | -------------------------------------- |
-| `/api/db-backups`           | קבל  | רשימת גיבויים זמינים                   |
-| `/api/db-backups`           | PUT  | צור גיבוי ידני                         |
-| `/api/db-backups`           | פוסט | שחזור מגיבוי ספציפי                    |
-| `/api/db-backups/export`    | קבל  | הורד את מסד הנתונים כקובץ sqlite       |
-| `/api/db-backups/import`    | פוסט | העלה קובץ sqlite כדי להחליף מסד נתונים |
-| `/api/db-backups/exportAll` | קבל  | הורד גיבוי מלא כארכיון .tar.gz         |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
-### סנכרון ענן
+### Cloud Sync
 
-| נקודת קצה              | שיטה  | תיאור              |
-| ---------------------- | ----- | ------------------ |
-| `/api/sync/cloud`      | שונים | פעולות סנכרון בענן |
-| `/api/sync/initialize` | פוסט  | אתחול סנכרון       |
-| `/api/cloud/*`         | שונים | ניהול ענן          |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### כלי CLI
+### CLI Tools
 
-| נקודת קצה                          | שיטה | תיאור                |
-| ---------------------------------- | ---- | -------------------- |
-| `/api/cli-tools/claude-settings`   | קבל  | סטטוס קלוד CLI       |
-| `/api/cli-tools/codex-settings`    | קבל  | מצב Codex CLI        |
-| `/api/cli-tools/droid-settings`    | קבל  | סטטוס CLI של Droid   |
-| `/api/cli-tools/openclaw-settings` | קבל  | מצב CLI של OpenClaw  |
-| `/api/cli-tools/runtime/[toolId]`  | קבל  | זמן ריצה כללי של CLI |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-תגובות CLI כוללות: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### מגבלות חוסן וקצב
+### ACP Agents
 
-| נקודת קצה               | שיטה    | תיאור                       |
-| ----------------------- | ------- | --------------------------- |
-| `/api/resilience`       | GET/PUT | קבל/עדכן פרופילי חוסן       |
-| `/api/resilience/reset` | פוסט    | איפוס מפסקים                |
-| `/api/rate-limits`      | קבל     | סטטוס מגבלת תעריף לכל חשבון |
-| `/api/rate-limit`       | קבל     | תצורת מגבלת תעריף גלובלית   |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
 
-### איוואלים
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
 
-| נקודת קצה    | שיטה     | תיאור                          |
-| ------------ | -------- | ------------------------------ |
-| `/api/evals` | קבל/פוסט | רשימת חבילות eval / הפעל הערכה |
+### Resilience & Rate Limits
 
-### מדיניות
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
-| נקודת קצה       | שיטה         | תיאור             |
-| --------------- | ------------ | ----------------- |
-| `/api/policies` | קבל/פרסם/מחק | נהל מדיניות ניתוב |
+### Evals
 
-### תאימות
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-| נקודת קצה                   | שיטה | תיאור                      |
-| --------------------------- | ---- | -------------------------- |
-| `/api/compliance/audit-log` | קבל  | יומן ביקורת ציות (N אחרון) |
+### Policies
 
-### v1beta (תואם לתאומים)
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-| נקודת קצה                  | שיטה | תיאור                              |
-| -------------------------- | ---- | ---------------------------------- |
-| `/v1beta/models`           | קבל  | רשימת דגמים בפורמט תאומים          |
-| `/v1beta/models/{...path}` | פוסט | תאומים `generateContent` נקודת קצה |
+### Compliance
 
-נקודות קצה אלו משקפות את פורמט ה-API של Gemini עבור לקוחות המצפים לתאימות מקורית של Gemini SDK.
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### ממשקי API פנימיים/מערכתיים
+### v1beta (Gemini-Compatible)
 
-| נקודת קצה       | שיטה | תיאור                                         |
-| --------------- | ---- | --------------------------------------------- |
-| `/api/init`     | קבל  | בדיקת אתחול האפליקציה (בשימוש בהפעלה הראשונה) |
-| `/api/tags`     | קבל  | תגיות מודל תואמות אולמה (ללקוחות אולמה)       |
-| `/api/restart`  | פוסט | הפעל מחדש את השרת החינני                      |
-| `/api/shutdown` | פוסט | הפעל כיבוי שרת חינני                          |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-> **הערה:** נקודות קצה אלו משמשות באופן פנימי על ידי המערכת או עבור תאימות לקוח Ollama. הם לא נקראים בדרך כלל על ידי משתמשי קצה.
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
+
+### Internal / System APIs
+
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
+
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## תמלול אודיו
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-תמלול קבצי אודיו באמצעות Deepgram או AssemblyAI.
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**בקשה:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**תגובה:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**ספקים נתמכים:** `deepgram/nova-3`, `assemblyai/best`.
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**פורמטים נתמכים:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## תאימות אולמה
+## Ollama Compatibility
 
-עבור לקוחות המשתמשים בפורמט ה-API של Ollama:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-בקשות מתורגמות אוטומטית בין אולמה לפורמטים פנימיים.
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## טלמטריה
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**תגובה:**
+**Response:**
 
 ```json
 {
@@ -381,7 +391,7 @@ GET /api/telemetry/summary
 
 ---
 
-## תקציב
+## Budget
 
 ```bash
 # Get budget status for all API keys
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## זמינות דגם
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## עיבוד הבקשה
+## Request Processing
 
-1. הלקוח שולח בקשה אל `/v1/*`
-2. מטפל במסלול קורא `handleChat`, `handleEmbedding`, `handleAudioTranscription`, או `handleImageGeneration`
-3. המודל נפתר (ספק ישיר/דגם או כינוי/שילוב)
-4. אישורים נבחרים מ-DB מקומי עם סינון זמינות חשבון
-5. לצ'אט: `handleChatCore` — זיהוי פורמט, תרגום, בדיקת מטמון, בדיקת אימפוטנציה
-6. מנהל הספק שולח בקשה במעלה הזרם
-7. תגובה מתורגמת חזרה לפורמט הלקוח (צ'אט) או הוחזרה כפי שהיא (הטמעות/תמונות/שמע)
-8. שימוש/רישום נרשם
-9. Fallback חל על שגיאות בהתאם לכללי המשולבים
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-הפניה מלאה לארכיטקטורה: [link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## אימות
+## Authentication
 
-- מסלולי לוח המחוונים (`/dashboard/*`) משתמשים בקובץ cookie `auth_token`
-- הכניסה משתמשת ב-hash סיסמה שמורה; חזרה ל-`INITIAL_PASSWORD`
-- `requireLogin` ניתן להחלפה באמצעות `/api/settings/require-login`
-- מסלולי `/v1/*` דורשים אופציונלי מפתח API של Bearer כאשר `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

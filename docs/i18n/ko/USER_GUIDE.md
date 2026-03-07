@@ -1,12 +1,12 @@
-# 이용안내
+# User Guide
 
-🌐 **Languages:** 🇺🇸 [English](../../USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](../es/USER_GUIDE.md) | 🇫🇷 [Français](../fr/USER_GUIDE.md) | 🇮🇹 [Italiano](../it/USER_GUIDE.md) | 🇷🇺 [Русский](../ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](../zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](../de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](../in/USER_GUIDE.md) | 🇹🇭 [ไทย](../th/USER_GUIDE.md) | 🇺🇦 [Українська](../uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](../ar/USER_GUIDE.md) | 🇯🇵 [日本語](../ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](../vi/USER_GUIDE.md) | 🇧🇬 [Български](../bg/USER_GUIDE.md) | 🇩🇰 [Dansk](../da/USER_GUIDE.md) | 🇫🇮 [Suomi](../fi/USER_GUIDE.md) | 🇮🇱 [עברית](../he/USER_GUIDE.md) | 🇭🇺 [Magyar](../hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](../id/USER_GUIDE.md) | 🇰🇷 [한국어](../ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](../ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](../nl/USER_GUIDE.md) | 🇳🇴 [Norsk](../no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](../pt/USER_GUIDE.md) | 🇷🇴 [Română](../ro/USER_GUIDE.md) | 🇵🇱 [Polski](../pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](../sk/USER_GUIDE.md) | 🇸🇪 [Svenska](../sv/USER_GUIDE.md) | 🇵🇭 [Filipino](../phi/USER_GUIDE.md)
+🌐 **Languages:** 🇺🇸 [English](USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](i18n/es/USER_GUIDE.md) | 🇫🇷 [Français](i18n/fr/USER_GUIDE.md) | 🇮🇹 [Italiano](i18n/it/USER_GUIDE.md) | 🇷🇺 [Русский](i18n/ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](i18n/de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](i18n/in/USER_GUIDE.md) | 🇹🇭 [ไทย](i18n/th/USER_GUIDE.md) | 🇺🇦 [Українська](i18n/uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](i18n/ar/USER_GUIDE.md) | 🇯🇵 [日本語](i18n/ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/USER_GUIDE.md) | 🇧🇬 [Български](i18n/bg/USER_GUIDE.md) | 🇩🇰 [Dansk](i18n/da/USER_GUIDE.md) | 🇫🇮 [Suomi](i18n/fi/USER_GUIDE.md) | 🇮🇱 [עברית](i18n/he/USER_GUIDE.md) | 🇭🇺 [Magyar](i18n/hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/USER_GUIDE.md) | 🇰🇷 [한국어](i18n/ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](i18n/nl/USER_GUIDE.md) | 🇳🇴 [Norsk](i18n/no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/USER_GUIDE.md) | 🇷🇴 [Română](i18n/ro/USER_GUIDE.md) | 🇵🇱 [Polski](i18n/pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](i18n/sk/USER_GUIDE.md) | 🇸🇪 [Svenska](i18n/sv/USER_GUIDE.md) | 🇵🇭 [Filipino](i18n/phi/USER_GUIDE.md)
 
-공급자 구성, 콤보 생성, CLI 도구 통합 및 OmniRoute 배포에 대한 전체 가이드입니다.
+Complete guide for configuring providers, creating combos, integrating CLI tools, and deploying OmniRoute.
 
 ---
 
-## 목차
+## Table of Contents
 
 - [Pricing at a Glance](#-pricing-at-a-glance)
 - [Use Cases](#-use-cases)
@@ -18,40 +18,40 @@
 
 ---
 
-## 💰 가격 한눈에 보기
+## 💰 Pricing at a Glance
 
-| 계층          | 공급자              | 비용               | 할당량 재설정   | 최고의 대상       |
-| ------------- | ------------------- | ------------------ | --------------- | ----------------- |
-| **💳 구독**   | 클로드 코드 (Pro)   | $20/월             | 5시간 + 매주    | 이미 구독 중      |
-|               | 코덱스(플러스/프로) | $20-200/월         | 5시간 + 매주    | OpenAI 사용자     |
-|               | 제미니 CLI          | **무료**           | 180K/월 + 1K/일 | 모든 사람!        |
-|               | GitHub 부조종사     | $10-19/월          | 월간            | GitHub 사용자     |
-| **🔑 API 키** | 딥시크              | 사용량에 따라 지불 | 없음            | 저렴한 추론       |
-|               | 그로크              | 사용량에 따라 지불 | 없음            | 초고속 추론       |
-|               | xAI(그록)           | 사용량에 따라 지불 | 없음            | Grok 4 추론       |
-|               | 미스트랄            | 사용량에 따라 지불 | 없음            | EU 주최 모델      |
-|               | 당혹감              | 사용량에 따라 지불 | 없음            | 검색 증강         |
-|               | 함께하는 AI         | 사용량에 따라 지불 | 없음            | 오픈 소스 모델    |
-|               | 불꽃놀이 AI         | 사용량에 따라 지불 | 없음            | 빠른 FLUX 이미지  |
-|               | 대뇌                | 사용량에 따라 지불 | 없음            | 웨이퍼 규모 속도  |
-|               | 코히어              | 사용량에 따라 지불 | 없음            | 커맨드 R+ RAG     |
-|               | 엔비디아 NIM        | 사용량에 따라 지불 | 없음            | 엔터프라이즈 모델 |
-| **💰 저렴한** | GLM-4.7             | $0.6/1M            | 매일 오전 10시  | 예산 백업         |
-|               | 미니맥스 M2.1       | $0.2/1M            | 5시간 롤링      | 가장 저렴한 옵션  |
-|               | 키미 K2             | $9/월 정액         | 1000만 토큰/월  | 예측 가능한 비용  |
-| **🆓 무료**   | 아이플로우          | $0                 | 무제한          | 8개 모델 무료     |
-|               | 퀀                  | $0                 | 무제한          | 3개 모델 무료     |
-|               | 키로                | $0                 | 무제한          | 클로드 프리       |
+| Tier                | Provider          | Cost        | Quota Reset      | Best For             |
+| ------------------- | ----------------- | ----------- | ---------------- | -------------------- |
+| **💳 SUBSCRIPTION** | Claude Code (Pro) | $20/mo      | 5h + weekly      | Already subscribed   |
+|                     | Codex (Plus/Pro)  | $20-200/mo  | 5h + weekly      | OpenAI users         |
+|                     | Gemini CLI        | **FREE**    | 180K/mo + 1K/day | Everyone!            |
+|                     | GitHub Copilot    | $10-19/mo   | Monthly          | GitHub users         |
+| **🔑 API KEY**      | DeepSeek          | Pay per use | None             | Cheap reasoning      |
+|                     | Groq              | Pay per use | None             | Ultra-fast inference |
+|                     | xAI (Grok)        | Pay per use | None             | Grok 4 reasoning     |
+|                     | Mistral           | Pay per use | None             | EU-hosted models     |
+|                     | Perplexity        | Pay per use | None             | Search-augmented     |
+|                     | Together AI       | Pay per use | None             | Open-source models   |
+|                     | Fireworks AI      | Pay per use | None             | Fast FLUX images     |
+|                     | Cerebras          | Pay per use | None             | Wafer-scale speed    |
+|                     | Cohere            | Pay per use | None             | Command R+ RAG       |
+|                     | NVIDIA NIM        | Pay per use | None             | Enterprise models    |
+| **💰 CHEAP**        | GLM-4.7           | $0.6/1M     | Daily 10AM       | Budget backup        |
+|                     | MiniMax M2.1      | $0.2/1M     | 5-hour rolling   | Cheapest option      |
+|                     | Kimi K2           | $9/mo flat  | 10M tokens/mo    | Predictable cost     |
+| **🆓 FREE**         | iFlow             | $0          | Unlimited        | 8 models free        |
+|                     | Qwen              | $0          | Unlimited        | 3 models free        |
+|                     | Kiro              | $0          | Unlimited        | Claude free          |
 
-**💡 전문가 팁:** Gemini CLI(월 180K 무료) + iFlow(무제한 무료) 콤보 = 비용 $0로 시작하세요!
+**💡 Pro Tip:** Start with Gemini CLI (180K free/month) + iFlow (unlimited free) combo = $0 cost!
 
 ---
 
-## 🎯 사용 사례
+## 🎯 Use Cases
 
-### 사례 1: "Claude Pro를 구독하고 있습니다."
+### Case 1: "I have Claude Pro subscription"
 
-**문제:** 할당량은 사용되지 않은 상태로 만료되며, 코딩 작업이 많은 동안 속도 제한이 발생합니다.
+**Problem:** Quota expires unused, rate limits during heavy coding
 
 ```
 Combo: "maximize-claude"
@@ -63,9 +63,9 @@ Monthly cost: $20 (subscription) + ~$5 (backup) = $25 total
 vs. $20 + hitting limits = frustration
 ```
 
-### 사례 2: "비용이 0이길 원합니다"
+### Case 2: "I want zero cost"
 
-**문제:** 구독료를 감당할 수 없고 안정적인 AI 코딩이 필요함
+**Problem:** Can't afford subscriptions, need reliable AI coding
 
 ```
 Combo: "free-forever"
@@ -77,9 +77,9 @@ Monthly cost: $0
 Quality: Production-ready models
 ```
 
-### 사례 3: "중단 없이 연중무휴 코딩이 필요합니다."
+### Case 3: "I need 24/7 coding, no interruptions"
 
-**문제:** 마감일, 가동 중지 시간을 감당할 수 없음
+**Problem:** Deadlines, can't afford downtime
 
 ```
 Combo: "always-on"
@@ -93,9 +93,9 @@ Result: 5 layers of fallback = zero downtime
 Monthly cost: $20-200 (subscriptions) + $10-20 (backup)
 ```
 
-### 사례 4: "OpenClaw에서 무료 AI를 원합니다"
+### Case 4: "I want FREE AI in OpenClaw"
 
-**문제:** 메시징 앱에 AI 도우미가 필요하며 완전 무료입니다.
+**Problem:** Need AI assistant in messaging apps, completely free
 
 ```
 Combo: "openclaw-free"
@@ -109,11 +109,11 @@ Access via: WhatsApp, Telegram, Slack, Discord, iMessage, Signal...
 
 ---
 
-## 📖 공급자 설정
+## 📖 Provider Setup
 
-### 🔐 구독 제공업체
+### 🔐 Subscription Providers
 
-#### 클로드 코드(Pro/Max)
+#### Claude Code (Pro/Max)
 
 ```bash
 Dashboard → Providers → Connect Claude Code
@@ -126,9 +126,9 @@ Models:
   cc/claude-haiku-4-5-20251001
 ```
 
-**프로 팁:** 복잡한 작업에는 Opus를 사용하고, 속도를 높이려면 Sonnet을 사용하세요. OmniRoute는 모델당 할당량을 추적합니다!
+**Pro Tip:** Use Opus for complex tasks, Sonnet for speed. OmniRoute tracks quota per model!
 
-#### OpenAI 코덱스(Plus/Pro)
+#### OpenAI Codex (Plus/Pro)
 
 ```bash
 Dashboard → Providers → Connect Codex
@@ -140,7 +140,7 @@ Models:
   cx/gpt-5.1-codex-max
 ```
 
-#### Gemini CLI(월 180K 무료!)
+#### Gemini CLI (FREE 180K/month!)
 
 ```bash
 Dashboard → Providers → Connect Gemini CLI
@@ -152,9 +152,9 @@ Models:
   gc/gemini-2.5-pro
 ```
 
-**최고의 가치:** 엄청난 무료 등급! 유료 등급 이전에 사용하세요.
+**Best Value:** Huge free tier! Use this before paid tiers.
 
-#### GitHub 코파일럿
+#### GitHub Copilot
 
 ```bash
 Dashboard → Providers → Connect GitHub
@@ -167,33 +167,33 @@ Models:
   gh/gemini-3-pro
 ```
 
-### 💰 저렴한 공급자
+### 💰 Cheap Providers
 
-#### GLM-4.7 (일일 재설정, $0.6/1M)
+#### GLM-4.7 (Daily reset, $0.6/1M)
 
-1. 가입: [Zhipu AI](https://open.bigmodel.cn/)
-2. Coding Plan에서 API Key 받기
-3. 대시보드 → API 키 추가: 공급자: `glm`, API 키: `your-key`
+1. Sign up: [Zhipu AI](https://open.bigmodel.cn/)
+2. Get API key from Coding Plan
+3. Dashboard → Add API Key: Provider: `glm`, API Key: `your-key`
 
-**사용:** `glm/glm-4.7` — **프로 팁:** 코딩 계획은 1/7 비용으로 3배 할당량을 제공합니다! 매일 오전 10시에 초기화됩니다.
+**Use:** `glm/glm-4.7` — **Pro Tip:** Coding Plan offers 3× quota at 1/7 cost! Reset daily 10:00 AM.
 
-#### MiniMax M2.1(5시간 재설정, $0.20/1M)
+#### MiniMax M2.1 (5h reset, $0.20/1M)
 
-1. 가입: [MiniMax](https://www.minimax.io/)
-2. API 키 받기 → 대시보드 → API 키 추가
+1. Sign up: [MiniMax](https://www.minimax.io/)
+2. Get API key → Dashboard → Add API Key
 
-**사용:** `minimax/MiniMax-M2.1` — **프로 팁:** 긴 컨텍스트(1M 토큰)에 대한 가장 저렴한 옵션!
+**Use:** `minimax/MiniMax-M2.1` — **Pro Tip:** Cheapest option for long context (1M tokens)!
 
-#### Kimi K2($9/월 정액)
+#### Kimi K2 ($9/month flat)
 
-1. 구독: [Moonshot AI](https://platform.moonshot.ai/)
-2. API 키 받기 → 대시보드 → API 키 추가
+1. Subscribe: [Moonshot AI](https://platform.moonshot.ai/)
+2. Get API key → Dashboard → Add API Key
 
-**사용:** `kimi/kimi-latest` — **프로 팁:** 1,000만 토큰에 대해 월 $9 고정 = 유효 비용 $0.90/1M!
+**Use:** `kimi/kimi-latest` — **Pro Tip:** Fixed $9/month for 10M tokens = $0.90/1M effective cost!
 
-### 🆓 무료 제공업체
+### 🆓 FREE Providers
 
-#### iFlow(8개 무료 모델)
+#### iFlow (8 FREE models)
 
 ```bash
 Dashboard → Connect iFlow → OAuth login → Unlimited usage
@@ -201,7 +201,7 @@ Dashboard → Connect iFlow → OAuth login → Unlimited usage
 Models: if/kimi-k2-thinking, if/qwen3-coder-plus, if/glm-4.7, if/minimax-m2, if/deepseek-r1
 ```
 
-#### Qwen(3개 무료 모델)
+#### Qwen (3 FREE models)
 
 ```bash
 Dashboard → Connect Qwen → Device code auth → Unlimited usage
@@ -209,7 +209,7 @@ Dashboard → Connect Qwen → Device code auth → Unlimited usage
 Models: qw/qwen3-coder-plus, qw/qwen3-coder-flash
 ```
 
-#### 키로(클로드 프리)
+#### Kiro (Claude FREE)
 
 ```bash
 Dashboard → Connect Kiro → AWS Builder ID or Google/GitHub → Unlimited
@@ -219,9 +219,9 @@ Models: kr/claude-sonnet-4.5, kr/claude-haiku-4.5
 
 ---
 
-## 🎨 콤보
+## 🎨 Combos
 
-### 예시 1: 구독 최대화 → 저렴한 백업
+### Example 1: Maximize Subscription → Cheap Backup
 
 ```
 Dashboard → Combos → Create New
@@ -235,7 +235,7 @@ Models:
 Use in CLI: premium-coding
 ```
 
-### 예시 2: 무료 전용(비용 없음)
+### Example 2: Free-Only (Zero Cost)
 
 ```
 Name: free-combo
@@ -249,9 +249,9 @@ Cost: $0 forever!
 
 ---
 
-## 🔧 CLI 통합
+## 🔧 CLI Integration
 
-### 커서 IDE
+### Cursor IDE
 
 ```
 Settings → Models → Advanced:
@@ -260,9 +260,9 @@ Settings → Models → Advanced:
   Model: cc/claude-opus-4-6
 ```
 
-### 클로드 코드
+### Claude Code
 
-`~/.claude/config.json` 편집:
+Edit `~/.claude/config.json`:
 
 ```json
 {
@@ -271,7 +271,7 @@ Settings → Models → Advanced:
 }
 ```
 
-### 코덱스 CLI
+### Codex CLI
 
 ```bash
 export OPENAI_BASE_URL="http://localhost:20128"
@@ -279,9 +279,9 @@ export OPENAI_API_KEY="your-omniroute-api-key"
 codex "your prompt"
 ```
 
-### 오픈클로
+### OpenClaw
 
-`~/.openclaw/openclaw.json` 편집:
+Edit `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -303,9 +303,9 @@ codex "your prompt"
 }
 ```
 
-**또는 대시보드 사용:** CLI 도구 → OpenClaw → 자동 구성
+**Or use Dashboard:** CLI Tools → OpenClaw → Auto-config
 
-### 클라인 / 계속 / RooCode
+### Cline / Continue / RooCode
 
 ```
 Provider: OpenAI Compatible
@@ -316,9 +316,28 @@ Model: cc/claude-opus-4-6
 
 ---
 
-## 🚀 배포
+## 🚀 Deployment
 
-### VPS 배포
+### Global npm install (Recommended)
+
+```bash
+npm install -g omniroute
+
+# Create config directory
+mkdir -p ~/.omniroute
+
+# Create .env file (see .env.example)
+cp .env.example ~/.omniroute/.env
+
+# Start server
+omniroute
+# Or with custom port:
+omniroute --port 3000
+```
+
+The CLI automatically loads `.env` from `~/.omniroute/.env` or `./.env`.
+
+### VPS Deployment
 
 ```bash
 git clone https://github.com/diegosouzapw/OmniRoute.git
@@ -337,7 +356,44 @@ npm run start
 # Or: pm2 start npm --name omniroute -- start
 ```
 
-### 도커
+### PM2 Deployment (Low Memory)
+
+For servers with limited RAM, use the memory limit option:
+
+```bash
+# With 512MB limit (default)
+pm2 start npm --name omniroute -- start
+
+# Or with custom memory limit
+OMNIROUTE_MEMORY_MB=512 pm2 start npm --name omniroute -- start
+
+# Or using ecosystem.config.js
+pm2 start ecosystem.config.js
+```
+
+Create `ecosystem.config.js`:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "omniroute",
+      script: "npm",
+      args: "start",
+      env: {
+        NODE_ENV: "production",
+        OMNIROUTE_MEMORY_MB: "512",
+        JWT_SECRET: "your-secret",
+        INITIAL_PASSWORD: "your-password",
+      },
+      node_args: "--max-old-space-size=512",
+      max_memory_restart: "300M",
+    },
+  ],
+};
+```
+
+### Docker
 
 ```bash
 # Build image (default = runner-cli with codex/claude/droid preinstalled)
@@ -347,81 +403,84 @@ docker build -t omniroute:cli .
 docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-data:/app/data omniroute:cli
 ```
 
-CLI 바이너리를 사용한 호스트 통합 모드의 경우 기본 문서의 Docker 섹션을 참조하세요.
+For host-integrated mode with CLI binaries, see the Docker section in the main docs.
 
-### 환경 변수
+### Environment Variables
 
-| 변수                  | 기본값                               | 설명                                            |
-| --------------------- | ------------------------------------ | ----------------------------------------------- |
-| `JWT_SECRET`          | `omniroute-default-secret-change-me` | JWT 서명 비밀(**프로덕션 변경**)                |
-| `INITIAL_PASSWORD`    | `123456`                             | 첫 번째 로그인 비밀번호                         |
-| `DATA_DIR`            | `~/.omniroute`                       | 데이터 디렉터리(db, 사용량, 로그)               |
-| `PORT`                | 프레임워크 기본값                    | 서비스 포트(예시에서는 `20128`)                 |
-| `HOSTNAME`            | 프레임워크 기본값                    | 호스트 바인딩(Docker의 기본값은 `0.0.0.0`)      |
-| `NODE_ENV`            | 런타임 기본값                        | 배포를 위해 `production` 설정                   |
-| `BASE_URL`            | `http://localhost:20128`             | 서버측 내부 기본 URL                            |
-| `CLOUD_URL`           | `https://omniroute.dev`              | 클라우드 동기화 엔드포인트 기본 URL             |
-| `API_KEY_SECRET`      | `endpoint-proxy-api-key-secret`      | 생성된 API 키에 대한 HMAC 비밀                  |
-| `REQUIRE_API_KEY`     | `false`                              | `/v1/*`에 Bearer API 키 적용                    |
-| `ENABLE_REQUEST_LOGS` | `false`                              | 요청/응답 로그 활성화                           |
-| `AUTH_COOKIE_SECURE`  | `false`                              | `Secure` 인증 쿠키 강제(HTTPS 역방향 프록시 뒤) |
+| Variable                  | Default                              | Description                                             |
+| ------------------------- | ------------------------------------ | ------------------------------------------------------- |
+| `JWT_SECRET`              | `omniroute-default-secret-change-me` | JWT signing secret (**change in production**)           |
+| `INITIAL_PASSWORD`        | `123456`                             | First login password                                    |
+| `DATA_DIR`                | `~/.omniroute`                       | Data directory (db, usage, logs)                        |
+| `PORT`                    | framework default                    | Service port (`20128` in examples)                      |
+| `HOSTNAME`                | framework default                    | Bind host (Docker defaults to `0.0.0.0`)                |
+| `NODE_ENV`                | runtime default                      | Set `production` for deploy                             |
+| `BASE_URL`                | `http://localhost:20128`             | Server-side internal base URL                           |
+| `CLOUD_URL`               | `https://omniroute.dev`              | Cloud sync endpoint base URL                            |
+| `API_KEY_SECRET`          | `endpoint-proxy-api-key-secret`      | HMAC secret for generated API keys                      |
+| `REQUIRE_API_KEY`         | `false`                              | Enforce Bearer API key on `/v1/*`                       |
+| `ENABLE_REQUEST_LOGS`     | `false`                              | Enables request/response logs                           |
+| `AUTH_COOKIE_SECURE`      | `false`                              | Force `Secure` auth cookie (behind HTTPS reverse proxy) |
+| `OMNIROUTE_MEMORY_MB`     | `512`                                | Node.js heap limit in MB                                |
+| `PROMPT_CACHE_MAX_SIZE`   | `50`                                 | Max prompt cache entries                                |
+| `SEMANTIC_CACHE_MAX_SIZE` | `100`                                | Max semantic cache entries                              |
 
-전체 환경 변수 참조는 [README](../README.md)을 참조하세요.
+For the full environment variable reference, see the [README](../README.md).
 
 ---
 
-## 📊 사용 가능한 모델
+## 📊 Available Models
 
 <details>
-<summary><b>사용 가능한 모든 모델 보기</b></summary>
+<summary><b>View all available models</b></summary>
 
-**Claude 코드(`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
+**Claude Code (`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
 
-**코덱스(`cx/`)** — 플러스/프로: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
+**Codex (`cx/`)** — Plus/Pro: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
 
-**Gemini CLI(`gc/`)** — 무료: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
+**Gemini CLI (`gc/`)** — FREE: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
 
-**GitHub 부조종사(`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
+**GitHub Copilot (`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
 
 **GLM (`glm/`)** — $0.6/1M: `glm/glm-4.7`
 
-**MiniMax(`minimax/`)** — $0.2/1M: `minimax/MiniMax-M2.1`
+**MiniMax (`minimax/`)** — $0.2/1M: `minimax/MiniMax-M2.1`
 
-**iFlow(`if/`)** — 무료: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
+**iFlow (`if/`)** — FREE: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
 
-**Qwen(`qw/`)** — 무료: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
+**Qwen (`qw/`)** — FREE: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
 
-**키로(`kr/`)** — 무료: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
+**Kiro (`kr/`)** — FREE: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
 
-**DeepSeek(`ds/`)**: `ds/deepseek-chat`, `ds/deepseek-reasoner`
+**DeepSeek (`ds/`)**: `ds/deepseek-chat`, `ds/deepseek-reasoner`
 
-**그로크(`groq/`)**: `groq/llama-3.3-70b-versatile`, `groq/llama-4-maverick-17b-128e-instruct`
+**Groq (`groq/`)**: `groq/llama-3.3-70b-versatile`, `groq/llama-4-maverick-17b-128e-instruct`
 
-**xAI(`xai/`)**: `xai/grok-4`, `xai/grok-4-0709-fast-reasoning`, `xai/grok-code-mini`
+**xAI (`xai/`)**: `xai/grok-4`, `xai/grok-4-0709-fast-reasoning`, `xai/grok-code-mini`
 
-**미스트랄(`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
+**Mistral (`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
 
-**복잡성(`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
+**Perplexity (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
 
-**함께하는 AI(`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
+**Together AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
 
-**불꽃놀이 AI(`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
+**Fireworks AI (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
 
-**대뇌(`cerebras/`)**: `cerebras/llama-3.3-70b`
+**Cerebras (`cerebras/`)**: `cerebras/llama-3.3-70b`
 
-**Cohere(`cohere/`)**: `cohere/command-r-plus-08-2024`
+**Cohere (`cohere/`)**: `cohere/command-r-plus-08-2024`
 
-**NVIDIA NIM(`nvidia/`)**: `nvidia/nvidia/llama-3.3-70b-instruct`
+**NVIDIA NIM (`nvidia/`)**: `nvidia/nvidia/llama-3.3-70b-instruct`
 
 </details>
 
 ---
 
-## 🧩 고급 기능
+## 🧩 Advanced Features
 
-### 맞춤 모델
+### Custom Models
 
-앱 업데이트를 기다리지 않고 공급자에 모델 ID를 추가하세요.
+Add any model ID to any provider without waiting for an app update:
 
 ```bash
 # Via API
@@ -433,11 +492,11 @@ curl -X POST http://localhost:20128/api/provider-models \
 # Remove: curl -X DELETE "http://localhost:20128/api/provider-models?provider=openai&model=gpt-4.5-preview"
 ```
 
-또는 대시보드를 사용하십시오: **공급자 → [공급자] → 사용자 정의 모델**.
+Or use Dashboard: **Providers → [Provider] → Custom Models**.
 
-### 전용 공급자 경로
+### Dedicated Provider Routes
 
-모델 검증을 통해 요청을 특정 공급자에게 직접 라우팅합니다.
+Route requests directly to a specific provider with model validation:
 
 ```bash
 POST http://localhost:20128/v1/providers/openai/chat/completions
@@ -445,9 +504,9 @@ POST http://localhost:20128/v1/providers/openai/embeddings
 POST http://localhost:20128/v1/providers/fireworks/images/generations
 ```
 
-공급자 접두사가 누락된 경우 자동으로 추가됩니다. 일치하지 않는 모델은 `400`을 반환합니다.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
-### 네트워크 프록시 구성
+### Network Proxy Configuration
 
 ```bash
 # Set global proxy
@@ -463,76 +522,76 @@ curl -X POST http://localhost:20128/api/settings/proxy/test \
   -d '{"proxy":{"type":"socks5","host":"proxy.example.com","port":"1080"}}'
 ```
 
-**우선순위:** 키별 → 콤보별 → 공급자별 → 글로벌 → 환경.
+**Precedence:** Key-specific → Combo-specific → Provider-specific → Global → Environment.
 
-### 모델 카탈로그 API
+### Model Catalog API
 
 ```bash
 curl http://localhost:20128/api/models/catalog
 ```
 
-유형(`chat`, `embedding`, `image`)을 사용하여 공급자별로 그룹화된 모델을 반환합니다.
+Returns models grouped by provider with types (`chat`, `embedding`, `image`).
 
-### 클라우드 동기화
+### Cloud Sync
 
-- 여러 장치에서 공급자, 콤보 및 설정을 동기화합니다.
-- 시간 초과 + 빠른 실패를 통한 자동 백그라운드 동기화
-- 프로덕션에서는 서버측 `BASE_URL`/`CLOUD_URL`을 선호합니다.
+- Sync providers, combos, and settings across devices
+- Automatic background sync with timeout + fail-fast
+- Prefer server-side `BASE_URL`/`CLOUD_URL` in production
 
-### LLM 게이트웨이 인텔리전스(9단계)
+### LLM Gateway Intelligence (Phase 9)
 
-- **의미 체계 캐시** — 비스트리밍, 온도=0 응답을 자동 캐시합니다(`X-OmniRoute-No-Cache: true`으로 우회).
-- **Idempotency 요청** — `Idempotency-Key` 또는 `X-Request-Id` 헤더를 통해 5초 이내에 요청을 중복 제거합니다.
-- **진행 상황 추적** — `X-OmniRoute-Progress: true` 헤더를 통한 SSE `event: progress` 이벤트 선택
-
----
-
-### 번역가 놀이터
-
-**대시보드 → 번역기**를 통해 액세스합니다. OmniRoute가 공급자 간 API 요청을 변환하는 방법을 디버깅하고 시각화합니다.
-
-| 모드              | 목적                                                                      |
-| ----------------- | ------------------------------------------------------------------------- |
-| **놀이터**        | 소스/타겟 형식을 선택하고, 요청을 붙여넣고, 번역된 결과를 즉시 확인하세요 |
-| **채팅 테스터**   | 프록시를 통해 실시간 채팅 메시지를 보내고 전체 요청/응답 주기 검사        |
-| **테스트 벤치**   | 여러 형식 조합에 걸쳐 일괄 테스트를 실행하여 번역 정확성 확인             |
-| **라이브 모니터** | 프록시를 통한 요청 흐름에 따라 실시간 번역 보기                           |
-
-**사용 사례:**
-
-- 특정 클라이언트/공급자 조합이 실패하는 이유 디버그
-- 생각 태그, 도구 호출 및 시스템 프롬프트가 올바르게 번역되는지 확인합니다.
-- OpenAI, Claude, Gemini 및 Responses API 형식 간의 형식 차이 비교
+- **Semantic Cache** — Auto-caches non-streaming, temperature=0 responses (bypass with `X-OmniRoute-No-Cache: true`)
+- **Request Idempotency** — Deduplicates requests within 5s via `Idempotency-Key` or `X-Request-Id` header
+- **Progress Tracking** — Opt-in SSE `event: progress` events via `X-OmniRoute-Progress: true` header
 
 ---
 
-### 라우팅 전략
+### Translator Playground
 
-**대시보드 → 설정 → 라우팅**을 통해 구성합니다.
+Access via **Dashboard → Translator**. Debug and visualize how OmniRoute translates API requests between providers.
 
-| 전략                       | 설명                                                                                           |
-| -------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| **먼저 채우기**            | 우선순위에 따라 계정을 사용합니다. 기본 계정은 사용할 수 없을 때까지 모든 요청을 처리합니다.   |
-| **라운드 로빈**            | 구성 가능한 고정 한도를 사용하여 모든 계정을 순환합니다(기본값: 계정당 호출 3회)               |
-| **P2C(두 가지 선택의 힘)** | 2개의 무작위 계정을 선택하고 더 건강한 계정으로 라우팅 — 건강에 대한 인식과 부하의 균형을 유지 |
-| **랜덤**                   | Fisher-Yates shuffle                                                                           | 을 사용하여 각 요청에 대해 무작위로 계정을 선택합니다. |
-| **최소 사용**              | 가장 오래된 `lastUsedAt` 타임스탬프가 있는 계정으로 라우팅하여 트래픽을 균등하게 분산          |
-| **비용 최적화**            | 가장 낮은 비용의 공급자를 위해 최적화하여 우선순위 값이 가장 낮은 계정으로 라우팅              |
+| Mode             | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| **Playground**   | Select source/target formats, paste a request, and see the translated output instantly |
+| **Chat Tester**  | Send live chat messages through the proxy and inspect the full request/response cycle  |
+| **Test Bench**   | Run batch tests across multiple format combinations to verify translation correctness  |
+| **Live Monitor** | Watch real-time translations as requests flow through the proxy                        |
 
-#### 와일드카드 모델 별칭
+**Use cases:**
 
-모델 이름을 다시 매핑하는 와일드카드 패턴을 만듭니다.
+- Debug why a specific client/provider combination fails
+- Verify that thinking tags, tool calls, and system prompts translate correctly
+- Compare format differences between OpenAI, Claude, Gemini, and Responses API formats
+
+---
+
+### Routing Strategies
+
+Configure via **Dashboard → Settings → Routing**.
+
+| Strategy                       | Description                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Fill First**                 | Uses accounts in priority order — primary account handles all requests until unavailable         |
+| **Round Robin**                | Cycles through all accounts with a configurable sticky limit (default: 3 calls per account)      |
+| **P2C (Power of Two Choices)** | Picks 2 random accounts and routes to the healthier one — balances load with awareness of health |
+| **Random**                     | Randomly selects an account for each request using Fisher-Yates shuffle                          |
+| **Least Used**                 | Routes to the account with the oldest `lastUsedAt` timestamp, distributing traffic evenly        |
+| **Cost Optimized**             | Routes to the account with the lowest priority value, optimizing for lowest-cost providers       |
+
+#### Wildcard Model Aliases
+
+Create wildcard patterns to remap model names:
 
 ```
 Pattern: claude-sonnet-*     →  Target: cc/claude-sonnet-4-5-20250929
 Pattern: gpt-*               →  Target: gh/gpt-5.1-codex
 ```
 
-와일드카드는 `*`(모든 문자) 및 `?`(단일 문자)을 지원합니다.
+Wildcards support `*` (any characters) and `?` (single character).
 
-#### 대체 체인
+#### Fallback Chains
 
-모든 요청에 적용되는 전역 대체 체인을 정의합니다.
+Define global fallback chains that apply across all requests:
 
 ```
 Chain: production-fallback
@@ -543,46 +602,46 @@ Chain: production-fallback
 
 ---
 
-### 탄력성 및 회로 차단기
+### Resilience & Circuit Breakers
 
-**대시보드 → 설정 → 복원력**을 통해 구성합니다.
+Configure via **Dashboard → Settings → Resilience**.
 
-OmniRoute는 다음 네 가지 구성 요소를 사용하여 공급자 수준 복원력을 구현합니다.
+OmniRoute implements provider-level resilience with four components:
 
-1. **공급자 프로필** — 다음에 대한 공급자별 구성:
-   - 실패 임계값(개방 전 실패 횟수)
-   - 쿨다운 시간
-   - 비율 제한 감지 감도
-   - 지수 백오프 매개변수
+1. **Provider Profiles** — Per-provider configuration for:
+   - Failure threshold (how many failures before opening)
+   - Cooldown duration
+   - Rate limit detection sensitivity
+   - Exponential backoff parameters
 
-2. **편집 가능한 속도 제한** — 대시보드에서 구성 가능한 시스템 수준 기본값:
-   - **분당 요청(RPM)** — 계정당 분당 최대 요청 수
-   - **요청 간 최소 시간** — 요청 간 최소 간격(밀리초)
-   - **최대 동시 요청** — 계정당 최대 동시 요청
-   - 수정하려면 **수정**을 클릭한 다음 **저장** 또는 **취소**를 클릭하세요. 값은 복원력 API를 통해 유지됩니다.
+2. **Editable Rate Limits** — System-level defaults configurable in the dashboard:
+   - **Requests Per Minute (RPM)** — Maximum requests per minute per account
+   - **Min Time Between Requests** — Minimum gap in milliseconds between requests
+   - **Max Concurrent Requests** — Maximum simultaneous requests per account
+   - Click **Edit** to modify, then **Save** or **Cancel**. Values persist via the resilience API.
 
-3. **회로 차단기** — 공급자별 오류를 추적하고 임계값에 도달하면 자동으로 회로를 엽니다.
-   - **CLOSED**(정상) — 요청 흐름이 정상적으로 진행됩니다.
-   - **OPEN** — 반복적인 실패 후 공급자가 일시적으로 차단됩니다.
-   - **HALF_OPEN** — 공급자가 복구되었는지 테스트
+3. **Circuit Breaker** — Tracks failures per provider and automatically opens the circuit when a threshold is reached:
+   - **CLOSED** (Healthy) — Requests flow normally
+   - **OPEN** — Provider is temporarily blocked after repeated failures
+   - **HALF_OPEN** — Testing if provider has recovered
 
-4. **정책 및 잠긴 식별자** - 회로 차단기 상태와 강제 잠금 해제 기능이 있는 잠긴 식별자를 표시합니다.
+4. **Policies & Locked Identifiers** — Shows circuit breaker status and locked identifiers with force-unlock capability.
 
-5. **비율 제한 자동 감지** — `429` 및 `Retry-After` 헤더를 모니터링하여 공급자 비율 제한에 도달하는 것을 사전에 방지합니다.
+5. **Rate Limit Auto-Detection** — Monitors `429` and `Retry-After` headers to proactively avoid hitting provider rate limits.
 
-**프로 팁:** 공급자가 중단에서 복구될 때 **모두 재설정** 버튼을 사용하여 모든 회로 차단기와 쿨다운을 해제합니다.
+**Pro Tip:** Use **Reset All** button to clear all circuit breakers and cooldowns when a provider recovers from an outage.
 
 ---
 
-### 데이터베이스 내보내기/가져오기
+### Database Export / Import
 
-**대시보드 → 설정 → 시스템 및 스토리지**에서 데이터베이스 백업을 관리하세요.
+Manage database backups in **Dashboard → Settings → System & Storage**.
 
-| 액션                       | 설명                                                                                                                   |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| **데이터베이스 내보내기**  | 현재 SQLite 데이터베이스를 `.sqlite` 파일로 다운로드                                                                   |
-| **모두 내보내기(.tar.gz)** | 데이터베이스, 설정, 콤보, 공급자 연결(자격 증명 없음), API 키 메타데이터를 포함한 전체 백업 아카이브를 다운로드합니다. |
-| **데이터베이스 가져오기**  | 현재 데이터베이스를 대체하려면 `.sqlite` 파일을 업로드하세요. 가져오기 전 백업이 자동으로 생성됩니다.                  |
+| Action                   | Description                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Export Database**      | Downloads the current SQLite database as a `.sqlite` file                                                                      |
+| **Export All (.tar.gz)** | Downloads a full backup archive including: database, settings, combos, provider connections (no credentials), API key metadata |
+| **Import Database**      | Upload a `.sqlite` file to replace the current database. A pre-import backup is automatically created                          |
 
 ```bash
 # API: Export database
@@ -596,38 +655,38 @@ curl -X POST http://localhost:20128/api/db-backups/import \
   -F "file=@backup.sqlite"
 ```
 
-**가져오기 유효성 검사:** 가져온 파일은 무결성(SQLite pragma 검사), 필수 테이블(`provider_connections`, `provider_nodes`, `combos`, `api_keys`) 및 크기(최대 100MB)에 대해 유효성이 검사됩니다.
+**Import Validation:** The imported file is validated for integrity (SQLite pragma check), required tables (`provider_connections`, `provider_nodes`, `combos`, `api_keys`), and size (max 100MB).
 
-**사용 사례:**
+**Use Cases:**
 
-- 머신 간 OmniRoute 마이그레이션
-- 재해 복구를 위한 외부 백업 생성
-- 팀원 간 구성 공유(모두 내보내기 → 아카이브 공유)
-
----
-
-### 설정 대시보드
-
-설정 페이지는 쉽게 탐색할 수 있도록 5개의 탭으로 구성되어 있습니다.
-
-| 탭         | 내용                                                                           |
-| ---------- | ------------------------------------------------------------------------------ |
-| **보안**   | 로그인/비밀번호 설정, IP 액세스 제어, `/models`에 대한 API 인증 및 공급자 차단 |
-| **라우팅** | 글로벌 라우팅 전략(6개 옵션), 와일드카드 모델 별칭, 폴백 체인, 콤보 기본값     |
-| **탄력성** | 공급자 프로필, 편집 가능한 속도 제한, 회로 차단기 상태, 정책 및 잠긴 식별자    |
-| **AI**     | 생각하는 예산 구성, 글로벌 시스템 프롬프트 주입, 프롬프트 캐시 통계            |
-| **고급**   | 글로벌 프록시 구성(HTTP/SOCKS5)                                                |
+- Migrate OmniRoute between machines
+- Create external backups for disaster recovery
+- Share configurations between team members (export all → share archive)
 
 ---
 
-### 비용 및 예산 관리
+### Settings Dashboard
 
-**대시보드 → 비용**을 통해 액세스합니다.
+The settings page is organized into 5 tabs for easy navigation:
 
-| 탭       | 목적                                                              |
-| -------- | ----------------------------------------------------------------- |
-| **예산** | 일별/주별/월별 예산 및 실시간 추적을 통해 API 키별 지출 한도 설정 |
-| **가격** | 모델 가격 항목 보기 및 편집 - 공급자당 1K 입력/출력 토큰당 비용   |
+| Tab            | Contents                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| **Security**   | Login/Password settings, IP Access Control, API auth for `/models`, and Provider Blocking      |
+| **Routing**    | Global routing strategy (6 options), wildcard model aliases, fallback chains, combo defaults   |
+| **Resilience** | Provider profiles, editable rate limits, circuit breaker status, policies & locked identifiers |
+| **AI**         | Thinking budget configuration, global system prompt injection, prompt cache stats              |
+| **Advanced**   | Global proxy configuration (HTTP/SOCKS5)                                                       |
+
+---
+
+### Costs & Budget Management
+
+Access via **Dashboard → Costs**.
+
+| Tab         | Purpose                                                                                  |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| **Budget**  | Set spending limits per API key with daily/weekly/monthly budgets and real-time tracking |
+| **Pricing** | View and edit model pricing entries — cost per 1K input/output tokens per provider       |
 
 ```bash
 # API: Set a budget
@@ -639,13 +698,13 @@ curl -X POST http://localhost:20128/api/usage/budget \
 curl http://localhost:20128/api/usage/budget
 ```
 
-**비용 추적:** 모든 요청은 토큰 사용량을 기록하고 가격표를 사용하여 비용을 계산합니다. **대시보드 → 사용량**에서 공급자, 모델, API 키별 분석을 확인하세요.
+**Cost Tracking:** Every request logs token usage and calculates cost using the pricing table. View breakdowns in **Dashboard → Usage** by provider, model, and API key.
 
 ---
 
-### 오디오 전사
+### Audio Transcription
 
-OmniRoute는 OpenAI 호환 엔드포인트를 통해 오디오 전사를 지원합니다.
+OmniRoute supports audio transcription via the OpenAI-compatible endpoint:
 
 ```bash
 POST /v1/audio/transcriptions
@@ -659,40 +718,92 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-사용 가능한 공급자: **Deepgram**(`deepgram/`), **AssemblyAI**(`assemblyai/`).
+Available providers: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
 
-지원되는 오디오 형식: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
-
----
-
-### 콤보 밸런싱 전략
-
-**대시보드 → 콤보 → 생성/편집 → 전략**에서 콤보별 밸런싱을 구성하세요.
-
-| 전략                 | 설명                                                        |
-| -------------------- | ----------------------------------------------------------- |
-| **라운드 로빈**      | 모델을 순차적으로 회전                                      |
-| **우선순위**         | 항상 첫 번째 모델을 시도합니다. 오류가 발생한 경우에만 폴백 |
-| **랜덤**             | 각 요청에 대한 콤보에서 무작위 모델 선택                    |
-| **가중치**           | 모델별로 할당된 가중치를 기준으로 비례적으로 라우팅         |
-| **가장 적게 사용됨** | 최근 요청이 가장 적은 모델로 라우팅(콤보 메트릭 사용)       |
-| **비용 최적화**      | 가장 저렴한 모델로 연결(가격표 사용)                        |
-
-글로벌 콤보 기본값은 **대시보드 → 설정 → 라우팅 → 콤보 기본값**에서 설정할 수 있습니다.
+Supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-### 건강 대시보드
+### Combo Balancing Strategies
 
-**대시보드 → 건강**을 통해 액세스합니다. 6개의 카드를 사용한 실시간 시스템 상태 개요:
+Configure per-combo balancing in **Dashboard → Combos → Create/Edit → Strategy**.
 
-| 카드               | 표시되는 내용                                   |
-| ------------------ | ----------------------------------------------- |
-| **시스템 상태**    | 가동 시간, 버전, 메모리 사용량, 데이터 디렉터리 |
-| **제공자 건강**    | 공급자별 회로 차단기 상태(폐쇄/개방/반개방)     |
-| **비율 제한**      | 남은 시간에 따른 계정당 활성 속도 제한 쿨다운   |
-| **활성 잠금**      | 잠금 정책으로 인해 일시적으로 차단된 제공업체   |
-| **서명 캐시**      | 중복 제거 캐시 통계(활성 키, 적중률)            |
-| **지연 원격 측정** | 공급자별 p50/p95/p99 대기 시간 집계             |
+| Strategy           | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Round-Robin**    | Rotates through models sequentially                                      |
+| **Priority**       | Always tries the first model; falls back only on error                   |
+| **Random**         | Picks a random model from the combo for each request                     |
+| **Weighted**       | Routes proportionally based on assigned weights per model                |
+| **Least-Used**     | Routes to the model with the fewest recent requests (uses combo metrics) |
+| **Cost-Optimized** | Routes to the cheapest available model (uses pricing table)              |
 
-**프로 팁:** 상태 페이지는 10초마다 자동으로 새로 고쳐집니다. 회로 차단기 카드를 사용하여 어떤 공급자가 문제를 겪고 있는지 식별하십시오.
+Global combo defaults can be set in **Dashboard → Settings → Routing → Combo Defaults**.
+
+---
+
+### Health Dashboard
+
+Access via **Dashboard → Health**. Real-time system health overview with 6 cards:
+
+| Card                  | What It Shows                                               |
+| --------------------- | ----------------------------------------------------------- |
+| **System Status**     | Uptime, version, memory usage, data directory               |
+| **Provider Health**   | Per-provider circuit breaker state (Closed/Open/Half-Open)  |
+| **Rate Limits**       | Active rate limit cooldowns per account with remaining time |
+| **Active Lockouts**   | Providers temporarily blocked by the lockout policy         |
+| **Signature Cache**   | Deduplication cache stats (active keys, hit rate)           |
+| **Latency Telemetry** | p50/p95/p99 latency aggregation per provider                |
+
+**Pro Tip:** The Health page auto-refreshes every 10 seconds. Use the circuit breaker card to identify which providers are experiencing issues.
+
+---
+
+## 🖥️ Desktop Application (Electron)
+
+OmniRoute is available as a native desktop application for Windows, macOS, and Linux.
+
+### Installation
+
+```bash
+# From the electron directory:
+cd electron
+npm install
+
+# Development mode (connect to running Next.js dev server):
+npm run dev
+
+# Production mode (uses standalone build):
+npm start
+```
+
+### Building Installers
+
+```bash
+cd electron
+npm run build          # Current platform
+npm run build:win      # Windows (.exe NSIS)
+npm run build:mac      # macOS (.dmg universal)
+npm run build:linux    # Linux (.AppImage)
+```
+
+Output → `electron/dist-electron/`
+
+### Key Features
+
+| Feature                     | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| **Server Readiness**        | Polls server before showing window (no blank screen) |
+| **System Tray**             | Minimize to tray, change port, quit from tray menu   |
+| **Port Management**         | Change server port from tray (auto-restarts server)  |
+| **Content Security Policy** | Restrictive CSP via session headers                  |
+| **Single Instance**         | Only one app instance can run at a time              |
+| **Offline Mode**            | Bundled Next.js server works without internet        |
+
+### Environment Variables
+
+| Variable              | Default | Description                      |
+| --------------------- | ------- | -------------------------------- |
+| `OMNIROUTE_PORT`      | `20128` | Server port                      |
+| `OMNIROUTE_MEMORY_MB` | `512`   | Node.js heap limit (64–16384 MB) |
+
+📖 Full documentation: [`electron/README.md`](../electron/README.md)

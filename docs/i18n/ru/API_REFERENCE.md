@@ -1,12 +1,12 @@
-# Справочник по API
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-Полный справочник по всем конечным точкам API OmniRoute.
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## Содержание
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@
 
 ---
 
-## Завершения чата
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### Пользовательские заголовки
+### Custom Headers
 
-| Заголовок                | Направление | Описание                                         |
-| ------------------------ | ----------- | ------------------------------------------------ |
-| `X-OmniRoute-No-Cache`   | Запрос      | Установите значение `true` для обхода кеша       |
-| `X-OmniRoute-Progress`   | Запрос      | Установите значение `true` для событий прогресса |
-| `Idempotency-Key`        | Запрос      | Ключ дедупликации (окно 5s)                      |
-| `X-Request-Id`           | Запрос      | Альтернативный ключ дедупликации                 |
-| `X-OmniRoute-Cache`      | Ответ       | `HIT` или `MISS` (без потоковой передачи)        |
-| `X-OmniRoute-Idempotent` | Ответ       | `true` при дедупликации                          |
-| `X-OmniRoute-Progress`   | Ответ       | `enabled`, если отслеживание прогресса включено  |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## Вложения
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-Доступные провайдеры: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## Генерация изображений
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-Доступные провайдеры: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## Список моделей
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## Конечные точки совместимости
+## Compatibility Endpoints
 
-| Метод    | Путь                        | Формат                   |
-| -------- | --------------------------- | ------------------------ |
-| ПОСТ     | `/v1/chat/completions`      | ОпенАИ                   |
-| ПОСТ     | `/v1/messages`              | Антропный                |
-| ПОСТ     | `/v1/responses`             | Ответы OpenAI            |
-| ПОСТ     | `/v1/embeddings`            | ОпенАИ                   |
-| ПОСТ     | `/v1/images/generations`    | ОпенАИ                   |
-| ПОЛУЧИТЬ | `/v1/models`                | ОпенАИ                   |
-| ПОСТ     | `/v1/messages/count_tokens` | Антропный                |
-| ПОЛУЧИТЬ | `/v1beta/models`            | Близнецы                 |
-| ПОСТ     | `/v1beta/models/{...path}`  | Близнецы создают контент |
-| ПОСТ     | `/v1/api/chat`              | Оллама                   |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### Маршруты выделенного провайдера
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-Префикс провайдера добавляется автоматически, если он отсутствует. Несовпадающие модели возвращают `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## Семантический кеш
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-Пример ответа:
+Response example:
 
 ```json
 {
@@ -162,154 +162,164 @@ DELETE /api/cache
 
 ---
 
-## Панель управления и управление
+## Dashboard & Management
 
-### Аутентификация
+### Authentication
 
-| Конечная точка                | Метод              | Описание                   |
-| ----------------------------- | ------------------ | -------------------------- |
-| `/api/auth/login`             | ПОСТ               | Войти                      |
-| `/api/auth/logout`            | ПОСТ               | Выйти                      |
-| `/api/settings/require-login` | ПОЛУЧИТЬ/ПОСТАВИТЬ | Переключить требуется вход |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### Управление поставщиками
+### Provider Management
 
-| Конечная точка               | Метод                      | Описание                          |
-| ---------------------------- | -------------------------- | --------------------------------- |
-| `/api/providers`             | ПОЛУЧИТЬ/ОТПРАВИТЬ         | Список/создание поставщиков       |
-| `/api/providers/[id]`        | ПОЛУЧИТЬ/ПОСТАВИТЬ/УДАЛИТЬ | Управление провайдером            |
-| `/api/providers/[id]/test`   | ПОСТ                       | Проверка подключения к провайдеру |
-| `/api/providers/[id]/models` | ПОЛУЧИТЬ                   | Список моделей поставщиков        |
-| `/api/providers/validate`    | ПОСТ                       | Проверка конфигурации провайдера  |
-| `/api/provider-nodes*`       | Разное                     | Управление узлами провайдера      |
-| `/api/provider-models`       | ПОЛУЧИТЬ/ОТПРАВИТЬ/УДАЛИТЬ | Нестандартные модели              |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### Потоки OAuth
+### OAuth Flows
 
-| Конечная точка                   | Метод  | Описание                         |
-| -------------------------------- | ------ | -------------------------------- |
-| `/api/oauth/[provider]/[action]` | Разное | OAuth для конкретного поставщика |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### Маршрутизация и конфигурация
+### Routing & Config
 
-| Конечная точка        | Метод              | Описание                        |
-| --------------------- | ------------------ | ------------------------------- |
-| `/api/models/alias`   | ПОЛУЧИТЬ/ОТПРАВИТЬ | Псевдонимы моделей              |
-| `/api/models/catalog` | ПОЛУЧИТЬ           | Все модели по поставщику + типу |
-| `/api/combos*`        | Разное             | Комбинированное управление      |
-| `/api/keys*`          | Разное             | Управление ключами API          |
-| `/api/pricing`        | ПОЛУЧИТЬ           | Цены на модели                  |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### Использование и аналитика
+### Usage & Analytics
 
-| Конечная точка              | Метод    | Описание                             |
-| --------------------------- | -------- | ------------------------------------ |
-| `/api/usage/history`        | ПОЛУЧИТЬ | История использования                |
-| `/api/usage/logs`           | ПОЛУЧИТЬ | Журналы использования                |
-| `/api/usage/request-logs`   | ПОЛУЧИТЬ | Журналы уровня запроса               |
-| `/api/usage/[connectionId]` | ПОЛУЧИТЬ | Использование для каждого соединения |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### Настройки
+### Settings
 
-| Конечная точка                  | Метод              | Описание                                    |
-| ------------------------------- | ------------------ | ------------------------------------------- |
-| `/api/settings`                 | ПОЛУЧИТЬ/ПОСТАВИТЬ | Общие настройки                             |
-| `/api/settings/proxy`           | ПОЛУЧИТЬ/ПОСТАВИТЬ | Конфигурация сетевого прокси                |
-| `/api/settings/proxy/test`      | ПОСТ               | Проверить прокси-соединение                 |
-| `/api/settings/ip-filter`       | ПОЛУЧИТЬ/ПОСТАВИТЬ | Список разрешенных/блокированных IP-адресов |
-| `/api/settings/thinking-budget` | ПОЛУЧИТЬ/ПОСТАВИТЬ | Обоснование бюджета жетона                  |
-| `/api/settings/system-prompt`   | ПОЛУЧИТЬ/ПОСТАВИТЬ | Глобальная системная подсказка              |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### Мониторинг
+### Monitoring
 
-| Конечная точка           | Метод            | Описание                                |
-| ------------------------ | ---------------- | --------------------------------------- |
-| `/api/sessions`          | ПОЛУЧИТЬ         | Отслеживание активных сессий            |
-| `/api/rate-limits`       | ПОЛУЧИТЬ         | Ограничения ставок для каждого аккаунта |
-| `/api/monitoring/health` | ПОЛУЧИТЬ         | Проверка здоровья                       |
-| `/api/cache`             | ПОЛУЧИТЬ/УДАЛИТЬ | Статистика кэша / очистить              |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### Резервное копирование и экспорт/импорт
+### Backup & Export/Import
 
-| Конечная точка              | Метод    | Описание                                               |
-| --------------------------- | -------- | ------------------------------------------------------ |
-| `/api/db-backups`           | ПОЛУЧИТЬ | Список доступных резервных копий                       |
-| `/api/db-backups`           | ПУТЬ     | Создайте резервную копию вручную                       |
-| `/api/db-backups`           | ПОСТ     | Восстановление из определенной резервной копии         |
-| `/api/db-backups/export`    | ПОЛУЧИТЬ | Загрузить базу данных в виде файла .sqlite             |
-| `/api/db-backups/import`    | ПОСТ     | Загрузите файл .sqlite для замены базы данных          |
-| `/api/db-backups/exportAll` | ПОЛУЧИТЬ | Загрузите полную резервную копию в виде архива .tar.gz |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
-### Облачная синхронизация
+### Cloud Sync
 
-| Конечная точка         | Метод  | Описание                        |
-| ---------------------- | ------ | ------------------------------- |
-| `/api/sync/cloud`      | Разное | Операции облачной синхронизации |
-| `/api/sync/initialize` | ПОСТ   | Инициализировать синхронизацию  |
-| `/api/cloud/*`         | Разное | Облачное управление             |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### Инструменты CLI
+### CLI Tools
 
-| Конечная точка                     | Метод    | Описание                   |
-| ---------------------------------- | -------- | -------------------------- |
-| `/api/cli-tools/claude-settings`   | ПОЛУЧИТЬ | Статус Клода CLI           |
-| `/api/cli-tools/codex-settings`    | ПОЛУЧИТЬ | Статус CLI Кодекса         |
-| `/api/cli-tools/droid-settings`    | ПОЛУЧИТЬ | Статус Droid CLI           |
-| `/api/cli-tools/openclaw-settings` | ПОЛУЧИТЬ | Статус OpenClaw CLI        |
-| `/api/cli-tools/runtime/[toolId]`  | ПОЛУЧИТЬ | Общая среда выполнения CLI |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-Ответы CLI включают: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### Устойчивость и ограничения скорости
+### ACP Agents
 
-| Конечная точка          | Метод              | Описание                                       |
-| ----------------------- | ------------------ | ---------------------------------------------- |
-| `/api/resilience`       | ПОЛУЧИТЬ/ПОСТАВИТЬ | Получить/обновить профили устойчивости         |
-| `/api/resilience/reset` | ПОСТ               | Сброс автоматических выключателей              |
-| `/api/rate-limits`      | ПОЛУЧИТЬ           | Статус ограничения ставки для каждого аккаунта |
-| `/api/rate-limit`       | ПОЛУЧИТЬ           | Конфигурация глобального ограничения скорости  |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
 
-### Оценки
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
 
-| Конечная точка | Метод              | Описание                                        |
-| -------------- | ------------------ | ----------------------------------------------- |
-| `/api/evals`   | ПОЛУЧИТЬ/ОТПРАВИТЬ | Получение списка пакетов оценки / запуск оценки |
+### Resilience & Rate Limits
 
-### Политики
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
-| Конечная точка  | Метод                      | Описание                            |
-| --------------- | -------------------------- | ----------------------------------- |
-| `/api/policies` | ПОЛУЧИТЬ/ОТПРАВИТЬ/УДАЛИТЬ | Управление политиками маршрутизации |
+### Evals
 
-### Соответствие
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-| Конечная точка              | Метод    | Описание                                 |
-| --------------------------- | -------- | ---------------------------------------- |
-| `/api/compliance/audit-log` | ПОЛУЧИТЬ | Журнал аудита соответствия (последний N) |
+### Policies
 
-### v1beta (совместимость с Близнецами)
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-| Конечная точка             | Метод    | Описание                                |
-| -------------------------- | -------- | --------------------------------------- |
-| `/v1beta/models`           | ПОЛУЧИТЬ | Список моделей в формате Gemini         |
-| `/v1beta/models/{...path}` | ПОСТ     | Конечная точка Gemini `generateContent` |
+### Compliance
 
-Эти конечные точки отражают формат API Gemini для клиентов, которым требуется встроенная совместимость с Gemini SDK.
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### Внутренние/системные API
+### v1beta (Gemini-Compatible)
 
-| Конечная точка  | Метод    | Описание                                                            |
-| --------------- | -------- | ------------------------------------------------------------------- |
-| `/api/init`     | ПОЛУЧИТЬ | Проверка инициализации приложения (используется при первом запуске) |
-| `/api/tags`     | ПОЛУЧИТЬ | Теги моделей, совместимые с Ollama (для клиентов Ollama)            |
-| `/api/restart`  | ПОСТ     | Запустить плавный перезапуск сервера                                |
-| `/api/shutdown` | ПОСТ     | Запустить корректное завершение работы сервера                      |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-> **Примечание.** Эти конечные точки используются внутри системы или для совместимости с клиентом Ollama. Обычно они не вызываются конечными пользователями.
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
+
+### Internal / System APIs
+
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
+
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## Аудио транскрипция
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-Транскрибируйте аудиофайлы с помощью Deepgram или AssemblyAI.
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**Запрос:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**Ответ:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**Поддерживаемые поставщики:** `deepgram/nova-3`, `assemblyai/best`.
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**Поддерживаемые форматы:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## Совместимость с Олламой
+## Ollama Compatibility
 
-Для клиентов, использующих формат API Ollama:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-Запросы автоматически переводятся между Олламой и внутренними форматами.
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## Телеметрия
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**Ответ:**
+**Response:**
 
 ```json
 {
@@ -381,7 +391,7 @@ GET /api/telemetry/summary
 
 ---
 
-## Бюджет
+## Budget
 
 ```bash
 # Get budget status for all API keys
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## Доступность модели
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## Обработка запроса
+## Request Processing
 
-1. Клиент отправляет запрос на `/v1/*`.
-2. Обработчик маршрута вызывает `handleChat`, `handleEmbedding`, `handleAudioTranscription` или `handleImageGeneration`.
-3. Модель разрешена (прямой поставщик/модель или псевдоним/комбо)
-4. Учетные данные, выбранные из локальной базы данных с фильтрацией доступности учетной записи.
-5. Для чата: `handleChatCore` — определение формата, трансляция, проверка кеша, проверка идемпотентности
-6. Исполнитель провайдера отправляет восходящий запрос.
-7. Ответ переводится обратно в формат клиента (чат) или возвращается в исходном виде (встраивания/изображения/аудио).
-8. Запись использования/регистрации
-9. Резервный вариант применяется при ошибках в соответствии с правилами комбо.
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-Полная ссылка на архитектуру: [link](ARCHITECTURE.md).
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## Аутентификация
+## Authentication
 
-- Маршруты информационной панели (`/dashboard/*`) используют файл cookie `auth_token`.
-- Для входа используется сохраненный хеш пароля; возврат к `INITIAL_PASSWORD`
-- `requireLogin` переключается через `/api/settings/require-login`
-- Маршруты `/v1/*` дополнительно требуют ключ API носителя, когда `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

@@ -1,22 +1,22 @@
-# omniroute — Documentación de la base de código
+# omniroute — Codebase Documentation
 
-🌐 **Languages:** 🇺🇸 [English](../../CODEBASE_DOCUMENTATION.md) | 🇧🇷 [Português (Brasil)](../pt-BR/CODEBASE_DOCUMENTATION.md) | 🇪🇸 [Español](../es/CODEBASE_DOCUMENTATION.md) | 🇫🇷 [Français](../fr/CODEBASE_DOCUMENTATION.md) | 🇮🇹 [Italiano](../it/CODEBASE_DOCUMENTATION.md) | 🇷🇺 [Русский](../ru/CODEBASE_DOCUMENTATION.md) | 🇨🇳 [中文 (简体)](../zh-CN/CODEBASE_DOCUMENTATION.md) | 🇩🇪 [Deutsch](../de/CODEBASE_DOCUMENTATION.md) | 🇮🇳 [हिन्दी](../in/CODEBASE_DOCUMENTATION.md) | 🇹🇭 [ไทย](../th/CODEBASE_DOCUMENTATION.md) | 🇺🇦 [Українська](../uk-UA/CODEBASE_DOCUMENTATION.md) | 🇸🇦 [العربية](../ar/CODEBASE_DOCUMENTATION.md) | 🇯🇵 [日本語](../ja/CODEBASE_DOCUMENTATION.md) | 🇻🇳 [Tiếng Việt](../vi/CODEBASE_DOCUMENTATION.md) | 🇧🇬 [Български](../bg/CODEBASE_DOCUMENTATION.md) | 🇩🇰 [Dansk](../da/CODEBASE_DOCUMENTATION.md) | 🇫🇮 [Suomi](../fi/CODEBASE_DOCUMENTATION.md) | 🇮🇱 [עברית](../he/CODEBASE_DOCUMENTATION.md) | 🇭🇺 [Magyar](../hu/CODEBASE_DOCUMENTATION.md) | 🇮🇩 [Bahasa Indonesia](../id/CODEBASE_DOCUMENTATION.md) | 🇰🇷 [한국어](../ko/CODEBASE_DOCUMENTATION.md) | 🇲🇾 [Bahasa Melayu](../ms/CODEBASE_DOCUMENTATION.md) | 🇳🇱 [Nederlands](../nl/CODEBASE_DOCUMENTATION.md) | 🇳🇴 [Norsk](../no/CODEBASE_DOCUMENTATION.md) | 🇵🇹 [Português (Portugal)](../pt/CODEBASE_DOCUMENTATION.md) | 🇷🇴 [Română](../ro/CODEBASE_DOCUMENTATION.md) | 🇵🇱 [Polski](../pl/CODEBASE_DOCUMENTATION.md) | 🇸🇰 [Slovenčina](../sk/CODEBASE_DOCUMENTATION.md) | 🇸🇪 [Svenska](../sv/CODEBASE_DOCUMENTATION.md) | 🇵🇭 [Filipino](../phi/CODEBASE_DOCUMENTATION.md)
+🌐 **Languages:** 🇺🇸 [English](CODEBASE_DOCUMENTATION.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/CODEBASE_DOCUMENTATION.md) | 🇪🇸 [Español](i18n/es/CODEBASE_DOCUMENTATION.md) | 🇫🇷 [Français](i18n/fr/CODEBASE_DOCUMENTATION.md) | 🇮🇹 [Italiano](i18n/it/CODEBASE_DOCUMENTATION.md) | 🇷🇺 [Русский](i18n/ru/CODEBASE_DOCUMENTATION.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/CODEBASE_DOCUMENTATION.md) | 🇩🇪 [Deutsch](i18n/de/CODEBASE_DOCUMENTATION.md) | 🇮🇳 [हिन्दी](i18n/in/CODEBASE_DOCUMENTATION.md) | 🇹🇭 [ไทย](i18n/th/CODEBASE_DOCUMENTATION.md) | 🇺🇦 [Українська](i18n/uk-UA/CODEBASE_DOCUMENTATION.md) | 🇸🇦 [العربية](i18n/ar/CODEBASE_DOCUMENTATION.md) | 🇯🇵 [日本語](i18n/ja/CODEBASE_DOCUMENTATION.md) | 🇻🇳 [Tiếng Việt](i18n/vi/CODEBASE_DOCUMENTATION.md) | 🇧🇬 [Български](i18n/bg/CODEBASE_DOCUMENTATION.md) | 🇩🇰 [Dansk](i18n/da/CODEBASE_DOCUMENTATION.md) | 🇫🇮 [Suomi](i18n/fi/CODEBASE_DOCUMENTATION.md) | 🇮🇱 [עברית](i18n/he/CODEBASE_DOCUMENTATION.md) | 🇭🇺 [Magyar](i18n/hu/CODEBASE_DOCUMENTATION.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/CODEBASE_DOCUMENTATION.md) | 🇰🇷 [한국어](i18n/ko/CODEBASE_DOCUMENTATION.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/CODEBASE_DOCUMENTATION.md) | 🇳🇱 [Nederlands](i18n/nl/CODEBASE_DOCUMENTATION.md) | 🇳🇴 [Norsk](i18n/no/CODEBASE_DOCUMENTATION.md) | 🇵🇹 [Português (Portugal)](i18n/pt/CODEBASE_DOCUMENTATION.md) | 🇷🇴 [Română](i18n/ro/CODEBASE_DOCUMENTATION.md) | 🇵🇱 [Polski](i18n/pl/CODEBASE_DOCUMENTATION.md) | 🇸🇰 [Slovenčina](i18n/sk/CODEBASE_DOCUMENTATION.md) | 🇸🇪 [Svenska](i18n/sv/CODEBASE_DOCUMENTATION.md) | 🇵🇭 [Filipino](i18n/phi/CODEBASE_DOCUMENTATION.md)
 
-> Una guía completa y fácil de usar para principiantes sobre el enrutador proxy de IA multiproveedor **omniroute**.
-
----
-
-## 1. ¿Qué es omniruta?
-
-omniroute es un **enrutador proxy** que se encuentra entre clientes de IA (Claude CLI, Codex, Cursor IDE, etc.) y proveedores de IA (Anthropic, Google, OpenAI, AWS, GitHub, etc.). Resuelve un gran problema:
-
-> **Diferentes clientes de IA hablan diferentes "idiomas" (formatos API), y diferentes proveedores de IA también esperan "idiomas" diferentes.** omniroute traduce entre ellos automáticamente.
-
-Piense en ello como un traductor universal en las Naciones Unidas: cualquier delegado puede hablar cualquier idioma y el traductor lo convierte para cualquier otro delegado.
+> A comprehensive, beginner-friendly guide to the **omniroute** multi-provider AI proxy router.
 
 ---
 
-## 2. Descripción general de la arquitectura
+## 1. What Is omniroute?
+
+omniroute is a **proxy router** that sits between AI clients (Claude CLI, Codex, Cursor IDE, etc.) and AI providers (Anthropic, Google, OpenAI, AWS, GitHub, etc.). It solves one big problem:
+
+> **Different AI clients speak different "languages" (API formats), and different AI providers expect different "languages" too.** omniroute translates between them automatically.
+
+Think of it like a universal translator at the United Nations — any delegate can speak any language, and the translator converts it for any other delegate.
+
+---
+
+## 2. Architecture Overview
 
 ```mermaid
 graph LR
@@ -61,20 +61,20 @@ graph LR
     H -.-> G
 ```
 
-### Principio básico: traducción radial
+### Core Principle: Hub-and-Spoke Translation
 
-Toda la traducción de formatos pasa a través del **formato OpenAI como centro**:
+All format translation passes through **OpenAI format as the hub**:
 
 ```
 Client Format → [OpenAI Hub] → Provider Format    (request)
 Provider Format → [OpenAI Hub] → Client Format    (response)
 ```
 
-Esto significa que solo necesitas **N traductores** (uno por formato) en lugar de **N²** (cada par).
+This means you only need **N translators** (one per format) instead of **N²** (every pair).
 
 ---
 
-## 3. Estructura del proyecto
+## 3. Project Structure
 
 ```
 omniroute/
@@ -104,22 +104,22 @@ omniroute/
 
 ---
 
-## 4. Desglose módulo por módulo
+## 4. Module-by-Module Breakdown
 
-### 4.1 Configuración (`open-sse/config/`)
+### 4.1 Config (`open-sse/config/`)
 
-La **única fuente de verdad** para todas las configuraciones de proveedores.
+The **single source of truth** for all provider configuration.
 
-| Archivo                       | Propósito                                                                                                                                                                                                                                                                 |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `constants.ts`                | Objeto `PROVIDERS` con URL base, credenciales de OAuth (predeterminadas), encabezados y mensajes del sistema predeterminados para cada proveedor. También define `HTTP_STATUS`, `ERROR_TYPES`, `COOLDOWN_MS`, `BACKOFF_CONFIG` y `SKIP_PATTERNS`.                         |
-| `credentialLoader.ts`         | Carga credenciales externas de `data/provider-credentials.json` y las combina con los valores predeterminados codificados en `PROVIDERS`. Mantiene los secretos fuera del control de código fuente y al mismo tiempo mantiene la compatibilidad con versiones anteriores. |
-| `providerModels.ts`           | Registro central de modelos: alias de proveedores de mapas → ID de modelos. Funciones como `getModels()`, `getProviderByAlias()`.                                                                                                                                         |
-| `codexInstructions.ts`        | Instrucciones del sistema inyectadas en solicitudes del Codex (restricciones de edición, reglas de espacio aislado, políticas de aprobación).                                                                                                                             |
-| `defaultThinkingSignature.ts` | Firmas "pensantes" predeterminadas para los modelos Claude y Gemini.                                                                                                                                                                                                      |
-| `ollamaModels.ts`             | Definición de esquemas para modelos locales de Ollama (nombre, tamaño, familia, cuantificación).                                                                                                                                                                          |
+| File                          | Purpose                                                                                                                                                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `constants.ts`                | `PROVIDERS` object with base URLs, OAuth credentials (defaults), headers, and default system prompts for every provider. Also defines `HTTP_STATUS`, `ERROR_TYPES`, `COOLDOWN_MS`, `BACKOFF_CONFIG`, and `SKIP_PATTERNS`. |
+| `credentialLoader.ts`         | Loads external credentials from `data/provider-credentials.json` and merges them over the hardcoded defaults in `PROVIDERS`. Keeps secrets out of source control while maintaining backwards compatibility.               |
+| `providerModels.ts`           | Central model registry: maps provider aliases → model IDs. Functions like `getModels()`, `getProviderByAlias()`.                                                                                                          |
+| `codexInstructions.ts`        | System instructions injected into Codex requests (editing constraints, sandbox rules, approval policies).                                                                                                                 |
+| `defaultThinkingSignature.ts` | Default "thinking" signatures for Claude and Gemini models.                                                                                                                                                               |
+| `ollamaModels.ts`             | Schema definition for local Ollama models (name, size, family, quantization).                                                                                                                                             |
 
-#### Flujo de carga de credenciales
+#### Credential Loading Flow
 
 ```mermaid
 flowchart TD
@@ -142,9 +142,9 @@ flowchart TD
 
 ---
 
-### 4.2 Ejecutores (`open-sse/executors/`)
+### 4.2 Executors (`open-sse/executors/`)
 
-Los ejecutores encapsulan **lógica específica del proveedor** utilizando el **Patrón de estrategia**. Cada ejecutor anula los métodos base según sea necesario.
+Executors encapsulate **provider-specific logic** using the **Strategy Pattern**. Each executor overrides base methods as needed.
 
 ```mermaid
 classDiagram
@@ -194,32 +194,32 @@ classDiagram
     BaseExecutor <|-- GithubExecutor
 ```
 
-| Ejecutor         | Proveedor                                   | Especializaciones clave                                                                                                                                     |
-| ---------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `base.ts`        | —                                           | Base abstracta: creación de URL, encabezados, lógica de reintento, actualización de credenciales                                                            |
-| `default.ts`     | Claude, Géminis, OpenAI, GLM, Kimi, MiniMax | Actualización de token genérico de OAuth para proveedores estándar                                                                                          |
-| `antigravity.ts` | Código de la nube de Google                 | Generación de ID de proyecto/sesión, respaldo de múltiples URL, reintento personalizado de análisis de mensajes de error ("restablecer después de 2h7m23s") |
-| `cursor.ts`      | Cursor IDE                                  | **Más complejo**: autenticación de suma de comprobación SHA-256, codificación de solicitud Protobuf, EventStream binario → análisis de respuesta SSE        |
-| `codex.ts`       | Códice OpenAI                               | Inyecta instrucciones del sistema, gestiona los niveles de pensamiento, elimina parámetros no compatibles                                                   |
-| `gemini-cli.ts`  | CLI de Google Géminis                       | Creación de URL personalizada (`streamGenerateContent`), actualización del token OAuth de Google                                                            |
-| `github.ts`      | Copiloto de GitHub                          | Sistema de token dual (GitHub OAuth + token Copilot), imitación del encabezado VSCode                                                                       |
-| `kiro.ts`        | Susurrador de códigos de AWS                | Análisis binario de AWS EventStream, marcos de eventos AMZN, estimación de tokens                                                                           |
-| `index.ts`       | —                                           | Fábrica: nombre del proveedor de mapas → clase de ejecutor, con respaldo predeterminado                                                                     |
+| Executor         | Provider                                   | Key Specializations                                                                                                 |
+| ---------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `base.ts`        | —                                          | Abstract base: URL building, headers, retry logic, credential refresh                                               |
+| `default.ts`     | Claude, Gemini, OpenAI, GLM, Kimi, MiniMax | Generic OAuth token refresh for standard providers                                                                  |
+| `antigravity.ts` | Google Cloud Code                          | Project/session ID generation, multi-URL fallback, custom retry parsing from error messages ("reset after 2h7m23s") |
+| `cursor.ts`      | Cursor IDE                                 | **Most complex**: SHA-256 checksum auth, Protobuf request encoding, binary EventStream → SSE response parsing       |
+| `codex.ts`       | OpenAI Codex                               | Injects system instructions, manages thinking levels, removes unsupported parameters                                |
+| `gemini-cli.ts`  | Google Gemini CLI                          | Custom URL building (`streamGenerateContent`), Google OAuth token refresh                                           |
+| `github.ts`      | GitHub Copilot                             | Dual token system (GitHub OAuth + Copilot token), VSCode header mimicking                                           |
+| `kiro.ts`        | AWS CodeWhisperer                          | AWS EventStream binary parsing, AMZN event frames, token estimation                                                 |
+| `index.ts`       | —                                          | Factory: maps provider name → executor class, with default fallback                                                 |
 
 ---
 
-### 4.3 Controladores (`open-sse/handlers/`)
+### 4.3 Handlers (`open-sse/handlers/`)
 
-La **capa de orquestación**: coordina la traducción, la ejecución, la transmisión y el manejo de errores.
+The **orchestration layer** — coordinates translation, execution, streaming, and error handling.
 
-| Archivo               | Propósito                                                                                                                                                                                                                                                  |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `chatCore.ts`         | **Orquestador central** (~600 líneas). Maneja el ciclo de vida completo de la solicitud: detección de formato → traducción → envío del ejecutor → respuesta de transmisión/no transmisión → actualización del token → manejo de errores → registro de uso. |
-| `responsesHandler.ts` | Adaptador para la API de Respuestas de OpenAI: convierte el formato de Respuestas → Finalizaciones de chat → envía a `chatCore` → convierte SSE nuevamente al formato de Respuestas.                                                                       |
-| `embeddings.ts`       | Controlador de generación de incrustación: resuelve el modelo de incrustación → proveedor, envía la API del proveedor y devuelve una respuesta de incrustación compatible con OpenAI. Admite más de 6 proveedores.                                         |
-| `imageGeneration.ts`  | Controlador de generación de imágenes: resuelve el modelo de imagen → proveedor, admite los modos compatibles con OpenAI, imagen Gemini (Antigravity) y respaldo (Nebius). Devuelve imágenes base64 o URL.                                                 |
+| File                  | Purpose                                                                                                                                                                                                                |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `chatCore.ts`         | **Central orchestrator** (~600 lines). Handles the complete request lifecycle: format detection → translation → executor dispatch → streaming/non-streaming response → token refresh → error handling → usage logging. |
+| `responsesHandler.ts` | Adapter for OpenAI's Responses API: converts Responses format → Chat Completions → sends to `chatCore` → converts SSE back to Responses format.                                                                        |
+| `embeddings.ts`       | Embedding generation handler: resolves embedding model → provider, dispatches to provider API, returns OpenAI-compatible embedding response. Supports 6+ providers.                                                    |
+| `imageGeneration.ts`  | Image generation handler: resolves image model → provider, supports OpenAI-compatible, Gemini-image (Antigravity), and fallback (Nebius) modes. Returns base64 or URL images.                                          |
 
-#### Solicitar ciclo de vida (chatCore.ts)
+#### Request Lifecycle (chatCore.ts)
 
 ```mermaid
 sequenceDiagram
@@ -258,28 +258,28 @@ sequenceDiagram
 
 ---
 
-### 4.4 Servicios (`open-sse/services/`)
+### 4.4 Services (`open-sse/services/`)
 
-Lógica de negocios que soporta a los manejadores y ejecutores.
+Business logic that supports the handlers and executors.
 
-| Archivo              | Propósito                                                                                                                                                                                                                                                                                                                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `provider.ts`        | **Detección de formato** (`detectFormat`): analiza la estructura del cuerpo de la solicitud para identificar los formatos Claude/OpenAI/Gemini/Antigravity/Responses (incluye heurística `max_tokens` para Claude). Además: creación de URL, creación de encabezados, normalización de la configuración de pensamiento. Admite proveedores dinámicos `openai-compatible-*` y `anthropic-compatible-*`. |
-| `model.ts`           | Análisis de cadenas de modelo (`claude/model-name` → `{provider: "claude", model: "model-name"}`), resolución de alias con detección de colisiones, desinfección de entradas (rechaza el recorrido de ruta/caracteres de control) y resolución de información del modelo con soporte para captadores de alias asíncronos.                                                                              |
-| `accountFallback.ts` | Manejo de límite de velocidad: retroceso exponencial (1 s → 2 s → 4 s → máx. 2 min), gestión de tiempo de reutilización de la cuenta, clasificación de errores (qué errores activan el retroceso y cuáles no).                                                                                                                                                                                         |
-| `tokenRefresh.ts`    | Actualización del token de OAuth para **cada proveedor**: Google (Gemini, Antigravity), Claude, Codex, Qwen, iFlow, GitHub (OAuth + Copilot de doble token), Kiro (AWS SSO OIDC + Social Auth). Incluye caché de deduplicación de promesa en curso y reintento con retroceso exponencial.                                                                                                              |
-| `combo.ts`           | **Modelos combinados**: cadenas de modelos alternativos. Si el modelo A falla con un error elegible para respaldo, pruebe con el modelo B, luego con el C, etc. Devuelve códigos de estado ascendentes reales.                                                                                                                                                                                         |
-| `usage.ts`           | Obtiene datos de cuota/uso de las API del proveedor (cuotas de GitHub Copilot, cuotas del modelo Antigravity, límites de velocidad del Codex, desgloses de uso de Kiro, configuración de Claude).                                                                                                                                                                                                      |
-| `accountSelector.ts` | Selección inteligente de cuentas con algoritmo de puntuación: considera la prioridad, el estado de salud, la posición del round-robin y el estado de recuperación para elegir la cuenta óptima para cada solicitud.                                                                                                                                                                                    |
-| `contextManager.ts`  | Gestión del ciclo de vida del contexto de solicitud: crea y rastrea objetos de contexto por solicitud con metadatos (ID de solicitud, marcas de tiempo, información del proveedor) para depuración y registro.                                                                                                                                                                                         |
-| `ipFilter.ts`        | Control de acceso basado en IP: admite modos de lista permitida y lista de bloqueo. Valida la IP del cliente según las reglas configuradas antes de procesar las solicitudes de API.                                                                                                                                                                                                                   |
-| `sessionManager.ts`  | Seguimiento de sesiones con huellas digitales del cliente: rastrea las sesiones activas utilizando identificadores de cliente con hash, monitorea el recuento de solicitudes y proporciona métricas de sesión.                                                                                                                                                                                         |
-| `signatureCache.ts`  | Solicitar caché de deduplicación basada en firmas: evita solicitudes duplicadas al almacenar en caché las firmas de solicitudes recientes y devolver respuestas almacenadas en caché para solicitudes idénticas dentro de un período de tiempo.                                                                                                                                                        |
-| `systemPrompt.ts`    | Inyección de avisos del sistema global: antepone o agrega un aviso del sistema configurable a todas las solicitudes, con manejo de compatibilidad por proveedor.                                                                                                                                                                                                                                       |
-| `thinkingBudget.ts`  | Gestión del presupuesto de tokens de razonamiento: admite modos de transferencia, automático (configuración de pensamiento de tira), personalizado (presupuesto fijo) y adaptativo (escalado por complejidad) para controlar los tokens de pensamiento/razonamiento.                                                                                                                                   |
-| `wildcardRouter.ts`  | Enrutamiento de patrones de modelo comodín: resuelve patrones comodín (por ejemplo, `*/claude-*`) en pares concretos de proveedor/modelo según la disponibilidad y la prioridad.                                                                                                                                                                                                                       |
+| File                 | Purpose                                                                                                                                                                                                                                                                                                                                |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `provider.ts`        | **Format detection** (`detectFormat`): analyzes request body structure to identify Claude/OpenAI/Gemini/Antigravity/Responses formats (includes `max_tokens` heuristic for Claude). Also: URL building, header building, thinking config normalization. Supports `openai-compatible-*` and `anthropic-compatible-*` dynamic providers. |
+| `model.ts`           | Model string parsing (`claude/model-name` → `{provider: "claude", model: "model-name"}`), alias resolution with collision detection, input sanitization (rejects path traversal/control chars), and model info resolution with async alias getter support.                                                                             |
+| `accountFallback.ts` | Rate-limit handling: exponential backoff (1s → 2s → 4s → max 2min), account cooldown management, error classification (which errors trigger fallback vs. not).                                                                                                                                                                         |
+| `tokenRefresh.ts`    | OAuth token refresh for **every provider**: Google (Gemini, Antigravity), Claude, Codex, Qwen, iFlow, GitHub (OAuth + Copilot dual-token), Kiro (AWS SSO OIDC + Social Auth). Includes in-flight promise deduplication cache and retry with exponential backoff.                                                                       |
+| `combo.ts`           | **Combo models**: chains of fallback models. If model A fails with a fallback-eligible error, try model B, then C, etc. Returns actual upstream status codes.                                                                                                                                                                          |
+| `usage.ts`           | Fetches quota/usage data from provider APIs (GitHub Copilot quotas, Antigravity model quotas, Codex rate limits, Kiro usage breakdowns, Claude settings).                                                                                                                                                                              |
+| `accountSelector.ts` | Smart account selection with scoring algorithm: considers priority, health status, round-robin position, and cooldown state to pick the optimal account for each request.                                                                                                                                                              |
+| `contextManager.ts`  | Request context lifecycle management: creates and tracks per-request context objects with metadata (request ID, timestamps, provider info) for debugging and logging.                                                                                                                                                                  |
+| `ipFilter.ts`        | IP-based access control: supports allowlist and blocklist modes. Validates client IP against configured rules before processing API requests.                                                                                                                                                                                          |
+| `sessionManager.ts`  | Session tracking with client fingerprinting: tracks active sessions using hashed client identifiers, monitors request counts, and provides session metrics.                                                                                                                                                                            |
+| `signatureCache.ts`  | Request signature-based deduplication cache: prevents duplicate requests by caching recent request signatures and returning cached responses for identical requests within a time window.                                                                                                                                              |
+| `systemPrompt.ts`    | Global system prompt injection: prepends or appends a configurable system prompt to all requests, with per-provider compatibility handling.                                                                                                                                                                                            |
+| `thinkingBudget.ts`  | Reasoning token budget management: supports passthrough, auto (strip thinking config), custom (fixed budget), and adaptive (complexity-scaled) modes for controlling thinking/reasoning tokens.                                                                                                                                        |
+| `wildcardRouter.ts`  | Wildcard model pattern routing: resolves wildcard patterns (e.g., `*/claude-*`) to concrete provider/model pairs based on availability and priority.                                                                                                                                                                                   |
 
-#### Deduplicación de actualización de tokens
+#### Token Refresh Deduplication
 
 ```mermaid
 sequenceDiagram
@@ -300,7 +300,7 @@ sequenceDiagram
     Cache->>Cache: Delete cache entry
 ```
 
-#### Máquina de estado de reserva de cuenta
+#### Account Fallback State Machine
 
 ```mermaid
 stateDiagram-v2
@@ -325,7 +325,7 @@ stateDiagram-v2
     }
 ```
 
-#### Cadena de modelo combinado
+#### Combo Model Chain
 
 ```mermaid
 flowchart LR
@@ -344,11 +344,11 @@ flowchart LR
 
 ---
 
-### 4.5 Traductor (`open-sse/translator/`)
+### 4.5 Translator (`open-sse/translator/`)
 
-El **motor de traducción de formatos** que utiliza un sistema de complementos de registro automático.
+The **format translation engine** using a self-registering plugin system.
 
-#### Arquitectura
+#### Architecture
 
 ```mermaid
 graph TD
@@ -374,15 +374,15 @@ graph TD
     end
 ```
 
-| Directorio   | Archivos      | Descripción                                                                                                                                                                                                                                                                                                   |
-| ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request/`   | 8 traductores | Convierta cuerpos de solicitudes entre formatos. Cada archivo se registra automáticamente a través de `register(from, to, fn)` al importar.                                                                                                                                                                   |
-| `response/`  | 7 traductores | Convierta fragmentos de respuesta de transmisión entre formatos. Maneja tipos de eventos SSE, bloques de pensamiento y llamadas a herramientas.                                                                                                                                                               |
-| `helpers/`   | 6 ayudantes   | Utilidades compartidas: `claudeHelper` (extracción de avisos del sistema, configuración de pensamiento), `geminiHelper` (mapeo de partes/contenidos), `openaiHelper` (filtrado de formatos), `toolCallHelper` (generación de ID, inyección de respuestas faltantes), `maxTokensHelper`, `responsesApiHelper`. |
-| `index.ts`   | —             | Motor de traducción: `translateRequest()`, `translateResponse()`, gestión de estado, registro.                                                                                                                                                                                                                |
-| `formats.ts` | —             | Constantes de formato: `OPENAI`, `CLAUDE`, `GEMINI`, `ANTIGRAVITY`, `KIRO`, `CURSOR`, `OPENAI_RESPONSES`.                                                                                                                                                                                                     |
+| Directory    | Files         | Description                                                                                                                                                                                                                                                      |
+| ------------ | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `request/`   | 8 translators | Convert request bodies between formats. Each file self-registers via `register(from, to, fn)` on import.                                                                                                                                                         |
+| `response/`  | 7 translators | Convert streaming response chunks between formats. Handles SSE event types, thinking blocks, tool calls.                                                                                                                                                         |
+| `helpers/`   | 6 helpers     | Shared utilities: `claudeHelper` (system prompt extraction, thinking config), `geminiHelper` (parts/contents mapping), `openaiHelper` (format filtering), `toolCallHelper` (ID generation, missing response injection), `maxTokensHelper`, `responsesApiHelper`. |
+| `index.ts`   | —             | Translation engine: `translateRequest()`, `translateResponse()`, state management, registry.                                                                                                                                                                     |
+| `formats.ts` | —             | Format constants: `OPENAI`, `CLAUDE`, `GEMINI`, `ANTIGRAVITY`, `KIRO`, `CURSOR`, `OPENAI_RESPONSES`.                                                                                                                                                             |
 
-#### Diseño de claves: complementos de registro automático
+#### Key Design: Self-Registering Plugins
 
 ```javascript
 // Each translator file calls register() on import:
@@ -395,19 +395,19 @@ import "./request/claude-to-openai.js"; // ← self-registers
 
 ---
 
-### 4.6 Utilidades (`open-sse/utils/`)
+### 4.6 Utils (`open-sse/utils/`)
 
-| Archivo            | Propósito                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `error.ts`         | Creación de respuestas a errores (formato compatible con OpenAI), análisis de errores ascendentes, extracción en tiempo de reintento de Antigravity de mensajes de error, transmisión de errores SSE.                                                                                                                                                                    |
-| `stream.ts`        | **SSE Transform Stream**: el canal principal de transmisión. Dos modos: `TRANSLATE` (traducción de formato completo) y `PASSTHROUGH` (normalizar + extraer uso). Maneja el almacenamiento en búfer de fragmentos, la estimación de uso y el seguimiento de la longitud del contenido. Las instancias de codificador/decodificador por flujo evitan el estado compartido. |
-| `streamHelpers.ts` | Utilidades SSE de bajo nivel: `parseSSELine` (tolerante a espacios en blanco), `hasValuableContent` (filtra fragmentos vacíos para OpenAI/Claude/Gemini), `fixInvalidId`, `formatSSE` (serialización SSE con reconocimiento de formato con limpieza `perf_metrics`).                                                                                                     |
-| `usageTracking.ts` | Extracción de uso de tokens de cualquier formato (Claude/OpenAI/Gemini/Responses), estimación con proporciones separadas de caracteres por token de herramienta/mensaje, adición de búfer (margen de seguridad de 2000 tokens), filtrado de campos específicos del formato, registro de consola con colores ANSI.                                                        |
-| `requestLogger.ts` | Registro de solicitudes basado en archivos (optar a través de `ENABLE_REQUEST_LOGS=true`). Crea carpetas de sesión con archivos numerados: `1_req_client.json` → `7_res_client.txt`. Todas las E/S son asíncronas (disparar y olvidar). Enmascara encabezados sensibles.                                                                                                 |
-| `bypassHandler.ts` | Intercepta patrones específicos de Claude CLI (extracción de títulos, calentamiento, recuento) y devuelve respuestas falsas sin llamar a ningún proveedor. Admite tanto streaming como no streaming. Limitado intencionalmente al alcance de Claude CLI.                                                                                                                 |
-| `networkProxy.ts`  | Resuelve la URL del proxy saliente para un proveedor determinado con prioridad: configuración específica del proveedor → configuración global → variables de entorno (`HTTPS_PROXY`/`HTTP_PROXY`/`ALL_PROXY`). Admite exclusiones `NO_PROXY`. Configuración de cachés durante 30 segundos.                                                                               |
+| File               | Purpose                                                                                                                                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `error.ts`         | Error response building (OpenAI-compatible format), upstream error parsing, Antigravity retry-time extraction from error messages, SSE error streaming.                                                                                                                              |
+| `stream.ts`        | **SSE Transform Stream** — the core streaming pipeline. Two modes: `TRANSLATE` (full format translation) and `PASSTHROUGH` (normalize + extract usage). Handles chunk buffering, usage estimation, content length tracking. Per-stream encoder/decoder instances avoid shared state. |
+| `streamHelpers.ts` | Low-level SSE utilities: `parseSSELine` (whitespace-tolerant), `hasValuableContent` (filters empty chunks for OpenAI/Claude/Gemini), `fixInvalidId`, `formatSSE` (format-aware SSE serialization with `perf_metrics` cleanup).                                                       |
+| `usageTracking.ts` | Token usage extraction from any format (Claude/OpenAI/Gemini/Responses), estimation with separate tool/message char-per-token ratios, buffer addition (2000 tokens safety margin), format-specific field filtering, console logging with ANSI colors.                                |
+| `requestLogger.ts` | File-based request logging (opt-in via `ENABLE_REQUEST_LOGS=true`). Creates session folders with numbered files: `1_req_client.json` → `7_res_client.txt`. All I/O is async (fire-and-forget). Masks sensitive headers.                                                              |
+| `bypassHandler.ts` | Intercepts specific patterns from Claude CLI (title extraction, warmup, count) and returns fake responses without calling any provider. Supports both streaming and non-streaming. Intentionally limited to Claude CLI scope.                                                        |
+| `networkProxy.ts`  | Resolves outbound proxy URL for a given provider with precedence: provider-specific config → global config → environment variables (`HTTPS_PROXY`/`HTTP_PROXY`/`ALL_PROXY`). Supports `NO_PROXY` exclusions. Caches config for 30s.                                                  |
 
-#### Tubería de transmisión de SSE
+#### SSE Streaming Pipeline
 
 ```mermaid
 flowchart TD
@@ -429,7 +429,7 @@ flowchart TD
     style M fill:#9f9,stroke:#333
 ```
 
-#### Solicitar estructura de sesión del registrador
+#### Request Logger Session Structure
 
 ```
 logs/
@@ -447,109 +447,109 @@ logs/
 
 ---
 
-### 4.7 Capa de aplicación (`src/`)
+### 4.7 Application Layer (`src/`)
 
-| Directorio    | Propósito                                                                                             |
-| ------------- | ----------------------------------------------------------------------------------------------------- |
-| `src/app/`    | Interfaz de usuario web, rutas API, middleware Express, controladores de devolución de llamadas OAuth |
-| `src/lib/`    | Acceso a base de datos (`localDb.ts`, `usageDb.ts`), autenticación, compartido                        |
-| `src/mitm/`   | Utilidades de proxy Man-in-the-middle para interceptar el tráfico de proveedores                      |
-| `src/models/` | Definiciones de modelos de bases de datos                                                             |
-| `src/shared/` | Envoltorios de funciones open-sse (proveedor, flujo, error, etc.)                                     |
-| `src/sse/`    | Controladores de puntos finales SSE que conectan la biblioteca open-sse a rutas Express               |
-| `src/store/`  | Gestión del estado de la aplicación                                                                   |
+| Directory     | Purpose                                                                |
+| ------------- | ---------------------------------------------------------------------- |
+| `src/app/`    | Web UI, API routes, Express middleware, OAuth callback handlers        |
+| `src/lib/`    | Database access (`localDb.ts`, `usageDb.ts`), authentication, shared   |
+| `src/mitm/`   | Man-in-the-middle proxy utilities for intercepting provider traffic    |
+| `src/models/` | Database model definitions                                             |
+| `src/shared/` | Wrappers around open-sse functions (provider, stream, error, etc.)     |
+| `src/sse/`    | SSE endpoint handlers that wire the open-sse library to Express routes |
+| `src/store/`  | Application state management                                           |
 
-#### Rutas API notables
+#### Notable API Routes
 
-| Ruta                                          | Métodos                   | Propósito                                                                                                   |
-| --------------------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `/api/provider-models`                        | OBTENER/PUBLICAR/ELIMINAR | CRUD para modelos personalizados por proveedor                                                              |
-| `/api/models/catalog`                         | OBTENER                   | Catálogo agregado de todos los modelos (chat, incrustado, imagen, personalizado) agrupados por proveedor    |
-| `/api/settings/proxy`                         | OBTENER/PONER/ELIMINAR    | Configuración de proxy saliente jerárquico (`global/providers/combos/keys`)                                 |
-| `/api/settings/proxy/test`                    | PUBLICAR                  | Valida la conectividad del proxy y devuelve IP pública/latencia                                             |
-| `/v1/providers/[provider]/chat/completions`   | PUBLICAR                  | Finalizaciones de chat dedicadas por proveedor con validación de modelo                                     |
-| `/v1/providers/[provider]/embeddings`         | PUBLICAR                  | Incorporaciones dedicadas por proveedor con validación de modelo                                            |
-| `/v1/providers/[provider]/images/generations` | PUBLICAR                  | Generación de imágenes dedicada por proveedor con validación de modelo                                      |
-| `/api/settings/ip-filter`                     | OBTENER/PONER             | Gestión de listas de IP permitidas/bloqueadas                                                               |
-| `/api/settings/thinking-budget`               | OBTENER/PONER             | Configuración del presupuesto del token de razonamiento (transferencia/automático/personalizado/adaptativo) |
-| `/api/settings/system-prompt`                 | OBTENER/PONER             | Inyección rápida del sistema global para todas las solicitudes                                              |
-| `/api/sessions`                               | OBTENER                   | Seguimiento y métricas de sesiones activas                                                                  |
-| `/api/rate-limits`                            | OBTENER                   | Estado del límite de tasa por cuenta                                                                        |
-
----
-
-## 5. Patrones de diseño clave
-
-### 5.1 Traducción radial
-
-Todos los formatos se traducen a través del **formato OpenAI como centro**. Agregar un nuevo proveedor solo requiere escribir **un par** de traductores (hacia/desde OpenAI), no N pares.
-
-### 5.2 Patrón de estrategia del ejecutor
-
-Cada proveedor tiene una clase de ejecutor dedicada que hereda de `BaseExecutor`. La fábrica en `executors/index.ts` selecciona la correcta en tiempo de ejecución.
-
-### 5.3 Sistema de complementos de autorregistro
-
-Los módulos traductores se registran al importar a través de `register()`. Agregar un nuevo traductor es simplemente crear un archivo e importarlo.
-
-### 5.4 Reserva de cuenta con retroceso exponencial
-
-Cuando un proveedor devuelve 429/401/500, el sistema puede cambiar a la siguiente cuenta, aplicando tiempos de reutilización exponenciales (1 s → 2 s → 4 s → máx. 2 min).
-
-### 5.5 Cadenas de modelos combinados
-
-Un "combo" agrupa varias cadenas `provider/model`. Si el primero falla, se pasa automáticamente al siguiente.
-
-### 5.6 Traducción de transmisión con estado
-
-La traducción de respuestas mantiene el estado en todos los fragmentos de SSE (seguimiento de bloques de pensamiento, acumulación de llamadas de herramientas, indexación de bloques de contenido) a través del mecanismo `initState()`.
-
-### 5.7 Búfer de seguridad de uso
-
-Se agrega un búfer de 2000 tokens al uso informado para evitar que los clientes alcancen los límites de la ventana de contexto debido a la sobrecarga de las indicaciones del sistema y la traducción de formato.
+| Route                                         | Methods         | Purpose                                                                               |
+| --------------------------------------------- | --------------- | ------------------------------------------------------------------------------------- |
+| `/api/provider-models`                        | GET/POST/DELETE | CRUD for custom models per provider                                                   |
+| `/api/models/catalog`                         | GET             | Aggregated catalog of all models (chat, embedding, image, custom) grouped by provider |
+| `/api/settings/proxy`                         | GET/PUT/DELETE  | Hierarchical outbound proxy configuration (`global/providers/combos/keys`)            |
+| `/api/settings/proxy/test`                    | POST            | Validates proxy connectivity and returns public IP/latency                            |
+| `/v1/providers/[provider]/chat/completions`   | POST            | Dedicated per-provider chat completions with model validation                         |
+| `/v1/providers/[provider]/embeddings`         | POST            | Dedicated per-provider embeddings with model validation                               |
+| `/v1/providers/[provider]/images/generations` | POST            | Dedicated per-provider image generation with model validation                         |
+| `/api/settings/ip-filter`                     | GET/PUT         | IP allowlist/blocklist management                                                     |
+| `/api/settings/thinking-budget`               | GET/PUT         | Reasoning token budget configuration (passthrough/auto/custom/adaptive)               |
+| `/api/settings/system-prompt`                 | GET/PUT         | Global system prompt injection for all requests                                       |
+| `/api/sessions`                               | GET             | Active session tracking and metrics                                                   |
+| `/api/rate-limits`                            | GET             | Per-account rate limit status                                                         |
 
 ---
 
-## 6. Formatos admitidos
+## 5. Key Design Patterns
 
-| Formato                        | Dirección        | Identificador      |
-| ------------------------------ | ---------------- | ------------------ |
-| Finalizaciones del chat OpenAI | fuente + destino | `openai`           |
-| API de respuestas OpenAI       | fuente + destino | `openai-responses` |
-| Claude antrópico               | fuente + destino | `claude`           |
-| Google Géminis                 | fuente + destino | `gemini`           |
-| CLI de Google Géminis          | sólo objetivo    | `gemini-cli`       |
-| Antigravedad                   | fuente + destino | `antigravity`      |
-| AWS Kiro                       | sólo objetivo    | `kiro`             |
-| Cursores                       | sólo objetivo    | `cursor`           |
+### 5.1 Hub-and-Spoke Translation
 
----
+All formats translate through **OpenAI format as the hub**. Adding a new provider only requires writing **one pair** of translators (to/from OpenAI), not N pairs.
 
-## 7. Proveedores admitidos
+### 5.2 Executor Strategy Pattern
 
-| Proveedor                | Método de autenticación               | Ejecutor       | Notas clave                                                     |
-| ------------------------ | ------------------------------------- | -------------- | --------------------------------------------------------------- |
-| Claude antrópico         | Clave API u OAuth                     | Predeterminado | Utiliza el encabezado `x-api-key`                               |
-| Google Géminis           | Clave API u OAuth                     | Predeterminado | Utiliza el encabezado `x-goog-api-key`                          |
-| CLI de Google Géminis    | OAuth                                 | GéminisCLI     | Utiliza el punto final `streamGenerateContent`                  |
-| Antigravedad             | OAuth                                 | Antigravedad   | Respaldo de múltiples URL, análisis de reintentos personalizado |
-| Abierta AI               | Clave API                             | Predeterminado | Autenticación de abanderado                                     |
-| Códice                   | OAuth                                 | Códice         | Inyecta instrucciones del sistema, gestiona el pensamiento      |
-| Copiloto de GitHub       | OAuth + token de copiloto             | GitHub         | Token dual, imitación del encabezado VSCode                     |
-| Kiro (AWS)               | AWS SSO OIDC o redes sociales         | kiro           | Análisis binario de EventStream                                 |
-| Cursor IDE               | Autenticación de suma de comprobación | Cursores       | Codificación Protobuf, sumas de comprobación SHA-256            |
-| Qwen                     | OAuth                                 | Predeterminado | Autenticación estándar                                          |
-| iFlujo                   | OAuth (Básico + Portador)             | Predeterminado | Encabezado de autenticación dual                                |
-| Enrutador abierto        | Clave API                             | Predeterminado | Autenticación de abanderado                                     |
-| GLM, Kimi, MiniMax       | Clave API                             | Predeterminado | Compatible con Claude, use `x-api-key`                          |
-| `openai-compatible-*`    | Clave API                             | Predeterminado | Dinámico: cualquier punto final compatible con OpenAI           |
-| `anthropic-compatible-*` | Clave API                             | Predeterminado | Dinámico: cualquier punto final compatible con Claude           |
+Each provider has a dedicated executor class inheriting from `BaseExecutor`. The factory in `executors/index.ts` selects the right one at runtime.
+
+### 5.3 Self-Registering Plugin System
+
+Translator modules register themselves on import via `register()`. Adding a new translator is just creating a file and importing it.
+
+### 5.4 Account Fallback with Exponential Backoff
+
+When a provider returns 429/401/500, the system can switch to the next account, applying exponential cooldowns (1s → 2s → 4s → max 2min).
+
+### 5.5 Combo Model Chains
+
+A "combo" groups multiple `provider/model` strings. If the first fails, fallback to the next automatically.
+
+### 5.6 Stateful Streaming Translation
+
+Response translation maintains state across SSE chunks (thinking block tracking, tool call accumulation, content block indexing) via the `initState()` mechanism.
+
+### 5.7 Usage Safety Buffer
+
+A 2000-token buffer is added to reported usage to prevent clients from hitting context window limits due to overhead from system prompts and format translation.
 
 ---
 
-## 8. Resumen del flujo de datos
+## 6. Supported Formats
 
-### Solicitud de transmisión
+| Format                  | Direction       | Identifier         |
+| ----------------------- | --------------- | ------------------ |
+| OpenAI Chat Completions | source + target | `openai`           |
+| OpenAI Responses API    | source + target | `openai-responses` |
+| Anthropic Claude        | source + target | `claude`           |
+| Google Gemini           | source + target | `gemini`           |
+| Google Gemini CLI       | target only     | `gemini-cli`       |
+| Antigravity             | source + target | `antigravity`      |
+| AWS Kiro                | target only     | `kiro`             |
+| Cursor                  | target only     | `cursor`           |
+
+---
+
+## 7. Supported Providers
+
+| Provider                 | Auth Method            | Executor    | Key Notes                                     |
+| ------------------------ | ---------------------- | ----------- | --------------------------------------------- |
+| Anthropic Claude         | API key or OAuth       | Default     | Uses `x-api-key` header                       |
+| Google Gemini            | API key or OAuth       | Default     | Uses `x-goog-api-key` header                  |
+| Google Gemini CLI        | OAuth                  | GeminiCLI   | Uses `streamGenerateContent` endpoint         |
+| Antigravity              | OAuth                  | Antigravity | Multi-URL fallback, custom retry parsing      |
+| OpenAI                   | API key                | Default     | Standard Bearer auth                          |
+| Codex                    | OAuth                  | Codex       | Injects system instructions, manages thinking |
+| GitHub Copilot           | OAuth + Copilot token  | Github      | Dual token, VSCode header mimicking           |
+| Kiro (AWS)               | AWS SSO OIDC or Social | Kiro        | Binary EventStream parsing                    |
+| Cursor IDE               | Checksum auth          | Cursor      | Protobuf encoding, SHA-256 checksums          |
+| Qwen                     | OAuth                  | Default     | Standard auth                                 |
+| iFlow                    | OAuth (Basic + Bearer) | Default     | Dual auth header                              |
+| OpenRouter               | API key                | Default     | Standard Bearer auth                          |
+| GLM, Kimi, MiniMax       | API key                | Default     | Claude-compatible, use `x-api-key`            |
+| `openai-compatible-*`    | API key                | Default     | Dynamic: any OpenAI-compatible endpoint       |
+| `anthropic-compatible-*` | API key                | Default     | Dynamic: any Claude-compatible endpoint       |
+
+---
+
+## 8. Data Flow Summary
+
+### Streaming Request
 
 ```mermaid
 flowchart LR
@@ -566,7 +566,7 @@ flowchart LR
     K --> L["logUsage()\nsaveRequestUsage()"]
 ```
 
-### Solicitud sin transmisión
+### Non-Streaming Request
 
 ```mermaid
 flowchart LR
@@ -577,7 +577,7 @@ flowchart LR
     E --> F["Return JSON\nresponse"]
 ```
 
-### Flujo de derivación (Claude CLI)
+### Bypass Flow (Claude CLI)
 
 ```mermaid
 flowchart LR

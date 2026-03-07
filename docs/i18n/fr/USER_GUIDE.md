@@ -1,12 +1,12 @@
-# Guide de l'utilisateur
+# User Guide
 
-🌐 **Languages:** 🇺🇸 [English](../../USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](../es/USER_GUIDE.md) | 🇫🇷 [Français](../fr/USER_GUIDE.md) | 🇮🇹 [Italiano](../it/USER_GUIDE.md) | 🇷🇺 [Русский](../ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](../zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](../de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](../in/USER_GUIDE.md) | 🇹🇭 [ไทย](../th/USER_GUIDE.md) | 🇺🇦 [Українська](../uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](../ar/USER_GUIDE.md) | 🇯🇵 [日本語](../ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](../vi/USER_GUIDE.md) | 🇧🇬 [Български](../bg/USER_GUIDE.md) | 🇩🇰 [Dansk](../da/USER_GUIDE.md) | 🇫🇮 [Suomi](../fi/USER_GUIDE.md) | 🇮🇱 [עברית](../he/USER_GUIDE.md) | 🇭🇺 [Magyar](../hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](../id/USER_GUIDE.md) | 🇰🇷 [한국어](../ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](../ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](../nl/USER_GUIDE.md) | 🇳🇴 [Norsk](../no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](../pt/USER_GUIDE.md) | 🇷🇴 [Română](../ro/USER_GUIDE.md) | 🇵🇱 [Polski](../pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](../sk/USER_GUIDE.md) | 🇸🇪 [Svenska](../sv/USER_GUIDE.md) | 🇵🇭 [Filipino](../phi/USER_GUIDE.md)
+🌐 **Languages:** 🇺🇸 [English](USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](i18n/es/USER_GUIDE.md) | 🇫🇷 [Français](i18n/fr/USER_GUIDE.md) | 🇮🇹 [Italiano](i18n/it/USER_GUIDE.md) | 🇷🇺 [Русский](i18n/ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](i18n/de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](i18n/in/USER_GUIDE.md) | 🇹🇭 [ไทย](i18n/th/USER_GUIDE.md) | 🇺🇦 [Українська](i18n/uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](i18n/ar/USER_GUIDE.md) | 🇯🇵 [日本語](i18n/ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/USER_GUIDE.md) | 🇧🇬 [Български](i18n/bg/USER_GUIDE.md) | 🇩🇰 [Dansk](i18n/da/USER_GUIDE.md) | 🇫🇮 [Suomi](i18n/fi/USER_GUIDE.md) | 🇮🇱 [עברית](i18n/he/USER_GUIDE.md) | 🇭🇺 [Magyar](i18n/hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/USER_GUIDE.md) | 🇰🇷 [한국어](i18n/ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](i18n/nl/USER_GUIDE.md) | 🇳🇴 [Norsk](i18n/no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/USER_GUIDE.md) | 🇷🇴 [Română](i18n/ro/USER_GUIDE.md) | 🇵🇱 [Polski](i18n/pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](i18n/sk/USER_GUIDE.md) | 🇸🇪 [Svenska](i18n/sv/USER_GUIDE.md) | 🇵🇭 [Filipino](i18n/phi/USER_GUIDE.md)
 
-Guide complet pour configurer les fournisseurs, créer des combos, intégrer des outils CLI et déployer OmniRoute.
+Complete guide for configuring providers, creating combos, integrating CLI tools, and deploying OmniRoute.
 
 ---
 
-## Table des matières
+## Table of Contents
 
 - [Pricing at a Glance](#-pricing-at-a-glance)
 - [Use Cases](#-use-cases)
@@ -18,40 +18,40 @@ Guide complet pour configurer les fournisseurs, créer des combos, intégrer des
 
 ---
 
-## 💰 Aperçu des prix
+## 💰 Pricing at a Glance
 
-| Niveau            | Fournisseur           | Coût                     | Réinitialisation des quotas | Idéal pour                        |
-| ----------------- | --------------------- | ------------------------ | --------------------------- | --------------------------------- |
-| **💳 ABONNEMENT** | Claude Code (Pro)     | 20 $/mois                | 5h + hebdomadaire           | Déjà abonné                       |
-|                   | Codex (Plus/Pro)      | 20-200 $/mois            | 5h + hebdomadaire           | Utilisateurs d'OpenAI             |
-|                   | CLI Gémeaux           | **GRATUIT**              | 180K/mois + 1K/jour         | Tout le monde!                    |
-|                   | Copilote GitHub       | 10-19 $/mois             | Mensuel                     | Utilisateurs GitHub               |
-| **🔑 CLÉ API**    | Recherche profonde    | Paiement à l'utilisation | Aucun                       | Raisonnement bon marché           |
-|                   | Groq                  | Paiement à l'utilisation | Aucun                       | Inférence ultra-rapide            |
-|                   | xAI (Grok)            | Paiement à l'utilisation | Aucun                       | Raisonnement Grok 4               |
-|                   | Mistral               | Paiement à l'utilisation | Aucun                       | Modèles hébergés dans l'UE        |
-|                   | Perplexité            | Paiement à l'utilisation | Aucun                       | Recherche augmentée               |
-|                   | Ensemble IA           | Paiement à l'utilisation | Aucun                       | Modèles open source               |
-|                   | IA de feux d'artifice | Paiement à l'utilisation | Aucun                       | Images FLUX rapides               |
-|                   | Cérébraux             | Paiement à l'utilisation | Aucun                       | Vitesse à l'échelle d'une tranche |
-|                   | Cohérer               | Paiement à l'utilisation | Aucun                       | Commande R+ RAG                   |
-|                   | NIM NVIDIA            | Paiement à l'utilisation | Aucun                       | Modèles d'entreprise              |
-| **💰 BON MARCHÉ** | GLM-4.7               | 0,6 $/1 M                | Tous les jours 10h          | Sauvegarde budgétaire             |
-|                   | MiniMax M2.1          | 0,2 $/1 M                | 5 heures roulantes          | Option la moins chère             |
-|                   | Kimi K2               | 9 $/mois plat            | 10 millions de jetons/mois  | Coût prévisible                   |
-| **🆓 GRATUIT**    | iFlow                 | 0 $                      | Illimité                    | 8 modèles gratuits                |
-|                   | Qwen                  | 0 $                      | Illimité                    | 3 modèles gratuits                |
-|                   | Kiro                  | 0 $                      | Illimité                    | Claude gratuit                    |
+| Tier                | Provider          | Cost        | Quota Reset      | Best For             |
+| ------------------- | ----------------- | ----------- | ---------------- | -------------------- |
+| **💳 SUBSCRIPTION** | Claude Code (Pro) | $20/mo      | 5h + weekly      | Already subscribed   |
+|                     | Codex (Plus/Pro)  | $20-200/mo  | 5h + weekly      | OpenAI users         |
+|                     | Gemini CLI        | **FREE**    | 180K/mo + 1K/day | Everyone!            |
+|                     | GitHub Copilot    | $10-19/mo   | Monthly          | GitHub users         |
+| **🔑 API KEY**      | DeepSeek          | Pay per use | None             | Cheap reasoning      |
+|                     | Groq              | Pay per use | None             | Ultra-fast inference |
+|                     | xAI (Grok)        | Pay per use | None             | Grok 4 reasoning     |
+|                     | Mistral           | Pay per use | None             | EU-hosted models     |
+|                     | Perplexity        | Pay per use | None             | Search-augmented     |
+|                     | Together AI       | Pay per use | None             | Open-source models   |
+|                     | Fireworks AI      | Pay per use | None             | Fast FLUX images     |
+|                     | Cerebras          | Pay per use | None             | Wafer-scale speed    |
+|                     | Cohere            | Pay per use | None             | Command R+ RAG       |
+|                     | NVIDIA NIM        | Pay per use | None             | Enterprise models    |
+| **💰 CHEAP**        | GLM-4.7           | $0.6/1M     | Daily 10AM       | Budget backup        |
+|                     | MiniMax M2.1      | $0.2/1M     | 5-hour rolling   | Cheapest option      |
+|                     | Kimi K2           | $9/mo flat  | 10M tokens/mo    | Predictable cost     |
+| **🆓 FREE**         | iFlow             | $0          | Unlimited        | 8 models free        |
+|                     | Qwen              | $0          | Unlimited        | 3 models free        |
+|                     | Kiro              | $0          | Unlimited        | Claude free          |
 
-**💡 Conseil de pro :** Commencez avec Gemini CLI (180 000 gratuits/mois) + combo iFlow (gratuit et illimité) = 0 $ de coût !
+**💡 Pro Tip:** Start with Gemini CLI (180K free/month) + iFlow (unlimited free) combo = $0 cost!
 
 ---
 
-## 🎯 Cas d'utilisation
+## 🎯 Use Cases
 
-### Cas 1 : "J'ai un abonnement Claude Pro"
+### Case 1: "I have Claude Pro subscription"
 
-**Problème :** Le quota expire sans être utilisé, limites de débit lors d'un codage intensif
+**Problem:** Quota expires unused, rate limits during heavy coding
 
 ```
 Combo: "maximize-claude"
@@ -63,9 +63,9 @@ Monthly cost: $20 (subscription) + ~$5 (backup) = $25 total
 vs. $20 + hitting limits = frustration
 ```
 
-### Cas 2 : "Je veux un coût nul"
+### Case 2: "I want zero cost"
 
-**Problème :** Je ne peux pas payer les abonnements, j'ai besoin d'un codage IA fiable
+**Problem:** Can't afford subscriptions, need reliable AI coding
 
 ```
 Combo: "free-forever"
@@ -77,9 +77,9 @@ Monthly cost: $0
 Quality: Production-ready models
 ```
 
-### Cas 3 : "J'ai besoin de coder 24h/24 et 7j/7, sans interruption"
+### Case 3: "I need 24/7 coding, no interruptions"
 
-**Problème :** Délais, je ne peux pas me permettre de temps d'arrêt
+**Problem:** Deadlines, can't afford downtime
 
 ```
 Combo: "always-on"
@@ -93,9 +93,9 @@ Result: 5 layers of fallback = zero downtime
 Monthly cost: $20-200 (subscriptions) + $10-20 (backup)
 ```
 
-### Cas 4 : "Je veux une IA GRATUITE dans OpenClaw"
+### Case 4: "I want FREE AI in OpenClaw"
 
-**Problème :** Besoin d'un assistant IA dans les applications de messagerie, entièrement gratuit
+**Problem:** Need AI assistant in messaging apps, completely free
 
 ```
 Combo: "openclaw-free"
@@ -109,9 +109,9 @@ Access via: WhatsApp, Telegram, Slack, Discord, iMessage, Signal...
 
 ---
 
-## 📖 Configuration du fournisseur
+## 📖 Provider Setup
 
-### 🔐 Fournisseurs d'abonnements
+### 🔐 Subscription Providers
 
 #### Claude Code (Pro/Max)
 
@@ -126,9 +126,9 @@ Models:
   cc/claude-haiku-4-5-20251001
 ```
 
-**Conseil de pro :** Utilisez Opus pour les tâches complexes, Sonnet pour la rapidité. OmniRoute suit le quota par modèle !
+**Pro Tip:** Use Opus for complex tasks, Sonnet for speed. OmniRoute tracks quota per model!
 
-#### Codex OpenAI (Plus/Pro)
+#### OpenAI Codex (Plus/Pro)
 
 ```bash
 Dashboard → Providers → Connect Codex
@@ -140,7 +140,7 @@ Models:
   cx/gpt-5.1-codex-max
 ```
 
-#### Gemini CLI (180 000 GRATUITS/mois !)
+#### Gemini CLI (FREE 180K/month!)
 
 ```bash
 Dashboard → Providers → Connect Gemini CLI
@@ -152,9 +152,9 @@ Models:
   gc/gemini-2.5-pro
 ```
 
-**Meilleur rapport qualité-prix :** Énorme niveau gratuit ! Utilisez-le avant les niveaux payants.
+**Best Value:** Huge free tier! Use this before paid tiers.
 
-#### Copilote GitHub
+#### GitHub Copilot
 
 ```bash
 Dashboard → Providers → Connect GitHub
@@ -167,33 +167,33 @@ Models:
   gh/gemini-3-pro
 ```
 
-### 💰 Fournisseurs bon marché
+### 💰 Cheap Providers
 
-#### GLM-4.7 (réinitialisation quotidienne, 0,6 $/1 million)
+#### GLM-4.7 (Daily reset, $0.6/1M)
 
-1. Inscrivez-vous : [Zhipu AI](https://open.bigmodel.cn/)
-2. Obtenez la clé API du plan de codage
-3. Tableau de bord → Ajouter une clé API : Fournisseur : `glm`, Clé API : `your-key`
+1. Sign up: [Zhipu AI](https://open.bigmodel.cn/)
+2. Get API key from Coding Plan
+3. Dashboard → Add API Key: Provider: `glm`, API Key: `your-key`
 
-**Utilisez :** `glm/glm-4.7` — **Conseil de pro :** Le plan de codage offre un quota de 3 × à un coût de 1/7 ! Réinitialisation quotidienne à 10h00.
+**Use:** `glm/glm-4.7` — **Pro Tip:** Coding Plan offers 3× quota at 1/7 cost! Reset daily 10:00 AM.
 
-#### MiniMax M2.1 (réinitialisation de 5 h, 0,20 $/1 M)
+#### MiniMax M2.1 (5h reset, $0.20/1M)
 
-1. Inscrivez-vous : [MiniMax](https://www.minimax.io/)
-2. Obtenir la clé API → Tableau de bord → Ajouter une clé API
+1. Sign up: [MiniMax](https://www.minimax.io/)
+2. Get API key → Dashboard → Add API Key
 
-**Utilisez :** `minimax/MiniMax-M2.1` — **Conseil de pro :** Option la moins chère pour un contexte long (1 million de jetons) !
+**Use:** `minimax/MiniMax-M2.1` — **Pro Tip:** Cheapest option for long context (1M tokens)!
 
-#### Kimi K2 (9$/mois fixe)
+#### Kimi K2 ($9/month flat)
 
-1. Abonnez-vous : [Moonshot AI](https://platform.moonshot.ai/)
-2. Obtenir la clé API → Tableau de bord → Ajouter une clé API
+1. Subscribe: [Moonshot AI](https://platform.moonshot.ai/)
+2. Get API key → Dashboard → Add API Key
 
-**Utilisez :** `kimi/kimi-latest` — **Conseil de pro :** Fixe 9 $/mois pour 10 millions de jetons = 0,90 $/1 million de coût effectif !
+**Use:** `kimi/kimi-latest` — **Pro Tip:** Fixed $9/month for 10M tokens = $0.90/1M effective cost!
 
-### 🆓 Fournisseurs GRATUITS
+### 🆓 FREE Providers
 
-#### iFlow (8 modèles GRATUITS)
+#### iFlow (8 FREE models)
 
 ```bash
 Dashboard → Connect iFlow → OAuth login → Unlimited usage
@@ -201,7 +201,7 @@ Dashboard → Connect iFlow → OAuth login → Unlimited usage
 Models: if/kimi-k2-thinking, if/qwen3-coder-plus, if/glm-4.7, if/minimax-m2, if/deepseek-r1
 ```
 
-#### Qwen (3 modèles GRATUITS)
+#### Qwen (3 FREE models)
 
 ```bash
 Dashboard → Connect Qwen → Device code auth → Unlimited usage
@@ -209,7 +209,7 @@ Dashboard → Connect Qwen → Device code auth → Unlimited usage
 Models: qw/qwen3-coder-plus, qw/qwen3-coder-flash
 ```
 
-#### Kiro (Claude GRATUIT)
+#### Kiro (Claude FREE)
 
 ```bash
 Dashboard → Connect Kiro → AWS Builder ID or Google/GitHub → Unlimited
@@ -219,9 +219,9 @@ Models: kr/claude-sonnet-4.5, kr/claude-haiku-4.5
 
 ---
 
-## 🎨Combinaisons
+## 🎨 Combos
 
-### Exemple 1 : Maximiser l'abonnement → Sauvegarde bon marché
+### Example 1: Maximize Subscription → Cheap Backup
 
 ```
 Dashboard → Combos → Create New
@@ -235,7 +235,7 @@ Models:
 Use in CLI: premium-coding
 ```
 
-### Exemple 2 : Gratuit uniquement (sans coût)
+### Example 2: Free-Only (Zero Cost)
 
 ```
 Name: free-combo
@@ -249,9 +249,9 @@ Cost: $0 forever!
 
 ---
 
-## 🔧 Intégration CLI
+## 🔧 CLI Integration
 
-### IDE de curseur
+### Cursor IDE
 
 ```
 Settings → Models → Advanced:
@@ -260,9 +260,9 @@ Settings → Models → Advanced:
   Model: cc/claude-opus-4-6
 ```
 
-###Claude Code
+### Claude Code
 
-Modifier `~/.claude/config.json` :
+Edit `~/.claude/config.json`:
 
 ```json
 {
@@ -271,7 +271,7 @@ Modifier `~/.claude/config.json` :
 }
 ```
 
-### CLI du Codex
+### Codex CLI
 
 ```bash
 export OPENAI_BASE_URL="http://localhost:20128"
@@ -281,7 +281,7 @@ codex "your prompt"
 
 ### OpenClaw
 
-Modifier `~/.openclaw/openclaw.json` :
+Edit `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -303,9 +303,9 @@ Modifier `~/.openclaw/openclaw.json` :
 }
 ```
 
-**Ou utilisez le tableau de bord :** Outils CLI → OpenClaw → Configuration automatique
+**Or use Dashboard:** CLI Tools → OpenClaw → Auto-config
 
-### Cline / Continuer / RooCode
+### Cline / Continue / RooCode
 
 ```
 Provider: OpenAI Compatible
@@ -316,9 +316,28 @@ Model: cc/claude-opus-4-6
 
 ---
 
-## 🚀 Déploiement
+## 🚀 Deployment
 
-### Déploiement VPS
+### Global npm install (Recommended)
+
+```bash
+npm install -g omniroute
+
+# Create config directory
+mkdir -p ~/.omniroute
+
+# Create .env file (see .env.example)
+cp .env.example ~/.omniroute/.env
+
+# Start server
+omniroute
+# Or with custom port:
+omniroute --port 3000
+```
+
+The CLI automatically loads `.env` from `~/.omniroute/.env` or `./.env`.
+
+### VPS Deployment
 
 ```bash
 git clone https://github.com/diegosouzapw/OmniRoute.git
@@ -337,6 +356,43 @@ npm run start
 # Or: pm2 start npm --name omniroute -- start
 ```
 
+### PM2 Deployment (Low Memory)
+
+For servers with limited RAM, use the memory limit option:
+
+```bash
+# With 512MB limit (default)
+pm2 start npm --name omniroute -- start
+
+# Or with custom memory limit
+OMNIROUTE_MEMORY_MB=512 pm2 start npm --name omniroute -- start
+
+# Or using ecosystem.config.js
+pm2 start ecosystem.config.js
+```
+
+Create `ecosystem.config.js`:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "omniroute",
+      script: "npm",
+      args: "start",
+      env: {
+        NODE_ENV: "production",
+        OMNIROUTE_MEMORY_MB: "512",
+        JWT_SECRET: "your-secret",
+        INITIAL_PASSWORD: "your-password",
+      },
+      node_args: "--max-old-space-size=512",
+      max_memory_restart: "300M",
+    },
+  ],
+};
+```
+
 ### Docker
 
 ```bash
@@ -347,81 +403,84 @@ docker build -t omniroute:cli .
 docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-data:/app/data omniroute:cli
 ```
 
-Pour le mode intégré à l'hôte avec les binaires CLI, consultez la section Docker dans la documentation principale.
+For host-integrated mode with CLI binaries, see the Docker section in the main docs.
 
-### Variables d'environnement
+### Environment Variables
 
-| Variables             | Par défaut                           | Descriptif                                                                     |
-| --------------------- | ------------------------------------ | ------------------------------------------------------------------------------ |
-| `JWT_SECRET`          | `omniroute-default-secret-change-me` | Secret de signature JWT (**changement de production**)                         |
-| `INITIAL_PASSWORD`    | `123456`                             | Mot de passe de première connexion                                             |
-| `DATA_DIR`            | `~/.omniroute`                       | Répertoire de données (base de données, utilisation, journaux)                 |
-| `PORT`                | cadre par défaut                     | Port de service (`20128` dans les exemples)                                    |
-| `HOSTNAME`            | cadre par défaut                     | Lier l'hôte (Docker par défaut est `0.0.0.0`)                                  |
-| `NODE_ENV`            | valeur par défaut d'exécution        | Définissez `production` pour le déploiement                                    |
-| `BASE_URL`            | `http://localhost:20128`             | URL de base interne côté serveur                                               |
-| `CLOUD_URL`           | `https://omniroute.dev`              | URL de base du point de terminaison de synchronisation cloud                   |
-| `API_KEY_SECRET`      | `endpoint-proxy-api-key-secret`      | Secret HMAC pour les clés API générées                                         |
-| `REQUIRE_API_KEY`     | `false`                              | Appliquer la clé API Bearer sur `/v1/*`                                        |
-| `ENABLE_REQUEST_LOGS` | `false`                              | Active les journaux de requêtes/réponses                                       |
-| `AUTH_COOKIE_SECURE`  | `false`                              | Forcer le cookie d'authentification `Secure` (derrière le proxy inverse HTTPS) |
+| Variable                  | Default                              | Description                                             |
+| ------------------------- | ------------------------------------ | ------------------------------------------------------- |
+| `JWT_SECRET`              | `omniroute-default-secret-change-me` | JWT signing secret (**change in production**)           |
+| `INITIAL_PASSWORD`        | `123456`                             | First login password                                    |
+| `DATA_DIR`                | `~/.omniroute`                       | Data directory (db, usage, logs)                        |
+| `PORT`                    | framework default                    | Service port (`20128` in examples)                      |
+| `HOSTNAME`                | framework default                    | Bind host (Docker defaults to `0.0.0.0`)                |
+| `NODE_ENV`                | runtime default                      | Set `production` for deploy                             |
+| `BASE_URL`                | `http://localhost:20128`             | Server-side internal base URL                           |
+| `CLOUD_URL`               | `https://omniroute.dev`              | Cloud sync endpoint base URL                            |
+| `API_KEY_SECRET`          | `endpoint-proxy-api-key-secret`      | HMAC secret for generated API keys                      |
+| `REQUIRE_API_KEY`         | `false`                              | Enforce Bearer API key on `/v1/*`                       |
+| `ENABLE_REQUEST_LOGS`     | `false`                              | Enables request/response logs                           |
+| `AUTH_COOKIE_SECURE`      | `false`                              | Force `Secure` auth cookie (behind HTTPS reverse proxy) |
+| `OMNIROUTE_MEMORY_MB`     | `512`                                | Node.js heap limit in MB                                |
+| `PROMPT_CACHE_MAX_SIZE`   | `50`                                 | Max prompt cache entries                                |
+| `SEMANTIC_CACHE_MAX_SIZE` | `100`                                | Max semantic cache entries                              |
 
-Pour la référence complète des variables d'environnement, consultez le [README](../README.md).
+For the full environment variable reference, see the [README](../README.md).
 
 ---
 
-## 📊 Modèles disponibles
+## 📊 Available Models
 
 <details>
-<summary><b>Voir tous les modèles disponibles</b></summary>
+<summary><b>View all available models</b></summary>
 
-**Code Claude (`cc/`)** — Pro/Max : `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
+**Claude Code (`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
 
-**Codex (`cx/`)** — Plus/Pro : `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
+**Codex (`cx/`)** — Plus/Pro: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
 
-**Gemini CLI (`gc/`)** — GRATUIT : `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
+**Gemini CLI (`gc/`)** — FREE: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
 
-**Copilote GitHub (`gh/`)** : `gh/gpt-5`, `gh/claude-4.5-sonnet`
+**GitHub Copilot (`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
 
-**GLM (`glm/`)** — 0,6 $/1 million : `glm/glm-4.7`
+**GLM (`glm/`)** — $0.6/1M: `glm/glm-4.7`
 
-**MiniMax (`minimax/`)** — 0,2 $/1 million : `minimax/MiniMax-M2.1`
+**MiniMax (`minimax/`)** — $0.2/1M: `minimax/MiniMax-M2.1`
 
-**iFlow (`if/`)** — GRATUIT : `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
+**iFlow (`if/`)** — FREE: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
 
-**Qwen (`qw/`)** — GRATUIT : `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
+**Qwen (`qw/`)** — FREE: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
 
-**Kiro (`kr/`)** — GRATUIT : `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
+**Kiro (`kr/`)** — FREE: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
 
-**Recherche profonde (`ds/`)** : `ds/deepseek-chat`, `ds/deepseek-reasoner`
+**DeepSeek (`ds/`)**: `ds/deepseek-chat`, `ds/deepseek-reasoner`
 
-**Groq (`groq/`)** : `groq/llama-3.3-70b-versatile`, `groq/llama-4-maverick-17b-128e-instruct`
+**Groq (`groq/`)**: `groq/llama-3.3-70b-versatile`, `groq/llama-4-maverick-17b-128e-instruct`
 
-**xAI (`xai/`)** : `xai/grok-4`, `xai/grok-4-0709-fast-reasoning`, `xai/grok-code-mini`
+**xAI (`xai/`)**: `xai/grok-4`, `xai/grok-4-0709-fast-reasoning`, `xai/grok-code-mini`
 
-**Mistral (`mistral/`)** : `mistral/mistral-large-2501`, `mistral/codestral-2501`
+**Mistral (`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
 
-**Perplexité (`pplx/`)** : `pplx/sonar-pro`, `pplx/sonar`
+**Perplexity (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
 
-**Ensemble IA (`together/`)** : `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
+**Together AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
 
-**IA de feux d'artifice (`fireworks/`)** : `fireworks/accounts/fireworks/models/deepseek-v3p1`
+**Fireworks AI (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
 
-**Cérébras (`cerebras/`)** : `cerebras/llama-3.3-70b`
+**Cerebras (`cerebras/`)**: `cerebras/llama-3.3-70b`
 
-**Cohérer (`cohere/`)** : `cohere/command-r-plus-08-2024`
+**Cohere (`cohere/`)**: `cohere/command-r-plus-08-2024`
 
-**NIM NVIDIA (`nvidia/`)** : `nvidia/nvidia/llama-3.3-70b-instruct`
+**NVIDIA NIM (`nvidia/`)**: `nvidia/nvidia/llama-3.3-70b-instruct`
 
 </details>
 
 ---
 
-## 🧩 Fonctionnalités avancées
+## 🧩 Advanced Features
 
-### Modèles personnalisés
+### Custom Models
 
-Ajoutez n'importe quel ID de modèle à n'importe quel fournisseur sans attendre une mise à jour de l'application :
+Add any model ID to any provider without waiting for an app update:
 
 ```bash
 # Via API
@@ -433,11 +492,11 @@ curl -X POST http://localhost:20128/api/provider-models \
 # Remove: curl -X DELETE "http://localhost:20128/api/provider-models?provider=openai&model=gpt-4.5-preview"
 ```
 
-Ou utilisez le tableau de bord : **Fournisseurs → [Fournisseur] → Modèles personnalisés**.
+Or use Dashboard: **Providers → [Provider] → Custom Models**.
 
-### Itinéraires de fournisseurs dédiés
+### Dedicated Provider Routes
 
-Acheminez les demandes directement vers un fournisseur spécifique avec validation du modèle :
+Route requests directly to a specific provider with model validation:
 
 ```bash
 POST http://localhost:20128/v1/providers/openai/chat/completions
@@ -445,9 +504,9 @@ POST http://localhost:20128/v1/providers/openai/embeddings
 POST http://localhost:20128/v1/providers/fireworks/images/generations
 ```
 
-Le préfixe du fournisseur est ajouté automatiquement s'il est manquant. Les modèles incompatibles renvoient `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
-### Configuration du proxy réseau
+### Network Proxy Configuration
 
 ```bash
 # Set global proxy
@@ -463,76 +522,76 @@ curl -X POST http://localhost:20128/api/settings/proxy/test \
   -d '{"proxy":{"type":"socks5","host":"proxy.example.com","port":"1080"}}'
 ```
 
-**Précédence :** Spécifique à la clé → Spécifique au combo → Spécifique au fournisseur → Global → Environnement.
+**Precedence:** Key-specific → Combo-specific → Provider-specific → Global → Environment.
 
-### API du catalogue de modèles
+### Model Catalog API
 
 ```bash
 curl http://localhost:20128/api/models/catalog
 ```
 
-Renvoie les modèles regroupés par fournisseur avec des types (`chat`, `embedding`, `image`).
+Returns models grouped by provider with types (`chat`, `embedding`, `image`).
 
-### Synchronisation avec le cloud
+### Cloud Sync
 
-- Synchronisez les fournisseurs, les combos et les paramètres sur tous les appareils
-- Synchronisation automatique en arrière-plan avec délai d'attente + échec rapide
-- Préférer le côté serveur `BASE_URL`/`CLOUD_URL` en production
+- Sync providers, combos, and settings across devices
+- Automatic background sync with timeout + fail-fast
+- Prefer server-side `BASE_URL`/`CLOUD_URL` in production
 
 ### LLM Gateway Intelligence (Phase 9)
 
-- **Cache sémantique** — Met en cache automatiquement les réponses hors streaming, température = 0 (contourner avec `X-OmniRoute-No-Cache: true`)
-- **Demande d'idempotence** — Déduplique les requêtes dans les 5 secondes via l'en-tête `Idempotency-Key` ou `X-Request-Id`
-- **Suivi des progrès** – Événements SSE `event: progress` opt-in via l'en-tête `X-OmniRoute-Progress: true`
+- **Semantic Cache** — Auto-caches non-streaming, temperature=0 responses (bypass with `X-OmniRoute-No-Cache: true`)
+- **Request Idempotency** — Deduplicates requests within 5s via `Idempotency-Key` or `X-Request-Id` header
+- **Progress Tracking** — Opt-in SSE `event: progress` events via `X-OmniRoute-Progress: true` header
 
 ---
 
-### Aire de jeux des traducteurs
+### Translator Playground
 
-Accès via **Tableau de bord → Traducteur**. Déboguez et visualisez comment OmniRoute traduit les requêtes API entre les fournisseurs.
+Access via **Dashboard → Translator**. Debug and visualize how OmniRoute translates API requests between providers.
 
-| Mode                   | Objectif                                                                                                      |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Aire de jeux**       | Sélectionnez les formats source/cible, collez une requête et voyez instantanément le résultat traduit         |
-| **Testeur de chat**    | Envoyez des messages de chat en direct via le proxy et inspectez le cycle complet de demande/réponse          |
-| **Banc d'essai**       | Exécutez des tests par lots sur plusieurs combinaisons de formats pour vérifier l'exactitude de la traduction |
-| **Moniteur en direct** | Regardez les traductions en temps réel à mesure que les demandes transitent par le proxy                      |
+| Mode             | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| **Playground**   | Select source/target formats, paste a request, and see the translated output instantly |
+| **Chat Tester**  | Send live chat messages through the proxy and inspect the full request/response cycle  |
+| **Test Bench**   | Run batch tests across multiple format combinations to verify translation correctness  |
+| **Live Monitor** | Watch real-time translations as requests flow through the proxy                        |
 
-**Cas d'utilisation :**
+**Use cases:**
 
-- Déboguer pourquoi une combinaison client/fournisseur spécifique échoue
-- Vérifiez que les balises de réflexion, les appels d'outils et les invites système se traduisent correctement
-- Comparez les différences de format entre les formats API OpenAI, Claude, Gemini et Responses
+- Debug why a specific client/provider combination fails
+- Verify that thinking tags, tool calls, and system prompts translate correctly
+- Compare format differences between OpenAI, Claude, Gemini, and Responses API formats
 
 ---
 
-### Stratégies de routage
+### Routing Strategies
 
-Configurez via **Tableau de bord → Paramètres → Routage**.
+Configure via **Dashboard → Settings → Routing**.
 
-| Stratégie                         | Descriptif                                                                                                                   |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **Remplir en premier**            | Utilise les comptes par ordre de priorité : le compte principal gère toutes les demandes jusqu'à ce qu'il soit indisponible  |
-| **Tournoi à la ronde**            | Parcourt tous les comptes avec une limite persistante configurable (par défaut : 3 appels par compte)                        |
-| **P2C (Puissance de deux choix)** | Sélectionne 2 comptes aléatoires et oriente vers le compte le plus sain – équilibre la charge avec la conscience de la santé |
-| **Aléatoire**                     | Sélectionne au hasard un compte pour chaque demande à l'aide de Fisher-Yates shuffle                                         |
-| **Le moins utilisé**              | Routes vers le compte avec l'horodatage `lastUsedAt` le plus ancien, répartissant le trafic de manière uniforme              |
-| **Coût optimisé**                 | Itinéraires vers le compte avec la valeur de priorité la plus faible, optimisation pour les fournisseurs les moins chers     |
+| Strategy                       | Description                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Fill First**                 | Uses accounts in priority order — primary account handles all requests until unavailable         |
+| **Round Robin**                | Cycles through all accounts with a configurable sticky limit (default: 3 calls per account)      |
+| **P2C (Power of Two Choices)** | Picks 2 random accounts and routes to the healthier one — balances load with awareness of health |
+| **Random**                     | Randomly selects an account for each request using Fisher-Yates shuffle                          |
+| **Least Used**                 | Routes to the account with the oldest `lastUsedAt` timestamp, distributing traffic evenly        |
+| **Cost Optimized**             | Routes to the account with the lowest priority value, optimizing for lowest-cost providers       |
 
-#### Alias de modèles génériques
+#### Wildcard Model Aliases
 
-Créez des modèles génériques pour remapper les noms de modèles :
+Create wildcard patterns to remap model names:
 
 ```
 Pattern: claude-sonnet-*     →  Target: cc/claude-sonnet-4-5-20250929
 Pattern: gpt-*               →  Target: gh/gpt-5.1-codex
 ```
 
-Les caractères génériques prennent en charge `*` (n'importe quel caractère) et `?` (un seul caractère).
+Wildcards support `*` (any characters) and `?` (single character).
 
-#### Chaînes de secours
+#### Fallback Chains
 
-Définissez des chaînes de secours globales qui s'appliquent à toutes les requêtes :
+Define global fallback chains that apply across all requests:
 
 ```
 Chain: production-fallback
@@ -543,46 +602,46 @@ Chain: production-fallback
 
 ---
 
-### Résilience et disjoncteurs
+### Resilience & Circuit Breakers
 
-Configurez via **Tableau de bord → Paramètres → Résilience**.
+Configure via **Dashboard → Settings → Resilience**.
 
-OmniRoute met en œuvre la résilience au niveau du fournisseur avec quatre composants :
+OmniRoute implements provider-level resilience with four components:
 
-1. **Profils de fournisseur** — Configuration par fournisseur pour :
-   - Seuil de défaillance (combien de défaillances avant ouverture)
-   - Durée du temps de recharge
-   - Sensibilité de détection de limite de débit
-   - Paramètres d'intervalle exponentiel
+1. **Provider Profiles** — Per-provider configuration for:
+   - Failure threshold (how many failures before opening)
+   - Cooldown duration
+   - Rate limit detection sensitivity
+   - Exponential backoff parameters
 
-2. **Limites de débit modifiables** — Paramètres par défaut au niveau du système configurables dans le tableau de bord :
-   - **Requêtes par minute (RPM)** — Nombre maximal de requêtes par minute et par compte
-   - **Min Time Between Requests** — Écart minimum en millisecondes entre les requêtes
-   - **Max Concurrent Requests** — Nombre maximal de requêtes simultanées par compte
-   - Cliquez sur **Modifier** pour modifier, puis sur **Enregistrer** ou **Annuler**. Les valeurs persistent via l'API de résilience.
+2. **Editable Rate Limits** — System-level defaults configurable in the dashboard:
+   - **Requests Per Minute (RPM)** — Maximum requests per minute per account
+   - **Min Time Between Requests** — Minimum gap in milliseconds between requests
+   - **Max Concurrent Requests** — Maximum simultaneous requests per account
+   - Click **Edit** to modify, then **Save** or **Cancel**. Values persist via the resilience API.
 
-3. **Disjoncteur** — Suit les pannes par fournisseur et ouvre automatiquement le circuit lorsqu'un seuil est atteint :
-   - **FERMÉ** (sain) — Les demandes circulent normalement
-   - **OPEN** — Le fournisseur est temporairement bloqué après des échecs répétés
-   - **HALF_OPEN** — Test si le fournisseur a récupéré
+3. **Circuit Breaker** — Tracks failures per provider and automatically opens the circuit when a threshold is reached:
+   - **CLOSED** (Healthy) — Requests flow normally
+   - **OPEN** — Provider is temporarily blocked after repeated failures
+   - **HALF_OPEN** — Testing if provider has recovered
 
-4. **Politiques et identifiants verrouillés** — Affiche l'état du disjoncteur et les identifiants verrouillés avec capacité de déverrouillage forcé.
+4. **Policies & Locked Identifiers** — Shows circuit breaker status and locked identifiers with force-unlock capability.
 
-5. **Détection automatique des limites de débit** — Surveille les en-têtes `429` et `Retry-After` pour éviter de manière proactive d'atteindre les limites de débit du fournisseur.
+5. **Rate Limit Auto-Detection** — Monitors `429` and `Retry-After` headers to proactively avoid hitting provider rate limits.
 
-**Conseil de pro :** Utilisez le bouton **Réinitialiser tout** pour effacer tous les disjoncteurs et les temps de recharge lorsqu'un fournisseur se remet d'une panne.
+**Pro Tip:** Use **Reset All** button to clear all circuit breakers and cooldowns when a provider recovers from an outage.
 
 ---
 
-### Exportation/Importation de base de données
+### Database Export / Import
 
-Gérez les sauvegardes de base de données dans **Tableau de bord → Paramètres → Système et stockage**.
+Manage database backups in **Dashboard → Settings → System & Storage**.
 
-| Actions                         | Descriptif                                                                                                                                                                                 |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Exporter la base de données** | Télécharge la base de données SQLite actuelle sous forme de fichier `.sqlite`                                                                                                              |
-| **Exporter tout (.tar.gz)**     | Télécharge une archive de sauvegarde complète comprenant : base de données, paramètres, combos, connexions du fournisseur (pas d'informations d'identification), métadonnées de la clé API |
-| **Importer la base de données** | Téléchargez un fichier `.sqlite` pour remplacer la base de données actuelle. Une sauvegarde de pré-importation est automatiquement créée                                                   |
+| Action                   | Description                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Export Database**      | Downloads the current SQLite database as a `.sqlite` file                                                                      |
+| **Export All (.tar.gz)** | Downloads a full backup archive including: database, settings, combos, provider connections (no credentials), API key metadata |
+| **Import Database**      | Upload a `.sqlite` file to replace the current database. A pre-import backup is automatically created                          |
 
 ```bash
 # API: Export database
@@ -596,38 +655,38 @@ curl -X POST http://localhost:20128/api/db-backups/import \
   -F "file=@backup.sqlite"
 ```
 
-**Validation de l'importation :** Le fichier importé est validé pour son intégrité (vérification pragma SQLite), les tables requises (`provider_connections`, `provider_nodes`, `combos`, `api_keys`) et sa taille (max 100 Mo).
+**Import Validation:** The imported file is validated for integrity (SQLite pragma check), required tables (`provider_connections`, `provider_nodes`, `combos`, `api_keys`), and size (max 100MB).
 
-**Cas d'utilisation :**
+**Use Cases:**
 
-- Migrer OmniRoute entre machines
-- Créer des sauvegardes externes pour la reprise après sinistre
-- Partager les configurations entre les membres de l'équipe (exporter tout → partager l'archive)
-
----
-
-### Tableau de bord des paramètres
-
-La page des paramètres est organisée en 5 onglets pour une navigation facile :
-
-| Onglet         | Contenu                                                                                                                  |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **Sécurité**   | Paramètres de connexion/mot de passe, contrôle d'accès IP, authentification API pour `/models` et blocage du fournisseur |
-| **Routage**    | Stratégie de routage globale (6 options), alias de modèle générique, chaînes de secours, valeurs par défaut combinées    |
-| **Résilience** | Profils de fournisseurs, limites de débit modifiables, état du disjoncteur, politiques et identifiants verrouillés       |
-| **IA**         | Configuration du budget de réflexion, injection d'invite du système global, statistiques de cache d'invite               |
-| **Avancé**     | Configuration globale du proxy (HTTP/SOCKS5)                                                                             |
+- Migrate OmniRoute between machines
+- Create external backups for disaster recovery
+- Share configurations between team members (export all → share archive)
 
 ---
 
-### Gestion des coûts et du budget
+### Settings Dashboard
 
-Accès via **Tableau de bord → Coûts**.
+The settings page is organized into 5 tabs for easy navigation:
 
-| Onglet     | Objectif                                                                                                               |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------- |
-| **Budget** | Fixez des limites de dépenses par clé API avec des budgets quotidiens/hebdomadaires/mensuels et un suivi en temps réel |
-| **Tarif**  | Afficher et modifier les entrées de tarification du modèle — coût par 1 000 jetons d'entrée/sortie par fournisseur     |
+| Tab            | Contents                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| **Security**   | Login/Password settings, IP Access Control, API auth for `/models`, and Provider Blocking      |
+| **Routing**    | Global routing strategy (6 options), wildcard model aliases, fallback chains, combo defaults   |
+| **Resilience** | Provider profiles, editable rate limits, circuit breaker status, policies & locked identifiers |
+| **AI**         | Thinking budget configuration, global system prompt injection, prompt cache stats              |
+| **Advanced**   | Global proxy configuration (HTTP/SOCKS5)                                                       |
+
+---
+
+### Costs & Budget Management
+
+Access via **Dashboard → Costs**.
+
+| Tab         | Purpose                                                                                  |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| **Budget**  | Set spending limits per API key with daily/weekly/monthly budgets and real-time tracking |
+| **Pricing** | View and edit model pricing entries — cost per 1K input/output tokens per provider       |
 
 ```bash
 # API: Set a budget
@@ -639,13 +698,13 @@ curl -X POST http://localhost:20128/api/usage/budget \
 curl http://localhost:20128/api/usage/budget
 ```
 
-**Suivi des coûts :** Chaque demande enregistre l'utilisation du jeton et calcule le coût à l'aide du tableau de tarification. Affichez les répartitions dans **Tableau de bord → Utilisation** par fournisseur, modèle et clé API.
+**Cost Tracking:** Every request logs token usage and calculates cost using the pricing table. View breakdowns in **Dashboard → Usage** by provider, model, and API key.
 
 ---
 
-### Transcription audio
+### Audio Transcription
 
-OmniRoute prend en charge la transcription audio via le point de terminaison compatible OpenAI :
+OmniRoute supports audio transcription via the OpenAI-compatible endpoint:
 
 ```bash
 POST /v1/audio/transcriptions
@@ -659,40 +718,92 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-Fournisseurs disponibles : **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
+Available providers: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
 
-Formats audio pris en charge : `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
-
----
-
-### Stratégies d'équilibrage des combos
-
-Configurez l'équilibrage par combo dans **Tableau de bord → Combos → Créer/Modifier → Stratégie**.
-
-| Stratégie              | Descriptif                                                                                      |
-| ---------------------- | ----------------------------------------------------------------------------------------------- |
-| **Robin à la ronde**   | Tourne à travers les modèles de manière séquentielle                                            |
-| **Priorité**           | Essaie toujours le premier modèle ; se rabat uniquement sur l'erreur                            |
-| **Aléatoire**          | Sélectionne un modèle aléatoire dans le combo pour chaque demande                               |
-| **Pondéré**            | Itinéraires proportionnellement basés sur les poids attribués par modèle                        |
-| **Les moins utilisés** | Itinéraires vers le modèle avec le moins de requêtes récentes (utilise des métriques combinées) |
-| **Coût optimisé**      | Itinéraires vers le modèle disponible le moins cher (utilise le tableau de prix)                |
-
-Les valeurs par défaut des combos globaux peuvent être définies dans **Tableau de bord → Paramètres → Routage → Paramètres par défaut des combos**.
+Supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-### Tableau de bord de santé
+### Combo Balancing Strategies
 
-Accès via **Tableau de bord → Santé**. Aperçu de l'état du système en temps réel avec 6 cartes :
+Configure per-combo balancing in **Dashboard → Combos → Create/Edit → Strategy**.
 
-| Carte                     | Ce que cela montre                                                          |
-| ------------------------- | --------------------------------------------------------------------------- |
-| **État du système**       | Disponibilité, version, utilisation de la mémoire, répertoire de données    |
-| **Santé du fournisseur**  | État du disjoncteur par fournisseur (Fermé/Ouvert/Semi-ouvert)              |
-| **Limites de taux**       | Temps de recharge de la limite de débit actif par compte avec temps restant |
-| **Verrouillages actifs**  | Fournisseurs temporairement bloqués par la politique de verrouillage        |
-| **Cache de signatures**   | Statistiques du cache de déduplication (clés actives, taux de réussite)     |
-| **Télémétrie de latence** | Agrégation de latence p50/p95/p99 par fournisseur                           |
+| Strategy           | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Round-Robin**    | Rotates through models sequentially                                      |
+| **Priority**       | Always tries the first model; falls back only on error                   |
+| **Random**         | Picks a random model from the combo for each request                     |
+| **Weighted**       | Routes proportionally based on assigned weights per model                |
+| **Least-Used**     | Routes to the model with the fewest recent requests (uses combo metrics) |
+| **Cost-Optimized** | Routes to the cheapest available model (uses pricing table)              |
 
-**Conseil de pro :** La page Santé s'actualise automatiquement toutes les 10 secondes. Utilisez la carte disjoncteur pour identifier les fournisseurs qui rencontrent des problèmes.
+Global combo defaults can be set in **Dashboard → Settings → Routing → Combo Defaults**.
+
+---
+
+### Health Dashboard
+
+Access via **Dashboard → Health**. Real-time system health overview with 6 cards:
+
+| Card                  | What It Shows                                               |
+| --------------------- | ----------------------------------------------------------- |
+| **System Status**     | Uptime, version, memory usage, data directory               |
+| **Provider Health**   | Per-provider circuit breaker state (Closed/Open/Half-Open)  |
+| **Rate Limits**       | Active rate limit cooldowns per account with remaining time |
+| **Active Lockouts**   | Providers temporarily blocked by the lockout policy         |
+| **Signature Cache**   | Deduplication cache stats (active keys, hit rate)           |
+| **Latency Telemetry** | p50/p95/p99 latency aggregation per provider                |
+
+**Pro Tip:** The Health page auto-refreshes every 10 seconds. Use the circuit breaker card to identify which providers are experiencing issues.
+
+---
+
+## 🖥️ Desktop Application (Electron)
+
+OmniRoute is available as a native desktop application for Windows, macOS, and Linux.
+
+### Installation
+
+```bash
+# From the electron directory:
+cd electron
+npm install
+
+# Development mode (connect to running Next.js dev server):
+npm run dev
+
+# Production mode (uses standalone build):
+npm start
+```
+
+### Building Installers
+
+```bash
+cd electron
+npm run build          # Current platform
+npm run build:win      # Windows (.exe NSIS)
+npm run build:mac      # macOS (.dmg universal)
+npm run build:linux    # Linux (.AppImage)
+```
+
+Output → `electron/dist-electron/`
+
+### Key Features
+
+| Feature                     | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| **Server Readiness**        | Polls server before showing window (no blank screen) |
+| **System Tray**             | Minimize to tray, change port, quit from tray menu   |
+| **Port Management**         | Change server port from tray (auto-restarts server)  |
+| **Content Security Policy** | Restrictive CSP via session headers                  |
+| **Single Instance**         | Only one app instance can run at a time              |
+| **Offline Mode**            | Bundled Next.js server works without internet        |
+
+### Environment Variables
+
+| Variable              | Default | Description                      |
+| --------------------- | ------- | -------------------------------- |
+| `OMNIROUTE_PORT`      | `20128` | Server port                      |
+| `OMNIROUTE_MEMORY_MB` | `512`   | Node.js heap limit (64–16384 MB) |
+
+📖 Full documentation: [`electron/README.md`](../electron/README.md)

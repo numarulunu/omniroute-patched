@@ -1,71 +1,71 @@
-# Architecture OmniRoute
+# OmniRoute Architecture
 
-🌐 **Languages:** 🇺🇸 [English](../../ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](../es/ARCHITECTURE.md) | 🇫🇷 [Français](../fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](../it/ARCHITECTURE.md) | 🇷🇺 [Русский](../ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](../zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](../de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](../in/ARCHITECTURE.md) | 🇹🇭 [ไทย](../th/ARCHITECTURE.md) | 🇺🇦 [Українська](../uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](../ar/ARCHITECTURE.md) | 🇯🇵 [日本語](../ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](../vi/ARCHITECTURE.md) | 🇧🇬 [Български](../bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](../da/ARCHITECTURE.md) | 🇫🇮 [Suomi](../fi/ARCHITECTURE.md) | 🇮🇱 [עברית](../he/ARCHITECTURE.md) | 🇭🇺 [Magyar](../hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](../id/ARCHITECTURE.md) | 🇰🇷 [한국어](../ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](../ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](../nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](../no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](../pt/ARCHITECTURE.md) | 🇷🇴 [Română](../ro/ARCHITECTURE.md) | 🇵🇱 [Polski](../pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](../sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](../sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](../phi/ARCHITECTURE.md)
+🌐 **Languages:** 🇺🇸 [English](ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](i18n/es/ARCHITECTURE.md) | 🇫🇷 [Français](i18n/fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](i18n/it/ARCHITECTURE.md) | 🇷🇺 [Русский](i18n/ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](i18n/de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](i18n/in/ARCHITECTURE.md) | 🇹🇭 [ไทย](i18n/th/ARCHITECTURE.md) | 🇺🇦 [Українська](i18n/uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](i18n/ar/ARCHITECTURE.md) | 🇯🇵 [日本語](i18n/ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/ARCHITECTURE.md) | 🇧🇬 [Български](i18n/bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](i18n/da/ARCHITECTURE.md) | 🇫🇮 [Suomi](i18n/fi/ARCHITECTURE.md) | 🇮🇱 [עברית](i18n/he/ARCHITECTURE.md) | 🇭🇺 [Magyar](i18n/hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/ARCHITECTURE.md) | 🇰🇷 [한국어](i18n/ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](i18n/nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](i18n/no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/ARCHITECTURE.md) | 🇷🇴 [Română](i18n/ro/ARCHITECTURE.md) | 🇵🇱 [Polski](i18n/pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](i18n/sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](i18n/sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](i18n/phi/ARCHITECTURE.md)
 
-_Dernière mise à jour : 2026-02-18_
+_Last updated: 2026-03-04_
 
-## Résumé
+## Executive Summary
 
-OmniRoute est une passerelle de routage d'IA locale et un tableau de bord construit sur Next.js.
-Il fournit un seul point de terminaison compatible OpenAI (`/v1/*`) et achemine le trafic vers plusieurs fournisseurs en amont avec traduction, secours, actualisation des jetons et suivi de l'utilisation.
+OmniRoute is a local AI routing gateway and dashboard built on Next.js.
+It provides a single OpenAI-compatible endpoint (`/v1/*`) and routes traffic across multiple upstream providers with translation, fallback, token refresh, and usage tracking.
 
-Capacités de base :
+Core capabilities:
 
-- Surface API compatible OpenAI pour CLI/outils (28 fournisseurs)
-- Traduction des requêtes/réponses dans tous les formats de fournisseurs
-- Modèle de repli combo (séquence multi-modèles)
-- Repli au niveau du compte (multi-comptes par fournisseur)
-- Gestion des connexions du fournisseur de clé OAuth + API
-- Génération d'embarquement via `/v1/embeddings` (6 fournisseurs, 9 modèles)
-- Génération d'images via `/v1/images/generations` (4 fournisseurs, 9 modèles)
-- Pensez à l'analyse des balises (`<think>...</think>`) pour les modèles de raisonnement
-- Désinfection des réponses pour une compatibilité stricte avec le SDK OpenAI
-- Normalisation des rôles (développeur → système, système → utilisateur) pour une compatibilité entre fournisseurs
-- Conversion de sortie structurée (json_schema → Gemini ResponseSchema)
-- Persistance locale pour les fournisseurs, les clés, les alias, les combos, les paramètres, les prix
-- Suivi de l'utilisation/des coûts et journalisation des demandes
-- Synchronisation cloud en option pour la synchronisation multi-appareils/états
-- Liste d'autorisation/liste de blocage IP pour le contrôle d'accès aux API
-- Penser la gestion budgétaire (passthrough/auto/custom/adaptatif)
-  -Injection rapide du système global
-- Suivi de session et prise d'empreintes digitales
-- Limitation de débit améliorée par compte avec des profils spécifiques au fournisseur
-- Modèle de disjoncteur pour la résilience du fournisseur
-- Protection de troupeau anti-tonnerre avec verrouillage mutex
-- Cache de déduplication de requêtes basé sur les signatures
-- Couche domaine : disponibilité du modèle, règles de coûts, politique de repli, politique de verrouillage
-- Persistance de l'état du domaine (cache en écriture SQLite pour les solutions de repli, les budgets, les verrouillages, les disjoncteurs)
-- Moteur de politique pour l'évaluation centralisée des demandes (verrouillage → budget → repli)
-- Demande de télémétrie avec agrégation de latence p50/p95/p99
-- ID de corrélation (X-Request-Id) pour le traçage de bout en bout
-- Journalisation d'audit de conformité avec désinscription par clé API
-- Cadre d'évaluation pour l'assurance qualité LLM
-- Tableau de bord de l'interface utilisateur de résilience avec l'état du disjoncteur en temps réel
-- Fournisseurs OAuth modulaires (12 modules individuels sous `src/lib/oauth/providers/`)
+- OpenAI-compatible API surface for CLI/tools (28 providers)
+- Request/response translation across provider formats
+- Model combo fallback (multi-model sequence)
+- Account-level fallback (multi-account per provider)
+- OAuth + API-key provider connection management
+- Embedding generation via `/v1/embeddings` (6 providers, 9 models)
+- Image generation via `/v1/images/generations` (4 providers, 9 models)
+- Think tag parsing (`<think>...</think>`) for reasoning models
+- Response sanitization for strict OpenAI SDK compatibility
+- Role normalization (developer→system, system→user) for cross-provider compatibility
+- Structured output conversion (json_schema → Gemini responseSchema)
+- Local persistence for providers, keys, aliases, combos, settings, pricing
+- Usage/cost tracking and request logging
+- Optional cloud sync for multi-device/state sync
+- IP allowlist/blocklist for API access control
+- Thinking budget management (passthrough/auto/custom/adaptive)
+- Global system prompt injection
+- Session tracking and fingerprinting
+- Per-account enhanced rate limiting with provider-specific profiles
+- Circuit breaker pattern for provider resilience
+- Anti-thundering herd protection with mutex locking
+- Signature-based request deduplication cache
+- Domain layer: model availability, cost rules, fallback policy, lockout policy
+- Domain state persistence (SQLite write-through cache for fallbacks, budgets, lockouts, circuit breakers)
+- Policy engine for centralized request evaluation (lockout → budget → fallback)
+- Request telemetry with p50/p95/p99 latency aggregation
+- Correlation ID (X-Request-Id) for end-to-end tracing
+- Compliance audit logging with opt-out per API key
+- Eval framework for LLM quality assurance
+- Resilience UI dashboard with real-time circuit breaker status
+- Modular OAuth providers (12 individual modules under `src/lib/oauth/providers/`)
 
-Modèle d'exécution principal :
+Primary runtime model:
 
-- Les routes d'application Next.js sous `src/app/api/*` implémentent à la fois les API de tableau de bord et les API de compatibilité
-- Un noyau SSE/routage partagé dans `src/sse/*` + `open-sse/*` gère l'exécution, la traduction, le streaming, le repli et l'utilisation du fournisseur.
+- Next.js app routes under `src/app/api/*` implement both dashboard APIs and compatibility APIs
+- A shared SSE/routing core in `src/sse/*` + `open-sse/*` handles provider execution, translation, streaming, fallback, and usage
 
-## Portée et limites
+## Scope and Boundaries
 
-### Dans le champ d'application
+### In Scope
 
-- Runtime de la passerelle locale
-- API de gestion des tableaux de bord
-- Authentification du fournisseur et actualisation du jeton
-- Demander une traduction et un streaming SSE
-- État local + persistance d'utilisation
-- Orchestration de synchronisation cloud en option
+- Local gateway runtime
+- Dashboard management APIs
+- Provider authentication and token refresh
+- Request translation and SSE streaming
+- Local state + usage persistence
+- Optional cloud sync orchestration
 
-### Hors de portée
+### Out of Scope
 
-- Implémentation du service cloud derrière `NEXT_PUBLIC_CLOUD_URL`
-- SLA/plan de contrôle du fournisseur en dehors du processus local
-- Les binaires CLI externes eux-mêmes (Claude CLI, Codex CLI, etc.)
+- Cloud service implementation behind `NEXT_PUBLIC_CLOUD_URL`
+- Provider SLA/control plane outside local process
+- External CLI binaries themselves (Claude CLI, Codex CLI, etc.)
 
-## Contexte système de haut niveau
+## High-Level System Context
 
 ```mermaid
 flowchart LR
@@ -81,8 +81,8 @@ flowchart LR
         API[V1 Compatibility API\n/v1/*]
         DASH[Dashboard + Management API\n/api/*]
         CORE[SSE + Translation Core\nopen-sse + src/sse]
-        DB[(db.json)]
-        UDB[(usage.json + log.txt)]
+        DB[(storage.sqlite)]
+        UDB[(usage tables + log artifacts)]
     end
 
     subgraph Upstreams[Upstream Providers]
@@ -113,151 +113,152 @@ flowchart LR
     DASH --> CLOUD
 ```
 
-## Composants d'exécution de base
+## Core Runtime Components
 
-## 1) API et couche de routage (routes de l'application Next.js)
+## 1) API and Routing Layer (Next.js App Routes)
 
-Principaux répertoires :
+Main directories:
 
-- `src/app/api/v1/*` et `src/app/api/v1beta/*` pour les API de compatibilité
-- `src/app/api/*` pour les API de gestion/configuration
-- Les réécritures suivantes dans `next.config.mjs` mappent `/v1/*` à `/api/v1/*`
+- `src/app/api/v1/*` and `src/app/api/v1beta/*` for compatibility APIs
+- `src/app/api/*` for management/configuration APIs
+- Next rewrites in `next.config.mjs` map `/v1/*` to `/api/v1/*`
 
-Itinéraires de compatibilité importants :
+Important compatibility routes:
 
 - `src/app/api/v1/chat/completions/route.ts`
 - `src/app/api/v1/messages/route.ts`
 - `src/app/api/v1/responses/route.ts`
-- `src/app/api/v1/models/route.ts` — inclut des modèles personnalisés avec `custom: true`
-- `src/app/api/v1/embeddings/route.ts` — génération d'intégration (6 fournisseurs)
-- `src/app/api/v1/images/generations/route.ts` — génération d'images (4+ fournisseurs dont Antigravity/Nebius)
+- `src/app/api/v1/models/route.ts` — includes custom models with `custom: true`
+- `src/app/api/v1/embeddings/route.ts` — embedding generation (6 providers)
+- `src/app/api/v1/images/generations/route.ts` — image generation (4+ providers incl. Antigravity/Nebius)
 - `src/app/api/v1/messages/count_tokens/route.ts`
-- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — chat dédié par fournisseur
-- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — intégrations dédiées par fournisseur
-- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — images dédiées par fournisseur
+- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — dedicated per-provider chat
+- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — dedicated per-provider embeddings
+- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — dedicated per-provider images
 - `src/app/api/v1beta/models/route.ts`
 - `src/app/api/v1beta/models/[...path]/route.ts`
 
-Domaines de gestion :
+Management domains:
 
-- Authentification/paramètres : `src/app/api/auth/*`, `src/app/api/settings/*`
-- Fournisseurs/connexions : `src/app/api/providers*`
-- Nœuds fournisseurs : `src/app/api/provider-nodes*`
-- Modèles personnalisés : `src/app/api/provider-models` (GET/POST/DELETE)
-- Catalogue de modèles : `src/app/api/models/catalog` (GET)
-- Configuration proxy : `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
-  -OAuth : `src/app/api/oauth/*`
-- Clés/alias/combos/tarification : `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
-- Utilisation : `src/app/api/usage/*`
-- Synchronisation/cloud : `src/app/api/sync/*`, `src/app/api/cloud/*`
-- Aides à l'outillage CLI : `src/app/api/cli-tools/*`
-- Filtre IP : `src/app/api/settings/ip-filter` (GET/PUT)
-- Budget de réflexion : `src/app/api/settings/thinking-budget` (GET/PUT)
-- Invite système : `src/app/api/settings/system-prompt` (GET/PUT)
-- Séances : `src/app/api/sessions` (GET)
-- Limites de débit : `src/app/api/rate-limits` (GET)
-- Résilience : `src/app/api/resilience` (GET/PATCH) — profils de fournisseur, disjoncteur, état limite de débit
-- Réinitialisation de la résilience : `src/app/api/resilience/reset` (POST) – réinitialisation des disjoncteurs + temps de recharge
-- Statistiques du cache : `src/app/api/cache/stats` (GET/DELETE)
-- Disponibilité du modèle : `src/app/api/models/availability` (GET/POST)
-- Télémétrie : `src/app/api/telemetry/summary` (GET)
-  -Budget : `src/app/api/usage/budget` (GET/POST)
-- Chaînes de secours : `src/app/api/fallback/chains` (GET/POST/DELETE)
-- Audit de conformité : `src/app/api/compliance/audit-log` (GET)
-- Évaluations : `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
-- Politiques : `src/app/api/policies` (GET/POST)
+- Auth/settings: `src/app/api/auth/*`, `src/app/api/settings/*`
+- Providers/connections: `src/app/api/providers*`
+- Provider nodes: `src/app/api/provider-nodes*`
+- Custom models: `src/app/api/provider-models` (GET/POST/DELETE)
+- Model catalog: `src/app/api/models/route.ts` (GET)
+- Proxy config: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
+- OAuth: `src/app/api/oauth/*`
+- Keys/aliases/combos/pricing: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
+- Usage: `src/app/api/usage/*`
+- Sync/cloud: `src/app/api/sync/*`, `src/app/api/cloud/*`
+- CLI tooling helpers: `src/app/api/cli-tools/*`
+- IP filter: `src/app/api/settings/ip-filter` (GET/PUT)
+- Thinking budget: `src/app/api/settings/thinking-budget` (GET/PUT)
+- System prompt: `src/app/api/settings/system-prompt` (GET/PUT)
+- Sessions: `src/app/api/sessions` (GET)
+- Rate limits: `src/app/api/rate-limits` (GET)
+- Resilience: `src/app/api/resilience` (GET/PATCH) — provider profiles, circuit breaker, rate limit state
+- Resilience reset: `src/app/api/resilience/reset` (POST) — reset breakers + cooldowns
+- Cache stats: `src/app/api/cache/stats` (GET/DELETE)
+- Model availability: `src/app/api/models/availability` (GET/POST)
+- Telemetry: `src/app/api/telemetry/summary` (GET)
+- Budget: `src/app/api/usage/budget` (GET/POST)
+- Fallback chains: `src/app/api/fallback/chains` (GET/POST/DELETE)
+- Compliance audit: `src/app/api/compliance/audit-log` (GET)
+- Evals: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
+- Policies: `src/app/api/policies` (GET/POST)
 
-## 2) SSE + noyau de traduction
+## 2) SSE + Translation Core
 
-Principaux modules de flux :
+Main flow modules:
 
-- Entrée : `src/sse/handlers/chat.ts`
-- Orchestration de base : `open-sse/handlers/chatCore.ts`
-- Adaptateurs d'exécution du fournisseur : `open-sse/executors/*`
-- Détection de format/configuration du fournisseur : `open-sse/services/provider.ts`
-- Analyse/résolution du modèle : `src/sse/services/model.ts`, `open-sse/services/model.ts`
-- Logique de repli du compte : `open-sse/services/accountFallback.ts`
-- Registre de traduction : `open-sse/translator/index.ts`
-- Transformations de flux : `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
-- Extraction/normalisation d'utilisation : `open-sse/utils/usageTracking.ts`
-- Pensez à l'analyseur de balises : `open-sse/utils/thinkTagParser.ts`
-- Gestionnaire d'intégration : `open-sse/handlers/embeddings.ts`
-- Registre des fournisseurs d'intégration : `open-sse/config/embeddingRegistry.ts`
-- Gestionnaire de génération d'images : `open-sse/handlers/imageGeneration.ts`
-- Registre du fournisseur d'images : `open-sse/config/imageRegistry.ts`
-- Désinfection de la réponse : `open-sse/handlers/responseSanitizer.ts`
-- Normalisation des rôles : `open-sse/services/roleNormalizer.ts`
+- Entry: `src/sse/handlers/chat.ts`
+- Core orchestration: `open-sse/handlers/chatCore.ts`
+- Provider execution adapters: `open-sse/executors/*`
+- Format detection/provider config: `open-sse/services/provider.ts`
+- Model parse/resolve: `src/sse/services/model.ts`, `open-sse/services/model.ts`
+- Account fallback logic: `open-sse/services/accountFallback.ts`
+- Translation registry: `open-sse/translator/index.ts`
+- Stream transformations: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
+- Usage extraction/normalization: `open-sse/utils/usageTracking.ts`
+- Think tag parser: `open-sse/utils/thinkTagParser.ts`
+- Embedding handler: `open-sse/handlers/embeddings.ts`
+- Embedding provider registry: `open-sse/config/embeddingRegistry.ts`
+- Image generation handler: `open-sse/handlers/imageGeneration.ts`
+- Image provider registry: `open-sse/config/imageRegistry.ts`
+- Response sanitization: `open-sse/handlers/responseSanitizer.ts`
+- Role normalization: `open-sse/services/roleNormalizer.ts`
 
-Services (logique métier) :
+Services (business logic):
 
-- Sélection/notation du compte : `open-sse/services/accountSelector.ts`
-- Gestion du cycle de vie du contexte : `open-sse/services/contextManager.ts`
-- Application du filtre IP : `open-sse/services/ipFilter.ts`
-- Suivi de session : `open-sse/services/sessionManager.ts`
-- Demande de déduplication : `open-sse/services/signatureCache.ts`
-- Injection rapide du système : `open-sse/services/systemPrompt.ts`
-- Penser la gestion budgétaire : `open-sse/services/thinkingBudget.ts`
-- Routage du modèle générique : `open-sse/services/wildcardRouter.ts`
-- Gestion des limites de débit : `open-sse/services/rateLimitManager.ts`
-- Disjoncteur : `open-sse/services/circuitBreaker.ts`
+- Account selection/scoring: `open-sse/services/accountSelector.ts`
+- Context lifecycle management: `open-sse/services/contextManager.ts`
+- IP filter enforcement: `open-sse/services/ipFilter.ts`
+- Session tracking: `open-sse/services/sessionManager.ts`
+- Request deduplication: `open-sse/services/signatureCache.ts`
+- System prompt injection: `open-sse/services/systemPrompt.ts`
+- Thinking budget management: `open-sse/services/thinkingBudget.ts`
+- Wildcard model routing: `open-sse/services/wildcardRouter.ts`
+- Rate limit management: `open-sse/services/rateLimitManager.ts`
+- Circuit breaker: `open-sse/services/circuitBreaker.ts`
 
-Modules de couche de domaine :
+Domain layer modules:
 
-- Disponibilité du modèle : `src/lib/domain/modelAvailability.ts`
-- Règles de coûts/budgets : `src/lib/domain/costRules.ts`
-- Politique de repli : `src/lib/domain/fallbackPolicy.ts`
-- Résolveur combiné : `src/lib/domain/comboResolver.ts`
-- Politique de verrouillage : `src/lib/domain/lockoutPolicy.ts`
-- Moteur de politique : `src/domain/policyEngine.ts` — verrouillage centralisé → budget → évaluation de secours
-- Catalogue de codes d'erreur : `src/lib/domain/errorCodes.ts`
-- ID de la demande : `src/lib/domain/requestId.ts`
-- Délai d'expiration de la récupération : `src/lib/domain/fetchTimeout.ts`
-- Demande de télémétrie : `src/lib/domain/requestTelemetry.ts`
-- Conformité/audit : `src/lib/domain/compliance/index.ts`
-- Coureur d'évaluation : `src/lib/domain/evalRunner.ts`
-- Persistance de l'état du domaine : `src/lib/db/domainState.ts` — SQLite CRUD pour les chaînes de secours, les budgets, l'historique des coûts, l'état de verrouillage, les disjoncteurs
+- Model availability: `src/lib/domain/modelAvailability.ts`
+- Cost rules/budgets: `src/lib/domain/costRules.ts`
+- Fallback policy: `src/lib/domain/fallbackPolicy.ts`
+- Combo resolver: `src/lib/domain/comboResolver.ts`
+- Lockout policy: `src/lib/domain/lockoutPolicy.ts`
+- Policy engine: `src/domain/policyEngine.ts` — centralized lockout → budget → fallback evaluation
+- Error codes catalog: `src/lib/domain/errorCodes.ts`
+- Request ID: `src/lib/domain/requestId.ts`
+- Fetch timeout: `src/lib/domain/fetchTimeout.ts`
+- Request telemetry: `src/lib/domain/requestTelemetry.ts`
+- Compliance/audit: `src/lib/domain/compliance/index.ts`
+- Eval runner: `src/lib/domain/evalRunner.ts`
+- Domain state persistence: `src/lib/db/domainState.ts` — SQLite CRUD for fallback chains, budgets, cost history, lockout state, circuit breakers
 
-Modules du fournisseur OAuth (12 fichiers individuels sous `src/lib/oauth/providers/`) :
+OAuth provider modules (12 individual files under `src/lib/oauth/providers/`):
 
-- Index du registre : `src/lib/oauth/providers/index.ts`
-- Fournisseurs individuels : `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `kimi-coding.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
-- Wrapper mince : `src/lib/oauth/providers.ts` — réexportations à partir de modules individuels
+- Registry index: `src/lib/oauth/providers/index.ts`
+- Individual providers: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `kimi-coding.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
+- Thin wrapper: `src/lib/oauth/providers.ts` — re-exports from individual modules
 
-## 3) Couche de persistance
+## 3) Persistence Layer
 
-Base de données d'état primaire :
+Primary state DB (SQLite):
 
-- `src/lib/localDb.ts`
-- fichier : `${DATA_DIR}/db.json` (ou `$XDG_CONFIG_HOME/omniroute/db.json` lorsqu'il est défini, sinon `~/.omniroute/db.json`)
-- entités : ProviderConnections, ProvideNodes, modelAliases, combos, apiKeys, paramètres, tarification, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
+- Core infra: `src/lib/db/core.ts` (better-sqlite3, migrations, WAL)
+- Re-export facade: `src/lib/localDb.ts` (thin compatibility layer for callers)
+- file: `${DATA_DIR}/storage.sqlite` (or `$XDG_CONFIG_HOME/omniroute/storage.sqlite` when set, else `~/.omniroute/storage.sqlite`)
+- entities (tables + KV namespaces): providerConnections, providerNodes, modelAliases, combos, apiKeys, settings, pricing, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
 
-Base de données d'utilisation :
+Usage persistence:
 
-- `src/lib/usageDb.ts`
-- fichiers : `${DATA_DIR}/usage.json`, `${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`
-- suit la même politique de répertoire de base que `localDb` (`DATA_DIR`, puis `XDG_CONFIG_HOME/omniroute` lorsqu'il est défini)
-- décomposé en sous-modules ciblés : `migrations.ts`, `usageHistory.ts`, `costCalculator.ts`, `usageStats.ts`, `callLogs.ts`
+- facade: `src/lib/usageDb.ts` (decomposed modules in `src/lib/usage/*`)
+- SQLite tables in `storage.sqlite`: `usage_history`, `call_logs`, `proxy_logs`
+- optional file artifacts remain for compatibility/debug (`${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`, `<repo>/logs/...`)
+- legacy JSON files are migrated to SQLite by startup migrations when present
 
-Base de données d'état du domaine (SQLite) :
+Domain State DB (SQLite):
 
-- `src/lib/db/domainState.ts` — Opérations CRUD pour l'état du domaine
-- Tables (créées dans `src/lib/db/core.ts`) : `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
-- Modèle de cache en écriture : les cartes en mémoire font autorité au moment de l'exécution ; les mutations sont écrites de manière synchrone dans SQLite ; l'état est restauré à partir de la base de données lors d'un démarrage à froid
+- `src/lib/db/domainState.ts` — CRUD operations for domain state
+- Tables (created in `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
+- Write-through cache pattern: in-memory Maps are authoritative at runtime; mutations are written synchronously to SQLite; state is restored from DB on cold start
 
-## 4) Surfaces d'authentification + sécurité
+## 4) Auth + Security Surfaces
 
-- Authentification des cookies du tableau de bord : `src/proxy.ts`, `src/app/api/auth/login/route.ts`
-- Génération/vérification de clé API : `src/shared/utils/apiKey.ts`
-- Les secrets du fournisseur ont persisté dans les entrées `providerConnections`
-- Prise en charge du proxy sortant via `open-sse/utils/proxyFetch.ts` (vars d'environnement) et `open-sse/utils/networkProxy.ts` (configurable par fournisseur ou global)
+- Dashboard cookie auth: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
+- API key generation/verification: `src/shared/utils/apiKey.ts`
+- Provider secrets persisted in `providerConnections` entries
+- Outbound proxy support via `open-sse/utils/proxyFetch.ts` (env vars) and `open-sse/utils/networkProxy.ts` (configurable per-provider or global)
 
-## 5) Synchronisation dans le cloud
+## 5) Cloud Sync
 
-- Initialisation du planificateur : `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
-- Tâche périodique : `src/shared/services/cloudSyncScheduler.ts`
-- Itinéraire de contrôle : `src/app/api/sync/cloud/route.ts`
+- Scheduler init: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
+- Periodic task: `src/shared/services/cloudSyncScheduler.ts`
+- Control route: `src/app/api/sync/cloud/route.ts`
 
-## Cycle de vie des demandes (`/v1/chat/completions`)
+## Request Lifecycle (`/v1/chat/completions`)
 
 ```mermaid
 sequenceDiagram
@@ -304,7 +305,7 @@ sequenceDiagram
     Stream->>Usage: extract usage + persist history/log
 ```
 
-## Combo + Flux de repli du compte
+## Combo + Account Fallback Flow
 
 ```mermaid
 flowchart TD
@@ -334,9 +335,9 @@ flowchart TD
     Q -- No --> R[Return all unavailable]
 ```
 
-Les décisions de secours sont pilotées par `open-sse/services/accountFallback.ts` à l'aide de codes d'état et d'heuristiques de messages d'erreur.
+Fallback decisions are driven by `open-sse/services/accountFallback.ts` using status codes and error-message heuristics.
 
-## Cycle de vie de l'intégration OAuth et de l'actualisation des jetons
+## OAuth Onboarding and Token Refresh Lifecycle
 
 ```mermaid
 sequenceDiagram
@@ -366,9 +367,9 @@ sequenceDiagram
     Test-->>UI: validation result
 ```
 
-L'actualisation pendant le trafic en direct est exécutée dans `open-sse/handlers/chatCore.ts` via l'exécuteur `refreshCredentials()`.
+Refresh during live traffic is executed inside `open-sse/handlers/chatCore.ts` via executor `refreshCredentials()`.
 
-## Cycle de vie de Cloud Sync (Activer/Sync/Désactiver)
+## Cloud Sync Lifecycle (Enable / Sync / Disable)
 
 ```mermaid
 sequenceDiagram
@@ -400,9 +401,9 @@ sequenceDiagram
     Sync-->>UI: disabled
 ```
 
-La synchronisation périodique est déclenchée par `CloudSyncScheduler` lorsque le cloud est activé.
+Periodic sync is triggered by `CloudSyncScheduler` when cloud is enabled.
 
-## Modèle de données et carte de stockage
+## Data Model and Storage Map
 
 ```mermaid
 erDiagram
@@ -503,14 +504,14 @@ erDiagram
     }
 ```
 
-Fichiers de stockage physique :
+Physical storage files:
 
-- état principal : `${DATA_DIR}/db.json` (ou `$XDG_CONFIG_HOME/omniroute/db.json` lorsqu'il est défini, sinon `~/.omniroute/db.json`)
-- statistiques d'utilisation : `${DATA_DIR}/usage.json`
-- lignes de journal de demande : `${DATA_DIR}/log.txt`
-- sessions facultatives de débogage de traduction/demande : `<repo>/logs/...`
+- primary runtime DB: `${DATA_DIR}/storage.sqlite`
+- request log lines: `${DATA_DIR}/log.txt` (compat/debug artifact)
+- structured call payload archives: `${DATA_DIR}/call_logs/`
+- optional translator/request debug sessions: `<repo>/logs/...`
 
-## Topologie de déploiement
+## Deployment Topology
 
 ```mermaid
 flowchart LR
@@ -522,8 +523,8 @@ flowchart LR
     subgraph ContainerOrProcess[OmniRoute Runtime]
         Next[Next.js Server\nPORT=20128]
         Core[SSE Core + Executors]
-        MainDB[(db.json)]
-        UsageDB[(usage.json/log.txt)]
+        MainDB[(storage.sqlite)]
+        UsageDB[(usage tables + log artifacts)]
     end
 
     subgraph External[External Services]
@@ -541,241 +542,242 @@ flowchart LR
     Next --> SyncCloud
 ```
 
-## Cartographie des modules (critique en matière de décision)
+## Module Mapping (Decision-Critical)
 
-### Modules de routage et d'API
+### Route and API Modules
 
-- `src/app/api/v1/*`, `src/app/api/v1beta/*` : API de compatibilité
-- `src/app/api/v1/providers/[provider]/*` : routes dédiées par fournisseur (chat, intégrations, images)
-- `src/app/api/providers*` : fournisseur CRUD, validation, tests
-- `src/app/api/provider-nodes*` : gestion des nœuds compatibles personnalisés
-- `src/app/api/provider-models` : gestion de modèles personnalisés (CRUD)
-- `src/app/api/models/catalog` : API de catalogue de modèles complet (tous les types regroupés par fournisseur)
-- `src/app/api/oauth/*` : flux OAuth/code de périphérique
-- `src/app/api/keys*` : cycle de vie de la clé API locale
-- `src/app/api/models/alias` : gestion des alias
-- `src/app/api/combos*` : gestion des combos de repli
-- `src/app/api/pricing` : remplacements de prix pour le calcul des coûts
-- `src/app/api/settings/proxy` : configuration du proxy (GET/PUT/DELETE)
-- `src/app/api/settings/proxy/test` : test de connectivité proxy sortant (POST)
-- `src/app/api/usage/*` : API d'utilisation et de logs
-- `src/app/api/sync/*` + `src/app/api/cloud/*` : synchronisation cloud et assistants orientés cloud
-- `src/app/api/cli-tools/*` : rédacteurs/vérificateurs de configuration CLI locaux
-- `src/app/api/settings/ip-filter` : liste autorisée/liste de blocage IP (GET/PUT)
-- `src/app/api/settings/thinking-budget` : configuration du budget des jetons de réflexion (GET/PUT)
-- `src/app/api/settings/system-prompt` : invite système globale (GET/PUT)
-- `src/app/api/sessions` : listing des sessions actives (GET)
-- `src/app/api/rate-limits` : statut de limite de débit par compte (GET)
+- `src/app/api/v1/*`, `src/app/api/v1beta/*`: compatibility APIs
+- `src/app/api/v1/providers/[provider]/*`: dedicated per-provider routes (chat, embeddings, images)
+- `src/app/api/providers*`: provider CRUD, validation, testing
+- `src/app/api/provider-nodes*`: custom compatible node management
+- `src/app/api/provider-models`: custom model management (CRUD)
+- `src/app/api/models/route.ts`: model catalog API (aliases + custom models)
+- `src/app/api/oauth/*`: OAuth/device-code flows
+- `src/app/api/keys*`: local API key lifecycle
+- `src/app/api/models/alias`: alias management
+- `src/app/api/combos*`: fallback combo management
+- `src/app/api/pricing`: pricing overrides for cost calculation
+- `src/app/api/settings/proxy`: proxy configuration (GET/PUT/DELETE)
+- `src/app/api/settings/proxy/test`: outbound proxy connectivity test (POST)
+- `src/app/api/usage/*`: usage and logs APIs
+- `src/app/api/sync/*` + `src/app/api/cloud/*`: cloud sync and cloud-facing helpers
+- `src/app/api/cli-tools/*`: local CLI config writers/checkers
+- `src/app/api/settings/ip-filter`: IP allowlist/blocklist (GET/PUT)
+- `src/app/api/settings/thinking-budget`: thinking token budget config (GET/PUT)
+- `src/app/api/settings/system-prompt`: global system prompt (GET/PUT)
+- `src/app/api/sessions`: active session listing (GET)
+- `src/app/api/rate-limits`: per-account rate limit status (GET)
 
-### Noyau de routage et d'exécution
+### Routing and Execution Core
 
-- `src/sse/handlers/chat.ts` : analyse des requêtes, gestion des combos, boucle de sélection de compte
-- `open-sse/handlers/chatCore.ts` : traduction, envoi de l'exécuteur, gestion des nouvelles tentatives/actualisations, configuration du flux
-- `open-sse/executors/*` : comportement de réseau et de format spécifique au fournisseur
+- `src/sse/handlers/chat.ts`: request parse, combo handling, account selection loop
+- `open-sse/handlers/chatCore.ts`: translation, executor dispatch, retry/refresh handling, stream setup
+- `open-sse/executors/*`: provider-specific network and format behavior
 
-### Registre de traduction et convertisseurs de format
+### Translation Registry and Format Converters
 
-- `open-sse/translator/index.ts` : registre et orchestration des traducteurs
-- Demander des traducteurs : `open-sse/translator/request/*`
-- Traducteurs de réponse : `open-sse/translator/response/*`
-- Constantes de format : `open-sse/translator/formats.ts`
+- `open-sse/translator/index.ts`: translator registry and orchestration
+- Request translators: `open-sse/translator/request/*`
+- Response translators: `open-sse/translator/response/*`
+- Format constants: `open-sse/translator/formats.ts`
 
-### Persistance
+### Persistence
 
-- `src/lib/localDb.ts` : configuration/état persistant
-- `src/lib/usageDb.ts` : historique d'utilisation et journaux de requêtes glissantes
+- `src/lib/db/*`: persistent config/state and domain persistence on SQLite
+- `src/lib/localDb.ts`: compatibility re-export for DB modules
+- `src/lib/usageDb.ts`: usage history/call logs facade on top of SQLite tables
 
-## Couverture de l'exécuteur du fournisseur (modèle de stratégie)
+## Provider Executor Coverage (Strategy Pattern)
 
-Chaque fournisseur dispose d'un exécuteur spécialisé étendant `BaseExecutor` (dans `open-sse/executors/base.ts`), qui fournit la création d'URL, la construction d'en-tête, les nouvelles tentatives avec interruption exponentielle, les points d'ancrage d'actualisation des informations d'identification et la méthode d'orchestration `execute()`.
+Each provider has a specialized executor extending `BaseExecutor` (in `open-sse/executors/base.ts`), which provides URL building, header construction, retry with exponential backoff, credential refresh hooks, and the `execute()` orchestration method.
 
-| Exécuteur testamentaire | Fournisseur(s)                                                                                                                                               | Manutention spéciale                                                                |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
-| `DefaultExecutor`       | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | Configuration dynamique d'URL/d'en-tête par fournisseur                             |
-| `AntigravityExecutor`   | Google Antigravité                                                                                                                                           | ID de projet/session personnalisés, analyse réessayée après                         |
-| `CodexExecutor`         | Codex OpenAI                                                                                                                                                 | Injecte des instructions système, force un effort de raisonnement                   |
-| `CursorExecutor`        | Curseur IDE                                                                                                                                                  | Protocole ConnectRPC, encodage Protobuf, signature de demande via somme de contrôle |
-| `GithubExecutor`        | Copilote GitHub                                                                                                                                              | Actualisation du jeton Copilot, en-têtes imitant VSCode                             |
-| `KiroExecutor`          | AWS CodeWhisperer/Kiro                                                                                                                                       | Format binaire AWS EventStream → conversion SSE                                     |
-| `GeminiCLIExecutor`     | CLI Gémeaux                                                                                                                                                  | Cycle d'actualisation du jeton Google OAuth                                         |
+| Executor              | Provider(s)                                                                                                                                                  | Special Handling                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | Dynamic URL/header config per provider                               |
+| `AntigravityExecutor` | Google Antigravity                                                                                                                                           | Custom project/session IDs, Retry-After parsing                      |
+| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | Injects system instructions, forces reasoning effort                 |
+| `CursorExecutor`      | Cursor IDE                                                                                                                                                   | ConnectRPC protocol, Protobuf encoding, request signing via checksum |
+| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | Copilot token refresh, VSCode-mimicking headers                      |
+| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | AWS EventStream binary format → SSE conversion                       |
+| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | Google OAuth token refresh cycle                                     |
 
-Tous les autres fournisseurs (y compris les nœuds compatibles personnalisés) utilisent le `DefaultExecutor`.
+All other providers (including custom compatible nodes) use the `DefaultExecutor`.
 
-## Matrice de compatibilité des fournisseurs
+## Provider Compatibility Matrix
 
-| Fournisseur           | Formater          | Authentification                | Flux             | Hors flux | Actualisation des jetons | API d'utilisation            |
-| --------------------- | ----------------- | ------------------------------- | ---------------- | --------- | ------------------------ | ---------------------------- |
-| Claude                | Claude            | Clé API/OAuth                   | ✅               | ✅        | ✅                       | ⚠️ Administrateur uniquement |
-| Gémeaux               | Gémeaux           | Clé API/OAuth                   | ✅               | ✅        | ✅                       | ⚠️Console Cloud              |
-| CLI Gémeaux           | gemini-cli        | OAuth                           | ✅               | ✅        | ✅                       | ⚠️Console Cloud              |
-| Antigravité           | antigravité       | OAuth                           | ✅               | ✅        | ✅                       | ✅ API de quota complet      |
-| OpenAI                | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Codex                 | réponses ouvertes | OAuth                           | ✅ forcé         | ❌        | ✅                       | ✅ Limites de taux           |
-| Copilote GitHub       | ouvert            | OAuth + Jeton Copilot           | ✅               | ✅        | ✅                       | ✅ Instantanés de quotas     |
-| Curseur               | curseur           | Somme de contrôle personnalisée | ✅               | ✅        | ❌                       | ❌                           |
-| Kiro                  | Kiro              | AWS SSO OIDC                    | ✅ (EventStream) | ❌        | ✅                       | ✅ Limites d'utilisation     |
-| Qwen                  | ouvert            | OAuth                           | ✅               | ✅        | ✅                       | ⚠️ Par demande               |
-| iFlow                 | ouvert            | OAuth (de base)                 | ✅               | ✅        | ✅                       | ⚠️ Par demande               |
-| OuvrirRouter          | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| GLM/Kimi/MiniMax      | Claude            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Recherche profonde    | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Groq                  | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| xAI (Grok)            | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Mistral               | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Perplexité            | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Ensemble IA           | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| IA de feux d'artifice | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Cérébraux             | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| Cohérer               | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
-| NIM NVIDIA            | ouvert            | Clé API                         | ✅               | ✅        | ❌                       | ❌                           |
+| Provider         | Format           | Auth                  | Stream           | Non-Stream | Token Refresh | Usage API          |
+| ---------------- | ---------------- | --------------------- | ---------------- | ---------- | ------------- | ------------------ |
+| Claude           | claude           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Admin only      |
+| Gemini           | gemini           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Gemini CLI       | gemini-cli       | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Antigravity      | antigravity      | OAuth                 | ✅               | ✅         | ✅            | ✅ Full quota API  |
+| OpenAI           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Codex            | openai-responses | OAuth                 | ✅ forced        | ❌         | ✅            | ✅ Rate limits     |
+| GitHub Copilot   | openai           | OAuth + Copilot Token | ✅               | ✅         | ✅            | ✅ Quota snapshots |
+| Cursor           | cursor           | Custom checksum       | ✅               | ✅         | ❌            | ❌                 |
+| Kiro             | kiro             | AWS SSO OIDC          | ✅ (EventStream) | ❌         | ✅            | ✅ Usage limits    |
+| Qwen             | openai           | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| iFlow            | openai           | OAuth (Basic)         | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| OpenRouter       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| GLM/Kimi/MiniMax | claude           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| DeepSeek         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Groq             | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| xAI (Grok)       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Mistral          | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Perplexity       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Together AI      | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Fireworks AI     | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cerebras         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cohere           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| NVIDIA NIM       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
 
-## Format de couverture de traduction
+## Format Translation Coverage
 
-Les formats sources détectés incluent :
+Detected source formats include:
 
 - `openai`
 - `openai-responses`
 - `claude`
 - `gemini`
 
-Les formats cibles incluent :
+Target formats include:
 
-- Discussion/Réponses OpenAI
-  -Claude
-- Enveloppe Gemini/Gemini-CLI/Antigravité
-  -Kiro
-- Curseur
+- OpenAI chat/Responses
+- Claude
+- Gemini/Gemini-CLI/Antigravity envelope
+- Kiro
+- Cursor
 
-Les traductions utilisent **OpenAI comme format hub** — toutes les conversions passent par OpenAI comme intermédiaire :
+Translations use **OpenAI as the hub format** — all conversions go through OpenAI as intermediate:
 
 ```
 Source Format → OpenAI (hub) → Target Format
 ```
 
-Les traductions sont sélectionnées dynamiquement en fonction de la forme de la charge utile source et du format cible du fournisseur.
+Translations are selected dynamically based on source payload shape and provider target format.
 
-Couches de traitement supplémentaires dans le pipeline de traduction :
+Additional processing layers in the translation pipeline:
 
-- **Désinfection des réponses** — Supprime les champs non standard des réponses au format OpenAI (à la fois en streaming et hors streaming) pour garantir une stricte conformité au SDK.
-- **Normalisation des rôles** — Convertit `developer` → `system` pour les cibles non OpenAI ; fusionne `system` → `user` pour les modèles qui rejettent le rôle système (GLM, ERNIE)
-- **Think tag extraction** — Analyse les blocs `<think>...</think>` du contenu dans le champ `reasoning_content`
-- **Sortie structurée** — Convertit OpenAI `response_format.json_schema` en `responseMimeType` + `responseSchema` de Gemini
+- **Response sanitization** — Strips non-standard fields from OpenAI-format responses (both streaming and non-streaming) to ensure strict SDK compliance
+- **Role normalization** — Converts `developer` → `system` for non-OpenAI targets; merges `system` → `user` for models that reject the system role (GLM, ERNIE)
+- **Think tag extraction** — Parses `<think>...</think>` blocks from content into `reasoning_content` field
+- **Structured output** — Converts OpenAI `response_format.json_schema` to Gemini's `responseMimeType` + `responseSchema`
 
-## Points de terminaison d'API pris en charge
+## Supported API Endpoints
 
-| Point de terminaison                               | Formater                 | Gestionnaire                                                      |
-| -------------------------------------------------- | ------------------------ | ----------------------------------------------------------------- |
-| `POST /v1/chat/completions`                        | Chat OpenAI              | `src/sse/handlers/chat.ts`                                        |
-| `POST /v1/messages`                                | Messages de Claude       | Même gestionnaire (détecté automatiquement)                       |
-| `POST /v1/responses`                               | Réponses OpenAI          | `open-sse/handlers/responsesHandler.ts`                           |
-| `POST /v1/embeddings`                              | Intégrations OpenAI      | `open-sse/handlers/embeddings.ts`                                 |
-| `GET /v1/embeddings`                               | Liste des modèles        | Itinéraire API                                                    |
-| `POST /v1/images/generations`                      | Images OpenAI            | `open-sse/handlers/imageGeneration.ts`                            |
-| `GET /v1/images/generations`                       | Liste des modèles        | Itinéraire API                                                    |
-| `POST /v1/providers/{provider}/chat/completions`   | Chat OpenAI              | Dédié par fournisseur avec validation du modèle                   |
-| `POST /v1/providers/{provider}/embeddings`         | Intégrations OpenAI      | Dédié par fournisseur avec validation du modèle                   |
-| `POST /v1/providers/{provider}/images/generations` | Images OpenAI            | Dédié par fournisseur avec validation du modèle                   |
-| `POST /v1/messages/count_tokens`                   | Compte de jetons Claude  | Itinéraire API                                                    |
-| `GET /v1/models`                                   | Liste des modèles OpenAI | Route API (chat + intégration + image + modèles personnalisés)    |
-| `GET /api/models/catalog`                          | Catalogue                | Tous les modèles regroupés par fournisseur + type                 |
-| `POST /v1beta/models/*:streamGenerateContent`      | Natif des Gémeaux        | Itinéraire API                                                    |
-| `GET/PUT/DELETE /api/settings/proxy`               | Configuration du proxy   | Configuration du proxy réseau                                     |
-| `POST /api/settings/proxy/test`                    | Connectivité proxy       | Point de terminaison du test d’intégrité/de connectivité du proxy |
-| `GET/POST/DELETE /api/provider-models`             | Modèles personnalisés    | Gestion de modèles personnalisés par fournisseur                  |
+| Endpoint                                           | Format             | Handler                                              |
+| -------------------------------------------------- | ------------------ | ---------------------------------------------------- |
+| `POST /v1/chat/completions`                        | OpenAI Chat        | `src/sse/handlers/chat.ts`                           |
+| `POST /v1/messages`                                | Claude Messages    | Same handler (auto-detected)                         |
+| `POST /v1/responses`                               | OpenAI Responses   | `open-sse/handlers/responsesHandler.ts`              |
+| `POST /v1/embeddings`                              | OpenAI Embeddings  | `open-sse/handlers/embeddings.ts`                    |
+| `GET /v1/embeddings`                               | Model listing      | API route                                            |
+| `POST /v1/images/generations`                      | OpenAI Images      | `open-sse/handlers/imageGeneration.ts`               |
+| `GET /v1/images/generations`                       | Model listing      | API route                                            |
+| `POST /v1/providers/{provider}/chat/completions`   | OpenAI Chat        | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/embeddings`         | OpenAI Embeddings  | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/images/generations` | OpenAI Images      | Dedicated per-provider with model validation         |
+| `POST /v1/messages/count_tokens`                   | Claude Token Count | API route                                            |
+| `GET /v1/models`                                   | OpenAI Models list | API route (chat + embedding + image + custom models) |
+| `GET /api/models/catalog`                          | Catalog            | All models grouped by provider + type                |
+| `POST /v1beta/models/*:streamGenerateContent`      | Gemini native      | API route                                            |
+| `GET/PUT/DELETE /api/settings/proxy`               | Proxy Config       | Network proxy configuration                          |
+| `POST /api/settings/proxy/test`                    | Proxy Connectivity | Proxy health/connectivity test endpoint              |
+| `GET/POST/DELETE /api/provider-models`             | Custom Models      | Custom model management per provider                 |
 
-## Gestionnaire de contournement
+## Bypass Handler
 
-Le gestionnaire de contournement (`open-sse/utils/bypassHandler.ts`) intercepte les requêtes « jetables » connues de Claude CLI (pings d'échauffement, extractions de titres et nombre de jetons) et renvoie une **fausse réponse** sans consommer de jetons du fournisseur en amont. Ceci est déclenché uniquement lorsque `User-Agent` contient `claude-cli`.
+The bypass handler (`open-sse/utils/bypassHandler.ts`) intercepts known "throwaway" requests from Claude CLI — warmup pings, title extractions, and token counts — and returns a **fake response** without consuming upstream provider tokens. This is triggered only when `User-Agent` contains `claude-cli`.
 
-## Demander un pipeline d'enregistreur
+## Request Logger Pipeline
 
-L'enregistreur de requêtes (`open-sse/utils/requestLogger.ts`) fournit un pipeline de journalisation de débogage en 7 étapes, désactivé par défaut, activé via `ENABLE_REQUEST_LOGS=true` :
+The request logger (`open-sse/utils/requestLogger.ts`) provides a 7-stage debug logging pipeline, disabled by default, enabled via `ENABLE_REQUEST_LOGS=true`:
 
 ```
 1_req_client.json → 2_req_source.json → 3_req_openai.json → 4_req_target.json
 → 5_res_provider.txt → 6_res_openai.txt → 7_res_client.txt
 ```
 
-Les fichiers sont écrits dans `<repo>/logs/<session>/` pour chaque session de demande.
+Files are written to `<repo>/logs/<session>/` for each request session.
 
-## Modes de défaillance et résilience
+## Failure Modes and Resilience
 
-## 1) Disponibilité du compte/fournisseur
+## 1) Account/Provider Availability
 
-- Temps de recharge du compte du fournisseur en cas d'erreurs transitoires/taux/auth.
-- repli du compte avant l'échec de la demande
-- repli du modèle combiné lorsque le chemin modèle/fournisseur actuel est épuisé
+- provider account cooldown on transient/rate/auth errors
+- account fallback before failing request
+- combo model fallback when current model/provider path is exhausted
 
-## 2) Expiration du jeton
+## 2) Token Expiry
 
-- pré-vérification et actualisation avec nouvelle tentative pour les fournisseurs actualisables
-- Nouvelle tentative 401/403 après tentative d'actualisation dans le chemin principal
+- pre-check and refresh with retry for refreshable providers
+- 401/403 retry after refresh attempt in core path
 
-## 3) Sécurité des flux
+## 3) Stream Safety
 
-- contrôleur de flux prenant en charge la déconnexion
-- flux de traduction avec vidage de fin de flux et gestion `[DONE]`
-- repli de l'estimation de l'utilisation lorsque les métadonnées d'utilisation du fournisseur sont manquantes
+- disconnect-aware stream controller
+- translation stream with end-of-stream flush and `[DONE]` handling
+- usage estimation fallback when provider usage metadata is missing
 
-## 4) Dégradation de la synchronisation cloud
+## 4) Cloud Sync Degradation
 
-- des erreurs de synchronisation apparaissent mais l'exécution locale continue
-- le planificateur a une logique capable de réessayer, mais l'exécution périodique appelle actuellement une synchronisation à tentative unique par défaut
+- sync errors are surfaced but local runtime continues
+- scheduler has retry-capable logic, but periodic execution currently calls single-attempt sync by default
 
-## 5) Intégrité des données
+## 5) Data Integrity
 
-- Migration/réparation de forme de base de données pour les clés manquantes
-- protections de réinitialisation JSON corrompues pour localDb et usageDb
+- SQLite schema migrations and auto-upgrade hooks at startup
+- legacy JSON → SQLite migration compatibility path
 
-## Observabilité et signaux opérationnels
+## Observability and Operational Signals
 
-Sources de visibilité d'exécution :
+Runtime visibility sources:
 
-- Journaux de console de `src/sse/utils/logger.ts`
-- agrégats d'utilisation par requête dans `usage.json`
-- Journal d'état de la demande textuelle dans `log.txt`
-- Journaux facultatifs de requêtes/traductions approfondies sous `logs/` lorsque `ENABLE_REQUEST_LOGS=true`
-- points de terminaison d'utilisation du tableau de bord (`/api/usage/*`) pour la consommation de l'interface utilisateur
+- console logs from `src/sse/utils/logger.ts`
+- per-request usage aggregates in SQLite (`usage_history`, `call_logs`, `proxy_logs`)
+- textual request status log in `log.txt` (optional/compat)
+- optional deep request/translation logs under `logs/` when `ENABLE_REQUEST_LOGS=true`
+- dashboard usage endpoints (`/api/usage/*`) for UI consumption
 
-## Limites sensibles à la sécurité
+## Security-Sensitive Boundaries
 
-- Le secret JWT (`JWT_SECRET`) sécurise la vérification/signature des cookies de session du tableau de bord
-- Le mot de passe initial de secours (`INITIAL_PASSWORD`, par défaut `123456`) doit être remplacé dans les déploiements réels
-- Le secret de la clé API HMAC (`API_KEY_SECRET`) sécurise le format de clé API locale généré
-- Les secrets du fournisseur (clés/jetons API) sont conservés dans la base de données locale et doivent être protégés au niveau du système de fichiers
-- Les points de terminaison de synchronisation dans le cloud s'appuient sur l'authentification par clé API + la sémantique de l'identifiant de la machine
+- JWT secret (`JWT_SECRET`) secures dashboard session cookie verification/signing
+- Initial password bootstrap (`INITIAL_PASSWORD`) should be explicitly configured for first-run provisioning
+- API key HMAC secret (`API_KEY_SECRET`) secures generated local API key format
+- Provider secrets (API keys/tokens) are persisted in local DB and should be protected at filesystem level
+- Cloud sync endpoints rely on API key auth + machine id semantics
 
-## Matrice d'environnement et d'exécution
+## Environment and Runtime Matrix
 
-Variables d'environnement activement utilisées par le code :
+Environment variables actively used by code:
 
-- Application/authentification : `JWT_SECRET`, `INITIAL_PASSWORD`
-- Stockage : `DATA_DIR`
-- Comportement du nœud compatible : `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
-- Remplacement facultatif de la base de stockage (Linux/macOS lorsque `DATA_DIR` n'est pas défini) : `XDG_CONFIG_HOME`
-- Hachage de sécurité : `API_KEY_SECRET`, `MACHINE_ID_SALT`
-- Journalisation : `ENABLE_REQUEST_LOGS`
-- URL de synchronisation/cloud : `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
-- Proxy sortant : `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` et variantes minuscules
-- Indicateurs de fonctionnalité SOCKS5 : `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
-- Aides de plate-forme/d'exécution (pas de configuration spécifique à l'application) : `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
+- App/auth: `JWT_SECRET`, `INITIAL_PASSWORD`
+- Storage: `DATA_DIR`
+- Compatible node behavior: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
+- Optional storage base override (Linux/macOS when `DATA_DIR` unset): `XDG_CONFIG_HOME`
+- Security hashing: `API_KEY_SECRET`, `MACHINE_ID_SALT`
+- Logging: `ENABLE_REQUEST_LOGS`
+- Sync/cloud URLing: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
+- Outbound proxy: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` and lowercase variants
+- SOCKS5 feature flags: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
+- Platform/runtime helpers (not app-specific config): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
 
-## Notes architecturales connues
+## Known Architectural Notes
 
-1. `usageDb` et `localDb` partagent désormais la même stratégie de répertoire de base (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) avec la migration des fichiers existants.
-2. `/api/v1/route.ts` renvoie une liste de modèles statiques et n'est pas la source principale de modèles utilisée par `/v1/models`.
-3. L'enregistreur de requêtes écrit les en-têtes/corps complets lorsqu'il est activé ; traiter le répertoire des journaux comme sensible.
-4. Le comportement du cloud dépend de l'exactitude du `NEXT_PUBLIC_BASE_URL` et de l'accessibilité du point de terminaison du cloud.
-5. Le répertoire `open-sse/` est publié en tant que `@omniroute/open-sse` **package d'espace de travail npm**. Le code source l'importe via `@omniroute/open-sse/...` (résolu par Next.js `transpilePackages`). Les chemins de fichiers dans ce document utilisent toujours le nom de répertoire `open-sse/` par souci de cohérence.
-6. Les graphiques du tableau de bord utilisent **Recharts** (basé sur SVG) pour des visualisations analytiques accessibles et interactives (graphiques à barres d'utilisation du modèle, tableaux de répartition des fournisseurs avec taux de réussite).
-7. Les tests E2E utilisent **Playwright** (`tests/e2e/`), exécutés via `npm run test:e2e`. Les tests unitaires utilisent **l'exécuteur de test Node.js** (`tests/unit/`), exécutés via `npm run test:plan3`. Le code source sous `src/` est **TypeScript** (`.ts`/`.tsx`) ; l'espace de travail `open-sse/` reste JavaScript (`.js`).
-8. La page Paramètres est organisée en 5 onglets : Sécurité, Routage (6 stratégies globales : remplissage en premier, round-robin, p2c, aléatoire, moins utilisé, coût optimisé), Résilience (limites de débit modifiables, disjoncteur, politiques), IA (budget de réflexion, invite système, cache d'invite), Avancé (proxy).
+1. `usageDb` and `localDb` share the same base directory policy (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) with legacy file migration.
+2. `/api/v1/route.ts` delegates to the same unified catalog builder used by `/api/v1/models` (`src/app/api/v1/models/catalog.ts`) to avoid semantic drift.
+3. Request logger writes full headers/body when enabled; treat log directory as sensitive.
+4. Cloud behavior depends on correct `NEXT_PUBLIC_BASE_URL` and cloud endpoint reachability.
+5. The `open-sse/` directory is published as the `@omniroute/open-sse` **npm workspace package**. Source code imports it via `@omniroute/open-sse/...` (resolved by Next.js `transpilePackages`). File paths in this document still use the directory name `open-sse/` for consistency.
+6. Charts in the dashboard use **Recharts** (SVG-based) for accessible, interactive analytics visualizations (model usage bar charts, provider breakdown tables with success rates).
+7. E2E tests use **Playwright** (`tests/e2e/`), run via `npm run test:e2e`. Unit tests use **Node.js test runner** (`tests/unit/`), run via `npm run test:unit`. Source code under `src/` is **TypeScript** (`.ts`/`.tsx`); the `open-sse/` workspace remains JavaScript (`.js`).
+8. Settings page is organized into 5 tabs: Security, Routing (6 global strategies: fill-first, round-robin, p2c, random, least-used, cost-optimized), Resilience (editable rate limits, circuit breaker, policies), AI (thinking budget, system prompt, prompt cache), Advanced (proxy).
 
-## Liste de contrôle de vérification opérationnelle
+## Operational Verification Checklist
 
-- Construire à partir des sources : `npm run build`
-- Créer une image Docker : `docker build -t omniroute .`
-- Démarrez le service et vérifiez :
+- Build from source: `npm run build`
+- Build Docker image: `docker build -t omniroute .`
+- Start service and verify:
 - `GET /api/settings`
 - `GET /api/v1/models`
-- L'URL de base cible CLI doit être `http://<host>:20128/v1` lorsque `PORT=20128`
+- CLI target base URL should be `http://<host>:20128/v1` when `PORT=20128`

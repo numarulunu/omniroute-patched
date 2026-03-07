@@ -1,71 +1,71 @@
-# สถาปัตยกรรม OmniRoute
+# OmniRoute Architecture
 
-🌐 **Languages:** 🇺🇸 [English](../../ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](../es/ARCHITECTURE.md) | 🇫🇷 [Français](../fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](../it/ARCHITECTURE.md) | 🇷🇺 [Русский](../ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](../zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](../de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](../in/ARCHITECTURE.md) | 🇹🇭 [ไทย](../th/ARCHITECTURE.md) | 🇺🇦 [Українська](../uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](../ar/ARCHITECTURE.md) | 🇯🇵 [日本語](../ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](../vi/ARCHITECTURE.md) | 🇧🇬 [Български](../bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](../da/ARCHITECTURE.md) | 🇫🇮 [Suomi](../fi/ARCHITECTURE.md) | 🇮🇱 [עברית](../he/ARCHITECTURE.md) | 🇭🇺 [Magyar](../hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](../id/ARCHITECTURE.md) | 🇰🇷 [한국어](../ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](../ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](../nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](../no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](../pt/ARCHITECTURE.md) | 🇷🇴 [Română](../ro/ARCHITECTURE.md) | 🇵🇱 [Polski](../pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](../sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](../sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](../phi/ARCHITECTURE.md)
+🌐 **Languages:** 🇺🇸 [English](ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](i18n/es/ARCHITECTURE.md) | 🇫🇷 [Français](i18n/fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](i18n/it/ARCHITECTURE.md) | 🇷🇺 [Русский](i18n/ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](i18n/de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](i18n/in/ARCHITECTURE.md) | 🇹🇭 [ไทย](i18n/th/ARCHITECTURE.md) | 🇺🇦 [Українська](i18n/uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](i18n/ar/ARCHITECTURE.md) | 🇯🇵 [日本語](i18n/ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/ARCHITECTURE.md) | 🇧🇬 [Български](i18n/bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](i18n/da/ARCHITECTURE.md) | 🇫🇮 [Suomi](i18n/fi/ARCHITECTURE.md) | 🇮🇱 [עברית](i18n/he/ARCHITECTURE.md) | 🇭🇺 [Magyar](i18n/hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/ARCHITECTURE.md) | 🇰🇷 [한국어](i18n/ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](i18n/nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](i18n/no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/ARCHITECTURE.md) | 🇷🇴 [Română](i18n/ro/ARCHITECTURE.md) | 🇵🇱 [Polski](i18n/pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](i18n/sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](i18n/sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](i18n/phi/ARCHITECTURE.md)
 
-_อัพเดตล่าสุด: 2026-02-18_
+_Last updated: 2026-03-04_
 
-## บทสรุปผู้บริหาร
+## Executive Summary
 
-OmniRoute เป็นเกตเวย์การกำหนดเส้นทาง AI ในพื้นที่และแดชบอร์ดที่สร้างขึ้นบน Next.js
-โดยให้จุดสิ้นสุดที่เข้ากันได้กับ OpenAI จุดเดียว (`/v1/*`) และกำหนดเส้นทางการรับส่งข้อมูลผ่านผู้ให้บริการอัปสตรีมหลายรายพร้อมการแปล ทางเลือกสำรอง การรีเฟรชโทเค็น และการติดตามการใช้งาน
+OmniRoute is a local AI routing gateway and dashboard built on Next.js.
+It provides a single OpenAI-compatible endpoint (`/v1/*`) and routes traffic across multiple upstream providers with translation, fallback, token refresh, and usage tracking.
 
-ความสามารถหลัก:
+Core capabilities:
 
-- พื้นผิว API ที่เข้ากันได้กับ OpenAI สำหรับ CLI/เครื่องมือ (ผู้ให้บริการ 28 ราย)
-- การแปลคำขอ/ตอบกลับในรูปแบบต่างๆ ของผู้ให้บริการ
-- ทางเลือกคำสั่งผสมโมเดล (ลำดับหลายรุ่น)
-- ทางเลือกระดับบัญชี (หลายบัญชีต่อผู้ให้บริการ)
-- การจัดการการเชื่อมต่อผู้ให้บริการ OAuth + API-key
-- การสร้างการฝังผ่าน `/v1/embeddings` (ผู้ให้บริการ 6 ราย, 9 โมเดล)
-- การสร้างภาพผ่าน `/v1/images/generations` (ผู้ให้บริการ 4 ราย, 9 รุ่น)
-- คิดว่าการแยกวิเคราะห์แท็ก (`<think>...</think>`) สำหรับโมเดลการให้เหตุผล
-- การตอบสนองการฆ่าเชื้อสำหรับความเข้ากันได้ของ OpenAI SDK ที่เข้มงวด
-- การปรับบทบาทให้เป็นมาตรฐาน (ผู้พัฒนา → ระบบ, ระบบ → ผู้ใช้) เพื่อความเข้ากันได้ระหว่างผู้ให้บริการ
-- การแปลงเอาต์พุตที่มีโครงสร้าง (json_schema → Gemini responseSchema)
-- ความคงอยู่ในท้องถิ่นสำหรับผู้ให้บริการ คีย์ นามแฝง คอมโบ การตั้งค่า การกำหนดราคา
-- การติดตามการใช้งาน/ต้นทุน และขอบันทึก
-- ตัวเลือกการซิงค์บนคลาวด์สำหรับการซิงค์หลายอุปกรณ์/สถานะ
-- รายการที่อนุญาต/รายการบล็อก IP สำหรับการควบคุมการเข้าถึง API
-- คิดการจัดการงบประมาณ (ส่งผ่าน/อัตโนมัติ/กำหนดเอง/ปรับเปลี่ยน)
-- ระบบฉีดพร้อมท์ทั่วโลก
-- การติดตามเซสชันและการพิมพ์ลายนิ้วมือ
-- การจำกัดอัตราการปรับปรุงต่อบัญชีด้วยโปรไฟล์เฉพาะของผู้ให้บริการ
-- รูปแบบเซอร์กิตเบรกเกอร์เพื่อความยืดหยุ่นของผู้ให้บริการ
-- ป้องกันฝูงฟ้าผ่าพร้อมระบบล็อค mutex
-- แคชการขจัดข้อมูลซ้ำซ้อนของคำขอตามลายเซ็น
-- เลเยอร์โดเมน: ความพร้อมใช้งานของโมเดล กฎต้นทุน นโยบายทางเลือก นโยบายการล็อก
-- การคงอยู่ของสถานะโดเมน (แคชการเขียนผ่าน SQLite สำหรับทางเลือกสำรอง งบประมาณ การล็อคเอาต์ เซอร์กิตเบรกเกอร์)
-- กลไกนโยบายสำหรับการประเมินคำขอแบบรวมศูนย์ (ล็อค → งบประมาณ → ทางเลือก)
-- ขอการตรวจวัดทางไกลด้วยการรวมเวลาแฝง p50/p95/p99
-- Correlation ID (X-Request-Id) สำหรับการติดตามจากต้นทางถึงปลายทาง
-- การบันทึกการตรวจสอบการปฏิบัติตามข้อกำหนดโดยเลือกไม่ใช้ต่อคีย์ API
-- กรอบการประเมินสำหรับการประกันคุณภาพ LLM
-- แดชบอร์ด UI ความยืดหยุ่นพร้อมสถานะเบรกเกอร์แบบเรียลไทม์
-- ผู้ให้บริการ OAuth แบบโมดูลาร์ (12 โมดูลแต่ละโมดูลภายใต้ `src/lib/oauth/providers/`)
+- OpenAI-compatible API surface for CLI/tools (28 providers)
+- Request/response translation across provider formats
+- Model combo fallback (multi-model sequence)
+- Account-level fallback (multi-account per provider)
+- OAuth + API-key provider connection management
+- Embedding generation via `/v1/embeddings` (6 providers, 9 models)
+- Image generation via `/v1/images/generations` (4 providers, 9 models)
+- Think tag parsing (`<think>...</think>`) for reasoning models
+- Response sanitization for strict OpenAI SDK compatibility
+- Role normalization (developer→system, system→user) for cross-provider compatibility
+- Structured output conversion (json_schema → Gemini responseSchema)
+- Local persistence for providers, keys, aliases, combos, settings, pricing
+- Usage/cost tracking and request logging
+- Optional cloud sync for multi-device/state sync
+- IP allowlist/blocklist for API access control
+- Thinking budget management (passthrough/auto/custom/adaptive)
+- Global system prompt injection
+- Session tracking and fingerprinting
+- Per-account enhanced rate limiting with provider-specific profiles
+- Circuit breaker pattern for provider resilience
+- Anti-thundering herd protection with mutex locking
+- Signature-based request deduplication cache
+- Domain layer: model availability, cost rules, fallback policy, lockout policy
+- Domain state persistence (SQLite write-through cache for fallbacks, budgets, lockouts, circuit breakers)
+- Policy engine for centralized request evaluation (lockout → budget → fallback)
+- Request telemetry with p50/p95/p99 latency aggregation
+- Correlation ID (X-Request-Id) for end-to-end tracing
+- Compliance audit logging with opt-out per API key
+- Eval framework for LLM quality assurance
+- Resilience UI dashboard with real-time circuit breaker status
+- Modular OAuth providers (12 individual modules under `src/lib/oauth/providers/`)
 
-โมเดลรันไทม์หลัก:
+Primary runtime model:
 
-- เส้นทางแอป Next.js ภายใต้ `src/app/api/*` ใช้ทั้ง API แดชบอร์ดและ API ที่เข้ากันได้
-- SSE/แกนการกำหนดเส้นทางที่ใช้ร่วมกันใน `src/sse/*` + `open-sse/*` จัดการการดำเนินการของผู้ให้บริการ การแปล การสตรีม ทางเลือกสำรอง และการใช้งาน
+- Next.js app routes under `src/app/api/*` implement both dashboard APIs and compatibility APIs
+- A shared SSE/routing core in `src/sse/*` + `open-sse/*` handles provider execution, translation, streaming, fallback, and usage
 
-## ขอบเขตและขอบเขต
+## Scope and Boundaries
 
-### ในขอบเขต
+### In Scope
 
-- รันไทม์เกตเวย์ท้องถิ่น
-- API การจัดการแดชบอร์ด
-- การรับรองความถูกต้องของผู้ให้บริการและการรีเฟรชโทเค็น
-- ขอการแปลและการสตรีม SSE
-- สภาพท้องถิ่น + ความคงทนในการใช้งาน
-- การประสานการซิงค์บนคลาวด์เสริม
+- Local gateway runtime
+- Dashboard management APIs
+- Provider authentication and token refresh
+- Request translation and SSE streaming
+- Local state + usage persistence
+- Optional cloud sync orchestration
 
-### อยู่นอกขอบเขต
+### Out of Scope
 
-- การใช้งานบริการคลาวด์เบื้องหลัง `NEXT_PUBLIC_CLOUD_URL`
-- SLA ของผู้ให้บริการ/ระนาบควบคุมอยู่นอกกระบวนการท้องถิ่น
-- ไบนารี CLI ภายนอกเอง (Claude CLI, Codex CLI ฯลฯ )
+- Cloud service implementation behind `NEXT_PUBLIC_CLOUD_URL`
+- Provider SLA/control plane outside local process
+- External CLI binaries themselves (Claude CLI, Codex CLI, etc.)
 
-## บริบทของระบบระดับสูง
+## High-Level System Context
 
 ```mermaid
 flowchart LR
@@ -81,8 +81,8 @@ flowchart LR
         API[V1 Compatibility API\n/v1/*]
         DASH[Dashboard + Management API\n/api/*]
         CORE[SSE + Translation Core\nopen-sse + src/sse]
-        DB[(db.json)]
-        UDB[(usage.json + log.txt)]
+        DB[(storage.sqlite)]
+        UDB[(usage tables + log artifacts)]
     end
 
     subgraph Upstreams[Upstream Providers]
@@ -113,151 +113,152 @@ flowchart LR
     DASH --> CLOUD
 ```
 
-## ส่วนประกอบรันไทม์หลัก
+## Core Runtime Components
 
-## 1) API และเลเยอร์การกำหนดเส้นทาง (เส้นทางแอป Next.js)
+## 1) API and Routing Layer (Next.js App Routes)
 
-ไดเรกทอรีหลัก:
+Main directories:
 
-- `src/app/api/v1/*` และ `src/app/api/v1beta/*` สำหรับ API ที่เข้ากันได้
-- `src/app/api/*` สำหรับ API การจัดการ/การกำหนดค่า
-- เขียนใหม่ครั้งต่อไปใน `next.config.mjs` แผนที่ `/v1/*` ถึง `/api/v1/*`
+- `src/app/api/v1/*` and `src/app/api/v1beta/*` for compatibility APIs
+- `src/app/api/*` for management/configuration APIs
+- Next rewrites in `next.config.mjs` map `/v1/*` to `/api/v1/*`
 
-เส้นทางความเข้ากันได้ที่สำคัญ:
+Important compatibility routes:
 
 - `src/app/api/v1/chat/completions/route.ts`
 - `src/app/api/v1/messages/route.ts`
 - `src/app/api/v1/responses/route.ts`
-- `src/app/api/v1/models/route.ts` — รวมโมเดลที่กำหนดเองด้วย `custom: true`
-- `src/app/api/v1/embeddings/route.ts` — การสร้างการฝัง (ผู้ให้บริการ 6 ราย)
-- `src/app/api/v1/images/generations/route.ts` — การสร้างภาพ (ผู้ให้บริการ 4+ รายรวม Antigravity/Nebius)
+- `src/app/api/v1/models/route.ts` — includes custom models with `custom: true`
+- `src/app/api/v1/embeddings/route.ts` — embedding generation (6 providers)
+- `src/app/api/v1/images/generations/route.ts` — image generation (4+ providers incl. Antigravity/Nebius)
 - `src/app/api/v1/messages/count_tokens/route.ts`
-- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — แชทเฉพาะต่อผู้ให้บริการ
-- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — การฝังต่อผู้ให้บริการโดยเฉพาะ
-- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — อิมเมจต่อผู้ให้บริการโดยเฉพาะ
+- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — dedicated per-provider chat
+- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — dedicated per-provider embeddings
+- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — dedicated per-provider images
 - `src/app/api/v1beta/models/route.ts`
 - `src/app/api/v1beta/models/[...path]/route.ts`
 
-โดเมนการจัดการ:
+Management domains:
 
-- การรับรองความถูกต้อง/การตั้งค่า: `src/app/api/auth/*`, `src/app/api/settings/*`
-- ผู้ให้บริการ/การเชื่อมต่อ: `src/app/api/providers*`
-- โหนดผู้ให้บริการ: `src/app/api/provider-nodes*`
-- โมเดลที่กำหนดเอง: `src/app/api/provider-models` (GET/POST/DELETE)
-- แคตตาล็อกรุ่น: `src/app/api/models/catalog` (GET)
-- การกำหนดค่าพร็อกซี: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
+- Auth/settings: `src/app/api/auth/*`, `src/app/api/settings/*`
+- Providers/connections: `src/app/api/providers*`
+- Provider nodes: `src/app/api/provider-nodes*`
+- Custom models: `src/app/api/provider-models` (GET/POST/DELETE)
+- Model catalog: `src/app/api/models/route.ts` (GET)
+- Proxy config: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
 - OAuth: `src/app/api/oauth/*`
-- คีย์/นามแฝง/คอมโบ/ราคา: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
-- การใช้งาน: `src/app/api/usage/*`
-- ซิงค์/คลาวด์: `src/app/api/sync/*`, `src/app/api/cloud/*`
-- ผู้ช่วยเครื่องมือ CLI: `src/app/api/cli-tools/*`
-- ตัวกรอง IP: `src/app/api/settings/ip-filter` (GET/PUT)
-- งบประมาณการคิด: `src/app/api/settings/thinking-budget` (GET/PUT)
-- ระบบแจ้ง: `src/app/api/settings/system-prompt` (GET/PUT)
-- เซสชัน: `src/app/api/sessions` (GET)
-- ขีดจำกัดอัตรา: `src/app/api/rate-limits` (GET)
-- ความยืดหยุ่น: `src/app/api/resilience` (GET/PATCH) — โปรไฟล์ผู้ให้บริการ, เซอร์กิตเบรกเกอร์, สถานะขีดจำกัดอัตรา
-- รีเซ็ตความยืดหยุ่น: `src/app/api/resilience/reset` (POST) — รีเซ็ตเบรกเกอร์ + คูลดาวน์
-- สถิติแคช: `src/app/api/cache/stats` (GET/DELETE)
-- ความพร้อมของรุ่น: `src/app/api/models/availability` (GET/POST)
-- การวัดและส่งข้อมูลทางไกล: `src/app/api/telemetry/summary` (GET)
-- งบประมาณ: `src/app/api/usage/budget` (GET/POST)
-- เชนทางเลือก: `src/app/api/fallback/chains` (GET/POST/DELETE)
-- การตรวจสอบการปฏิบัติตามข้อกำหนด: `src/app/api/compliance/audit-log` (GET)
-- คะแนน: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
-- นโยบาย: `src/app/api/policies` (GET/POST)
+- Keys/aliases/combos/pricing: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
+- Usage: `src/app/api/usage/*`
+- Sync/cloud: `src/app/api/sync/*`, `src/app/api/cloud/*`
+- CLI tooling helpers: `src/app/api/cli-tools/*`
+- IP filter: `src/app/api/settings/ip-filter` (GET/PUT)
+- Thinking budget: `src/app/api/settings/thinking-budget` (GET/PUT)
+- System prompt: `src/app/api/settings/system-prompt` (GET/PUT)
+- Sessions: `src/app/api/sessions` (GET)
+- Rate limits: `src/app/api/rate-limits` (GET)
+- Resilience: `src/app/api/resilience` (GET/PATCH) — provider profiles, circuit breaker, rate limit state
+- Resilience reset: `src/app/api/resilience/reset` (POST) — reset breakers + cooldowns
+- Cache stats: `src/app/api/cache/stats` (GET/DELETE)
+- Model availability: `src/app/api/models/availability` (GET/POST)
+- Telemetry: `src/app/api/telemetry/summary` (GET)
+- Budget: `src/app/api/usage/budget` (GET/POST)
+- Fallback chains: `src/app/api/fallback/chains` (GET/POST/DELETE)
+- Compliance audit: `src/app/api/compliance/audit-log` (GET)
+- Evals: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
+- Policies: `src/app/api/policies` (GET/POST)
 
-## 2) SSE + แกนการแปล
+## 2) SSE + Translation Core
 
-โมดูลการไหลหลัก:
+Main flow modules:
 
-- รายการ: `src/sse/handlers/chat.ts`
-- การประสานหลัก: `open-sse/handlers/chatCore.ts`
-- อะแดปเตอร์การดำเนินการของผู้ให้บริการ: `open-sse/executors/*`
-- รูปแบบการตรวจจับ/การกำหนดค่าผู้ให้บริการ: `open-sse/services/provider.ts`
-- โมเดลแยกวิเคราะห์/แก้ไข: `src/sse/services/model.ts`, `open-sse/services/model.ts`
-- ตรรกะทางเลือกของบัญชี: `open-sse/services/accountFallback.ts`
-- รีจิสทรีการแปล: `open-sse/translator/index.ts`
-- การแปลงสตรีม: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
-- การแยกการใช้งาน/การทำให้เป็นมาตรฐาน: `open-sse/utils/usageTracking.ts`
-- คิดว่าตัวแยกวิเคราะห์แท็ก: `open-sse/utils/thinkTagParser.ts`
-- ตัวจัดการการฝัง: `open-sse/handlers/embeddings.ts`
-- การลงทะเบียนผู้ให้บริการการฝัง: `open-sse/config/embeddingRegistry.ts`
-- ตัวจัดการการสร้างอิมเมจ: `open-sse/handlers/imageGeneration.ts`
-- รีจิสทรีของผู้ให้บริการอิมเมจ: `open-sse/config/imageRegistry.ts`
-- การตอบสนองการฆ่าเชื้อ: `open-sse/handlers/responseSanitizer.ts`
-- การทำให้บทบาทเป็นมาตรฐาน: `open-sse/services/roleNormalizer.ts`
+- Entry: `src/sse/handlers/chat.ts`
+- Core orchestration: `open-sse/handlers/chatCore.ts`
+- Provider execution adapters: `open-sse/executors/*`
+- Format detection/provider config: `open-sse/services/provider.ts`
+- Model parse/resolve: `src/sse/services/model.ts`, `open-sse/services/model.ts`
+- Account fallback logic: `open-sse/services/accountFallback.ts`
+- Translation registry: `open-sse/translator/index.ts`
+- Stream transformations: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
+- Usage extraction/normalization: `open-sse/utils/usageTracking.ts`
+- Think tag parser: `open-sse/utils/thinkTagParser.ts`
+- Embedding handler: `open-sse/handlers/embeddings.ts`
+- Embedding provider registry: `open-sse/config/embeddingRegistry.ts`
+- Image generation handler: `open-sse/handlers/imageGeneration.ts`
+- Image provider registry: `open-sse/config/imageRegistry.ts`
+- Response sanitization: `open-sse/handlers/responseSanitizer.ts`
+- Role normalization: `open-sse/services/roleNormalizer.ts`
 
-บริการ (ตรรกะทางธุรกิจ):
+Services (business logic):
 
-- การเลือกบัญชี/การให้คะแนน: `open-sse/services/accountSelector.ts`
-- การจัดการวงจรชีวิตบริบท: `open-sse/services/contextManager.ts`
-- การบังคับใช้ตัวกรอง IP: `open-sse/services/ipFilter.ts`
-- การติดตามเซสชัน: `open-sse/services/sessionManager.ts`
-- ขอการขจัดข้อมูลซ้ำซ้อน: `open-sse/services/signatureCache.ts`
-- ระบบพร้อมท์การฉีด: `open-sse/services/systemPrompt.ts`
-- คิดการจัดการงบประมาณ: `open-sse/services/thinkingBudget.ts`
-- การกำหนดเส้นทางโมเดลตัวแทน: `open-sse/services/wildcardRouter.ts`
-- การจัดการขีดจำกัดอัตรา: `open-sse/services/rateLimitManager.ts`
-- เบรกเกอร์: `open-sse/services/circuitBreaker.ts`
+- Account selection/scoring: `open-sse/services/accountSelector.ts`
+- Context lifecycle management: `open-sse/services/contextManager.ts`
+- IP filter enforcement: `open-sse/services/ipFilter.ts`
+- Session tracking: `open-sse/services/sessionManager.ts`
+- Request deduplication: `open-sse/services/signatureCache.ts`
+- System prompt injection: `open-sse/services/systemPrompt.ts`
+- Thinking budget management: `open-sse/services/thinkingBudget.ts`
+- Wildcard model routing: `open-sse/services/wildcardRouter.ts`
+- Rate limit management: `open-sse/services/rateLimitManager.ts`
+- Circuit breaker: `open-sse/services/circuitBreaker.ts`
 
-โมดูลเลเยอร์โดเมน:
+Domain layer modules:
 
-- รุ่นที่มีวางจำหน่าย: `src/lib/domain/modelAvailability.ts`
-- กฎต้นทุน/งบประมาณ: `src/lib/domain/costRules.ts`
-- นโยบายสำรอง: `src/lib/domain/fallbackPolicy.ts`
-- ตัวแก้ไขคำสั่งผสม: `src/lib/domain/comboResolver.ts`
-- นโยบายการล็อก: `src/lib/domain/lockoutPolicy.ts`
-- กลไกนโยบาย: `src/domain/policyEngine.ts` — การล็อคแบบรวมศูนย์ → งบประมาณ → การประเมินทางเลือก
-- แค็ตตาล็อกรหัสข้อผิดพลาด: `src/lib/domain/errorCodes.ts`
-- รหัสคำขอ: `src/lib/domain/requestId.ts`
-- หมดเวลาดึงข้อมูล: `src/lib/domain/fetchTimeout.ts`
-- ขอการตรวจวัดระยะไกล: `src/lib/domain/requestTelemetry.ts`
-- การปฏิบัติตามข้อกำหนด/การตรวจสอบ: `src/lib/domain/compliance/index.ts`
-- นักวิ่งประเมิน: `src/lib/domain/evalRunner.ts`
-- การคงอยู่ของสถานะโดเมน: `src/lib/db/domainState.ts` — SQLite CRUD สำหรับเชนสำรอง งบประมาณ ประวัติต้นทุน สถานะการล็อกเอาต์ เซอร์กิตเบรกเกอร์
+- Model availability: `src/lib/domain/modelAvailability.ts`
+- Cost rules/budgets: `src/lib/domain/costRules.ts`
+- Fallback policy: `src/lib/domain/fallbackPolicy.ts`
+- Combo resolver: `src/lib/domain/comboResolver.ts`
+- Lockout policy: `src/lib/domain/lockoutPolicy.ts`
+- Policy engine: `src/domain/policyEngine.ts` — centralized lockout → budget → fallback evaluation
+- Error codes catalog: `src/lib/domain/errorCodes.ts`
+- Request ID: `src/lib/domain/requestId.ts`
+- Fetch timeout: `src/lib/domain/fetchTimeout.ts`
+- Request telemetry: `src/lib/domain/requestTelemetry.ts`
+- Compliance/audit: `src/lib/domain/compliance/index.ts`
+- Eval runner: `src/lib/domain/evalRunner.ts`
+- Domain state persistence: `src/lib/db/domainState.ts` — SQLite CRUD for fallback chains, budgets, cost history, lockout state, circuit breakers
 
-โมดูลผู้ให้บริการ OAuth (12 ไฟล์แต่ละไฟล์ภายใต้ `src/lib/oauth/providers/`):
+OAuth provider modules (12 individual files under `src/lib/oauth/providers/`):
 
-- ดัชนีรีจิสทรี: `src/lib/oauth/providers/index.ts`
-- ผู้ให้บริการส่วนบุคคล: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `kimi-coding.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
-- กระดาษห่อแบบบาง: `src/lib/oauth/providers.ts` — ส่งออกซ้ำจากแต่ละโมดูล
+- Registry index: `src/lib/oauth/providers/index.ts`
+- Individual providers: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `kimi-coding.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
+- Thin wrapper: `src/lib/oauth/providers.ts` — re-exports from individual modules
 
-## 3) เลเยอร์การคงอยู่
+## 3) Persistence Layer
 
-ฐานข้อมูลสถานะหลัก:
+Primary state DB (SQLite):
 
-- `src/lib/localDb.ts`
-- ไฟล์: `${DATA_DIR}/db.json` (หรือ `$XDG_CONFIG_HOME/omniroute/db.json` เมื่อตั้งค่า มิฉะนั้น `~/.omniroute/db.json`)
-- เอนทิตี: providerConnections, providerNodes, modelAliases, คอมโบ, apiKeys, การตั้งค่า, การกำหนดราคา, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
+- Core infra: `src/lib/db/core.ts` (better-sqlite3, migrations, WAL)
+- Re-export facade: `src/lib/localDb.ts` (thin compatibility layer for callers)
+- file: `${DATA_DIR}/storage.sqlite` (or `$XDG_CONFIG_HOME/omniroute/storage.sqlite` when set, else `~/.omniroute/storage.sqlite`)
+- entities (tables + KV namespaces): providerConnections, providerNodes, modelAliases, combos, apiKeys, settings, pricing, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
 
-ฐานข้อมูลการใช้งาน:
+Usage persistence:
 
-- `src/lib/usageDb.ts`
-- ไฟล์: `${DATA_DIR}/usage.json`, `${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`
-- เป็นไปตามนโยบายไดเรกทอรีฐานเดียวกันกับ `localDb` (`DATA_DIR` จากนั้น `XDG_CONFIG_HOME/omniroute` เมื่อตั้งค่า)
-- แบ่งออกเป็นโมดูลย่อยที่เน้น: `migrations.ts`, `usageHistory.ts`, `costCalculator.ts`, `usageStats.ts`, `callLogs.ts`
+- facade: `src/lib/usageDb.ts` (decomposed modules in `src/lib/usage/*`)
+- SQLite tables in `storage.sqlite`: `usage_history`, `call_logs`, `proxy_logs`
+- optional file artifacts remain for compatibility/debug (`${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`, `<repo>/logs/...`)
+- legacy JSON files are migrated to SQLite by startup migrations when present
 
-ฐานข้อมูลสถานะโดเมน (SQLite):
+Domain State DB (SQLite):
 
-- `src/lib/db/domainState.ts` — การดำเนินการ CRUD สำหรับสถานะโดเมน
-- ตาราง (สร้างใน `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
-- รูปแบบแคชการเขียนผ่าน: แผนที่ในหน่วยความจำเชื่อถือได้ ณ รันไทม์ การกลายพันธุ์จะถูกเขียนพร้อมกันกับ SQLite; สถานะถูกกู้คืนจาก DB เมื่อสตาร์ทขณะเย็น
+- `src/lib/db/domainState.ts` — CRUD operations for domain state
+- Tables (created in `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
+- Write-through cache pattern: in-memory Maps are authoritative at runtime; mutations are written synchronously to SQLite; state is restored from DB on cold start
 
-## 4) การรับรองความถูกต้อง + พื้นผิวการรักษาความปลอดภัย
+## 4) Auth + Security Surfaces
 
-- การตรวจสอบคุกกี้แดชบอร์ด: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
-- การสร้าง/การตรวจสอบคีย์ API: `src/shared/utils/apiKey.ts`
-- ข้อมูลลับของผู้ให้บริการยังคงอยู่ในรายการ `providerConnections`
-- รองรับพร็อกซีขาออกผ่าน `open-sse/utils/proxyFetch.ts` (env vars) และ `open-sse/utils/networkProxy.ts` (กำหนดค่าได้ต่อผู้ให้บริการหรือทั่วโลก)
+- Dashboard cookie auth: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
+- API key generation/verification: `src/shared/utils/apiKey.ts`
+- Provider secrets persisted in `providerConnections` entries
+- Outbound proxy support via `open-sse/utils/proxyFetch.ts` (env vars) and `open-sse/utils/networkProxy.ts` (configurable per-provider or global)
 
-## 5) การซิงค์บนคลาวด์
+## 5) Cloud Sync
 
-- เริ่มต้นตัวกำหนดเวลา: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
-- งานประจำ: `src/shared/services/cloudSyncScheduler.ts`
-- เส้นทางควบคุม: `src/app/api/sync/cloud/route.ts`
+- Scheduler init: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
+- Periodic task: `src/shared/services/cloudSyncScheduler.ts`
+- Control route: `src/app/api/sync/cloud/route.ts`
 
-## ระยะเวลาคำขอ (`/v1/chat/completions`)
+## Request Lifecycle (`/v1/chat/completions`)
 
 ```mermaid
 sequenceDiagram
@@ -304,7 +305,7 @@ sequenceDiagram
     Stream->>Usage: extract usage + persist history/log
 ```
 
-## Combo + ขั้นตอนทางเลือกของบัญชี
+## Combo + Account Fallback Flow
 
 ```mermaid
 flowchart TD
@@ -334,9 +335,9 @@ flowchart TD
     Q -- No --> R[Return all unavailable]
 ```
 
-การตัดสินใจทางเลือกถูกขับเคลื่อนโดย `open-sse/services/accountFallback.ts` โดยใช้รหัสสถานะและการวิเคราะห์พฤติกรรมข้อความแสดงข้อผิดพลาด
+Fallback decisions are driven by `open-sse/services/accountFallback.ts` using status codes and error-message heuristics.
 
-## การเริ่มต้นใช้งาน OAuth และวงจรการรีเฟรชโทเค็น
+## OAuth Onboarding and Token Refresh Lifecycle
 
 ```mermaid
 sequenceDiagram
@@ -366,9 +367,9 @@ sequenceDiagram
     Test-->>UI: validation result
 ```
 
-การรีเฟรชระหว่างการรับส่งข้อมูลสดจะดำเนินการภายใน `open-sse/handlers/chatCore.ts` ผ่านตัวดำเนินการ `refreshCredentials()`
+Refresh during live traffic is executed inside `open-sse/handlers/chatCore.ts` via executor `refreshCredentials()`.
 
-## วงจรการใช้งาน Cloud Sync (เปิดใช้งาน / ซิงค์ / ปิดใช้งาน)
+## Cloud Sync Lifecycle (Enable / Sync / Disable)
 
 ```mermaid
 sequenceDiagram
@@ -400,9 +401,9 @@ sequenceDiagram
     Sync-->>UI: disabled
 ```
 
-การซิงค์เป็นระยะจะถูกทริกเกอร์โดย `CloudSyncScheduler` เมื่อเปิดใช้งานระบบคลาวด์
+Periodic sync is triggered by `CloudSyncScheduler` when cloud is enabled.
 
-## แบบจำลองข้อมูลและแผนที่การจัดเก็บ
+## Data Model and Storage Map
 
 ```mermaid
 erDiagram
@@ -503,14 +504,14 @@ erDiagram
     }
 ```
 
-ไฟล์จัดเก็บข้อมูลทางกายภาพ:
+Physical storage files:
 
-- สถานะหลัก: `${DATA_DIR}/db.json` (หรือ `$XDG_CONFIG_HOME/omniroute/db.json` เมื่อตั้งค่า มิฉะนั้น `~/.omniroute/db.json`)
-- สถิติการใช้งาน: `${DATA_DIR}/usage.json`
-- ขอบรรทัดบันทึก: `${DATA_DIR}/log.txt`
-- ตัวเลือกนักแปล/ร้องขอเซสชันการแก้ไขข้อบกพร่อง: `<repo>/logs/...`
+- primary runtime DB: `${DATA_DIR}/storage.sqlite`
+- request log lines: `${DATA_DIR}/log.txt` (compat/debug artifact)
+- structured call payload archives: `${DATA_DIR}/call_logs/`
+- optional translator/request debug sessions: `<repo>/logs/...`
 
-## โทโพโลยีการปรับใช้
+## Deployment Topology
 
 ```mermaid
 flowchart LR
@@ -522,8 +523,8 @@ flowchart LR
     subgraph ContainerOrProcess[OmniRoute Runtime]
         Next[Next.js Server\nPORT=20128]
         Core[SSE Core + Executors]
-        MainDB[(db.json)]
-        UsageDB[(usage.json/log.txt)]
+        MainDB[(storage.sqlite)]
+        UsageDB[(usage tables + log artifacts)]
     end
 
     subgraph External[External Services]
@@ -541,241 +542,242 @@ flowchart LR
     Next --> SyncCloud
 ```
 
-## การทำแผนที่โมดูล (การตัดสินใจที่สำคัญ)
+## Module Mapping (Decision-Critical)
 
-### เส้นทางและโมดูล API
+### Route and API Modules
 
-- `src/app/api/v1/*`, `src/app/api/v1beta/*`: API ความเข้ากันได้
-- `src/app/api/v1/providers/[provider]/*`: เส้นทางเฉพาะต่อผู้ให้บริการ (แชท การฝัง รูปภาพ)
-- `src/app/api/providers*`: ผู้ให้บริการ CRUD, การตรวจสอบความถูกต้อง, การทดสอบ
-- `src/app/api/provider-nodes*`: การจัดการโหนดที่เข้ากันได้แบบกำหนดเอง
-- `src/app/api/provider-models`: การจัดการโมเดลแบบกำหนดเอง (CRUD)
-- `src/app/api/models/catalog`: API แคตตาล็อกโมเดลแบบเต็ม (ทุกประเภทจัดกลุ่มตามผู้ให้บริการ)
-- `src/app/api/oauth/*`: การไหลของ OAuth/รหัสอุปกรณ์
-- `src/app/api/keys*`: วงจรการใช้งานคีย์ API ภายในเครื่อง
-- `src/app/api/models/alias`: การจัดการนามแฝง
-- `src/app/api/combos*`: การจัดการคอมโบทางเลือก
-- `src/app/api/pricing`: แทนที่การกำหนดราคาสำหรับการคำนวณต้นทุน
-- `src/app/api/settings/proxy`: การกำหนดค่าพร็อกซี (GET/PUT/DELETE)
-- `src/app/api/settings/proxy/test`: การทดสอบการเชื่อมต่อพร็อกซีขาออก (POST)
-- `src/app/api/usage/*`: การใช้งานและบันทึก API
-- `src/app/api/sync/*` + `src/app/api/cloud/*`: การซิงค์บนคลาวด์และผู้ช่วยเหลือบนคลาวด์
-- `src/app/api/cli-tools/*`: ตัวเขียน/ตัวตรวจสอบการกำหนดค่า CLI ในเครื่อง
-- `src/app/api/settings/ip-filter`: รายการ IP ที่อนุญาต/รายการบล็อก (GET/PUT)
-- `src/app/api/settings/thinking-budget`: คิดการกำหนดค่างบประมาณโทเค็น (GET/PUT)
-- `src/app/api/settings/system-prompt`: พร้อมท์ระบบทั่วโลก (GET/PUT)
-- `src/app/api/sessions`: รายการเซสชันที่ใช้งานอยู่ (GET)
-- `src/app/api/rate-limits`: สถานะขีดจำกัดอัตราต่อบัญชี (GET)
+- `src/app/api/v1/*`, `src/app/api/v1beta/*`: compatibility APIs
+- `src/app/api/v1/providers/[provider]/*`: dedicated per-provider routes (chat, embeddings, images)
+- `src/app/api/providers*`: provider CRUD, validation, testing
+- `src/app/api/provider-nodes*`: custom compatible node management
+- `src/app/api/provider-models`: custom model management (CRUD)
+- `src/app/api/models/route.ts`: model catalog API (aliases + custom models)
+- `src/app/api/oauth/*`: OAuth/device-code flows
+- `src/app/api/keys*`: local API key lifecycle
+- `src/app/api/models/alias`: alias management
+- `src/app/api/combos*`: fallback combo management
+- `src/app/api/pricing`: pricing overrides for cost calculation
+- `src/app/api/settings/proxy`: proxy configuration (GET/PUT/DELETE)
+- `src/app/api/settings/proxy/test`: outbound proxy connectivity test (POST)
+- `src/app/api/usage/*`: usage and logs APIs
+- `src/app/api/sync/*` + `src/app/api/cloud/*`: cloud sync and cloud-facing helpers
+- `src/app/api/cli-tools/*`: local CLI config writers/checkers
+- `src/app/api/settings/ip-filter`: IP allowlist/blocklist (GET/PUT)
+- `src/app/api/settings/thinking-budget`: thinking token budget config (GET/PUT)
+- `src/app/api/settings/system-prompt`: global system prompt (GET/PUT)
+- `src/app/api/sessions`: active session listing (GET)
+- `src/app/api/rate-limits`: per-account rate limit status (GET)
 
-### แกนการกำหนดเส้นทางและการดำเนินการ
+### Routing and Execution Core
 
-- `src/sse/handlers/chat.ts`: คำขอแยกวิเคราะห์ การจัดการคำสั่งผสม วนรอบการเลือกบัญชี
-- `open-sse/handlers/chatCore.ts`: การแปล การดำเนินการจัดส่ง การจัดการลองใหม่/รีเฟรช การตั้งค่าสตรีม
-- `open-sse/executors/*`: เครือข่ายเฉพาะผู้ให้บริการและพฤติกรรมรูปแบบ
+- `src/sse/handlers/chat.ts`: request parse, combo handling, account selection loop
+- `open-sse/handlers/chatCore.ts`: translation, executor dispatch, retry/refresh handling, stream setup
+- `open-sse/executors/*`: provider-specific network and format behavior
 
-### รีจิสทรีการแปลและตัวแปลงรูปแบบ
+### Translation Registry and Format Converters
 
-- `open-sse/translator/index.ts`: ทะเบียนนักแปลและเรียบเรียง
-- ขอนักแปล: `open-sse/translator/request/*`
-- ผู้แปลคำตอบ: `open-sse/translator/response/*`
-- รูปแบบค่าคงที่: `open-sse/translator/formats.ts`
+- `open-sse/translator/index.ts`: translator registry and orchestration
+- Request translators: `open-sse/translator/request/*`
+- Response translators: `open-sse/translator/response/*`
+- Format constants: `open-sse/translator/formats.ts`
 
-### ความคงอยู่
+### Persistence
 
-- `src/lib/localDb.ts`: การกำหนดค่า/สถานะแบบถาวร
-- `src/lib/usageDb.ts`: ประวัติการใช้งานและบันทึกคำขอแบบต่อเนื่อง
+- `src/lib/db/*`: persistent config/state and domain persistence on SQLite
+- `src/lib/localDb.ts`: compatibility re-export for DB modules
+- `src/lib/usageDb.ts`: usage history/call logs facade on top of SQLite tables
 
-## ความครอบคลุมของผู้ให้บริการ (รูปแบบกลยุทธ์)
+## Provider Executor Coverage (Strategy Pattern)
 
-ผู้ให้บริการแต่ละรายมีตัวดำเนินการเฉพาะที่ขยาย `BaseExecutor` (ใน `open-sse/executors/base.ts`) ซึ่งจัดเตรียมการสร้าง URL การสร้างส่วนหัว การลองอีกครั้งด้วย Exponential Backoff ฮุคการรีเฟรชข้อมูลประจำตัว และวิธีการประสาน `execute()`
+Each provider has a specialized executor extending `BaseExecutor` (in `open-sse/executors/base.ts`), which provides URL building, header construction, retry with exponential backoff, credential refresh hooks, and the `execute()` orchestration method.
 
-| ผู้ดำเนินการ          | ผู้ให้บริการ                                                                                                                                                    | การจัดการพิเศษ                                                   |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, ความฉงนสนเท่ห์, Together, ดอกไม้ไฟ, Cerebras, Cohere, NVIDIA | URL แบบไดนามิก/การกำหนดค่าส่วนหัวต่อผู้ให้บริการ                 |
-| `AntigravityExecutor` | Google ต้านแรงโน้มถ่วง                                                                                                                                          | รหัสโปรเจ็กต์/เซสชันแบบกำหนดเอง ลองอีกครั้งหลังจากแยกวิเคราะห์   |
-| `CodexExecutor`       | OpenAI Codex                                                                                                                                                    | แทรกคำสั่งของระบบ บังคับใช้ความพยายามในการให้เหตุผล              |
-| `CursorExecutor`      | เคอร์เซอร์ IDE                                                                                                                                                  | โปรโตคอล ConnectRPC, การเข้ารหัส Protobuf, ขอการลงนามผ่านเช็คซัม |
-| `GithubExecutor`      | นักบิน GitHub                                                                                                                                                   | การรีเฟรชโทเค็น Copilot ส่วนหัวการเลียนแบบ VSCode                |
-| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                          | รูปแบบไบนารี AWS EventStream → การแปลง SSE                       |
-| `GeminiCLIExecutor`   | ราศีเมถุน CLI                                                                                                                                                   | วงจรการรีเฟรชโทเค็น Google OAuth                                 |
+| Executor              | Provider(s)                                                                                                                                                  | Special Handling                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | Dynamic URL/header config per provider                               |
+| `AntigravityExecutor` | Google Antigravity                                                                                                                                           | Custom project/session IDs, Retry-After parsing                      |
+| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | Injects system instructions, forces reasoning effort                 |
+| `CursorExecutor`      | Cursor IDE                                                                                                                                                   | ConnectRPC protocol, Protobuf encoding, request signing via checksum |
+| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | Copilot token refresh, VSCode-mimicking headers                      |
+| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | AWS EventStream binary format → SSE conversion                       |
+| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | Google OAuth token refresh cycle                                     |
 
-ผู้ให้บริการรายอื่นทั้งหมด (รวมถึงโหนดที่เข้ากันได้แบบกำหนดเอง) ใช้ `DefaultExecutor`
+All other providers (including custom compatible nodes) use the `DefaultExecutor`.
 
-## เมทริกซ์ความเข้ากันได้ของผู้ให้บริการ
+## Provider Compatibility Matrix
 
-| ผู้ให้บริการ        | รูปแบบ          | รับรองความถูกต้อง      | สตรีม            | ไม่ใช่สตรีม | รีเฟรชโทเค็น | API การใช้งาน         |
-| ------------------- | --------------- | ---------------------- | ---------------- | ----------- | ------------ | --------------------- |
-| คลอดด์              | คลอด            | คีย์ API / OAuth       | ✅               | ✅          | ✅           | ⚠️เฉพาะแอดมินเท่านั้น |
-| ราศีเมถุน           | ราศีเมถุน       | คีย์ API / OAuth       | ✅               | ✅          | ✅           | ⚠️ คลาวด์คอนโซล       |
-| ราศีเมถุน CLI       | ราศีเมถุน-cli   | OAuth                  | ✅               | ✅          | ✅           | ⚠️ คลาวด์คอนโซล       |
-| ต้านแรงโน้มถ่วง     | ต้านแรงโน้มถ่วง | OAuth                  | ✅               | ✅          | ✅           | ✅ API โควต้าเต็ม     |
-| OpenAI              | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| โคเด็กซ์            | openai ตอบกลับ  | OAuth                  | ✅บังคับ         | ❌          | ✅           | ✅ ขีดจำกัดอัตรา      |
-| นักบิน GitHub       | เปิดใจ          | OAuth + โทเค็น Copilot | ✅               | ✅          | ✅           | ✅ สแนปชอตโควต้า      |
-| เคอร์เซอร์          | เคอร์เซอร์      | เช็คซัมแบบกำหนดเอง     | ✅               | ✅          | ❌           | ❌                    |
-| คิโระ               | คิโระ           | AWS SSO OIDC           | ✅ (EventStream) | ❌          | ✅           | ✅ ขีดจำกัดการใช้งาน  |
-| ควีน                | เปิดใจ          | OAuth                  | ✅               | ✅          | ✅           | ⚠️ตามคำขอ             |
-| ไอโฟลว์             | เปิดใจ          | OAuth (พื้นฐาน)        | ✅               | ✅          | ✅           | ⚠️ตามคำขอ             |
-| OpenRouter          | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| GLM/คิมิ/มินิแม็กซ์ | คลอด            | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| DeepSeek            | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| กรอค                | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| xAI (โกรก)          | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| มิสทรัล             | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| ความฉงนสนเท่ห์      | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| ร่วมกัน AI          | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| ดอกไม้ไฟ AI         | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| สมอง                | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| เชื่อมโยง           | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
-| NVIDIA NIM          | เปิดใจ          | คีย์ API               | ✅               | ✅          | ❌           | ❌                    |
+| Provider         | Format           | Auth                  | Stream           | Non-Stream | Token Refresh | Usage API          |
+| ---------------- | ---------------- | --------------------- | ---------------- | ---------- | ------------- | ------------------ |
+| Claude           | claude           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Admin only      |
+| Gemini           | gemini           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Gemini CLI       | gemini-cli       | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Antigravity      | antigravity      | OAuth                 | ✅               | ✅         | ✅            | ✅ Full quota API  |
+| OpenAI           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Codex            | openai-responses | OAuth                 | ✅ forced        | ❌         | ✅            | ✅ Rate limits     |
+| GitHub Copilot   | openai           | OAuth + Copilot Token | ✅               | ✅         | ✅            | ✅ Quota snapshots |
+| Cursor           | cursor           | Custom checksum       | ✅               | ✅         | ❌            | ❌                 |
+| Kiro             | kiro             | AWS SSO OIDC          | ✅ (EventStream) | ❌         | ✅            | ✅ Usage limits    |
+| Qwen             | openai           | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| iFlow            | openai           | OAuth (Basic)         | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| OpenRouter       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| GLM/Kimi/MiniMax | claude           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| DeepSeek         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Groq             | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| xAI (Grok)       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Mistral          | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Perplexity       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Together AI      | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Fireworks AI     | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cerebras         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cohere           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| NVIDIA NIM       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
 
-## รูปแบบความครอบคลุมการแปล
+## Format Translation Coverage
 
-รูปแบบแหล่งที่มาที่ตรวจพบ ได้แก่:
+Detected source formats include:
 
 - `openai`
 - `openai-responses`
 - `claude`
 - `gemini`
 
-รูปแบบเป้าหมายได้แก่:
+Target formats include:
 
-- แชท / ตอบกลับ OpenAI
-- คลอดด์
-- Gemini/Gemini-CLI/ซองต้านแรงโน้มถ่วง
-- คิโระ
-- เคอร์เซอร์
+- OpenAI chat/Responses
+- Claude
+- Gemini/Gemini-CLI/Antigravity envelope
+- Kiro
+- Cursor
 
-การแปลใช้ **OpenAI เป็นรูปแบบฮับ** — การแปลงทั้งหมดผ่าน OpenAI เป็นตัวกลาง:
+Translations use **OpenAI as the hub format** — all conversions go through OpenAI as intermediate:
 
 ```
 Source Format → OpenAI (hub) → Target Format
 ```
 
-การแปลจะถูกเลือกแบบไดนามิกตามรูปร่างเพย์โหลดต้นทางและรูปแบบเป้าหมายของผู้ให้บริการ
+Translations are selected dynamically based on source payload shape and provider target format.
 
-เลเยอร์การประมวลผลเพิ่มเติมในไปป์ไลน์การแปล:
+Additional processing layers in the translation pipeline:
 
-- **การฆ่าเชื้อการตอบสนอง** — ตัดช่องที่ไม่ได้มาตรฐานออกจากการตอบสนองในรูปแบบ OpenAI (ทั้งแบบสตรีมมิ่งและไม่ใช่สตรีมมิ่ง) เพื่อให้มั่นใจว่าสอดคล้องกับ SDK ที่เข้มงวด
-- **การปรับบทบาทให้เป็นมาตรฐาน** — แปลง `developer` → `system` สำหรับเป้าหมายที่ไม่ใช่ OpenAI ผสาน `system` → `user` สำหรับโมเดลที่ปฏิเสธบทบาทของระบบ (GLM, ERNIE)
-- **ลองแยกแท็ก** — แยกวิเคราะห์บล็อก `<think>...</think>` จากเนื้อหาลงในฟิลด์ `reasoning_content`
-- **เอาต์พุตที่มีโครงสร้าง** — แปลง OpenAI `response_format.json_schema` เป็น `responseMimeType` + `responseSchema` ของ Gemini
+- **Response sanitization** — Strips non-standard fields from OpenAI-format responses (both streaming and non-streaming) to ensure strict SDK compliance
+- **Role normalization** — Converts `developer` → `system` for non-OpenAI targets; merges `system` → `user` for models that reject the system role (GLM, ERNIE)
+- **Think tag extraction** — Parses `<think>...</think>` blocks from content into `reasoning_content` field
+- **Structured output** — Converts OpenAI `response_format.json_schema` to Gemini's `responseMimeType` + `responseSchema`
 
-## จุดสิ้นสุด API ที่รองรับ
+## Supported API Endpoints
 
-| จุดสิ้นสุด                                         | Format                | ตัวจัดการ                                              |
-| -------------------------------------------------- | --------------------- | ------------------------------------------------------ |
-| `POST /v1/chat/completions`                        | แชท OpenAI            | `src/sse/handlers/chat.ts`                             |
-| `POST /v1/messages`                                | ข้อความของคลอดด์      | ตัวจัดการเดียวกัน (ตรวจพบอัตโนมัติ)                    |
-| `POST /v1/responses`                               | การตอบสนองของ OpenAI  | `open-sse/handlers/responsesHandler.ts`                |
-| `POST /v1/embeddings`                              | การฝัง OpenAI         | `open-sse/handlers/embeddings.ts`                      |
-| `GET /v1/embeddings`                               | รายการรุ่น            | เส้นทาง API                                            |
-| `POST /v1/images/generations`                      | รูปภาพ OpenAI         | `open-sse/handlers/imageGeneration.ts`                 |
-| `GET /v1/images/generations`                       | รายการรุ่น            | เส้นทาง API                                            |
-| `POST /v1/providers/{provider}/chat/completions`   | แชท OpenAI            | เฉพาะต่อผู้ให้บริการพร้อมการตรวจสอบโมเดล               |
-| `POST /v1/providers/{provider}/embeddings`         | การฝัง OpenAI         | เฉพาะต่อผู้ให้บริการพร้อมการตรวจสอบโมเดล               |
-| `POST /v1/providers/{provider}/images/generations` | รูปภาพ OpenAI         | เฉพาะต่อผู้ให้บริการพร้อมการตรวจสอบโมเดล               |
-| `POST /v1/messages/count_tokens`                   | จำนวนโทเค็นของ Claude | เส้นทาง API                                            |
-| `GET /v1/models`                                   | รายการโมเดล OpenAI    | เส้นทาง API (แชท + การฝัง + รูปภาพ + โมเดลที่กำหนดเอง) |
-| `GET /api/models/catalog`                          | แคตตาล็อก             | ทุกรุ่นจัดกลุ่มตามผู้ให้บริการ + ประเภท                |
-| `POST /v1beta/models/*:streamGenerateContent`      | ชาวราศีเมถุนพื้นเมือง | เส้นทาง API                                            |
-| `GET/PUT/DELETE /api/settings/proxy`               | การกำหนดค่าพร็อกซี    | การกำหนดค่าพร็อกซีเครือข่าย                            |
-| `POST /api/settings/proxy/test`                    | การเชื่อมต่อพร็อกซี   | จุดสิ้นสุดการทดสอบความสมบูรณ์ของพร็อกซี/การเชื่อมต่อ   |
-| `GET/POST/DELETE /api/provider-models`             | โมเดลที่กำหนดเอง      | การจัดการโมเดลแบบกำหนดเองต่อผู้ให้บริการ               |
+| Endpoint                                           | Format             | Handler                                              |
+| -------------------------------------------------- | ------------------ | ---------------------------------------------------- |
+| `POST /v1/chat/completions`                        | OpenAI Chat        | `src/sse/handlers/chat.ts`                           |
+| `POST /v1/messages`                                | Claude Messages    | Same handler (auto-detected)                         |
+| `POST /v1/responses`                               | OpenAI Responses   | `open-sse/handlers/responsesHandler.ts`              |
+| `POST /v1/embeddings`                              | OpenAI Embeddings  | `open-sse/handlers/embeddings.ts`                    |
+| `GET /v1/embeddings`                               | Model listing      | API route                                            |
+| `POST /v1/images/generations`                      | OpenAI Images      | `open-sse/handlers/imageGeneration.ts`               |
+| `GET /v1/images/generations`                       | Model listing      | API route                                            |
+| `POST /v1/providers/{provider}/chat/completions`   | OpenAI Chat        | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/embeddings`         | OpenAI Embeddings  | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/images/generations` | OpenAI Images      | Dedicated per-provider with model validation         |
+| `POST /v1/messages/count_tokens`                   | Claude Token Count | API route                                            |
+| `GET /v1/models`                                   | OpenAI Models list | API route (chat + embedding + image + custom models) |
+| `GET /api/models/catalog`                          | Catalog            | All models grouped by provider + type                |
+| `POST /v1beta/models/*:streamGenerateContent`      | Gemini native      | API route                                            |
+| `GET/PUT/DELETE /api/settings/proxy`               | Proxy Config       | Network proxy configuration                          |
+| `POST /api/settings/proxy/test`                    | Proxy Connectivity | Proxy health/connectivity test endpoint              |
+| `GET/POST/DELETE /api/provider-models`             | Custom Models      | Custom model management per provider                 |
 
-## บายพาสตัวจัดการ
+## Bypass Handler
 
-ตัวจัดการบายพาส (`open-sse/utils/bypassHandler.ts`) สกัดกั้นคำขอ "ทิ้ง" ที่รู้จักจาก Claude CLI - การปิงอุ่นเครื่อง การแยกชื่อ และจำนวนโทเค็น - และส่งคืน **การตอบกลับปลอม** โดยไม่ต้องใช้โทเค็นของผู้ให้บริการอัปสตรีม สิ่งนี้จะถูกทริกเกอร์เฉพาะเมื่อ `User-Agent` มี `claude-cli`
+The bypass handler (`open-sse/utils/bypassHandler.ts`) intercepts known "throwaway" requests from Claude CLI — warmup pings, title extractions, and token counts — and returns a **fake response** without consuming upstream provider tokens. This is triggered only when `User-Agent` contains `claude-cli`.
 
-## ขอไปป์ไลน์ Logger
+## Request Logger Pipeline
 
-ตัวบันทึกคำขอ (`open-sse/utils/requestLogger.ts`) จัดเตรียมไปป์ไลน์การบันทึกการดีบัก 7 ขั้นตอน ซึ่งปิดใช้งานโดยค่าเริ่มต้น เปิดใช้งานผ่าน `ENABLE_REQUEST_LOGS=true`:
+The request logger (`open-sse/utils/requestLogger.ts`) provides a 7-stage debug logging pipeline, disabled by default, enabled via `ENABLE_REQUEST_LOGS=true`:
 
 ```
 1_req_client.json → 2_req_source.json → 3_req_openai.json → 4_req_target.json
 → 5_res_provider.txt → 6_res_openai.txt → 7_res_client.txt
 ```
 
-ไฟล์ถูกเขียนไปที่ `<repo>/logs/<session>/` สำหรับแต่ละเซสชันคำขอ
+Files are written to `<repo>/logs/<session>/` for each request session.
 
-## โหมดความล้มเหลวและความยืดหยุ่น
+## Failure Modes and Resilience
 
-## 1) ความพร้อมใช้งานของบัญชี/ผู้ให้บริการ
+## 1) Account/Provider Availability
 
-- คูลดาวน์บัญชีผู้ให้บริการเกี่ยวกับข้อผิดพลาดชั่วคราว/อัตรา/การตรวจสอบสิทธิ์
-- ทางเลือกบัญชีก่อนที่จะล้มเหลวในการร้องขอ
-- ทางเลือกของโมเดลคอมโบเมื่อพาธของโมเดล/ผู้ให้บริการปัจจุบันหมดลง
+- provider account cooldown on transient/rate/auth errors
+- account fallback before failing request
+- combo model fallback when current model/provider path is exhausted
 
-## 2) โทเค็นหมดอายุ
+## 2) Token Expiry
 
-- ตรวจสอบล่วงหน้าและรีเฟรชด้วยการลองอีกครั้งสำหรับผู้ให้บริการที่รีเฟรชได้
-- 401/403 ลองอีกครั้งหลังจากพยายามรีเฟรชในเส้นทางหลัก
+- pre-check and refresh with retry for refreshable providers
+- 401/403 retry after refresh attempt in core path
 
-## 3) ความปลอดภัยของสตรีม
+## 3) Stream Safety
 
-- ตัวควบคุมสตรีมที่รับรู้การตัดการเชื่อมต่อ
-- สตรีมการแปลพร้อมฟลัชปลายสตรีมและการจัดการ `[DONE]`
-- การประมาณการใช้งานสำรองเมื่อข้อมูลเมตาการใช้งานของผู้ให้บริการหายไป
+- disconnect-aware stream controller
+- translation stream with end-of-stream flush and `[DONE]` handling
+- usage estimation fallback when provider usage metadata is missing
 
-## 4) การเสื่อมสภาพของ Cloud Sync
+## 4) Cloud Sync Degradation
 
-- ข้อผิดพลาดในการซิงค์ปรากฏขึ้น แต่รันไทม์ในเครื่องยังคงดำเนินต่อไป
-- ตัวกำหนดตารางเวลามีตรรกะที่สามารถลองใหม่ได้ แต่การดำเนินการตามระยะเวลาในปัจจุบันจะเรียกการซิงค์แบบพยายามครั้งเดียวตามค่าเริ่มต้น
+- sync errors are surfaced but local runtime continues
+- scheduler has retry-capable logic, but periodic execution currently calls single-attempt sync by default
 
-## 5) ความสมบูรณ์ของข้อมูล
+## 5) Data Integrity
 
-- การโยกย้าย / ซ่อมแซมรูปร่าง DB สำหรับคีย์ที่หายไป
-- การป้องกันการรีเซ็ต JSON ที่เสียหายสำหรับ localDb และการใช้งานDb
+- SQLite schema migrations and auto-upgrade hooks at startup
+- legacy JSON → SQLite migration compatibility path
 
-## ความสามารถในการสังเกตและสัญญาณการปฏิบัติงาน
+## Observability and Operational Signals
 
-แหล่งที่มาของการมองเห็นรันไทม์:
+Runtime visibility sources:
 
-- บันทึกคอนโซลจาก `src/sse/utils/logger.ts`
-- รวมการใช้งานต่อคำขอใน `usage.json`
-- บันทึกสถานะคำขอที่เป็นข้อความใน `log.txt`
-- บันทึกคำขอ/การแปลเชิงลึกเพิ่มเติมภายใต้ `logs/` เมื่อ `ENABLE_REQUEST_LOGS=true`
-- จุดสิ้นสุดการใช้งานแดชบอร์ด (`/api/usage/*`) สำหรับการใช้ UI
+- console logs from `src/sse/utils/logger.ts`
+- per-request usage aggregates in SQLite (`usage_history`, `call_logs`, `proxy_logs`)
+- textual request status log in `log.txt` (optional/compat)
+- optional deep request/translation logs under `logs/` when `ENABLE_REQUEST_LOGS=true`
+- dashboard usage endpoints (`/api/usage/*`) for UI consumption
 
-## ขอบเขตที่ละเอียดอ่อนด้านความปลอดภัย
+## Security-Sensitive Boundaries
 
-- ความลับ JWT (`JWT_SECRET`) รักษาความปลอดภัยการตรวจสอบ / การลงนามคุกกี้เซสชันแดชบอร์ด
-- ทางเลือกรหัสผ่านเริ่มต้น (`INITIAL_PASSWORD`, ค่าเริ่มต้น `123456`) จะต้องถูกแทนที่ในการปรับใช้จริง
-- คีย์ API ความลับ HMAC (`API_KEY_SECRET`) รักษาความปลอดภัยรูปแบบคีย์ API ในเครื่องที่สร้างขึ้น
-- ความลับของผู้ให้บริการ (คีย์/โทเค็น API) ยังคงอยู่ในฐานข้อมูลในเครื่องและควรได้รับการปกป้องในระดับระบบไฟล์
-- จุดสิ้นสุดการซิงค์บนคลาวด์อาศัยการตรวจสอบสิทธิ์คีย์ API + ซีแมนทิกส์รหัสเครื่อง
+- JWT secret (`JWT_SECRET`) secures dashboard session cookie verification/signing
+- Initial password bootstrap (`INITIAL_PASSWORD`) should be explicitly configured for first-run provisioning
+- API key HMAC secret (`API_KEY_SECRET`) secures generated local API key format
+- Provider secrets (API keys/tokens) are persisted in local DB and should be protected at filesystem level
+- Cloud sync endpoints rely on API key auth + machine id semantics
 
-## สภาพแวดล้อมและเมทริกซ์รันไทม์
+## Environment and Runtime Matrix
 
-ตัวแปรสภาพแวดล้อมที่ใช้งานโดยโค้ด:
+Environment variables actively used by code:
 
-- แอป/การรับรองความถูกต้อง: `JWT_SECRET`, `INITIAL_PASSWORD`
-- ที่เก็บข้อมูล: `DATA_DIR`
-- ลักษณะการทำงานของโหนดที่เข้ากันได้: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
-- การแทนที่ฐานจัดเก็บข้อมูลเสริม (Linux/macOS เมื่อ `DATA_DIR` ไม่ได้ตั้งค่า): `XDG_CONFIG_HOME`
-- การรักษาความปลอดภัย: `API_KEY_SECRET`, `MACHINE_ID_SALT`
-- การบันทึก: `ENABLE_REQUEST_LOGS`
-- การซิงโครไนซ์/คลาวด์ URL: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
-- พร็อกซีขาออก: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` และรูปแบบตัวพิมพ์เล็ก
-- ธงคุณลักษณะ SOCKS5: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
-- ตัวช่วยแพลตฟอร์ม/รันไทม์ (ไม่ใช่การกำหนดค่าเฉพาะแอป): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
+- App/auth: `JWT_SECRET`, `INITIAL_PASSWORD`
+- Storage: `DATA_DIR`
+- Compatible node behavior: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
+- Optional storage base override (Linux/macOS when `DATA_DIR` unset): `XDG_CONFIG_HOME`
+- Security hashing: `API_KEY_SECRET`, `MACHINE_ID_SALT`
+- Logging: `ENABLE_REQUEST_LOGS`
+- Sync/cloud URLing: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
+- Outbound proxy: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` and lowercase variants
+- SOCKS5 feature flags: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
+- Platform/runtime helpers (not app-specific config): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
 
-## หมายเหตุทางสถาปัตยกรรมที่เป็นที่รู้จัก
+## Known Architectural Notes
 
-1. `usageDb` และ `localDb` แชร์นโยบายไดเรกทอรีฐานเดียวกัน (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) ด้วยการย้ายไฟล์แบบเดิม
-2. `/api/v1/route.ts` ส่งคืนรายการโมเดลแบบคงที่ และไม่ใช่แหล่งที่มาของโมเดลหลักที่ใช้โดย `/v1/models`
-3. ตัวบันทึกคำขอเขียนส่วนหัว/เนื้อหาแบบเต็มเมื่อเปิดใช้งาน ถือว่าไดเร็กทอรีบันทึกมีความละเอียดอ่อน
-4. พฤติกรรมของคลาวด์ขึ้นอยู่กับ `NEXT_PUBLIC_BASE_URL` ที่ถูกต้องและความสามารถในการเข้าถึงจุดสิ้นสุดของคลาวด์
-5. ไดเร็กทอรี `open-sse/` ได้รับการเผยแพร่เป็น `@omniroute/open-sse` **แพ็กเกจพื้นที่ทำงาน npm** ซอร์สโค้ดนำเข้าผ่าน `@omniroute/open-sse/...` (แก้ไขโดย Next.js `transpilePackages`) พาธของไฟล์ในเอกสารนี้ยังคงใช้ชื่อไดเร็กทอรี `open-sse/` เพื่อความสอดคล้องกัน
-6. แผนภูมิในแดชบอร์ดใช้ **แผนภูมิใหม่** (อิงตาม SVG) สำหรับการแสดงภาพการวิเคราะห์เชิงโต้ตอบที่เข้าถึงได้ (แผนภูมิแท่งการใช้งานโมเดล ตารางแจกแจงผู้ให้บริการพร้อมอัตราความสำเร็จ)
-7. การทดสอบ E2E ใช้ **นักเขียนบทละคร** (`tests/e2e/`) รันผ่าน `npm run test:e2e` การทดสอบหน่วยใช้ **ตัวดำเนินการทดสอบ Node.js** (`tests/unit/`) รันผ่าน `npm run test:plan3` ซอร์สโค้ดภายใต้ `src/` คือ **TypeScript** (`.ts`/`.tsx`); เวิร์กสเปซ `open-sse/` ยังคงเป็น JavaScript (`.js`)
-8. หน้าการตั้งค่าแบ่งออกเป็น 5 แท็บ: ความปลอดภัย การกำหนดเส้นทาง (6 กลยุทธ์ระดับโลก: เติมก่อน ปัดเศษ p2c สุ่ม ใช้น้อยที่สุด ปรับต้นทุนให้เหมาะสม) ความยืดหยุ่น (จำกัดอัตราที่แก้ไขได้ เซอร์กิตเบรกเกอร์ นโยบาย) AI (การคิดงบประมาณ พรอมต์ของระบบ แคชพร้อมต์) ขั้นสูง (พร็อกซี)
+1. `usageDb` and `localDb` share the same base directory policy (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) with legacy file migration.
+2. `/api/v1/route.ts` delegates to the same unified catalog builder used by `/api/v1/models` (`src/app/api/v1/models/catalog.ts`) to avoid semantic drift.
+3. Request logger writes full headers/body when enabled; treat log directory as sensitive.
+4. Cloud behavior depends on correct `NEXT_PUBLIC_BASE_URL` and cloud endpoint reachability.
+5. The `open-sse/` directory is published as the `@omniroute/open-sse` **npm workspace package**. Source code imports it via `@omniroute/open-sse/...` (resolved by Next.js `transpilePackages`). File paths in this document still use the directory name `open-sse/` for consistency.
+6. Charts in the dashboard use **Recharts** (SVG-based) for accessible, interactive analytics visualizations (model usage bar charts, provider breakdown tables with success rates).
+7. E2E tests use **Playwright** (`tests/e2e/`), run via `npm run test:e2e`. Unit tests use **Node.js test runner** (`tests/unit/`), run via `npm run test:unit`. Source code under `src/` is **TypeScript** (`.ts`/`.tsx`); the `open-sse/` workspace remains JavaScript (`.js`).
+8. Settings page is organized into 5 tabs: Security, Routing (6 global strategies: fill-first, round-robin, p2c, random, least-used, cost-optimized), Resilience (editable rate limits, circuit breaker, policies), AI (thinking budget, system prompt, prompt cache), Advanced (proxy).
 
-## รายการตรวจสอบการตรวจสอบการปฏิบัติงาน
+## Operational Verification Checklist
 
-- สร้างจากแหล่งที่มา: `npm run build`
-- สร้างอิมเมจนักเทียบท่า: `docker build -t omniroute .`
-- เริ่มบริการและตรวจสอบ:
+- Build from source: `npm run build`
+- Build Docker image: `docker build -t omniroute .`
+- Start service and verify:
 - `GET /api/settings`
 - `GET /api/v1/models`
-- URL ฐานเป้าหมาย CLI ควรเป็น `http://<host>:20128/v1` เมื่อ `PORT=20128`
+- CLI target base URL should be `http://<host>:20128/v1` when `PORT=20128`

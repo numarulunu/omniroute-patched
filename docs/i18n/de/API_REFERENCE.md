@@ -1,12 +1,12 @@
-# API-Referenz
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-Vollständige Referenz für alle OmniRoute-API-Endpunkte.
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## Inhaltsverzeichnis
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@ Vollständige Referenz für alle OmniRoute-API-Endpunkte.
 
 ---
 
-## Chat-Abschlüsse
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### Benutzerdefinierte Header
+### Custom Headers
 
-| Kopfzeile                | Richtung | Beschreibung                                 |
-| ------------------------ | -------- | -------------------------------------------- |
-| `X-OmniRoute-No-Cache`   | Anfrage  | Auf `true` setzen, um den Cache zu umgehen   |
-| `X-OmniRoute-Progress`   | Anfrage  | Für Fortschrittsereignisse auf `true` setzen |
-| `Idempotency-Key`        | Anfrage  | Dedup-Schlüssel (5-Sekunden-Fenster)         |
-| `X-Request-Id`           | Anfrage  | Alternativer Deduplizierungsschlüssel        |
-| `X-OmniRoute-Cache`      | Antwort  | `HIT` oder `MISS` (kein Streaming)           |
-| `X-OmniRoute-Idempotent` | Antwort  | `true` wenn dedupliziert                     |
-| `X-OmniRoute-Progress`   | Antwort  | `enabled` wenn Fortschrittsverfolgung auf    |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## Einbettungen
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-Verfügbare Anbieter: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## Bildgenerierung
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-Verfügbare Anbieter: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## Modelle auflisten
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## Kompatibilitätsendpunkte
+## Compatibility Endpoints
 
-| Methode | Pfad                        | Formatieren                 |
-| ------- | --------------------------- | --------------------------- |
-| POST    | `/v1/chat/completions`      | OpenAI                      |
-| POST    | `/v1/messages`              | Anthropisch                 |
-| POST    | `/v1/responses`             | OpenAI-Antworten            |
-| POST    | `/v1/embeddings`            | OpenAI                      |
-| POST    | `/v1/images/generations`    | OpenAI                      |
-| GET     | `/v1/models`                | OpenAI                      |
-| POST    | `/v1/messages/count_tokens` | Anthropisch                 |
-| GET     | `/v1beta/models`            | Zwillinge                   |
-| POST    | `/v1beta/models/{...path}`  | Zwillinge generierenContent |
-| POST    | `/v1/api/chat`              | Ollama                      |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### Dedizierte Anbieterrouten
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-Das Anbieterpräfix wird automatisch hinzugefügt, wenn es fehlt. Nicht übereinstimmende Modelle geben `400` zurück.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## Semantischer Cache
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-Antwortbeispiel:
+Response example:
 
 ```json
 {
@@ -162,154 +162,164 @@ Antwortbeispiel:
 
 ---
 
-## Dashboard und Verwaltung
+## Dashboard & Management
 
-### Authentifizierung
+### Authentication
 
-| Endpunkt                      | Methode | Beschreibung                      |
-| ----------------------------- | ------- | --------------------------------- |
-| `/api/auth/login`             | POST    | Anmelden                          |
-| `/api/auth/logout`            | POST    | Abmelden                          |
-| `/api/settings/require-login` | GET/PUT | Anmeldung erforderlich umschalten |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### Anbieterverwaltung
+### Provider Management
 
-| Endpunkt                     | Methode         | Beschreibung                     |
-| ---------------------------- | --------------- | -------------------------------- |
-| `/api/providers`             | GET/POST        | Anbieter auflisten/anlegen       |
-| `/api/providers/[id]`        | GET/PUT/DELETE  | Einen Anbieter verwalten         |
-| `/api/providers/[id]/test`   | POST            | Provider-Verbindung testen       |
-| `/api/providers/[id]/models` | GET             | Anbietermodelle auflisten        |
-| `/api/providers/validate`    | POST            | Anbieterkonfiguration validieren |
-| `/api/provider-nodes*`       | Verschiedene    | Provider-Knotenverwaltung        |
-| `/api/provider-models`       | GET/POST/DELETE | Kundenspezifische Modelle        |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### OAuth-Flows
+### OAuth Flows
 
-| Endpunkt                         | Methode      | Beschreibung               |
-| -------------------------------- | ------------ | -------------------------- |
-| `/api/oauth/[provider]/[action]` | Verschiedene | Anbieterspezifisches OAuth |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### Routing & Konfig
+### Routing & Config
 
-| Endpunkt              | Methode      | Beschreibung                     |
-| --------------------- | ------------ | -------------------------------- |
-| `/api/models/alias`   | GET/POST     | Modell-Aliase                    |
-| `/api/models/catalog` | GET          | Alle Modelle nach Anbieter + Typ |
-| `/api/combos*`        | Verschiedene | Combo-Management                 |
-| `/api/keys*`          | Verschiedene | API-Schlüsselverwaltung          |
-| `/api/pricing`        | GET          | Modellpreise                     |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### Nutzung und Analyse
+### Usage & Analytics
 
-| Endpunkt                    | Methode | Beschreibung                     |
-| --------------------------- | ------- | -------------------------------- |
-| `/api/usage/history`        | GET     | Nutzungshistorie                 |
-| `/api/usage/logs`           | GET     | Nutzungsprotokolle               |
-| `/api/usage/request-logs`   | GET     | Protokolle auf Anforderungsebene |
-| `/api/usage/[connectionId]` | GET     | Nutzung pro Verbindung           |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### Einstellungen
+### Settings
 
-| Endpunkt                        | Methode | Beschreibung                     |
-| ------------------------------- | ------- | -------------------------------- |
-| `/api/settings`                 | GET/PUT | Allgemeine Einstellungen         |
-| `/api/settings/proxy`           | GET/PUT | Netzwerk-Proxy-Konfiguration     |
-| `/api/settings/proxy/test`      | POST    | Proxy-Verbindung testen          |
-| `/api/settings/ip-filter`       | GET/PUT | IP-Zulassungs-/Blockierungsliste |
-| `/api/settings/thinking-budget` | GET/PUT | Begründung des Token-Budgets     |
-| `/api/settings/system-prompt`   | GET/PUT | Globale Systemaufforderung       |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### Überwachung
+### Monitoring
 
-| Endpunkt                 | Methode          | Beschreibung                |
-| ------------------------ | ---------------- | --------------------------- |
-| `/api/sessions`          | GET              | Aktive Sitzungsverfolgung   |
-| `/api/rate-limits`       | GET              | Tariflimits pro Konto       |
-| `/api/monitoring/health` | GET              | Gesundheitscheck            |
-| `/api/cache`             | ERHALTEN/LÖSCHEN | Cache-Statistiken / löschen |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### Sichern und Exportieren/Importieren
+### Backup & Export/Import
 
-| Endpunkt                    | Methode | Beschreibung                                                   |
-| --------------------------- | ------- | -------------------------------------------------------------- |
-| `/api/db-backups`           | GET     | Verfügbare Backups auflisten                                   |
-| `/api/db-backups`           | PUT     | Erstellen Sie ein manuelles Backup                             |
-| `/api/db-backups`           | POST    | Von einem bestimmten Backup wiederherstellen                   |
-| `/api/db-backups/export`    | GET     | Datenbank als .sqlite-Datei herunterladen                      |
-| `/api/db-backups/import`    | POST    | Laden Sie die .sqlite-Datei hoch, um die Datenbank zu ersetzen |
-| `/api/db-backups/exportAll` | GET     | Vollständiges Backup als .tar.gz-Archiv herunterladen          |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
-### Cloud-Synchronisierung
+### Cloud Sync
 
-| Endpunkt               | Methode      | Beschreibung                    |
-| ---------------------- | ------------ | ------------------------------- |
-| `/api/sync/cloud`      | Verschiedene | Cloud-Synchronisierungsvorgänge |
-| `/api/sync/initialize` | POST         | Synchronisierung initialisieren |
-| `/api/cloud/*`         | Verschiedene | Cloud-Management                |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### CLI-Tools
+### CLI Tools
 
-| Endpunkt                           | Methode | Beschreibung            |
-| ---------------------------------- | ------- | ----------------------- |
-| `/api/cli-tools/claude-settings`   | GET     | Claude CLI-Status       |
-| `/api/cli-tools/codex-settings`    | GET     | Codex-CLI-Status        |
-| `/api/cli-tools/droid-settings`    | GET     | Droid-CLI-Status        |
-| `/api/cli-tools/openclaw-settings` | GET     | OpenClaw CLI-Status     |
-| `/api/cli-tools/runtime/[toolId]`  | GET     | Generische CLI-Laufzeit |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-Zu den CLI-Antworten gehören: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### Belastbarkeit und Ratenbeschränkungen
+### ACP Agents
 
-| Endpunkt                | Methode | Beschreibung                           |
-| ----------------------- | ------- | -------------------------------------- |
-| `/api/resilience`       | GET/PUT | Resilienzprofile abrufen/aktualisieren |
-| `/api/resilience/reset` | POST    | Leistungsschalter zurücksetzen         |
-| `/api/rate-limits`      | GET     | Status der Ratenbegrenzung pro Konto   |
-| `/api/rate-limit`       | GET     | Konfiguration des globalen Ratenlimits |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
 
-### Bewertungen
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
 
-| Endpunkt     | Methode  | Beschreibung                                         |
-| ------------ | -------- | ---------------------------------------------------- |
-| `/api/evals` | GET/POST | Evaluierungssuiten auflisten / Evaluierung ausführen |
+### Resilience & Rate Limits
 
-### Richtlinien
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
-| Endpunkt        | Methode         | Beschreibung                  |
-| --------------- | --------------- | ----------------------------- |
-| `/api/policies` | GET/POST/DELETE | Routing-Richtlinien verwalten |
+### Evals
+
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
+
+### Policies
+
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
 ### Compliance
 
-| Endpunkt                    | Methode | Beschreibung                           |
-| --------------------------- | ------- | -------------------------------------- |
-| `/api/compliance/audit-log` | GET     | Compliance-Audit-Protokoll (letztes N) |
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### v1beta (Gemini-kompatibel)
+### v1beta (Gemini-Compatible)
 
-| Endpunkt                   | Methode | Beschreibung                       |
-| -------------------------- | ------- | ---------------------------------- |
-| `/v1beta/models`           | GET     | Modelle im Gemini-Format auflisten |
-| `/v1beta/models/{...path}` | POST    | Gemini `generateContent` Endpunkt  |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-Diese Endpunkte spiegeln das API-Format von Gemini für Kunden wider, die native Gemini SDK-Kompatibilität erwarten.
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
 
-### Interne/System-APIs
+### Internal / System APIs
 
-| Endpunkt        | Methode | Beschreibung                                                                 |
-| --------------- | ------- | ---------------------------------------------------------------------------- |
-| `/api/init`     | GET     | Überprüfung der Anwendungsinitialisierung (wird beim ersten Start verwendet) |
-| `/api/tags`     | GET     | Ollama-kompatible Modell-Tags (für Ollama-Clients)                           |
-| `/api/restart`  | POST    | Ordentlichen Serverneustart auslösen                                         |
-| `/api/shutdown` | POST    | Ordentliches Herunterfahren des Servers auslösen                             |
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
 
-> **Hinweis:** Diese Endpunkte werden intern vom System oder für die Ollama-Client-Kompatibilität verwendet. Sie werden normalerweise nicht von Endbenutzern aufgerufen.
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## Audiotranskription
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-Transkribieren Sie Audiodateien mit Deepgram oder AssemblyAI.
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**Anfrage:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**Antwort:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**Unterstützte Anbieter:** `deepgram/nova-3`, `assemblyai/best`.
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**Unterstützte Formate:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## Ollama-Kompatibilität
+## Ollama Compatibility
 
-Für Kunden, die das API-Format von Ollama verwenden:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-Anfragen werden automatisch zwischen Ollama und internen Formaten übersetzt.
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## Telemetrie
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**Antwort:**
+**Response:**
 
 ```json
 {
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## Modellverfügbarkeit
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,26 +427,25 @@ Content-Type: application/json
 
 ---
 
-## Bearbeitung der Anfrage
+## Request Processing
 
-1. Client sendet Anfrage an `/v1/*`
-2. Route-Handler-Aufrufe `handleChat`, `handleEmbedding`, `handleAudioTranscription` oder `handleImageGeneration`
-3. Modell wird aufgelöst (direkter Anbieter/Modell oder Alias/Kombination)
-4. Aus der lokalen Datenbank ausgewählte Anmeldeinformationen mit Kontoverfügbarkeitsfilterung
-5. Für Chat: `handleChatCore` – Formaterkennung, Übersetzung, Cache-Prüfung, Idempotenzprüfung
-6. Der Executor des Anbieters sendet eine Upstream-Anfrage
-7. Antwort zurück ins Client-Format übersetzt (Chat) oder unverändert zurückgegeben (Einbettungen/Bilder/Audio)
-8. Nutzung/Protokollierung aufgezeichnet
-9. Bei Fehlern gilt ein Fallback gemäß den Combo-Regeln
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-Vollständige Architekturreferenz: [link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## Authentifizierung
+## Authentication
 
-– Dashboard-Routen (`/dashboard/*`) verwenden das Cookie `auth_token`
-
-- Bei der Anmeldung wird der gespeicherte Passwort-Hash verwendet. Fallback auf `INITIAL_PASSWORD`
-- `requireLogin` umschaltbar über `/api/settings/require-login`
-  – `/v1/*` Routen erfordern optional einen Bearer-API-Schlüssel, wenn `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

@@ -1,12 +1,12 @@
-# Ръководство за потребителя
+# User Guide
 
-🌐 **Languages:** 🇺🇸 [English](../../USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](../es/USER_GUIDE.md) | 🇫🇷 [Français](../fr/USER_GUIDE.md) | 🇮🇹 [Italiano](../it/USER_GUIDE.md) | 🇷🇺 [Русский](../ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](../zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](../de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](../in/USER_GUIDE.md) | 🇹🇭 [ไทย](../th/USER_GUIDE.md) | 🇺🇦 [Українська](../uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](../ar/USER_GUIDE.md) | 🇯🇵 [日本語](../ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](../vi/USER_GUIDE.md) | 🇧🇬 [Български](../bg/USER_GUIDE.md) | 🇩🇰 [Dansk](../da/USER_GUIDE.md) | 🇫🇮 [Suomi](../fi/USER_GUIDE.md) | 🇮🇱 [עברית](../he/USER_GUIDE.md) | 🇭🇺 [Magyar](../hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](../id/USER_GUIDE.md) | 🇰🇷 [한국어](../ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](../ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](../nl/USER_GUIDE.md) | 🇳🇴 [Norsk](../no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](../pt/USER_GUIDE.md) | 🇷🇴 [Română](../ro/USER_GUIDE.md) | 🇵🇱 [Polski](../pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](../sk/USER_GUIDE.md) | 🇸🇪 [Svenska](../sv/USER_GUIDE.md) | 🇵🇭 [Filipino](../phi/USER_GUIDE.md)
+🌐 **Languages:** 🇺🇸 [English](USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](i18n/es/USER_GUIDE.md) | 🇫🇷 [Français](i18n/fr/USER_GUIDE.md) | 🇮🇹 [Italiano](i18n/it/USER_GUIDE.md) | 🇷🇺 [Русский](i18n/ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](i18n/de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](i18n/in/USER_GUIDE.md) | 🇹🇭 [ไทย](i18n/th/USER_GUIDE.md) | 🇺🇦 [Українська](i18n/uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](i18n/ar/USER_GUIDE.md) | 🇯🇵 [日本語](i18n/ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/USER_GUIDE.md) | 🇧🇬 [Български](i18n/bg/USER_GUIDE.md) | 🇩🇰 [Dansk](i18n/da/USER_GUIDE.md) | 🇫🇮 [Suomi](i18n/fi/USER_GUIDE.md) | 🇮🇱 [עברית](i18n/he/USER_GUIDE.md) | 🇭🇺 [Magyar](i18n/hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/USER_GUIDE.md) | 🇰🇷 [한국어](i18n/ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](i18n/nl/USER_GUIDE.md) | 🇳🇴 [Norsk](i18n/no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/USER_GUIDE.md) | 🇷🇴 [Română](i18n/ro/USER_GUIDE.md) | 🇵🇱 [Polski](i18n/pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](i18n/sk/USER_GUIDE.md) | 🇸🇪 [Svenska](i18n/sv/USER_GUIDE.md) | 🇵🇭 [Filipino](i18n/phi/USER_GUIDE.md)
 
-Пълно ръководство за конфигуриране на доставчици, създаване на комбинации, интегриране на CLI инструменти и внедряване на OmniRoute.
+Complete guide for configuring providers, creating combos, integrating CLI tools, and deploying OmniRoute.
 
 ---
 
-## Съдържание
+## Table of Contents
 
 - [Pricing at a Glance](#-pricing-at-a-glance)
 - [Use Cases](#-use-cases)
@@ -18,40 +18,40 @@
 
 ---
 
-## 💰 Ценообразуването с един поглед
+## 💰 Pricing at a Glance
 
-| Ниво               | Доставчик         | Цена                  | Нулиране на квота       | Най-добро за              |
-| ------------------ | ----------------- | --------------------- | ----------------------- | ------------------------- |
-| **💳 АБОНАМЕНТ**   | Claude Code (Pro) | $20/месец             | 5 часа + седмично       | Вече сте абонирани        |
-|                    | Codex (Plus/Pro)  | $20-200/месец         | 5 часа + седмично       | Потребители на OpenAI     |
-|                    | Gemini CLI        | **БЕЗПЛАТНО**         | 180K/месец + 1K/ден     | всички!                   |
-|                    | Копилот на GitHub | $10-19/месец          | Месечно                 | Потребители на GitHub     |
-| **🔑 КЛЮЧ ЗА API** | DeepSeek          | Плащане за използване | Няма                    | Евтини разсъждения        |
-|                    | Groq              | Плащане за използване | Няма                    | Свръхбърз извод           |
-|                    | xAI (Grok)        | Плащане за използване | Няма                    | Грок 4 разсъждения        |
-|                    | Мистрал           | Плащане за използване | Няма                    | Хоствани в ЕС модели      |
-|                    | Недоумение        | Плащане за използване | Няма                    | Разширено търсене         |
-|                    | Заедно AI         | Плащане за използване | Няма                    | Модели с отворен код      |
-|                    | Фойерверки AI     | Плащане за използване | Няма                    | Бързи FLUX изображения    |
-|                    | Мозъци            | Плащане за използване | Няма                    | Скорост на вафла          |
-|                    | Cohere            | Плащане за използване | Няма                    | Команда R+ RAG            |
-|                    | NVIDIA NIM        | Плащане за използване | Няма                    | Корпоративни модели       |
-| **💰 ЕВТИНО**      | GLM-4.7           | $0,6/1 милион         | Ежедневно 10 сутринта   | Резервно копие на бюджета |
-|                    | MiniMax M2.1      | $0,2/1 милион         | 5-часово търкаляне      | Най-евтиният вариант      |
-|                    | Кими К2           | $9/месец апартамент   | 10 милиона токена/месец | Предвидими разходи        |
-| **🆓 БЕЗПЛАТНО**   | iFlow             | $0                    | Неограничен             | 8 модела безплатно        |
-|                    | Куен              | $0                    | Неограничен             | 3 модела безплатно        |
-|                    | Киро              | $0                    | Неограничен             | Клод безплатно            |
+| Tier                | Provider          | Cost        | Quota Reset      | Best For             |
+| ------------------- | ----------------- | ----------- | ---------------- | -------------------- |
+| **💳 SUBSCRIPTION** | Claude Code (Pro) | $20/mo      | 5h + weekly      | Already subscribed   |
+|                     | Codex (Plus/Pro)  | $20-200/mo  | 5h + weekly      | OpenAI users         |
+|                     | Gemini CLI        | **FREE**    | 180K/mo + 1K/day | Everyone!            |
+|                     | GitHub Copilot    | $10-19/mo   | Monthly          | GitHub users         |
+| **🔑 API KEY**      | DeepSeek          | Pay per use | None             | Cheap reasoning      |
+|                     | Groq              | Pay per use | None             | Ultra-fast inference |
+|                     | xAI (Grok)        | Pay per use | None             | Grok 4 reasoning     |
+|                     | Mistral           | Pay per use | None             | EU-hosted models     |
+|                     | Perplexity        | Pay per use | None             | Search-augmented     |
+|                     | Together AI       | Pay per use | None             | Open-source models   |
+|                     | Fireworks AI      | Pay per use | None             | Fast FLUX images     |
+|                     | Cerebras          | Pay per use | None             | Wafer-scale speed    |
+|                     | Cohere            | Pay per use | None             | Command R+ RAG       |
+|                     | NVIDIA NIM        | Pay per use | None             | Enterprise models    |
+| **💰 CHEAP**        | GLM-4.7           | $0.6/1M     | Daily 10AM       | Budget backup        |
+|                     | MiniMax M2.1      | $0.2/1M     | 5-hour rolling   | Cheapest option      |
+|                     | Kimi K2           | $9/mo flat  | 10M tokens/mo    | Predictable cost     |
+| **🆓 FREE**         | iFlow             | $0          | Unlimited        | 8 models free        |
+|                     | Qwen              | $0          | Unlimited        | 3 models free        |
+|                     | Kiro              | $0          | Unlimited        | Claude free          |
 
-**💡 Професионален съвет:** Започнете с Gemini CLI (180K безплатно/месец) + iFlow (неограничено безплатно) комбинация = $0 цена!
+**💡 Pro Tip:** Start with Gemini CLI (180K free/month) + iFlow (unlimited free) combo = $0 cost!
 
 ---
 
-## 🎯 Случаи на употреба
+## 🎯 Use Cases
 
-### Случай 1: „Имам абонамент за Claude Pro“
+### Case 1: "I have Claude Pro subscription"
 
-**Проблем:** Квотата изтича неизползвана, ограничения на скоростта по време на тежко кодиране
+**Problem:** Quota expires unused, rate limits during heavy coding
 
 ```
 Combo: "maximize-claude"
@@ -63,9 +63,9 @@ Monthly cost: $20 (subscription) + ~$5 (backup) = $25 total
 vs. $20 + hitting limits = frustration
 ```
 
-### Случай 2: „Искам нулеви разходи“
+### Case 2: "I want zero cost"
 
-**Проблем:** Не мога да си позволя абонаменти, имам нужда от надеждно AI кодиране
+**Problem:** Can't afford subscriptions, need reliable AI coding
 
 ```
 Combo: "free-forever"
@@ -77,9 +77,9 @@ Monthly cost: $0
 Quality: Production-ready models
 ```
 
-### Случай 3: „Имам нужда от кодиране 24/7, без прекъсвания“
+### Case 3: "I need 24/7 coding, no interruptions"
 
-**Проблем:** Крайни срокове, не мога да си позволя престой
+**Problem:** Deadlines, can't afford downtime
 
 ```
 Combo: "always-on"
@@ -93,9 +93,9 @@ Result: 5 layers of fallback = zero downtime
 Monthly cost: $20-200 (subscriptions) + $10-20 (backup)
 ```
 
-### Случай 4: „Искам БЕЗПЛАТЕН AI в OpenClaw“
+### Case 4: "I want FREE AI in OpenClaw"
 
-**Проблем:** Имате нужда от AI асистент в приложенията за съобщения, напълно безплатно
+**Problem:** Need AI assistant in messaging apps, completely free
 
 ```
 Combo: "openclaw-free"
@@ -109,9 +109,9 @@ Access via: WhatsApp, Telegram, Slack, Discord, iMessage, Signal...
 
 ---
 
-## 📖 Настройка на доставчик
+## 📖 Provider Setup
 
-### 🔐 Доставчици на абонаменти
+### 🔐 Subscription Providers
 
 #### Claude Code (Pro/Max)
 
@@ -126,7 +126,7 @@ Models:
   cc/claude-haiku-4-5-20251001
 ```
 
-**Професионален съвет:** Използвайте Opus за сложни задачи, Sonnet за скорост. OmniRoute проследява квота за модел!
+**Pro Tip:** Use Opus for complex tasks, Sonnet for speed. OmniRoute tracks quota per model!
 
 #### OpenAI Codex (Plus/Pro)
 
@@ -140,7 +140,7 @@ Models:
   cx/gpt-5.1-codex-max
 ```
 
-#### Gemini CLI (БЕЗПЛАТНО 180K/месец!)
+#### Gemini CLI (FREE 180K/month!)
 
 ```bash
 Dashboard → Providers → Connect Gemini CLI
@@ -152,9 +152,9 @@ Models:
   gc/gemini-2.5-pro
 ```
 
-**Най-добра стойност:** Огромно безплатно ниво! Използвайте това преди платените нива.
+**Best Value:** Huge free tier! Use this before paid tiers.
 
-#### Копилот на GitHub
+#### GitHub Copilot
 
 ```bash
 Dashboard → Providers → Connect GitHub
@@ -167,33 +167,33 @@ Models:
   gh/gemini-3-pro
 ```
 
-### 💰 Евтини доставчици
+### 💰 Cheap Providers
 
-#### GLM-4.7 (Ежедневно нулиране, $0,6/1 млн.)
+#### GLM-4.7 (Daily reset, $0.6/1M)
 
-1. Регистрирайте се: [Zhipu AI](https://open.bigmodel.cn/)
-2. Вземете API ключ от Coding Plan
-3. Табло → Добавяне на API ключ: Доставчик: `glm`, API ключ: `your-key`
+1. Sign up: [Zhipu AI](https://open.bigmodel.cn/)
+2. Get API key from Coding Plan
+3. Dashboard → Add API Key: Provider: `glm`, API Key: `your-key`
 
-**Използване:** `glm/glm-4.7` — **Професионален съвет:** Планът за кодиране предлага 3× квота на цена 1/7! Нулирайте всеки ден в 10:00 ч.
+**Use:** `glm/glm-4.7` — **Pro Tip:** Coding Plan offers 3× quota at 1/7 cost! Reset daily 10:00 AM.
 
-#### MiniMax M2.1 (5 часа нулиране, $0,20/1 млн.)
+#### MiniMax M2.1 (5h reset, $0.20/1M)
 
-1. Регистрирайте се: [MiniMax](https://www.minimax.io/)
-2. Вземете API ключ → Табло → Добавете API ключ
+1. Sign up: [MiniMax](https://www.minimax.io/)
+2. Get API key → Dashboard → Add API Key
 
-**Използване:** `minimax/MiniMax-M2.1` — **Професионален съвет:** Най-евтината опция за дълъг контекст (1M токени)!
+**Use:** `minimax/MiniMax-M2.1` — **Pro Tip:** Cheapest option for long context (1M tokens)!
 
-#### Kimi K2 ($9/месец фиксиран)
+#### Kimi K2 ($9/month flat)
 
-1. Абонирайте се: [Moonshot AI](https://platform.moonshot.ai/)
-2. Вземете API ключ → Табло → Добавете API ключ
+1. Subscribe: [Moonshot AI](https://platform.moonshot.ai/)
+2. Get API key → Dashboard → Add API Key
 
-**Използване:** `kimi/kimi-latest` — **Професионален съвет:** Фиксирани $9/месец за 10 милиона токена = $0,90/1 милион ефективна цена!
+**Use:** `kimi/kimi-latest` — **Pro Tip:** Fixed $9/month for 10M tokens = $0.90/1M effective cost!
 
-### 🆓 БЕЗПЛАТНИ доставчици
+### 🆓 FREE Providers
 
-#### iFlow (8 БЕЗПЛАТНИ модела)
+#### iFlow (8 FREE models)
 
 ```bash
 Dashboard → Connect iFlow → OAuth login → Unlimited usage
@@ -201,7 +201,7 @@ Dashboard → Connect iFlow → OAuth login → Unlimited usage
 Models: if/kimi-k2-thinking, if/qwen3-coder-plus, if/glm-4.7, if/minimax-m2, if/deepseek-r1
 ```
 
-#### Qwen (3 БЕЗПЛАТНИ модела)
+#### Qwen (3 FREE models)
 
 ```bash
 Dashboard → Connect Qwen → Device code auth → Unlimited usage
@@ -209,7 +209,7 @@ Dashboard → Connect Qwen → Device code auth → Unlimited usage
 Models: qw/qwen3-coder-plus, qw/qwen3-coder-flash
 ```
 
-#### Киро (Клод БЕЗПЛАТНО)
+#### Kiro (Claude FREE)
 
 ```bash
 Dashboard → Connect Kiro → AWS Builder ID or Google/GitHub → Unlimited
@@ -219,9 +219,9 @@ Models: kr/claude-sonnet-4.5, kr/claude-haiku-4.5
 
 ---
 
-## 🎨 Комбота
+## 🎨 Combos
 
-### Пример 1: Увеличаване на абонамента → Евтино архивиране
+### Example 1: Maximize Subscription → Cheap Backup
 
 ```
 Dashboard → Combos → Create New
@@ -235,7 +235,7 @@ Models:
 Use in CLI: premium-coding
 ```
 
-### Пример 2: Само безплатно (нулева цена)
+### Example 2: Free-Only (Zero Cost)
 
 ```
 Name: free-combo
@@ -249,9 +249,9 @@ Cost: $0 forever!
 
 ---
 
-## 🔧 CLI интеграция
+## 🔧 CLI Integration
 
-### Курсор IDE
+### Cursor IDE
 
 ```
 Settings → Models → Advanced:
@@ -260,9 +260,9 @@ Settings → Models → Advanced:
   Model: cc/claude-opus-4-6
 ```
 
-### Клод Код
+### Claude Code
 
-Редактиране на `~/.claude/config.json`:
+Edit `~/.claude/config.json`:
 
 ```json
 {
@@ -281,7 +281,7 @@ codex "your prompt"
 
 ### OpenClaw
 
-Редактиране на `~/.openclaw/openclaw.json`:
+Edit `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -303,9 +303,9 @@ codex "your prompt"
 }
 ```
 
-**Или използвайте таблото за управление:** CLI инструменти → OpenClaw → Автоматично конфигуриране
+**Or use Dashboard:** CLI Tools → OpenClaw → Auto-config
 
-### Cline / Продължи / RooCode
+### Cline / Continue / RooCode
 
 ```
 Provider: OpenAI Compatible
@@ -316,9 +316,28 @@ Model: cc/claude-opus-4-6
 
 ---
 
-## 🚀 Внедряване
+## 🚀 Deployment
 
-### Внедряване на VPS
+### Global npm install (Recommended)
+
+```bash
+npm install -g omniroute
+
+# Create config directory
+mkdir -p ~/.omniroute
+
+# Create .env file (see .env.example)
+cp .env.example ~/.omniroute/.env
+
+# Start server
+omniroute
+# Or with custom port:
+omniroute --port 3000
+```
+
+The CLI automatically loads `.env` from `~/.omniroute/.env` or `./.env`.
+
+### VPS Deployment
 
 ```bash
 git clone https://github.com/diegosouzapw/OmniRoute.git
@@ -337,7 +356,44 @@ npm run start
 # Or: pm2 start npm --name omniroute -- start
 ```
 
-### Докер
+### PM2 Deployment (Low Memory)
+
+For servers with limited RAM, use the memory limit option:
+
+```bash
+# With 512MB limit (default)
+pm2 start npm --name omniroute -- start
+
+# Or with custom memory limit
+OMNIROUTE_MEMORY_MB=512 pm2 start npm --name omniroute -- start
+
+# Or using ecosystem.config.js
+pm2 start ecosystem.config.js
+```
+
+Create `ecosystem.config.js`:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "omniroute",
+      script: "npm",
+      args: "start",
+      env: {
+        NODE_ENV: "production",
+        OMNIROUTE_MEMORY_MB: "512",
+        JWT_SECRET: "your-secret",
+        INITIAL_PASSWORD: "your-password",
+      },
+      node_args: "--max-old-space-size=512",
+      max_memory_restart: "300M",
+    },
+  ],
+};
+```
+
+### Docker
 
 ```bash
 # Build image (default = runner-cli with codex/claude/droid preinstalled)
@@ -347,51 +403,54 @@ docker build -t omniroute:cli .
 docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-data:/app/data omniroute:cli
 ```
 
-За интегриран в хост режим с двоични файлове на CLI вижте раздела Docker в основните документи.
+For host-integrated mode with CLI binaries, see the Docker section in the main docs.
 
-### Променливи на средата
+### Environment Variables
 
-| Променлива            | По подразбиране                        | Описание                                                                     |
-| --------------------- | -------------------------------------- | ---------------------------------------------------------------------------- |
-| `JWT_SECRET`          | `omniroute-default-secret-change-me`   | Тайна за подписване на JWT (**промяна в производството**)                    |
-| `INITIAL_PASSWORD`    | `123456`                               | Първа парола за влизане                                                      |
-| `DATA_DIR`            | `~/.omniroute`                         | Директория с данни (db, използване, регистрационни файлове)                  |
-| `PORT`                | рамка по подразбиране                  | Сервизен порт (`20128` в примерите)                                          |
-| `HOSTNAME`            | рамка по подразбиране                  | Свързване на хост (Docker по подразбиране е `0.0.0.0`)                       |
-| `NODE_ENV`            | по подразбиране по време на изпълнение | Задайте `production` за внедряване                                           |
-| `BASE_URL`            | `http://localhost:20128`               | Вътрешен основен URL адрес от страната на сървъра                            |
-| `CLOUD_URL`           | `https://omniroute.dev`                | Основен URL адрес на крайна точка за синхронизиране в облак                  |
-| `API_KEY_SECRET`      | `endpoint-proxy-api-key-secret`        | HMAC тайна за генерирани API ключове                                         |
-| `REQUIRE_API_KEY`     | `false`                                | Прилагане на API ключ на носител на `/v1/*`                                  |
-| `ENABLE_REQUEST_LOGS` | `false`                                | Разрешава регистрационни файлове за заявки/отговори                          |
-| `AUTH_COOKIE_SECURE`  | `false`                                | Принудително `Secure` бисквитка за удостоверяване (зад HTTPS обратен прокси) |
+| Variable                  | Default                              | Description                                             |
+| ------------------------- | ------------------------------------ | ------------------------------------------------------- |
+| `JWT_SECRET`              | `omniroute-default-secret-change-me` | JWT signing secret (**change in production**)           |
+| `INITIAL_PASSWORD`        | `123456`                             | First login password                                    |
+| `DATA_DIR`                | `~/.omniroute`                       | Data directory (db, usage, logs)                        |
+| `PORT`                    | framework default                    | Service port (`20128` in examples)                      |
+| `HOSTNAME`                | framework default                    | Bind host (Docker defaults to `0.0.0.0`)                |
+| `NODE_ENV`                | runtime default                      | Set `production` for deploy                             |
+| `BASE_URL`                | `http://localhost:20128`             | Server-side internal base URL                           |
+| `CLOUD_URL`               | `https://omniroute.dev`              | Cloud sync endpoint base URL                            |
+| `API_KEY_SECRET`          | `endpoint-proxy-api-key-secret`      | HMAC secret for generated API keys                      |
+| `REQUIRE_API_KEY`         | `false`                              | Enforce Bearer API key on `/v1/*`                       |
+| `ENABLE_REQUEST_LOGS`     | `false`                              | Enables request/response logs                           |
+| `AUTH_COOKIE_SECURE`      | `false`                              | Force `Secure` auth cookie (behind HTTPS reverse proxy) |
+| `OMNIROUTE_MEMORY_MB`     | `512`                                | Node.js heap limit in MB                                |
+| `PROMPT_CACHE_MAX_SIZE`   | `50`                                 | Max prompt cache entries                                |
+| `SEMANTIC_CACHE_MAX_SIZE` | `100`                                | Max semantic cache entries                              |
 
-За пълната справка за променливите на средата вижте [README](../README.md).
+For the full environment variable reference, see the [README](../README.md).
 
 ---
 
-## 📊 Налични модели
+## 📊 Available Models
 
 <details>
-<summary><b>Вижте всички налични модели</b></summary>
+<summary><b>View all available models</b></summary>
 
 **Claude Code (`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
 
 **Codex (`cx/`)** — Plus/Pro: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
 
-**Gemini CLI (`gc/`)** — БЕЗПЛАТНО: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
+**Gemini CLI (`gc/`)** — FREE: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
 
 **GitHub Copilot (`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
 
-**GLM (`glm/`)** — $0,6/1 млн.: `glm/glm-4.7`
+**GLM (`glm/`)** — $0.6/1M: `glm/glm-4.7`
 
-**MiniMax (`minimax/`)** — $0,2/1 млн.: `minimax/MiniMax-M2.1`
+**MiniMax (`minimax/`)** — $0.2/1M: `minimax/MiniMax-M2.1`
 
-**iFlow (`if/`)** — БЕЗПЛАТНО: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
+**iFlow (`if/`)** — FREE: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
 
-**Qwen (`qw/`)** — БЕЗПЛАТНО: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
+**Qwen (`qw/`)** — FREE: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
 
-**Киро (`kr/`)** — БЕЗПЛАТНО: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
+**Kiro (`kr/`)** — FREE: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
 
 **DeepSeek (`ds/`)**: `ds/deepseek-chat`, `ds/deepseek-reasoner`
 
@@ -399,13 +458,13 @@ docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-dat
 
 **xAI (`xai/`)**: `xai/grok-4`, `xai/grok-4-0709-fast-reasoning`, `xai/grok-code-mini`
 
-**Мистрал (`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
+**Mistral (`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
 
-**Недоумение (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
+**Perplexity (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
 
-**Заедно AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
+**Together AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
 
-**Фойерверки AI (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
+**Fireworks AI (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
 
 **Cerebras (`cerebras/`)**: `cerebras/llama-3.3-70b`
 
@@ -417,11 +476,11 @@ docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-dat
 
 ---
 
-## 🧩 Разширени функции
+## 🧩 Advanced Features
 
-### Персонализирани модели
+### Custom Models
 
-Добавете всеки ID на модел към всеки доставчик, без да чакате актуализация на приложението:
+Add any model ID to any provider without waiting for an app update:
 
 ```bash
 # Via API
@@ -433,11 +492,11 @@ curl -X POST http://localhost:20128/api/provider-models \
 # Remove: curl -X DELETE "http://localhost:20128/api/provider-models?provider=openai&model=gpt-4.5-preview"
 ```
 
-Или използвайте таблото за управление: **Доставчици → [Доставчик] → Персонализирани модели**.
+Or use Dashboard: **Providers → [Provider] → Custom Models**.
 
-### Специализирани маршрути на доставчик
+### Dedicated Provider Routes
 
-Насочвайте заявките директно към конкретен доставчик с валидиране на модела:
+Route requests directly to a specific provider with model validation:
 
 ```bash
 POST http://localhost:20128/v1/providers/openai/chat/completions
@@ -445,9 +504,9 @@ POST http://localhost:20128/v1/providers/openai/embeddings
 POST http://localhost:20128/v1/providers/fireworks/images/generations
 ```
 
-Префиксът на доставчика се добавя автоматично, ако липсва. Несъответстващите модели връщат `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
-### Конфигурация на мрежов прокси
+### Network Proxy Configuration
 
 ```bash
 # Set global proxy
@@ -463,76 +522,76 @@ curl -X POST http://localhost:20128/api/settings/proxy/test \
   -d '{"proxy":{"type":"socks5","host":"proxy.example.com","port":"1080"}}'
 ```
 
-**Приоритет:** Специфичен за ключ → Специфичен за комбинация → Специфичен за доставчик → Глобален → Среда.
+**Precedence:** Key-specific → Combo-specific → Provider-specific → Global → Environment.
 
-### API за каталог на модели
+### Model Catalog API
 
 ```bash
 curl http://localhost:20128/api/models/catalog
 ```
 
-Връща модели, групирани по доставчик с типове (`chat`, `embedding`, `image`).
+Returns models grouped by provider with types (`chat`, `embedding`, `image`).
 
-### Облачно синхронизиране
+### Cloud Sync
 
-- Синхронизиране на доставчици, комбинации и настройки на всички устройства
-- Автоматична фонова синхронизация с изчакване + бързо отказване
-- Предпочитане на сървъра `BASE_URL`/`CLOUD_URL` в производството
+- Sync providers, combos, and settings across devices
+- Automatic background sync with timeout + fail-fast
+- Prefer server-side `BASE_URL`/`CLOUD_URL` in production
 
-### LLM Gateway Intelligence (Фаза 9)
+### LLM Gateway Intelligence (Phase 9)
 
-- **Семантичен кеш** — Автоматично кешира нестрийминг, температура=0 отговори (заобикаляне с `X-OmniRoute-No-Cache: true`)
-- **Request Idempotency** — Дедупликира заявките в рамките на 5s чрез `Idempotency-Key` или `X-Request-Id` заглавка
-- **Проследяване на напредъка** — Включване на SSE `event: progress` събития чрез `X-OmniRoute-Progress: true` заглавка
-
----
-
-### Площадка за преводачи
-
-Достъп чрез **Табло → Преводач**. Отстранете грешки и визуализирайте как OmniRoute превежда API заявки между доставчици.
-
-| Режим               | Цел                                                                                                  |
-| ------------------- | ---------------------------------------------------------------------------------------------------- |
-| **Детска площадка** | Изберете изходни/целеви формати, поставете заявка и незабавно вижте преведения резултат              |
-| **Чат тестер**      | Изпращайте чат съобщения на живо през проксито и проверявайте пълния цикъл на заявка/отговор         |
-| **Тестова стенда**  | Изпълнете групови тестове в множество комбинации от формати, за да проверите правилността на превода |
-| **Монитор на живо** | Гледайте преводи в реално време, докато заявките преминават през проксито                            |
-
-**Случаи на употреба:**
-
-- Отстраняване на грешки защо конкретна комбинация клиент/доставчик е неуспешна
-- Проверете дали мислещите тагове, извикванията на инструменти и системните подкани се превеждат правилно
-- Сравнете разликите във форматите между форматите OpenAI, Claude, Gemini и Responses API
+- **Semantic Cache** — Auto-caches non-streaming, temperature=0 responses (bypass with `X-OmniRoute-No-Cache: true`)
+- **Request Idempotency** — Deduplicates requests within 5s via `Idempotency-Key` or `X-Request-Id` header
+- **Progress Tracking** — Opt-in SSE `event: progress` events via `X-OmniRoute-Progress: true` header
 
 ---
 
-### Стратегии за маршрутизиране
+### Translator Playground
 
-Конфигурирайте чрез **Табло → Настройки → Маршрутизация**.
+Access via **Dashboard → Translator**. Debug and visualize how OmniRoute translates API requests between providers.
 
-| Стратегия                    | Описание                                                                                                       |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Първо попълване**          | Използва акаунти в приоритетен ред — основният акаунт обработва всички заявки, докато стане недостъпен         |
-| **Round Robin**              | Преминава през всички акаунти с конфигурируем лепкав лимит (по подразбиране: 3 обаждания на акаунт)            |
-| **P2C (Сила на два избора)** | Избира 2 произволни акаунта и маршрути към по-здравословния — балансира натоварването с осъзнаване на здравето |
-| **Произволно**               | Произволно избира акаунт за всяка заявка чрез разбъркване на Fisher-Yates                                      |
-| **Най-малко използвани**     | Насочва към акаунта с най-стария `lastUsedAt` времеви печат, разпределяйки трафика равномерно                  |
-| **Оптимизирани разходи**     | Маршрути към акаунта с най-ниска стойност на приоритет, оптимизиране за доставчици с най-ниска цена            |
+| Mode             | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| **Playground**   | Select source/target formats, paste a request, and see the translated output instantly |
+| **Chat Tester**  | Send live chat messages through the proxy and inspect the full request/response cycle  |
+| **Test Bench**   | Run batch tests across multiple format combinations to verify translation correctness  |
+| **Live Monitor** | Watch real-time translations as requests flow through the proxy                        |
 
-#### Псевдоними на модели със заместващи символи
+**Use cases:**
 
-Създайте шаблони със заместващи знаци, за да пренасочите имената на моделите:
+- Debug why a specific client/provider combination fails
+- Verify that thinking tags, tool calls, and system prompts translate correctly
+- Compare format differences between OpenAI, Claude, Gemini, and Responses API formats
+
+---
+
+### Routing Strategies
+
+Configure via **Dashboard → Settings → Routing**.
+
+| Strategy                       | Description                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Fill First**                 | Uses accounts in priority order — primary account handles all requests until unavailable         |
+| **Round Robin**                | Cycles through all accounts with a configurable sticky limit (default: 3 calls per account)      |
+| **P2C (Power of Two Choices)** | Picks 2 random accounts and routes to the healthier one — balances load with awareness of health |
+| **Random**                     | Randomly selects an account for each request using Fisher-Yates shuffle                          |
+| **Least Used**                 | Routes to the account with the oldest `lastUsedAt` timestamp, distributing traffic evenly        |
+| **Cost Optimized**             | Routes to the account with the lowest priority value, optimizing for lowest-cost providers       |
+
+#### Wildcard Model Aliases
+
+Create wildcard patterns to remap model names:
 
 ```
 Pattern: claude-sonnet-*     →  Target: cc/claude-sonnet-4-5-20250929
 Pattern: gpt-*               →  Target: gh/gpt-5.1-codex
 ```
 
-Заместващите знаци поддържат `*` (всякакви знаци) и `?` (единичен знак).
+Wildcards support `*` (any characters) and `?` (single character).
 
-#### Резервни вериги
+#### Fallback Chains
 
-Дефинирайте глобални резервни вериги, които се прилагат за всички заявки:
+Define global fallback chains that apply across all requests:
 
 ```
 Chain: production-fallback
@@ -543,46 +602,46 @@ Chain: production-fallback
 
 ---
 
-### Устойчивост и прекъсвачи
+### Resilience & Circuit Breakers
 
-Конфигурирайте чрез **Табло → Настройки → Устойчивост**.
+Configure via **Dashboard → Settings → Resilience**.
 
-OmniRoute прилага устойчивост на ниво доставчик с четири компонента:
+OmniRoute implements provider-level resilience with four components:
 
-1. **Профили на доставчици** — Конфигурация за всеки доставчик за:
-   - Праг на повреда (колко повреда преди отваряне)
-   - Продължителност на изчакване
-   - Чувствителност на откриване на ограничение на скоростта
-   - Параметри на експоненциално забавяне
+1. **Provider Profiles** — Per-provider configuration for:
+   - Failure threshold (how many failures before opening)
+   - Cooldown duration
+   - Rate limit detection sensitivity
+   - Exponential backoff parameters
 
-2. **Редактируеми ограничения на скоростта** — Настройки по подразбиране на системно ниво, които могат да се конфигурират в таблото за управление:
-   - **Заявки в минута (RPM)** — Максимален брой заявки в минута за акаунт
-   - **Минимално време между заявките** — Минимална разлика в милисекунди между заявките
-   - **Максимални едновременни заявки** — Максимални едновременни заявки за акаунт
-   - Щракнете върху **Редактиране**, за да промените, след това върху **Запазване** или **Отказ**. Стойностите се запазват чрез API за устойчивост.
+2. **Editable Rate Limits** — System-level defaults configurable in the dashboard:
+   - **Requests Per Minute (RPM)** — Maximum requests per minute per account
+   - **Min Time Between Requests** — Minimum gap in milliseconds between requests
+   - **Max Concurrent Requests** — Maximum simultaneous requests per account
+   - Click **Edit** to modify, then **Save** or **Cancel**. Values persist via the resilience API.
 
-3. **Прекъсвач на веригата** — Проследява повреди на доставчик и автоматично отваря веригата при достигане на праг:
-   - **ЗАТВОРЕНО** (здравословно) — Заявките протичат нормално
-   - **OPEN** — Доставчикът е временно блокиран след повтарящи се повреди
-   - **HALF_OPEN** — Тестване дали доставчикът се е възстановил
+3. **Circuit Breaker** — Tracks failures per provider and automatically opens the circuit when a threshold is reached:
+   - **CLOSED** (Healthy) — Requests flow normally
+   - **OPEN** — Provider is temporarily blocked after repeated failures
+   - **HALF_OPEN** — Testing if provider has recovered
 
-4. **Правила и заключени идентификатори** — Показва състоянието на прекъсвача и заключените идентификатори с възможност за принудително отключване.
+4. **Policies & Locked Identifiers** — Shows circuit breaker status and locked identifiers with force-unlock capability.
 
-5. **Автоматично откриване на ограничение на скоростта** — Наблюдава заглавките `429` и `Retry-After`, за да избегне проактивно достигане на ограниченията на скоростта на доставчика.
+5. **Rate Limit Auto-Detection** — Monitors `429` and `Retry-After` headers to proactively avoid hitting provider rate limits.
 
-**Професионален съвет:** Използвайте бутона **Нулиране на всички**, за да изчистите всички прекъсвачи и изчаквания, когато доставчикът се възстанови от прекъсване.
+**Pro Tip:** Use **Reset All** button to clear all circuit breakers and cooldowns when a provider recovers from an outage.
 
 ---
 
-### Експорт/импорт на база данни
+### Database Export / Import
 
-Управлявайте резервни копия на бази данни в **Табло → Настройки → Система и съхранение**.
+Manage database backups in **Dashboard → Settings → System & Storage**.
 
-| Действие                             | Описание                                                                                                                                          |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Експортиране на база данни**       | Изтегля текущата база данни SQLite като `.sqlite` файл                                                                                            |
-| **Експортиране на всички (.tar.gz)** | Изтегля пълен резервен архив, включително: база данни, настройки, комбинации, връзки с доставчик (без идентификационни данни), API ключ метаданни |
-| **Импортиране на база данни**        | Качете файл `.sqlite`, за да замените текущата база данни. Автоматично се създава резервно копие преди импортиране                                |
+| Action                   | Description                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Export Database**      | Downloads the current SQLite database as a `.sqlite` file                                                                      |
+| **Export All (.tar.gz)** | Downloads a full backup archive including: database, settings, combos, provider connections (no credentials), API key metadata |
+| **Import Database**      | Upload a `.sqlite` file to replace the current database. A pre-import backup is automatically created                          |
 
 ```bash
 # API: Export database
@@ -596,38 +655,38 @@ curl -X POST http://localhost:20128/api/db-backups/import \
   -F "file=@backup.sqlite"
 ```
 
-**Проверка на импортиране:** Импортираният файл се валидира за цялост (проверка на SQLite pragma), необходими таблици (`provider_connections`, `provider_nodes`, `combos`, `api_keys`) и размер (макс. 100MB).
+**Import Validation:** The imported file is validated for integrity (SQLite pragma check), required tables (`provider_connections`, `provider_nodes`, `combos`, `api_keys`), and size (max 100MB).
 
-**Случаи на употреба:**
+**Use Cases:**
 
-- Мигрирайте OmniRoute между машини
-- Създаване на външни резервни копия за възстановяване след бедствие
-- Споделяне на конфигурации между членовете на екипа (експортиране на всички → споделяне на архив)
-
----
-
-### Табло за управление на настройките
-
-Страницата с настройки е организирана в 5 раздела за лесна навигация:
-
-| Раздел             | Съдържание                                                                                                                                          |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Сигурност**      | Настройки за вход/парола, IP контрол на достъпа, API удостоверяване за `/models` и блокиране на доставчик                                           |
-| **Маршрутизиране** | Стратегия за глобално маршрутизиране (6 опции), псевдоними на модели със заместващи символи, резервни вериги, комбинирани настройки по подразбиране |
-| **Устойчивост**    | Профили на доставчици, редактируеми лимити на скоростта, състояние на прекъсвача, политики и заключени идентификатори                               |
-| **AI**             | Обмисляне на конфигурация на бюджета, инжектиране на глобална система, статистика на бързия кеш                                                     |
-| **Разширено**      | Глобална прокси конфигурация (HTTP/SOCKS5)                                                                                                          |
+- Migrate OmniRoute between machines
+- Create external backups for disaster recovery
+- Share configurations between team members (export all → share archive)
 
 ---
 
-### Управление на разходите и бюджета
+### Settings Dashboard
 
-Достъп чрез **Табло → Разходи**.
+The settings page is organized into 5 tabs for easy navigation:
 
-| Раздел     | Цел                                                                                                            |
-| ---------- | -------------------------------------------------------------------------------------------------------------- |
-| **Бюджет** | Задайте лимити на разходите за API ключ с дневни/седмични/месечни бюджети и проследяване в реално време        |
-| **Цени**   | Преглеждайте и редактирайте записи за ценообразуване на модела — цена за 1K входно/изходни токени на доставчик |
+| Tab            | Contents                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| **Security**   | Login/Password settings, IP Access Control, API auth for `/models`, and Provider Blocking      |
+| **Routing**    | Global routing strategy (6 options), wildcard model aliases, fallback chains, combo defaults   |
+| **Resilience** | Provider profiles, editable rate limits, circuit breaker status, policies & locked identifiers |
+| **AI**         | Thinking budget configuration, global system prompt injection, prompt cache stats              |
+| **Advanced**   | Global proxy configuration (HTTP/SOCKS5)                                                       |
+
+---
+
+### Costs & Budget Management
+
+Access via **Dashboard → Costs**.
+
+| Tab         | Purpose                                                                                  |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| **Budget**  | Set spending limits per API key with daily/weekly/monthly budgets and real-time tracking |
+| **Pricing** | View and edit model pricing entries — cost per 1K input/output tokens per provider       |
 
 ```bash
 # API: Set a budget
@@ -639,13 +698,13 @@ curl -X POST http://localhost:20128/api/usage/budget \
 curl http://localhost:20128/api/usage/budget
 ```
 
-**Проследяване на разходите:** Всяка заявка регистрира използването на токени и изчислява разходите с помощта на таблицата с цените. Вижте разбивки в **Табло за управление → Използване** по доставчик, модел и API ключ.
+**Cost Tracking:** Every request logs token usage and calculates cost using the pricing table. View breakdowns in **Dashboard → Usage** by provider, model, and API key.
 
 ---
 
-### Аудио транскрипция
+### Audio Transcription
 
-OmniRoute поддържа аудио транскрипция чрез OpenAI-съвместима крайна точка:
+OmniRoute supports audio transcription via the OpenAI-compatible endpoint:
 
 ```bash
 POST /v1/audio/transcriptions
@@ -659,40 +718,92 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-Налични доставчици: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
+Available providers: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
 
-Поддържани аудио формати: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
-
----
-
-### Комбинирани стратегии за балансиране
-
-Конфигурирайте балансирането за комбо в **Табло за управление → Комбота → Създаване/Редактиране → Стратегия**.
-
-| Стратегия                    | Описание                                                                         |
-| ---------------------------- | -------------------------------------------------------------------------------- |
-| **Round-Robin**              | Върти се през моделите последователно                                            |
-| **Приоритет**                | Винаги пробва първия модел; връща се само при грешка                             |
-| **Произволно**               | Избира произволен модел от комбинацията за всяка заявка                          |
-| **Претеглено**               | Маршрути пропорционално въз основа на зададени тегла за модел                    |
-| **Най-малко използвани**     | Насочва към модела с най-малко скорошни заявки (използва комбинирани показатели) |
-| **Оптимизиран за разходите** | Маршрути до най-евтиния наличен модел (използва ценова таблица)                  |
-
-Глобалните настройки по подразбиране на комбинацията могат да бъдат зададени в **Табло → Настройки → Маршрут → Настройки по подразбиране на комбинация**.
+Supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-### Здравно табло
+### Combo Balancing Strategies
 
-Достъп чрез **Табло → Здраве**. Преглед на здравето на системата в реално време с 6 карти:
+Configure per-combo balancing in **Dashboard → Combos → Create/Edit → Strategy**.
 
-| Карта                        | Какво показва                                                              |
-| ---------------------------- | -------------------------------------------------------------------------- |
-| **Състояние на системата**   | Време на работа, версия, използване на паметта, директория с данни         |
-| **Здраве на доставчика**     | Състояние на прекъсвача за всеки доставчик (затворен/отворен/полуотворен)  |
-| **Ограничения на скоростта** | Активен лимит на изчакване за акаунт с оставащо време                      |
-| **Активни блокировки**       | Доставчици, временно блокирани от политиката за блокиране                  |
-| **Кеш на подписа**           | Статистика на кеша за дедупликация (активни ключове, процент на попадения) |
-| **Телеметрия за забавяне**   | p50/p95/p99 агрегиране на латентност за доставчик                          |
+| Strategy           | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Round-Robin**    | Rotates through models sequentially                                      |
+| **Priority**       | Always tries the first model; falls back only on error                   |
+| **Random**         | Picks a random model from the combo for each request                     |
+| **Weighted**       | Routes proportionally based on assigned weights per model                |
+| **Least-Used**     | Routes to the model with the fewest recent requests (uses combo metrics) |
+| **Cost-Optimized** | Routes to the cheapest available model (uses pricing table)              |
 
-**Професионален съвет:** Страницата Health се опреснява автоматично на всеки 10 секунди. Използвайте картата на прекъсвача, за да идентифицирате кои доставчици имат проблеми.
+Global combo defaults can be set in **Dashboard → Settings → Routing → Combo Defaults**.
+
+---
+
+### Health Dashboard
+
+Access via **Dashboard → Health**. Real-time system health overview with 6 cards:
+
+| Card                  | What It Shows                                               |
+| --------------------- | ----------------------------------------------------------- |
+| **System Status**     | Uptime, version, memory usage, data directory               |
+| **Provider Health**   | Per-provider circuit breaker state (Closed/Open/Half-Open)  |
+| **Rate Limits**       | Active rate limit cooldowns per account with remaining time |
+| **Active Lockouts**   | Providers temporarily blocked by the lockout policy         |
+| **Signature Cache**   | Deduplication cache stats (active keys, hit rate)           |
+| **Latency Telemetry** | p50/p95/p99 latency aggregation per provider                |
+
+**Pro Tip:** The Health page auto-refreshes every 10 seconds. Use the circuit breaker card to identify which providers are experiencing issues.
+
+---
+
+## 🖥️ Desktop Application (Electron)
+
+OmniRoute is available as a native desktop application for Windows, macOS, and Linux.
+
+### Installation
+
+```bash
+# From the electron directory:
+cd electron
+npm install
+
+# Development mode (connect to running Next.js dev server):
+npm run dev
+
+# Production mode (uses standalone build):
+npm start
+```
+
+### Building Installers
+
+```bash
+cd electron
+npm run build          # Current platform
+npm run build:win      # Windows (.exe NSIS)
+npm run build:mac      # macOS (.dmg universal)
+npm run build:linux    # Linux (.AppImage)
+```
+
+Output → `electron/dist-electron/`
+
+### Key Features
+
+| Feature                     | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| **Server Readiness**        | Polls server before showing window (no blank screen) |
+| **System Tray**             | Minimize to tray, change port, quit from tray menu   |
+| **Port Management**         | Change server port from tray (auto-restarts server)  |
+| **Content Security Policy** | Restrictive CSP via session headers                  |
+| **Single Instance**         | Only one app instance can run at a time              |
+| **Offline Mode**            | Bundled Next.js server works without internet        |
+
+### Environment Variables
+
+| Variable              | Default | Description                      |
+| --------------------- | ------- | -------------------------------- |
+| `OMNIROUTE_PORT`      | `20128` | Server port                      |
+| `OMNIROUTE_MEMORY_MB` | `512`   | Node.js heap limit (64–16384 MB) |
+
+📖 Full documentation: [`electron/README.md`](../electron/README.md)

@@ -1,12 +1,12 @@
-# API-referentie
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-Volledige referentie voor alle OmniRoute API-eindpunten.
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## Inhoudsopgave
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@ Volledige referentie voor alle OmniRoute API-eindpunten.
 
 ---
 
-## Chat-voltooiingen
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### Aangepaste kopteksten
+### Custom Headers
 
-| Kop                      | Richting | Beschrijving                                      |
-| ------------------------ | -------- | ------------------------------------------------- |
-| `X-OmniRoute-No-Cache`   | Verzoek  | Stel in op `true` om cache te omzeilen            |
-| `X-OmniRoute-Progress`   | Verzoek  | Ingesteld op `true` voor voortgangsgebeurtenissen |
-| `Idempotency-Key`        | Verzoek  | Ontdubbelingssleutel (5s-venster)                 |
-| `X-Request-Id`           | Verzoek  | Alternatieve ontdubbelsleutel                     |
-| `X-OmniRoute-Cache`      | Reactie  | `HIT` of `MISS` (niet-streaming)                  |
-| `X-OmniRoute-Idempotent` | Reactie  | `true` indien ontdubbeld                          |
-| `X-OmniRoute-Progress`   | Reactie  | `enabled` als voortgangsregistratie op            |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## Insluitingen
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-Beschikbare providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## Beeldgeneratie
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-Beschikbare providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## Lijstmodellen
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## Compatibiliteitseindpunten
+## Compatibility Endpoints
 
-| Werkwijze | Pad                         | Formaat                    |
-| --------- | --------------------------- | -------------------------- |
-| POST      | `/v1/chat/completions`      | Open AI                    |
-| POST      | `/v1/messages`              | Antropisch                 |
-| POST      | `/v1/responses`             | OpenAI-reacties            |
-| POST      | `/v1/embeddings`            | Open AI                    |
-| POST      | `/v1/images/generations`    | Open AI                    |
-| KRIJG     | `/v1/models`                | Open AI                    |
-| POST      | `/v1/messages/count_tokens` | Antropisch                 |
-| KRIJG     | `/v1beta/models`            | Tweeling                   |
-| POST      | `/v1beta/models/{...path}`  | Tweelingen genererenInhoud |
-| POST      | `/v1/api/chat`              | Ollama                     |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### Speciale providerroutes
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-Het providervoorvoegsel wordt automatisch toegevoegd als het ontbreekt. Niet-overeenkomende modellen retourneren `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## Semantische cache
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-Voorbeeld van een antwoord:
+Response example:
 
 ```json
 {
@@ -162,154 +162,164 @@ Voorbeeld van een antwoord:
 
 ---
 
-## Dashboard en beheer
+## Dashboard & Management
 
-### Authenticatie
+### Authentication
 
-| Eindpunt                      | Werkwijze | Beschrijving             |
-| ----------------------------- | --------- | ------------------------ |
-| `/api/auth/login`             | POST      | Inloggen                 |
-| `/api/auth/logout`            | POST      | Uitloggen                |
-| `/api/settings/require-login` | KRIJG/ZET | Schakel inloggen vereist |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### Providerbeheer
+### Provider Management
 
-| Eindpunt                     | Werkwijze                | Beschrijving                   |
-| ---------------------------- | ------------------------ | ------------------------------ |
-| `/api/providers`             | KRIJGEN/POST             | Providers weergeven / aanmaken |
-| `/api/providers/[id]`        | KRIJGEN/ZET/VERWIJDEREN  | Beheer een aanbieder           |
-| `/api/providers/[id]/test`   | POST                     | Providerverbinding testen      |
-| `/api/providers/[id]/models` | KRIJG                    | Providermodellen weergeven     |
-| `/api/providers/validate`    | POST                     | Providerconfiguratie valideren |
-| `/api/provider-nodes*`       | Diverse                  | Beheer van providerknooppunten |
-| `/api/provider-models`       | KRIJGEN/POST/VERWIJDEREN | Aangepaste modellen            |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### OAuth-stromen
+### OAuth Flows
 
-| Eindpunt                         | Werkwijze | Beschrijving             |
-| -------------------------------- | --------- | ------------------------ |
-| `/api/oauth/[provider]/[action]` | Diverse   | Providerspecifieke OAuth |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### Routering en configuratie
+### Routing & Config
 
-| Eindpunt              | Werkwijze    | Beschrijving                       |
-| --------------------- | ------------ | ---------------------------------- |
-| `/api/models/alias`   | KRIJGEN/POST | Modelaliassen                      |
-| `/api/models/catalog` | KRIJG        | Alle modellen per aanbieder + type |
-| `/api/combos*`        | Diverse      | Combinatiebeheer                   |
-| `/api/keys*`          | Diverse      | API-sleutelbeheer                  |
-| `/api/pricing`        | KRIJG        | Modelprijzen                       |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### Gebruik en analyse
+### Usage & Analytics
 
-| Eindpunt                    | Werkwijze | Beschrijving                |
-| --------------------------- | --------- | --------------------------- |
-| `/api/usage/history`        | KRIJG     | Gebruiksgeschiedenis        |
-| `/api/usage/logs`           | KRIJG     | Gebruikslogboeken           |
-| `/api/usage/request-logs`   | KRIJG     | Logboeken op aanvraagniveau |
-| `/api/usage/[connectionId]` | KRIJG     | Gebruik per verbinding      |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### Instellingen
+### Settings
 
-| Eindpunt                        | Werkwijze | Beschrijving                     |
-| ------------------------------- | --------- | -------------------------------- |
-| `/api/settings`                 | KRIJG/ZET | Algemene instellingen            |
-| `/api/settings/proxy`           | KRIJG/ZET | Netwerkproxyconfiguratie         |
-| `/api/settings/proxy/test`      | POST      | Proxyverbinding testen           |
-| `/api/settings/ip-filter`       | KRIJG/ZET | IP-toelatingslijst/blokkeerlijst |
-| `/api/settings/thinking-budget` | KRIJG/ZET | Redeneren tokenbudget            |
-| `/api/settings/system-prompt`   | KRIJG/ZET | Globale systeemprompt            |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### Toezicht
+### Monitoring
 
-| Eindpunt                 | Werkwijze           | Beschrijving               |
-| ------------------------ | ------------------- | -------------------------- |
-| `/api/sessions`          | KRIJG               | Actieve sessietracking     |
-| `/api/rate-limits`       | KRIJG               | Tarieflimieten per account |
-| `/api/monitoring/health` | KRIJG               | Gezondheidscontrole        |
-| `/api/cache`             | OPHALEN/VERWIJDEREN | Cachestatistieken / wissen |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### Back-up & exporteren/importeren
+### Backup & Export/Import
 
-| Eindpunt                    | Werkwijze | Beschrijving                                     |
-| --------------------------- | --------- | ------------------------------------------------ |
-| `/api/db-backups`           | KRIJG     | Beschikbare back-ups weergeven                   |
-| `/api/db-backups`           | ZET       | Maak een handmatige back-up                      |
-| `/api/db-backups`           | POST      | Herstellen vanaf een specifieke back-up          |
-| `/api/db-backups/export`    | KRIJG     | Database downloaden als .sqlite-bestand          |
-| `/api/db-backups/import`    | POST      | Upload .sqlite-bestand om database te vervangen  |
-| `/api/db-backups/exportAll` | KRIJG     | Volledige back-up downloaden als .tar.gz-archief |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
-### Cloudsynchronisatie
+### Cloud Sync
 
-| Eindpunt               | Werkwijze | Beschrijving                   |
-| ---------------------- | --------- | ------------------------------ |
-| `/api/sync/cloud`      | Diverse   | Cloudsynchronisatiebewerkingen |
-| `/api/sync/initialize` | POST      | Synchronisatie initialiseren   |
-| `/api/cloud/*`         | Diverse   | Cloudbeheer                    |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### CLI-hulpmiddelen
+### CLI Tools
 
-| Eindpunt                           | Werkwijze | Beschrijving         |
-| ---------------------------------- | --------- | -------------------- |
-| `/api/cli-tools/claude-settings`   | KRIJG     | Claude CLI-status    |
-| `/api/cli-tools/codex-settings`    | KRIJG     | Codex CLI-status     |
-| `/api/cli-tools/droid-settings`    | KRIJG     | Droid CLI-status     |
-| `/api/cli-tools/openclaw-settings` | KRIJG     | OpenClaw CLI-status  |
-| `/api/cli-tools/runtime/[toolId]`  | KRIJG     | Algemene CLI-runtime |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-CLI-reacties omvatten: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### Veerkracht en snelheidslimieten
+### ACP Agents
 
-| Eindpunt                | Werkwijze | Beschrijving                            |
-| ----------------------- | --------- | --------------------------------------- |
-| `/api/resilience`       | KRIJG/ZET | Veerkrachtprofielen ophalen/bijwerken   |
-| `/api/resilience/reset` | POST      | Stroomonderbrekers resetten             |
-| `/api/rate-limits`      | KRIJG     | Status van tarieflimiet per account     |
-| `/api/rate-limit`       | KRIJG     | Configuratie van globale tarieflimieten |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
 
-### Evaluaties
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
 
-| Eindpunt     | Werkwijze    | Beschrijving                                    |
-| ------------ | ------------ | ----------------------------------------------- |
-| `/api/evals` | KRIJGEN/POST | Evaluatiesuites weergeven / evaluatie uitvoeren |
+### Resilience & Rate Limits
 
-### Beleid
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
-| Eindpunt        | Werkwijze                | Beschrijving          |
-| --------------- | ------------------------ | --------------------- |
-| `/api/policies` | KRIJGEN/POST/VERWIJDEREN | Routingbeleid beheren |
+### Evals
 
-### Naleving
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-| Eindpunt                    | Werkwijze | Beschrijving                      |
-| --------------------------- | --------- | --------------------------------- |
-| `/api/compliance/audit-log` | KRIJG     | Nalevingsauditlogboek (laatste N) |
+### Policies
 
-### v1beta (Gemini-compatibel)
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-| Eindpunt                   | Werkwijze | Beschrijving                      |
-| -------------------------- | --------- | --------------------------------- |
-| `/v1beta/models`           | KRIJG     | Lijstmodellen in Gemini-formaat   |
-| `/v1beta/models/{...path}` | POST      | Gemini `generateContent` eindpunt |
+### Compliance
 
-Deze eindpunten weerspiegelen het API-formaat van Gemini voor klanten die native Gemini SDK-compatibiliteit verwachten.
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### Interne/systeem-API's
+### v1beta (Gemini-Compatible)
 
-| Eindpunt        | Werkwijze | Beschrijving                                                   |
-| --------------- | --------- | -------------------------------------------------------------- |
-| `/api/init`     | KRIJG     | Initialisatiecontrole van applicatie (gebruikt bij eerste run) |
-| `/api/tags`     | KRIJG     | Ollama-compatibele modeltags (voor Ollama-klanten)             |
-| `/api/restart`  | POST      | Trigger een sierlijke herstart van de server                   |
-| `/api/shutdown` | POST      | Trigger een elegante serveruitschakeling                       |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-> **Opmerking:** Deze eindpunten worden intern gebruikt door het systeem of voor Ollama-clientcompatibiliteit. Ze worden doorgaans niet door eindgebruikers gebeld.
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
+
+### Internal / System APIs
+
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
+
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## Audiotranscriptie
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-Transcribeer audiobestanden met Deepgram of AssemblyAI.
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**Verzoek:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**Reactie:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**Ondersteunde providers:** `deepgram/nova-3`, `assemblyai/best`.
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**Ondersteunde formaten:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## Ollama-compatibiliteit
+## Ollama Compatibility
 
-Voor klanten die het API-formaat van Ollama gebruiken:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-Verzoeken worden automatisch vertaald tussen Ollama en interne formaten.
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## Telemetrie
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**Reactie:**
+**Response:**
 
 ```json
 {
@@ -381,7 +391,7 @@ GET /api/telemetry/summary
 
 ---
 
-## Begroting
+## Budget
 
 ```bash
 # Get budget status for all API keys
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## Beschikbaarheid van modellen
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## Verzoekverwerking
+## Request Processing
 
-1. Klant stuurt verzoek naar `/v1/*`
-2. Route-handleraanroepen `handleChat`, `handleEmbedding`, `handleAudioTranscription` of `handleImageGeneration`
-3. Model is opgelost (directe provider/model of alias/combo)
-4. Inloggegevens geselecteerd uit lokale DB met filtering van accountbeschikbaarheid
-5. Voor chat: `handleChatCore` — formaatdetectie, vertaling, cachecontrole, idempotentiecontrole
-6. Provider-uitvoerder verzendt een upstream-verzoek
-7. Antwoord terugvertaald naar clientformaat (chat) of geretourneerd zoals het is (insluitingen/afbeeldingen/audio)
-8. Verbruik/logboekregistratie
-9. Fallback is van toepassing op fouten volgens comboregels
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-Volledige architectuurreferentie: [link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## Authenticatie
+## Authentication
 
-- Dashboardroutes (`/dashboard/*`) gebruiken `auth_token` cookie
-- Inloggen maakt gebruik van opgeslagen wachtwoord-hash; terugval naar `INITIAL_PASSWORD`
-- `requireLogin` schakelbaar via `/api/settings/require-login`
-- Voor `/v1/*` routes is optioneel een Bearer API-sleutel vereist wanneer `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

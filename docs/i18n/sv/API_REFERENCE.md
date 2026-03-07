@@ -1,12 +1,12 @@
-# API-referens
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-Fullständig referens för alla OmniRoute API-slutpunkter.
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## Innehållsförteckning
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@ Fullständig referens för alla OmniRoute API-slutpunkter.
 
 ---
 
-## Chattavslut
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### Anpassade rubriker
+### Custom Headers
 
-| Rubrik                   | Riktning | Beskrivning                               |
-| ------------------------ | -------- | ----------------------------------------- |
-| `X-OmniRoute-No-Cache`   | Begäran  | Ställ in på `true` för att kringgå cache  |
-| `X-OmniRoute-Progress`   | Begäran  | Ställ in på `true` för framstegshändelser |
-| `Idempotency-Key`        | Begäran  | Dedup-nyckel (5s fönster)                 |
-| `X-Request-Id`           | Begäran  | Alternativ dedup-nyckel                   |
-| `X-OmniRoute-Cache`      | Svar     | `HIT` eller `MISS` (icke-streaming)       |
-| `X-OmniRoute-Idempotent` | Svar     | `true` om deduplicerad                    |
-| `X-OmniRoute-Progress`   | Svar     | `enabled` om förloppsspårning på          |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## Inbäddningar
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-Tillgängliga leverantörer: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## Bildgenerering
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-Tillgängliga leverantörer: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## Lista modeller
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## Kompatibilitetsslutpunkter
+## Compatibility Endpoints
 
-| Metod | Väg                         | Format                   |
-| ----- | --------------------------- | ------------------------ |
-| POST  | `/v1/chat/completions`      | OpenAI                   |
-| POST  | `/v1/messages`              | Antropisk                |
-| POST  | `/v1/responses`             | OpenAI-svar              |
-| POST  | `/v1/embeddings`            | OpenAI                   |
-| POST  | `/v1/images/generations`    | OpenAI                   |
-| FÅ    | `/v1/models`                | OpenAI                   |
-| POST  | `/v1/messages/count_tokens` | Antropisk                |
-| FÅ    | `/v1beta/models`            | Tvillingarna             |
-| POST  | `/v1beta/models/{...path}`  | Gemini generera innehåll |
-| POST  | `/v1/api/chat`              | Ollama                   |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### Dedikerade leverantörsrutter
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-Providerprefixet läggs till automatiskt om det saknas. Omatchade modeller returnerar `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## Semantisk cache
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-Exempel på svar:
+Response example:
 
 ```json
 {
@@ -164,152 +164,162 @@ Exempel på svar:
 
 ## Dashboard & Management
 
-### Autentisering
+### Authentication
 
-| Slutpunkt                     | Metod   | Beskrivning            |
-| ----------------------------- | ------- | ---------------------- |
-| `/api/auth/login`             | POST    | Logga in               |
-| `/api/auth/logout`            | POST    | Logga ut               |
-| `/api/settings/require-login` | GET/PUT | Växla inloggning krävs |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### Leverantörshantering
+### Provider Management
 
-| Slutpunkt                    | Metod            | Beskrivning                          |
-| ---------------------------- | ---------------- | ------------------------------------ |
-| `/api/providers`             | GET/POSTA        | Lista / skapa leverantörer           |
-| `/api/providers/[id]`        | GET/PUT/DELETE   | Hantera en leverantör                |
-| `/api/providers/[id]/test`   | POST             | Testa leverantörsanslutning          |
-| `/api/providers/[id]/models` | FÅ               | Lista leverantörsmodeller            |
-| `/api/providers/validate`    | POST             | Validera leverantörens konfiguration |
-| `/api/provider-nodes*`       | Olika            | Leverantörsnodhantering              |
-| `/api/provider-models`       | GET/POSTA/RADERA | Anpassade modeller                   |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### OAuth-flöden
+### OAuth Flows
 
-| Slutpunkt                        | Metod | Beskrivning               |
-| -------------------------------- | ----- | ------------------------- |
-| `/api/oauth/[provider]/[action]` | Olika | Leverantörsspecifik OAuth |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
 ### Routing & Config
 
-| Slutpunkt             | Metod     | Beskrivning                          |
-| --------------------- | --------- | ------------------------------------ |
-| `/api/models/alias`   | GET/POSTA | Modellalias                          |
-| `/api/models/catalog` | FÅ        | Alla modeller efter leverantör + typ |
-| `/api/combos*`        | Olika     | Kombinationshantering                |
-| `/api/keys*`          | Olika     | API-nyckelhantering                  |
-| `/api/pricing`        | FÅ        | Modellprissättning                   |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### Användning och analys
+### Usage & Analytics
 
-| Slutpunkt                   | Metod | Beskrivning               |
-| --------------------------- | ----- | ------------------------- |
-| `/api/usage/history`        | FÅ    | Användningshistorik       |
-| `/api/usage/logs`           | FÅ    | Användningsloggar         |
-| `/api/usage/request-logs`   | FÅ    | Loggar på begäran-nivå    |
-| `/api/usage/[connectionId]` | FÅ    | Användning per anslutning |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### Inställningar
+### Settings
 
-| Slutpunkt                       | Metod   | Beskrivning                         |
-| ------------------------------- | ------- | ----------------------------------- |
-| `/api/settings`                 | GET/PUT | Allmänna inställningar              |
-| `/api/settings/proxy`           | GET/PUT | Nätverksproxykonfiguration          |
-| `/api/settings/proxy/test`      | POST    | Testa proxyanslutning               |
-| `/api/settings/ip-filter`       | GET/PUT | IP-tillståndslista/blockeringslista |
-| `/api/settings/thinking-budget` | GET/PUT | Resonera token budget               |
-| `/api/settings/system-prompt`   | GET/PUT | Global systemprompt                 |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### Övervakning
+### Monitoring
 
-| Slutpunkt                | Metod        | Beskrivning            |
-| ------------------------ | ------------ | ---------------------- |
-| `/api/sessions`          | FÅ           | Aktiv sessionsspårning |
-| `/api/rate-limits`       | FÅ           | Räntegränser per konto |
-| `/api/monitoring/health` | FÅ           | Hälsokontroll          |
-| `/api/cache`             | HÄMTA/RADERA | Cachestatistik / rensa |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### Säkerhetskopiering & export/import
+### Backup & Export/Import
 
-| Slutpunkt                   | Metod | Beskrivning                                            |
-| --------------------------- | ----- | ------------------------------------------------------ |
-| `/api/db-backups`           | FÅ    | Lista tillgängliga säkerhetskopior                     |
-| `/api/db-backups`           | SÄTT  | Skapa en manuell säkerhetskopia                        |
-| `/api/db-backups`           | POST  | Återställ från en specifik säkerhetskopia              |
-| `/api/db-backups/export`    | FÅ    | Ladda ner databas som .sqlite-fil                      |
-| `/api/db-backups/import`    | POST  | Ladda upp .sqlite-fil för att ersätta databas          |
-| `/api/db-backups/exportAll` | FÅ    | Ladda ner fullständig säkerhetskopia som .tar.gz-arkiv |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
 ### Cloud Sync
 
-| Slutpunkt              | Metod | Beskrivning                    |
-| ---------------------- | ----- | ------------------------------ |
-| `/api/sync/cloud`      | Olika | Molnsynkroniseringsoperationer |
-| `/api/sync/initialize` | POST  | Initiera synkronisering        |
-| `/api/cloud/*`         | Olika | Molnhantering                  |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### CLI-verktyg
+### CLI Tools
 
-| Slutpunkt                          | Metod | Beskrivning         |
-| ---------------------------------- | ----- | ------------------- |
-| `/api/cli-tools/claude-settings`   | FÅ    | Claude CLI status   |
-| `/api/cli-tools/codex-settings`    | FÅ    | Codex CLI-status    |
-| `/api/cli-tools/droid-settings`    | FÅ    | Droid CLI-status    |
-| `/api/cli-tools/openclaw-settings` | FÅ    | OpenClaw CLI-status |
-| `/api/cli-tools/runtime/[toolId]`  | FÅ    | Generisk CLI-körtid |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-CLI-svar inkluderar: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### Resiliens och hastighetsgränser
+### ACP Agents
 
-| Slutpunkt               | Metod   | Beskrivning                         |
-| ----------------------- | ------- | ----------------------------------- |
-| `/api/resilience`       | GET/PUT | Skaffa/uppdatera resiliensprofiler  |
-| `/api/resilience/reset` | POST    | Återställ brytare                   |
-| `/api/rate-limits`      | FÅ      | Räntegränsstatus per konto          |
-| `/api/rate-limit`       | FÅ      | Global hastighetsgränskonfiguration |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
+
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
+
+### Resilience & Rate Limits
+
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
 ### Evals
 
-| Slutpunkt    | Metod     | Beskrivning                                |
-| ------------ | --------- | ------------------------------------------ |
-| `/api/evals` | GET/POSTA | Lista utvärderingssviter / kör utvärdering |
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-### Policyer
+### Policies
 
-| Slutpunkt       | Metod            | Beskrivning          |
-| --------------- | ---------------- | -------------------- |
-| `/api/policies` | GET/POSTA/RADERA | Hantera ruttpolicyer |
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-### Efterlevnad
+### Compliance
 
-| Slutpunkt                   | Metod | Beskrivning                               |
-| --------------------------- | ----- | ----------------------------------------- |
-| `/api/compliance/audit-log` | FÅ    | Granskningslogg för efterlevnad (sista N) |
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### v1beta (Gemini-kompatibel)
+### v1beta (Gemini-Compatible)
 
-| Slutpunkt                  | Metod | Beskrivning                        |
-| -------------------------- | ----- | ---------------------------------- |
-| `/v1beta/models`           | FÅ    | Lista modeller i Gemini-format     |
-| `/v1beta/models/{...path}` | POST  | Gemini `generateContent` slutpunkt |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-Dessa slutpunkter speglar Geminis API-format för klienter som förväntar sig inbyggd Gemini SDK-kompatibilitet.
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
 
-### Interna / System API: er
+### Internal / System APIs
 
-| Slutpunkt       | Metod | Beskrivning                                                    |
-| --------------- | ----- | -------------------------------------------------------------- |
-| `/api/init`     | FÅ    | Applikationsinitieringskontroll (används vid första körningen) |
-| `/api/tags`     | FÅ    | Ollama-kompatibla modelltaggar (för Ollama-klienter)           |
-| `/api/restart`  | POST  | Utlösa graciös serveromstart                                   |
-| `/api/shutdown` | POST  | Utlösa graciös serveravstängning                               |
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
 
-> **Obs:** Dessa slutpunkter används internt av systemet eller för Ollama-klientkompatibilitet. De anropas vanligtvis inte av slutanvändare.
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## Ljudtranskription
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-Transkribera ljudfiler med Deepgram eller AssemblyAI.
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**Begäran:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**Svar:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-** Leverantörer som stöds:** `deepgram/nova-3`, `assemblyai/best`.
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**Format som stöds:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## Ollama-kompatibilitet
+## Ollama Compatibility
 
-För klienter som använder Ollamas API-format:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-Förfrågningar översätts automatiskt mellan Ollama och interna format.
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## Telemetri
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**Svar:**
+**Response:**
 
 ```json
 {
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## Modelltillgänglighet
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## Bearbetning av begäran
+## Request Processing
 
-1. Kunden skickar förfrågan till `/v1/*`
-2. Rutthanteraren anropar `handleChat`, `handleEmbedding`, `handleAudioTranscription` eller `handleImageGeneration`
-3. Modellen är löst (direkt leverantör/modell eller alias/kombo)
-4. Inloggningsuppgifter valda från lokal DB med filtrering av kontotillgänglighet
-5. För chatt: `handleChatCore` — formatdetektering, översättning, cachekontroll, idempotenskontroll
-6. Leverantörs exekutor skickar uppströmsbegäran
-7. Svar översatt till klientformat (chatt) eller returnerat som det är (inbäddningar/bilder/ljud)
-8. Användning/loggning registrerad
-9. Fallback gäller vid fel enligt komboregler
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-Fullständig arkitekturreferens: [link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## Autentisering
+## Authentication
 
-- Dashboard rutter (`/dashboard/*`) använder `auth_token` cookie
-- Inloggning använder sparad lösenordshash; reserv till `INITIAL_PASSWORD`
-- `requireLogin` kan växlas via `/api/settings/require-login`
-- `/v1/*` rutter kräver valfritt Bearer API-nyckel när `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

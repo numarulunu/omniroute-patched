@@ -1,12 +1,12 @@
-# Referencia API
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-Kompletná referencia pre všetky koncové body rozhrania OmniRoute API.
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## Obsah
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@ Kompletná referencia pre všetky koncové body rozhrania OmniRoute API.
 
 ---
 
-## Dokončenia četu
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### Vlastné hlavičky
+### Custom Headers
 
-| Hlavička                 | Smer    | Popis                                                  |
-| ------------------------ | ------- | ------------------------------------------------------ |
-| `X-OmniRoute-No-Cache`   | Žiadosť | Ak chcete obísť vyrovnávaciu pamäť, nastavte na `true` |
-| `X-OmniRoute-Progress`   | Žiadosť | Nastaviť na `true` pre udalosti postupu                |
-| `Idempotency-Key`        | Žiadosť | Deup kľúč (okno 5s)                                    |
-| `X-Request-Id`           | Žiadosť | Alternatívny dedup kľúč                                |
-| `X-OmniRoute-Cache`      | Odpoveď | `HIT` alebo `MISS` (bez streamovania)                  |
-| `X-OmniRoute-Idempotent` | Odpoveď | `true` v prípade deduplikácie                          |
-| `X-OmniRoute-Progress`   | Odpoveď | `enabled` ak sledovanie pokroku na                     |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## Vloženie
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-Dostupní poskytovatelia: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## Generovanie obrázkov
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-Dostupní poskytovatelia: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## Zoznam modelov
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## Koncové body kompatibility
+## Compatibility Endpoints
 
-| Metóda    | Cesta                       | Formát                |
-| --------- | --------------------------- | --------------------- |
-| Zverejniť | `/v1/chat/completions`      | OpenAI                |
-| Zverejniť | `/v1/messages`              | Antropický            |
-| Zverejniť | `/v1/responses`             | Odpovede OpenAI       |
-| Zverejniť | `/v1/embeddings`            | OpenAI                |
-| Zverejniť | `/v1/images/generations`    | OpenAI                |
-| ZÍSKAJTE  | `/v1/models`                | OpenAI                |
-| Zverejniť | `/v1/messages/count_tokens` | Antropický            |
-| ZÍSKAJTE  | `/v1beta/models`            | Blíženci              |
-| Zverejniť | `/v1beta/models/{...path}`  | Gemini generovaťObsah |
-| Zverejniť | `/v1/api/chat`              | Ollama                |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### Vyhradené trasy poskytovateľa
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-Ak chýba predpona poskytovateľa, automaticky sa pridá. Nezhodné modely vrátia `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## Sémantická vyrovnávacia pamäť
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-Príklad odpovede:
+Response example:
 
 ```json
 {
@@ -164,152 +164,162 @@ Príklad odpovede:
 
 ## Dashboard & Management
 
-### Autentifikácia
+### Authentication
 
-| Koncový bod                   | Metóda    | Popis                             |
-| ----------------------------- | --------- | --------------------------------- |
-| `/api/auth/login`             | Zverejniť | Prihlásiť sa                      |
-| `/api/auth/logout`            | Zverejniť | Odhlásiť sa                       |
-| `/api/settings/require-login` | GET/PUT   | Vyžaduje sa prepnutie prihlásenia |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### Správa poskytovateľa
+### Provider Management
 
-| Koncový bod                  | Metóda                | Popis                              |
-| ---------------------------- | --------------------- | ---------------------------------- |
-| `/api/providers`             | ZÍSKAŤ/POSLAŤ         | Zoznam / vytvorenie poskytovateľov |
-| `/api/providers/[id]`        | GET/PUT/DELETE        | Spravovať poskytovateľa            |
-| `/api/providers/[id]/test`   | Zverejniť             | Test pripojenia poskytovateľa      |
-| `/api/providers/[id]/models` | ZÍSKAJTE              | Zoznam modelov poskytovateľov      |
-| `/api/providers/validate`    | Zverejniť             | Overiť konfiguráciu poskytovateľa  |
-| `/api/provider-nodes*`       | Rôzne                 | Správa uzla poskytovateľa          |
-| `/api/provider-models`       | ZÍSKAŤ/POSLAŤ/VYMAZAŤ | Vlastné modely                     |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### Toky OAuth
+### OAuth Flows
 
-| Koncový bod                      | Metóda | Popis                              |
-| -------------------------------- | ------ | ---------------------------------- |
-| `/api/oauth/[provider]/[action]` | Rôzne  | OAuth špecifické pre poskytovateľa |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### Smerovanie a konfigurácia
+### Routing & Config
 
-| Koncový bod           | Metóda        | Popis                                   |
-| --------------------- | ------------- | --------------------------------------- |
-| `/api/models/alias`   | ZÍSKAŤ/POSLAŤ | Modelové aliasy                         |
-| `/api/models/catalog` | ZÍSKAJTE      | Všetky modely podľa poskytovateľa + typ |
-| `/api/combos*`        | Rôzne         | Kombinovaný manažment                   |
-| `/api/keys*`          | Rôzne         | Správa kľúčov API                       |
-| `/api/pricing`        | ZÍSKAJTE      | Cena modelu                             |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### Použitie a analýza
+### Usage & Analytics
 
-| Koncový bod                 | Metóda   | Popis                        |
-| --------------------------- | -------- | ---------------------------- |
-| `/api/usage/history`        | ZÍSKAJTE | História používania          |
-| `/api/usage/logs`           | ZÍSKAJTE | Denníky používania           |
-| `/api/usage/request-logs`   | ZÍSKAJTE | Protokoly na úrovni žiadosti |
-| `/api/usage/[connectionId]` | ZÍSKAJTE | Použitie na pripojenie       |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### Nastavenia
+### Settings
 
-| Koncový bod                     | Metóda    | Popis                             |
-| ------------------------------- | --------- | --------------------------------- |
-| `/api/settings`                 | GET/PUT   | Všeobecné nastavenia              |
-| `/api/settings/proxy`           | GET/PUT   | Konfigurácia sieťového proxy      |
-| `/api/settings/proxy/test`      | Zverejniť | Test pripojenia proxy             |
-| `/api/settings/ip-filter`       | GET/PUT   | Zoznam povolených/blokovaných IP  |
-| `/api/settings/thinking-budget` | GET/PUT   | Zdôvodnenie symbolického rozpočtu |
-| `/api/settings/system-prompt`   | GET/PUT   | Výzva globálneho systému          |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### Monitorovanie
+### Monitoring
 
-| Koncový bod              | Metóda     | Popis                                    |
-| ------------------------ | ---------- | ---------------------------------------- |
-| `/api/sessions`          | ZÍSKAJTE   | Sledovanie aktívnej relácie              |
-| `/api/rate-limits`       | ZÍSKAJTE   | Limity sadzieb na účet                   |
-| `/api/monitoring/health` | ZÍSKAJTE   | Zdravotná prehliadka                     |
-| `/api/cache`             | GET/DELETE | Štatistiky vyrovnávacej pamäte / vymazať |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### Zálohovanie a export/import
+### Backup & Export/Import
 
-| Koncový bod                 | Metóda    | Popis                                         |
-| --------------------------- | --------- | --------------------------------------------- |
-| `/api/db-backups`           | ZÍSKAJTE  | Zoznam dostupných záloh                       |
-| `/api/db-backups`           | PUT       | Vytvorte manuálnu zálohu                      |
-| `/api/db-backups`           | Zverejniť | Obnoviť z konkrétnej zálohy                   |
-| `/api/db-backups/export`    | ZÍSKAJTE  | Stiahnuť databázu ako súbor .sqlite           |
-| `/api/db-backups/import`    | Zverejniť | Nahrajte súbor .sqlite na nahradenie databázy |
-| `/api/db-backups/exportAll` | ZÍSKAJTE  | Stiahnite si úplnú zálohu ako archív .tar.gz  |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
 ### Cloud Sync
 
-| Koncový bod            | Metóda    | Popis                             |
-| ---------------------- | --------- | --------------------------------- |
-| `/api/sync/cloud`      | Rôzne     | Operácie synchronizácie s cloudom |
-| `/api/sync/initialize` | Zverejniť | Inicializovať synchronizáciu      |
-| `/api/cloud/*`         | Rôzne     | Správa cloudu                     |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### Nástroje CLI
+### CLI Tools
 
-| Koncový bod                        | Metóda   | Popis               |
-| ---------------------------------- | -------- | ------------------- |
-| `/api/cli-tools/claude-settings`   | ZÍSKAJTE | Claude CLI status   |
-| `/api/cli-tools/codex-settings`    | ZÍSKAJTE | Status Codex CLI    |
-| `/api/cli-tools/droid-settings`    | ZÍSKAJTE | Stav CLI Droid      |
-| `/api/cli-tools/openclaw-settings` | ZÍSKAJTE | Stav OpenClaw CLI   |
-| `/api/cli-tools/runtime/[toolId]`  | ZÍSKAJTE | Generic CLI runtime |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-Odpovede CLI zahŕňajú: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### Odolnosť a limity rýchlosti
+### ACP Agents
 
-| Koncový bod             | Metóda    | Popis                                 |
-| ----------------------- | --------- | ------------------------------------- |
-| `/api/resilience`       | GET/PUT   | Získať/aktualizovať profily odolnosti |
-| `/api/resilience/reset` | Zverejniť | Resetujte ističe                      |
-| `/api/rate-limits`      | ZÍSKAJTE  | Stav limitu sadzby na účet            |
-| `/api/rate-limit`       | ZÍSKAJTE  | Konfigurácia globálneho limitu sadzby |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
+
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
+
+### Resilience & Rate Limits
+
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
 ### Evals
 
-| Koncový bod  | Metóda        | Popis                                              |
-| ------------ | ------------- | -------------------------------------------------- |
-| `/api/evals` | ZÍSKAŤ/POSLAŤ | Vypísať vyhodnocovacie sady / spustiť vyhodnotenie |
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-### Zásady
+### Policies
 
-| Koncový bod     | Metóda                | Popis                         |
-| --------------- | --------------------- | ----------------------------- |
-| `/api/policies` | ZÍSKAŤ/POSLAŤ/VYMAZAŤ | Spravovať pravidlá smerovania |
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-### Súlad
+### Compliance
 
-| Koncový bod                 | Metóda   | Popis                               |
-| --------------------------- | -------- | ----------------------------------- |
-| `/api/compliance/audit-log` | ZÍSKAJTE | Protokol auditu súladu (posledné N) |
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### v1beta (kompatibilné s Gemini)
+### v1beta (Gemini-Compatible)
 
-| Koncový bod                | Metóda    | Popis                                  |
-| -------------------------- | --------- | -------------------------------------- |
-| `/v1beta/models`           | ZÍSKAJTE  | Zoznam modelov vo formáte Gemini       |
-| `/v1beta/models/{...path}` | Zverejniť | Blíženci `generateContent` koncový bod |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-Tieto koncové body odzrkadľujú formát API Gemini pre klientov, ktorí očakávajú natívnu kompatibilitu Gemini SDK.
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
 
-### Interné / systémové rozhrania API
+### Internal / System APIs
 
-| Koncový bod     | Metóda    | Popis                                                            |
-| --------------- | --------- | ---------------------------------------------------------------- |
-| `/api/init`     | ZÍSKAJTE  | Kontrola inicializácie aplikácie (používa sa pri prvom spustení) |
-| `/api/tags`     | ZÍSKAJTE  | Modelové štítky kompatibilné s Ollamou (pre klientov Ollamy)     |
-| `/api/restart`  | Zverejniť | Spustenie elegantného reštartu servera                           |
-| `/api/shutdown` | Zverejniť | Spustiť elegantné vypnutie servera                               |
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
 
-> **Poznámka:** Tieto koncové body sú používané interne systémom alebo kvôli kompatibilite klienta Ollama. Koncoví používatelia ich zvyčajne nevolajú.
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## Prepis zvuku
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-Prepisujte zvukové súbory pomocou Deepgram alebo AssemblyAI.
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**Žiadosť:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**Odpoveď:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**Podporovaní poskytovatelia:** `deepgram/nova-3`, `assemblyai/best`.
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**Podporované formáty:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, \_\_12_TOKEN_1_TO
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## Kompatibilita s Ollamou
+## Ollama Compatibility
 
-Pre klientov, ktorí používajú formát Ollama's API:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-Žiadosti sa automaticky prekladajú medzi Ollama a internými formátmi.
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## Telemetria
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**Odpoveď:**
+**Response:**
 
 ```json
 {
@@ -381,7 +391,7 @@ GET /api/telemetry/summary
 
 ---
 
-## Rozpočet
+## Budget
 
 ```bash
 # Get budget status for all API keys
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## Dostupnosť modelu
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## Spracovanie žiadosti
+## Request Processing
 
-1. Klient odošle požiadavku na `/v1/*`
-2. Volania obslužného programu trasy `handleChat`, `handleEmbedding`, `handleAudioTranscription` alebo `handleImageGeneration`
-3. Model je vyriešený (priamy poskytovateľ/model alebo alias/kombo)
-4. Prihlasovacie údaje vybrané z lokálnej databázy s filtrovaním dostupnosti účtu
-5. Pre chat: `handleChatCore` — detekcia formátu, preklad, kontrola vyrovnávacej pamäte, kontrola idempotencie
-6. Exekútor poskytovateľa odošle upstream požiadavku
-7. Odpoveď preložená späť do formátu klienta (chat) alebo vrátená tak, ako je (vložené/obrázky/audio)
-8. Používanie/protokolovanie zaznamenané
-9. Záložný postup sa vzťahuje na chyby podľa pravidiel komba
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-Odkaz na úplnú architektúru: [link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## Autentifikácia
+## Authentication
 
-- Trasy hlavného panela (`/dashboard/*`) používajú súbor cookie `auth_token`
-- Prihlásenie používa uložený hash hesla; návrat k `INITIAL_PASSWORD`
-- `requireLogin` prepínateľné cez `/api/settings/require-login`
-- trasy `/v1/*` voliteľne vyžadujú kľúč API nosiča, keď `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

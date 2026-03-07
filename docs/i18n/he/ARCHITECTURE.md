@@ -1,71 +1,71 @@
-# ארכיטקטורת OmniRoute
+# OmniRoute Architecture
 
-🌐 **Languages:** 🇺🇸 [English](../../ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](../es/ARCHITECTURE.md) | 🇫🇷 [Français](../fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](../it/ARCHITECTURE.md) | 🇷🇺 [Русский](../ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](../zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](../de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](../in/ARCHITECTURE.md) | 🇹🇭 [ไทย](../th/ARCHITECTURE.md) | 🇺🇦 [Українська](../uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](../ar/ARCHITECTURE.md) | 🇯🇵 [日本語](../ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](../vi/ARCHITECTURE.md) | 🇧🇬 [Български](../bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](../da/ARCHITECTURE.md) | 🇫🇮 [Suomi](../fi/ARCHITECTURE.md) | 🇮🇱 [עברית](../he/ARCHITECTURE.md) | 🇭🇺 [Magyar](../hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](../id/ARCHITECTURE.md) | 🇰🇷 [한국어](../ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](../ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](../nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](../no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](../pt/ARCHITECTURE.md) | 🇷🇴 [Română](../ro/ARCHITECTURE.md) | 🇵🇱 [Polski](../pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](../sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](../sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](../phi/ARCHITECTURE.md)
+🌐 **Languages:** 🇺🇸 [English](ARCHITECTURE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/ARCHITECTURE.md) | 🇪🇸 [Español](i18n/es/ARCHITECTURE.md) | 🇫🇷 [Français](i18n/fr/ARCHITECTURE.md) | 🇮🇹 [Italiano](i18n/it/ARCHITECTURE.md) | 🇷🇺 [Русский](i18n/ru/ARCHITECTURE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/ARCHITECTURE.md) | 🇩🇪 [Deutsch](i18n/de/ARCHITECTURE.md) | 🇮🇳 [हिन्दी](i18n/in/ARCHITECTURE.md) | 🇹🇭 [ไทย](i18n/th/ARCHITECTURE.md) | 🇺🇦 [Українська](i18n/uk-UA/ARCHITECTURE.md) | 🇸🇦 [العربية](i18n/ar/ARCHITECTURE.md) | 🇯🇵 [日本語](i18n/ja/ARCHITECTURE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/ARCHITECTURE.md) | 🇧🇬 [Български](i18n/bg/ARCHITECTURE.md) | 🇩🇰 [Dansk](i18n/da/ARCHITECTURE.md) | 🇫🇮 [Suomi](i18n/fi/ARCHITECTURE.md) | 🇮🇱 [עברית](i18n/he/ARCHITECTURE.md) | 🇭🇺 [Magyar](i18n/hu/ARCHITECTURE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/ARCHITECTURE.md) | 🇰🇷 [한국어](i18n/ko/ARCHITECTURE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/ARCHITECTURE.md) | 🇳🇱 [Nederlands](i18n/nl/ARCHITECTURE.md) | 🇳🇴 [Norsk](i18n/no/ARCHITECTURE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/ARCHITECTURE.md) | 🇷🇴 [Română](i18n/ro/ARCHITECTURE.md) | 🇵🇱 [Polski](i18n/pl/ARCHITECTURE.md) | 🇸🇰 [Slovenčina](i18n/sk/ARCHITECTURE.md) | 🇸🇪 [Svenska](i18n/sv/ARCHITECTURE.md) | 🇵🇭 [Filipino](i18n/phi/ARCHITECTURE.md)
 
-_עדכון אחרון: 2026-02-18_
+_Last updated: 2026-03-04_
 
-## תקציר מנהלים
+## Executive Summary
 
-OmniRoute הוא שער ולוח מחוונים מקומיים לניתוב בינה מלאכותית הבנויים על Next.js.
-הוא מספק נקודת קצה אחת תואמת OpenAI (`/v1/*`) ומנתב תעבורה על פני מספר ספקים במעלה הזרם עם תרגום, חזרה, רענון אסימון ומעקב אחר שימוש.
+OmniRoute is a local AI routing gateway and dashboard built on Next.js.
+It provides a single OpenAI-compatible endpoint (`/v1/*`) and routes traffic across multiple upstream providers with translation, fallback, token refresh, and usage tracking.
 
-יכולות ליבה:
+Core capabilities:
 
-- משטח API תואם OpenAI עבור CLI/כלים (28 ספקים)
-- תרגום בקשה/תשובה בין פורמטים של ספקים
-- נפילה משולבת דגם (רצף מרובה דגמים)
-- חזרה ברמת החשבון (ריבוי חשבון לכל ספק)
-- ניהול חיבורי ספק מפתח OAuth + API
-- יצירת הטמעה באמצעות `/v1/embeddings` (6 ספקים, 9 דגמים)
-- יצירת תמונות באמצעות `/v1/images/generations` (4 ספקים, 9 דגמים)
-- חשבו על ניתוח תגים (`<think>...</think>`) עבור מודלים של חשיבה
-- חיטוי תגובה עבור תאימות קפדנית של OpenAI SDK
-- נורמליזציה של תפקידים (מפתח → מערכת, מערכת → משתמש) עבור תאימות בין ספקים
-- המרת פלט מובנית (json_schema → Gemini responseSchema)
-- התמדה מקומית לספקים, מפתחות, כינויים, שילובים, הגדרות, תמחור
-- מעקב אחר שימוש/עלויות ורישום בקשות
-- סנכרון ענן אופציונלי לסנכרון ריבוי מכשירים/מצבים
-- רשימת היתרים/רשימת חסימה של IP עבור בקרת גישה ל-API
-- חשיבה לניהול תקציב (מעבר/אוטומטי/מותאם אישית/מותאם)
-- הזרקה מהירה של מערכת גלובלית
-- מעקב אחר מפגשים וטביעות אצבע
-- הגבלת תעריפים משופרת לכל חשבון עם פרופילים ספציפיים לספק
-- דפוס מפסק עבור חוסן הספק
-- הגנת עדר נגד רעמים עם נעילת mutex
-- מטמון ביטול כפילויות של בקשה מבוסס חתימה
-- שכבת דומיין: זמינות מודל, כללי עלות, מדיניות נפילה, מדיניות נעילה
-- התמדה של מצב דומיין (מטמון כתיבה של SQLite עבור תקלות, תקציבים, נעילה, מפסקים)
-- מנוע מדיניות להערכת בקשות מרוכזת (נעילה → תקציב → חזרה)
-- בקש טלמטריה עם צבירה של חביון p50/p95/p99
-- מזהה מתאם (X-Request-Id) למעקב מקצה לקצה
-- רישום ביקורת תאימות עם ביטול הסכמה לכל מפתח API
-- מסגרת Eval לאבטחת איכות LLM
-- לוח מחוונים של ממשק משתמש חוסן עם מצב מפסק בזמן אמת
-- ספקי OAuth מודולריים (12 מודולים בודדים תחת `src/lib/oauth/providers/`)
+- OpenAI-compatible API surface for CLI/tools (28 providers)
+- Request/response translation across provider formats
+- Model combo fallback (multi-model sequence)
+- Account-level fallback (multi-account per provider)
+- OAuth + API-key provider connection management
+- Embedding generation via `/v1/embeddings` (6 providers, 9 models)
+- Image generation via `/v1/images/generations` (4 providers, 9 models)
+- Think tag parsing (`<think>...</think>`) for reasoning models
+- Response sanitization for strict OpenAI SDK compatibility
+- Role normalization (developer→system, system→user) for cross-provider compatibility
+- Structured output conversion (json_schema → Gemini responseSchema)
+- Local persistence for providers, keys, aliases, combos, settings, pricing
+- Usage/cost tracking and request logging
+- Optional cloud sync for multi-device/state sync
+- IP allowlist/blocklist for API access control
+- Thinking budget management (passthrough/auto/custom/adaptive)
+- Global system prompt injection
+- Session tracking and fingerprinting
+- Per-account enhanced rate limiting with provider-specific profiles
+- Circuit breaker pattern for provider resilience
+- Anti-thundering herd protection with mutex locking
+- Signature-based request deduplication cache
+- Domain layer: model availability, cost rules, fallback policy, lockout policy
+- Domain state persistence (SQLite write-through cache for fallbacks, budgets, lockouts, circuit breakers)
+- Policy engine for centralized request evaluation (lockout → budget → fallback)
+- Request telemetry with p50/p95/p99 latency aggregation
+- Correlation ID (X-Request-Id) for end-to-end tracing
+- Compliance audit logging with opt-out per API key
+- Eval framework for LLM quality assurance
+- Resilience UI dashboard with real-time circuit breaker status
+- Modular OAuth providers (12 individual modules under `src/lib/oauth/providers/`)
 
-דגם זמן ריצה ראשי:
+Primary runtime model:
 
-- מסלולי אפליקציית Next.js תחת `src/app/api/*` מיישמים גם ממשקי API של לוח המחוונים וגם ממשקי API של תאימות
-- ליבת SSE/ניתוב משותפת ב-`src/sse/*` + `open-sse/*` מטפלת בביצוע ספק, בתרגום, בסטרימינג, ב-fallback ושימוש
+- Next.js app routes under `src/app/api/*` implement both dashboard APIs and compatibility APIs
+- A shared SSE/routing core in `src/sse/*` + `open-sse/*` handles provider execution, translation, streaming, fallback, and usage
 
-## היקף וגבולות
+## Scope and Boundaries
 
-### בהיקף
+### In Scope
 
-- זמן ריצה של שער מקומי
-- ממשקי API לניהול לוח מחוונים
-- אימות ספק ורענון אסימון
-- בקש תרגום והזרמת SSE
-- מדינה מקומית + התמדה בשימוש
-- תזמור סנכרון ענן אופציונלי
+- Local gateway runtime
+- Dashboard management APIs
+- Provider authentication and token refresh
+- Request translation and SSE streaming
+- Local state + usage persistence
+- Optional cloud sync orchestration
 
-### מחוץ לתחום
+### Out of Scope
 
-- הטמעת שירות ענן מאחורי `NEXT_PUBLIC_CLOUD_URL`
-- ספק SLA/מטוס בקרה מחוץ לתהליך המקומי
-- קבצי CLI חיצוניים עצמם (קלוד CLI, Codex CLI וכו')
+- Cloud service implementation behind `NEXT_PUBLIC_CLOUD_URL`
+- Provider SLA/control plane outside local process
+- External CLI binaries themselves (Claude CLI, Codex CLI, etc.)
 
-## הקשר מערכת ברמה גבוהה
+## High-Level System Context
 
 ```mermaid
 flowchart LR
@@ -81,8 +81,8 @@ flowchart LR
         API[V1 Compatibility API\n/v1/*]
         DASH[Dashboard + Management API\n/api/*]
         CORE[SSE + Translation Core\nopen-sse + src/sse]
-        DB[(db.json)]
-        UDB[(usage.json + log.txt)]
+        DB[(storage.sqlite)]
+        UDB[(usage tables + log artifacts)]
     end
 
     subgraph Upstreams[Upstream Providers]
@@ -113,151 +113,152 @@ flowchart LR
     DASH --> CLOUD
 ```
 
-## רכיבי זמן ריצה ליבה
+## Core Runtime Components
 
-## 1) API ושכבת ניתוב (Next.js App Routes)
+## 1) API and Routing Layer (Next.js App Routes)
 
-ספריות עיקריות:
+Main directories:
 
-- `src/app/api/v1/*` ו`src/app/api/v1beta/*` עבור ממשקי API של תאימות
-- `src/app/api/*` עבור ממשקי API לניהול/תצורה
-- השכתוב הבא במפת `next.config.mjs` מפה `/v1/*` ל`/api/v1/*`
+- `src/app/api/v1/*` and `src/app/api/v1beta/*` for compatibility APIs
+- `src/app/api/*` for management/configuration APIs
+- Next rewrites in `next.config.mjs` map `/v1/*` to `/api/v1/*`
 
-מסלולי תאימות חשובים:
+Important compatibility routes:
 
 - `src/app/api/v1/chat/completions/route.ts`
 - `src/app/api/v1/messages/route.ts`
 - `src/app/api/v1/responses/route.ts`
-- `src/app/api/v1/models/route.ts` - כולל דגמים מותאמים אישית עם `custom: true`
-- `src/app/api/v1/embeddings/route.ts` - יצירת הטמעה (6 ספקים)
-- `src/app/api/v1/images/generations/route.ts` — יצירת תמונות (4+ ספקים כולל אנטי-כבידה/נביוס)
+- `src/app/api/v1/models/route.ts` — includes custom models with `custom: true`
+- `src/app/api/v1/embeddings/route.ts` — embedding generation (6 providers)
+- `src/app/api/v1/images/generations/route.ts` — image generation (4+ providers incl. Antigravity/Nebius)
 - `src/app/api/v1/messages/count_tokens/route.ts`
-- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` - צ'אט ייעודי לכל ספק
-- `src/app/api/v1/providers/[provider]/embeddings/route.ts` - הטמעות ייעודיות לכל ספק
-- `src/app/api/v1/providers/[provider]/images/generations/route.ts` - תמונות ייעודיות לכל ספק
+- `src/app/api/v1/providers/[provider]/chat/completions/route.ts` — dedicated per-provider chat
+- `src/app/api/v1/providers/[provider]/embeddings/route.ts` — dedicated per-provider embeddings
+- `src/app/api/v1/providers/[provider]/images/generations/route.ts` — dedicated per-provider images
 - `src/app/api/v1beta/models/route.ts`
 - `src/app/api/v1beta/models/[...path]/route.ts`
 
-תחומי ניהול:
+Management domains:
 
-- אישור/הגדרות: `src/app/api/auth/*`, `src/app/api/settings/*`
-- ספקים/חיבורים: `src/app/api/providers*`
-- צמתי ספק: `src/app/api/provider-nodes*`
-- דגמים מותאמים אישית: `src/app/api/provider-models` (GET/POST/DELETE)
-- קטלוג דגמים: `src/app/api/models/catalog` (GET)
-- תצורת פרוקסי: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
+- Auth/settings: `src/app/api/auth/*`, `src/app/api/settings/*`
+- Providers/connections: `src/app/api/providers*`
+- Provider nodes: `src/app/api/provider-nodes*`
+- Custom models: `src/app/api/provider-models` (GET/POST/DELETE)
+- Model catalog: `src/app/api/models/route.ts` (GET)
+- Proxy config: `src/app/api/settings/proxy` (GET/PUT/DELETE) + `src/app/api/settings/proxy/test` (POST)
 - OAuth: `src/app/api/oauth/*`
-- מפתחות/כינויים/שילובים/תמחור: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
-- שימוש: `src/app/api/usage/*`
-- סנכרון/ענן: `src/app/api/sync/*`, `src/app/api/cloud/*`
-- עוזרי כלי עבודה של CLI: `src/app/api/cli-tools/*`
-- מסנן IP: `src/app/api/settings/ip-filter` (GET/PUT)
-- תקציב חשיבה: `src/app/api/settings/thinking-budget` (GET/PUT)
-- הודעת מערכת: `src/app/api/settings/system-prompt` (GET/PUT)
-- הפעלות: `src/app/api/sessions` (GET)
-- מגבלות תעריפים: `src/app/api/rate-limits` (GET)
-- חוסן: `src/app/api/resilience` (GET/PATCH) - פרופילי ספקים, מפסק זרם, מצב מגבלת קצב
-- איפוס חוסן: `src/app/api/resilience/reset` (POST) - מפסקי איפוס + התקררות
-- סטטיסטיקות מטמון: `src/app/api/cache/stats` (GET/DELETE)
-- זמינות דגם: `src/app/api/models/availability` (GET/POST)
-- טלמטריה: `src/app/api/telemetry/summary` (GET)
-- תקציב: `src/app/api/usage/budget` (GET/POST)
-- שרשראות חוזרות: `src/app/api/fallback/chains` (GET/POST/DELETE)
-- ביקורת ציות: `src/app/api/compliance/audit-log` (GET)
-- ערכים: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
-- מדיניות: `src/app/api/policies` (GET/POST)
+- Keys/aliases/combos/pricing: `src/app/api/keys*`, `src/app/api/models/alias`, `src/app/api/combos*`, `src/app/api/pricing`
+- Usage: `src/app/api/usage/*`
+- Sync/cloud: `src/app/api/sync/*`, `src/app/api/cloud/*`
+- CLI tooling helpers: `src/app/api/cli-tools/*`
+- IP filter: `src/app/api/settings/ip-filter` (GET/PUT)
+- Thinking budget: `src/app/api/settings/thinking-budget` (GET/PUT)
+- System prompt: `src/app/api/settings/system-prompt` (GET/PUT)
+- Sessions: `src/app/api/sessions` (GET)
+- Rate limits: `src/app/api/rate-limits` (GET)
+- Resilience: `src/app/api/resilience` (GET/PATCH) — provider profiles, circuit breaker, rate limit state
+- Resilience reset: `src/app/api/resilience/reset` (POST) — reset breakers + cooldowns
+- Cache stats: `src/app/api/cache/stats` (GET/DELETE)
+- Model availability: `src/app/api/models/availability` (GET/POST)
+- Telemetry: `src/app/api/telemetry/summary` (GET)
+- Budget: `src/app/api/usage/budget` (GET/POST)
+- Fallback chains: `src/app/api/fallback/chains` (GET/POST/DELETE)
+- Compliance audit: `src/app/api/compliance/audit-log` (GET)
+- Evals: `src/app/api/evals` (GET/POST), `src/app/api/evals/[suiteId]` (GET)
+- Policies: `src/app/api/policies` (GET/POST)
 
-## 2) SSE + ליבת תרגום
+## 2) SSE + Translation Core
 
-מודולי זרימה עיקריים:
+Main flow modules:
 
-- כניסה: `src/sse/handlers/chat.ts`
-- תזמור ליבה: `open-sse/handlers/chatCore.ts`
-- מתאמי ביצוע של ספק: `open-sse/executors/*`
-- זיהוי פורמט/תצורת ספק: `open-sse/services/provider.ts`
-- ניתוח/פתרון מודל: `src/sse/services/model.ts`, `open-sse/services/model.ts`
-- לוגיקה חזרה לחשבון: `open-sse/services/accountFallback.ts`
-- רישום תרגום: `open-sse/translator/index.ts`
-- טרנספורמציות זרם: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
-- מיצוי/נורמליזציה של שימוש: `open-sse/utils/usageTracking.ts`
-- מנתח תגיות חושב: `open-sse/utils/thinkTagParser.ts`
-- מטפל בהטמעה: `open-sse/handlers/embeddings.ts`
-- רישום ספקי הטבעה: `open-sse/config/embeddingRegistry.ts`
-- מטפל ביצירת תמונות: `open-sse/handlers/imageGeneration.ts`
-- רישום ספקי תמונות: `open-sse/config/imageRegistry.ts`
-- חיטוי תגובה: `open-sse/handlers/responseSanitizer.ts`
-- נורמליזציה של תפקידים: `open-sse/services/roleNormalizer.ts`
+- Entry: `src/sse/handlers/chat.ts`
+- Core orchestration: `open-sse/handlers/chatCore.ts`
+- Provider execution adapters: `open-sse/executors/*`
+- Format detection/provider config: `open-sse/services/provider.ts`
+- Model parse/resolve: `src/sse/services/model.ts`, `open-sse/services/model.ts`
+- Account fallback logic: `open-sse/services/accountFallback.ts`
+- Translation registry: `open-sse/translator/index.ts`
+- Stream transformations: `open-sse/utils/stream.ts`, `open-sse/utils/streamHandler.ts`
+- Usage extraction/normalization: `open-sse/utils/usageTracking.ts`
+- Think tag parser: `open-sse/utils/thinkTagParser.ts`
+- Embedding handler: `open-sse/handlers/embeddings.ts`
+- Embedding provider registry: `open-sse/config/embeddingRegistry.ts`
+- Image generation handler: `open-sse/handlers/imageGeneration.ts`
+- Image provider registry: `open-sse/config/imageRegistry.ts`
+- Response sanitization: `open-sse/handlers/responseSanitizer.ts`
+- Role normalization: `open-sse/services/roleNormalizer.ts`
 
-שירותים (היגיון עסקי):
+Services (business logic):
 
-- בחירת חשבון/ניקוד: `open-sse/services/accountSelector.ts`
-- ניהול מחזור חיים בהקשר: `open-sse/services/contextManager.ts`
-- אכיפת מסנן IP: `open-sse/services/ipFilter.ts`
-- מעקב אחר פעילויות: `open-sse/services/sessionManager.ts`
-- בקש ביטול כפילות: `open-sse/services/signatureCache.ts`
-- הזרקת הודעה למערכת: `open-sse/services/systemPrompt.ts`
-- ניהול תקציב חשיבה: `open-sse/services/thinkingBudget.ts`
-- ניתוב דגם תווים כלליים: `open-sse/services/wildcardRouter.ts`
-- ניהול מגבלת תעריפים: `open-sse/services/rateLimitManager.ts`
-- מפסק חשמל: `open-sse/services/circuitBreaker.ts`
+- Account selection/scoring: `open-sse/services/accountSelector.ts`
+- Context lifecycle management: `open-sse/services/contextManager.ts`
+- IP filter enforcement: `open-sse/services/ipFilter.ts`
+- Session tracking: `open-sse/services/sessionManager.ts`
+- Request deduplication: `open-sse/services/signatureCache.ts`
+- System prompt injection: `open-sse/services/systemPrompt.ts`
+- Thinking budget management: `open-sse/services/thinkingBudget.ts`
+- Wildcard model routing: `open-sse/services/wildcardRouter.ts`
+- Rate limit management: `open-sse/services/rateLimitManager.ts`
+- Circuit breaker: `open-sse/services/circuitBreaker.ts`
 
-מודולי שכבת דומיין:
+Domain layer modules:
 
-- זמינות דגם: `src/lib/domain/modelAvailability.ts`
-- כללי עלות/תקציבים: `src/lib/domain/costRules.ts`
-- מדיניות סתירה: `src/lib/domain/fallbackPolicy.ts`
-- פותר משולב: `src/lib/domain/comboResolver.ts`
-- מדיניות נעילה: `src/lib/domain/lockoutPolicy.ts`
-- מנוע מדיניות: `src/domain/policyEngine.ts` — נעילה מרכזית ← תקציב ← הערכה חוזרת
-- קטלוג קודי שגיאה: `src/lib/domain/errorCodes.ts`
-- מזהה בקשה: `src/lib/domain/requestId.ts`
-- פסק זמן לאחזור: `src/lib/domain/fetchTimeout.ts`
-- בקש טלמטריה: `src/lib/domain/requestTelemetry.ts`
-- ציות/ביקורת: `src/lib/domain/compliance/index.ts`
-- רץ Eval: `src/lib/domain/evalRunner.ts`
-- התמדה של מצב דומיין: `src/lib/db/domainState.ts` — SQLite CRUD עבור רשתות חלופיות, תקציבים, היסטוריית עלויות, מצב נעילה, מפסקי חשמל
+- Model availability: `src/lib/domain/modelAvailability.ts`
+- Cost rules/budgets: `src/lib/domain/costRules.ts`
+- Fallback policy: `src/lib/domain/fallbackPolicy.ts`
+- Combo resolver: `src/lib/domain/comboResolver.ts`
+- Lockout policy: `src/lib/domain/lockoutPolicy.ts`
+- Policy engine: `src/domain/policyEngine.ts` — centralized lockout → budget → fallback evaluation
+- Error codes catalog: `src/lib/domain/errorCodes.ts`
+- Request ID: `src/lib/domain/requestId.ts`
+- Fetch timeout: `src/lib/domain/fetchTimeout.ts`
+- Request telemetry: `src/lib/domain/requestTelemetry.ts`
+- Compliance/audit: `src/lib/domain/compliance/index.ts`
+- Eval runner: `src/lib/domain/evalRunner.ts`
+- Domain state persistence: `src/lib/db/domainState.ts` — SQLite CRUD for fallback chains, budgets, cost history, lockout state, circuit breakers
 
-מודולי ספק OAuth (12 קבצים בודדים תחת `src/lib/oauth/providers/`):
+OAuth provider modules (12 individual files under `src/lib/oauth/providers/`):
 
-- אינדקס הרישום: `src/lib/oauth/providers/index.ts`
-- ספקים בודדים: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, , **\_119**, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
-- עטיפה דקה: `src/lib/oauth/providers.ts` - ייצוא מחדש ממודולים בודדים
+- Registry index: `src/lib/oauth/providers/index.ts`
+- Individual providers: `claude.ts`, `codex.ts`, `gemini.ts`, `antigravity.ts`, `iflow.ts`, `qwen.ts`, `kimi-coding.ts`, `github.ts`, `kiro.ts`, `cursor.ts`, `kilocode.ts`, `cline.ts`
+- Thin wrapper: `src/lib/oauth/providers.ts` — re-exports from individual modules
 
-## 3) שכבת התמדה
+## 3) Persistence Layer
 
-DB מצב ראשי:
+Primary state DB (SQLite):
 
-- `src/lib/localDb.ts`
-- קובץ: `${DATA_DIR}/db.json` (או `$XDG_CONFIG_HOME/omniroute/db.json` כאשר מוגדר, אחרת `~/.omniroute/db.json`)
-- ישויות: providerConnections, providerNodes, modelAliases, combos, apiKeys, הגדרות, תמחור, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **SystemPrompt**
+- Core infra: `src/lib/db/core.ts` (better-sqlite3, migrations, WAL)
+- Re-export facade: `src/lib/localDb.ts` (thin compatibility layer for callers)
+- file: `${DATA_DIR}/storage.sqlite` (or `$XDG_CONFIG_HOME/omniroute/storage.sqlite` when set, else `~/.omniroute/storage.sqlite`)
+- entities (tables + KV namespaces): providerConnections, providerNodes, modelAliases, combos, apiKeys, settings, pricing, **customModels**, **proxyConfig**, **ipFilter**, **thinkingBudget**, **systemPrompt**
 
-DB שימוש:
+Usage persistence:
 
-- `src/lib/usageDb.ts`
-- קבצים: `${DATA_DIR}/usage.json`, `${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`
-- פועל לפי אותה מדיניות ספריית בסיס כמו `localDb` (`DATA_DIR`, ולאחר מכן `XDG_CONFIG_HOME/omniroute` כאשר מוגדר)
-- מפורקים לתת-מודולים ממוקדים: `migrations.ts`, `usageHistory.ts`, `costCalculator.ts`, `usageStats.ts`, `callLogs.ts`
+- facade: `src/lib/usageDb.ts` (decomposed modules in `src/lib/usage/*`)
+- SQLite tables in `storage.sqlite`: `usage_history`, `call_logs`, `proxy_logs`
+- optional file artifacts remain for compatibility/debug (`${DATA_DIR}/log.txt`, `${DATA_DIR}/call_logs/`, `<repo>/logs/...`)
+- legacy JSON files are migrated to SQLite by startup migrations when present
 
 Domain State DB (SQLite):
 
-- `src/lib/db/domainState.ts` - פעולות CRUD עבור מצב תחום
-- טבלאות (נוצרו ב-`src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
-- דפוס כתיבה דרך מטמון: מפות בזיכרון הן סמכותיות בזמן ריצה; מוטציות נכתבות באופן סינכרוני ל-SQLite; המצב משוחזר מ-DB בהתחלה קרה
+- `src/lib/db/domainState.ts` — CRUD operations for domain state
+- Tables (created in `src/lib/db/core.ts`): `domain_fallback_chains`, `domain_budgets`, `domain_cost_history`, `domain_lockout_state`, `domain_circuit_breakers`
+- Write-through cache pattern: in-memory Maps are authoritative at runtime; mutations are written synchronously to SQLite; state is restored from DB on cold start
 
-## 4) משטחי אימות + אבטחה
+## 4) Auth + Security Surfaces
 
-- אישור קובצי Cookie של לוח המחוונים: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
-- יצירת מפתח API/אימות: `src/shared/utils/apiKey.ts`
-- סודות הספק נשארו בערכים `providerConnections`
-- תמיכה ב-proxy יוצא דרך `open-sse/utils/proxyFetch.ts` (env vars) ו-`open-sse/utils/networkProxy.ts` (ניתן להגדרה לפי ספק או גלובלי)
+- Dashboard cookie auth: `src/proxy.ts`, `src/app/api/auth/login/route.ts`
+- API key generation/verification: `src/shared/utils/apiKey.ts`
+- Provider secrets persisted in `providerConnections` entries
+- Outbound proxy support via `open-sse/utils/proxyFetch.ts` (env vars) and `open-sse/utils/networkProxy.ts` (configurable per-provider or global)
 
-## 5) סנכרון ענן
+## 5) Cloud Sync
 
-- כניסת מתזמן: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
-- משימה תקופתית: `src/shared/services/cloudSyncScheduler.ts`
-- מסלול שליטה: `src/app/api/sync/cloud/route.ts`
+- Scheduler init: `src/lib/initCloudSync.ts`, `src/shared/services/initializeCloudSync.ts`
+- Periodic task: `src/shared/services/cloudSyncScheduler.ts`
+- Control route: `src/app/api/sync/cloud/route.ts`
 
-## מחזור חיים של בקשה (`/v1/chat/completions`)
+## Request Lifecycle (`/v1/chat/completions`)
 
 ```mermaid
 sequenceDiagram
@@ -304,7 +305,7 @@ sequenceDiagram
     Stream->>Usage: extract usage + persist history/log
 ```
 
-## תזרים משולב + חשבון נפילה
+## Combo + Account Fallback Flow
 
 ```mermaid
 flowchart TD
@@ -334,9 +335,9 @@ flowchart TD
     Q -- No --> R[Return all unavailable]
 ```
 
-החלטות חילופין מונעות על ידי `open-sse/services/accountFallback.ts` באמצעות קודי מצב והיוריסטיקה של הודעת שגיאה.
+Fallback decisions are driven by `open-sse/services/accountFallback.ts` using status codes and error-message heuristics.
 
-## מחזור חיים של OAuth Onboarding ו-Token Refresh
+## OAuth Onboarding and Token Refresh Lifecycle
 
 ```mermaid
 sequenceDiagram
@@ -366,9 +367,9 @@ sequenceDiagram
     Test-->>UI: validation result
 ```
 
-רענון במהלך תעבורה חיה מתבצע בתוך `open-sse/handlers/chatCore.ts` באמצעות המבצע `refreshCredentials()`.
+Refresh during live traffic is executed inside `open-sse/handlers/chatCore.ts` via executor `refreshCredentials()`.
 
-## מחזור חיים של סנכרון ענן (אפשר / סנכרון / השבת)
+## Cloud Sync Lifecycle (Enable / Sync / Disable)
 
 ```mermaid
 sequenceDiagram
@@ -400,9 +401,9 @@ sequenceDiagram
     Sync-->>UI: disabled
 ```
 
-סנכרון תקופתי מופעל על ידי `CloudSyncScheduler` כאשר ענן מופעל.
+Periodic sync is triggered by `CloudSyncScheduler` when cloud is enabled.
 
-## מודל נתונים ומפת אחסון
+## Data Model and Storage Map
 
 ```mermaid
 erDiagram
@@ -503,14 +504,14 @@ erDiagram
     }
 ```
 
-קבצי אחסון פיזיים:
+Physical storage files:
 
-- מצב ראשי: `${DATA_DIR}/db.json` (או `$XDG_CONFIG_HOME/omniroute/db.json` כאשר מוגדר, אחרת `~/.omniroute/db.json`)
-- סטטיסטיקת שימוש: `${DATA_DIR}/usage.json`
-- שורות יומן בקשה: `${DATA_DIR}/log.txt`
-- הפעלות ניפוי באגים אופציונליות/בקשות: `<repo>/logs/...`
+- primary runtime DB: `${DATA_DIR}/storage.sqlite`
+- request log lines: `${DATA_DIR}/log.txt` (compat/debug artifact)
+- structured call payload archives: `${DATA_DIR}/call_logs/`
+- optional translator/request debug sessions: `<repo>/logs/...`
 
-## טופולוגיית פריסה
+## Deployment Topology
 
 ```mermaid
 flowchart LR
@@ -522,8 +523,8 @@ flowchart LR
     subgraph ContainerOrProcess[OmniRoute Runtime]
         Next[Next.js Server\nPORT=20128]
         Core[SSE Core + Executors]
-        MainDB[(db.json)]
-        UsageDB[(usage.json/log.txt)]
+        MainDB[(storage.sqlite)]
+        UsageDB[(usage tables + log artifacts)]
     end
 
     subgraph External[External Services]
@@ -541,241 +542,242 @@ flowchart LR
     Next --> SyncCloud
 ```
 
-## מיפוי מודול (קריטי להחלטה)
+## Module Mapping (Decision-Critical)
 
-### מודולי מסלול וממשק API
+### Route and API Modules
 
-- `src/app/api/v1/*`, `src/app/api/v1beta/*`: ממשקי API של תאימות
-- `src/app/api/v1/providers/[provider]/*`: מסלולים ייעודיים לכל ספק (צ'אט, הטבעות, תמונות)
-- `src/app/api/providers*`: ספק CRUD, אימות, בדיקה
-- `src/app/api/provider-nodes*`: ניהול צמתים תואם מותאם אישית
-- `src/app/api/provider-models`: ניהול מודלים מותאמים אישית (CRUD)
-- `src/app/api/models/catalog`: API של קטלוג דגמים מלא (כל הסוגים מקובצים לפי ספק)
-- `src/app/api/oauth/*`: OAuth/קוד מכשיר זורם
-- `src/app/api/keys*`: מחזור חיים של מפתח API מקומי
-- `src/app/api/models/alias`: ניהול כינוי
-- `src/app/api/combos*`: ניהול משולבת נפילה
-- `src/app/api/pricing`: עקיפות תמחור לחישוב עלות
-- `src/app/api/settings/proxy`: תצורת proxy (GET/PUT/DELETE)
-- `src/app/api/settings/proxy/test`: בדיקת קישוריות פרוקסי יוצאת (POST)
-- `src/app/api/usage/*`: ממשקי API של שימוש ויומנים
-- `src/app/api/sync/*` + `src/app/api/cloud/*`: סנכרון ענן ועוזרים מול ענן
-- `src/app/api/cli-tools/*`: כותבי/בודקים מקומיים של תצורת CLI
-- `src/app/api/settings/ip-filter`: רשימת ההיתרים/רשימת חסימות של IP (GET/PUT)
-- `src/app/api/settings/thinking-budget`: תצורת תקציב חשיבה (GET/PUT)
-- `src/app/api/settings/system-prompt`: הודעת מערכת גלובלית (GET/PUT)
-- `src/app/api/sessions`: רישום הפעלה פעיל (GET)
-- `src/app/api/rate-limits`: סטטוס מגבלת תעריף לכל חשבון (GET)
+- `src/app/api/v1/*`, `src/app/api/v1beta/*`: compatibility APIs
+- `src/app/api/v1/providers/[provider]/*`: dedicated per-provider routes (chat, embeddings, images)
+- `src/app/api/providers*`: provider CRUD, validation, testing
+- `src/app/api/provider-nodes*`: custom compatible node management
+- `src/app/api/provider-models`: custom model management (CRUD)
+- `src/app/api/models/route.ts`: model catalog API (aliases + custom models)
+- `src/app/api/oauth/*`: OAuth/device-code flows
+- `src/app/api/keys*`: local API key lifecycle
+- `src/app/api/models/alias`: alias management
+- `src/app/api/combos*`: fallback combo management
+- `src/app/api/pricing`: pricing overrides for cost calculation
+- `src/app/api/settings/proxy`: proxy configuration (GET/PUT/DELETE)
+- `src/app/api/settings/proxy/test`: outbound proxy connectivity test (POST)
+- `src/app/api/usage/*`: usage and logs APIs
+- `src/app/api/sync/*` + `src/app/api/cloud/*`: cloud sync and cloud-facing helpers
+- `src/app/api/cli-tools/*`: local CLI config writers/checkers
+- `src/app/api/settings/ip-filter`: IP allowlist/blocklist (GET/PUT)
+- `src/app/api/settings/thinking-budget`: thinking token budget config (GET/PUT)
+- `src/app/api/settings/system-prompt`: global system prompt (GET/PUT)
+- `src/app/api/sessions`: active session listing (GET)
+- `src/app/api/rate-limits`: per-account rate limit status (GET)
 
-### ליבת ניתוב וביצוע
+### Routing and Execution Core
 
-- `src/sse/handlers/chat.ts`: ניתוח בקשה, טיפול משולב, לולאה לבחירת חשבון
-- `open-sse/handlers/chatCore.ts`: תרגום, שיגור מבצע, טיפול חוזר/רענון, הגדרת זרם
-- `open-sse/executors/*`: התנהגות רשת ופורמט ספציפיים לספק
+- `src/sse/handlers/chat.ts`: request parse, combo handling, account selection loop
+- `open-sse/handlers/chatCore.ts`: translation, executor dispatch, retry/refresh handling, stream setup
+- `open-sse/executors/*`: provider-specific network and format behavior
 
-### ממירי תרגום וממירי פורמטים
+### Translation Registry and Format Converters
 
-- `open-sse/translator/index.ts`: רישום מתרגמים ותזמור
-- בקש מתרגמים: `open-sse/translator/request/*`
-- מתרגמי תגובה: `open-sse/translator/response/*`
-- קבועי פורמט: `open-sse/translator/formats.ts`
+- `open-sse/translator/index.ts`: translator registry and orchestration
+- Request translators: `open-sse/translator/request/*`
+- Response translators: `open-sse/translator/response/*`
+- Format constants: `open-sse/translator/formats.ts`
 
-### התמדה
+### Persistence
 
-- `src/lib/localDb.ts`: תצורה/מצב קבוע
-- `src/lib/usageDb.ts`: היסטוריית שימוש ויומני בקשות מתגלגלים
+- `src/lib/db/*`: persistent config/state and domain persistence on SQLite
+- `src/lib/localDb.ts`: compatibility re-export for DB modules
+- `src/lib/usageDb.ts`: usage history/call logs facade on top of SQLite tables
 
-## כיסוי מנהלי ספק (דפוס אסטרטגיה)
+## Provider Executor Coverage (Strategy Pattern)
 
-לכל ספק יש מבצע מיוחד המרחיב את `BaseExecutor` (ב-`open-sse/executors/base.ts`), המספק בניית כתובות URL, בניית כותרות, ניסיון חוזר עם גיבוי אקספוננציאלי, הוקס לרענון אישורים ושיטת התזמור `execute()`.
+Each provider has a specialized executor extending `BaseExecutor` (in `open-sse/executors/base.ts`), which provides URL building, header construction, retry with exponential backoff, credential refresh hooks, and the `execute()` orchestration method.
 
-| מוציא לפועל           | ספק(ים)                                                                                                                                                      | טיפול מיוחד                                                         |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | תצורת כתובת אתר/כותרת דינמית לכל ספק                                |
-| `AntigravityExecutor` | Google Antigravity                                                                                                                                           | מזהי פרויקט/הפעלה מותאמים אישית, ניסיון חוזר-לאחר ניתוח             |
-| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | מזריק הוראות מערכת, מאלץ מאמץ חשיבה                                 |
-| `CursorExecutor`      | הסמן IDE                                                                                                                                                     | פרוטוקול ConnectRPC, קידוד Protobuf, חתימה על בקשה באמצעות checksum |
-| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | רענון אסימון פיילוט, כותרות המחקות VSCode                           |
-| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | פורמט בינארי של AWS EventStream → המרת SSE                          |
-| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | מחזור רענון אסימון OAuth של Google                                  |
+| Executor              | Provider(s)                                                                                                                                                  | Special Handling                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `DefaultExecutor`     | OpenAI, Claude, Gemini, Qwen, iFlow, OpenRouter, GLM, Kimi, MiniMax, DeepSeek, Groq, xAI, Mistral, Perplexity, Together, Fireworks, Cerebras, Cohere, NVIDIA | Dynamic URL/header config per provider                               |
+| `AntigravityExecutor` | Google Antigravity                                                                                                                                           | Custom project/session IDs, Retry-After parsing                      |
+| `CodexExecutor`       | OpenAI Codex                                                                                                                                                 | Injects system instructions, forces reasoning effort                 |
+| `CursorExecutor`      | Cursor IDE                                                                                                                                                   | ConnectRPC protocol, Protobuf encoding, request signing via checksum |
+| `GithubExecutor`      | GitHub Copilot                                                                                                                                               | Copilot token refresh, VSCode-mimicking headers                      |
+| `KiroExecutor`        | AWS CodeWhisperer/Kiro                                                                                                                                       | AWS EventStream binary format → SSE conversion                       |
+| `GeminiCLIExecutor`   | Gemini CLI                                                                                                                                                   | Google OAuth token refresh cycle                                     |
 
-כל הספקים האחרים (כולל צמתים תואמים מותאמים אישית) משתמשים ב-`DefaultExecutor`.
+All other providers (including custom compatible nodes) use the `DefaultExecutor`.
 
-## מטריצת תאימות ספקים
+## Provider Compatibility Matrix
 
-| ספק              | פורמט         | Auth                   | זרם              | לא סטרימינג | רענון אסימון | API לשימוש          |
-| ---------------- | ------------- | ---------------------- | ---------------- | ----------- | ------------ | ------------------- |
-| קלוד             | קלוד          | מפתח API / OAuth       | ✅               | ✅          | ✅           | ⚠️ אדמין בלבד       |
-| מזל תאומים       | תאומים        | מפתח API / OAuth       | ✅               | ✅          | ✅           | ⚠️ Cloud Console    |
-| Gemini CLI       | תאומים-קלי    | OAuth                  | ✅               | ✅          | ✅           | ⚠️ Cloud Console    |
-| אנטי כבידה       | אנטי כבידה    | OAuth                  | ✅               | ✅          | ✅           | ✅ API של מכסה מלאה |
-| OpenAI           | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| קודקס            | openai-תגובות | OAuth                  | ✅ מאולץ         | ❌          | ✅           | ✅ מגבלות תעריפים   |
-| GitHub Copilot   | openai        | OAuth + Token Copilot  | ✅               | ✅          | ✅           | ✅ צילומי מכסה      |
-| סמן              | סמן           | סכום בדיקה מותאם אישית | ✅               | ✅          | ❌           | ❌                  |
-| קירו             | קירו          | AWS SSO OIDC           | ✅ (EventStream) | ❌          | ✅           | ✅ מגבלות שימוש     |
-| קוון             | openai        | OAuth                  | ✅               | ✅          | ✅           | ⚠️ לפי בקשה         |
-| iFlow            | openai        | OAuth (בסיסי)          | ✅               | ✅          | ✅           | ⚠️ לפי בקשה         |
-| OpenRouter       | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| GLM/Kimi/MiniMax | קלוד          | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| DeepSeek         | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| גרוק             | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| xAI (Grok)       | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| מיסטרל           | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| תמיהה            | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| ביחד AI          | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| זיקוקים AI       | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| מוחין            | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| קוהר             | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
-| NVIDIA NIM       | openai        | מפתח API               | ✅               | ✅          | ❌           | ❌                  |
+| Provider         | Format           | Auth                  | Stream           | Non-Stream | Token Refresh | Usage API          |
+| ---------------- | ---------------- | --------------------- | ---------------- | ---------- | ------------- | ------------------ |
+| Claude           | claude           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Admin only      |
+| Gemini           | gemini           | API Key / OAuth       | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Gemini CLI       | gemini-cli       | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Cloud Console   |
+| Antigravity      | antigravity      | OAuth                 | ✅               | ✅         | ✅            | ✅ Full quota API  |
+| OpenAI           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Codex            | openai-responses | OAuth                 | ✅ forced        | ❌         | ✅            | ✅ Rate limits     |
+| GitHub Copilot   | openai           | OAuth + Copilot Token | ✅               | ✅         | ✅            | ✅ Quota snapshots |
+| Cursor           | cursor           | Custom checksum       | ✅               | ✅         | ❌            | ❌                 |
+| Kiro             | kiro             | AWS SSO OIDC          | ✅ (EventStream) | ❌         | ✅            | ✅ Usage limits    |
+| Qwen             | openai           | OAuth                 | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| iFlow            | openai           | OAuth (Basic)         | ✅               | ✅         | ✅            | ⚠️ Per request     |
+| OpenRouter       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| GLM/Kimi/MiniMax | claude           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| DeepSeek         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Groq             | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| xAI (Grok)       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Mistral          | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Perplexity       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Together AI      | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Fireworks AI     | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cerebras         | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| Cohere           | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
+| NVIDIA NIM       | openai           | API Key               | ✅               | ✅         | ❌            | ❌                 |
 
-## כיסוי תרגום בפורמט
+## Format Translation Coverage
 
-פורמטי מקור שזוהו כוללים:
+Detected source formats include:
 
 - `openai`
 - `openai-responses`
 - `claude`
 - `gemini`
 
-פורמטי היעד כוללים:
+Target formats include:
 
-- צ'אט/תגובות של OpenAI
-- קלוד
-- מעטפת תאומים/תאומים-CLI/אנטי כבידה
-- קירו
-- סמן
+- OpenAI chat/Responses
+- Claude
+- Gemini/Gemini-CLI/Antigravity envelope
+- Kiro
+- Cursor
 
-תרגומים משתמשים ב-**OpenAI כפורמט הרכז** - כל ההמרות עוברות דרך OpenAI כאמצעי ביניים:
+Translations use **OpenAI as the hub format** — all conversions go through OpenAI as intermediate:
 
 ```
 Source Format → OpenAI (hub) → Target Format
 ```
 
-תרגומים נבחרים באופן דינמי על סמך צורת מטען מקור ופורמט יעד של ספק.
+Translations are selected dynamically based on source payload shape and provider target format.
 
-שכבות עיבוד נוספות בצינור התרגום:
+Additional processing layers in the translation pipeline:
 
-- **חיטוי תגובות** - מסיר שדות לא סטנדרטיים מתגובות בפורמט OpenAI (גם סטרימינג וגם לא סטרימינג) כדי להבטיח תאימות קפדנית של SDK
-- **נורמליזציה של תפקידים** - ממירה `developer` → `system` עבור יעדים שאינם OpenAI; ממזג את `system` → `user` עבור מודלים שדוחים את תפקיד המערכת (GLM, ERNIE)
-- **חושב חילוץ תגים** - מנתח `<think>...</think>` בלוקים מתוכן לשדה `reasoning_content`
-- **פלט מובנה** — ממיר את OpenAI `response_format.json_schema` ל-`responseMimeType` + `responseSchema` של Gemini
+- **Response sanitization** — Strips non-standard fields from OpenAI-format responses (both streaming and non-streaming) to ensure strict SDK compliance
+- **Role normalization** — Converts `developer` → `system` for non-OpenAI targets; merges `system` → `user` for models that reject the system role (GLM, ERNIE)
+- **Think tag extraction** — Parses `<think>...</think>` blocks from content into `reasoning_content` field
+- **Structured output** — Converts OpenAI `response_format.json_schema` to Gemini's `responseMimeType` + `responseSchema`
 
-## נקודות קצה נתמכות של ממשק API
+## Supported API Endpoints
 
-| נקודת קצה                                          | פורמט                   | מטפל                                                    |
-| -------------------------------------------------- | ----------------------- | ------------------------------------------------------- |
-| `POST /v1/chat/completions`                        | OpenAI Chat             | `src/sse/handlers/chat.ts`                              |
-| `POST /v1/messages`                                | קלוד הודעות             | אותו מטפל (זוהה אוטומטית)                               |
-| `POST /v1/responses`                               | OpenAI תגובות           | `open-sse/handlers/responsesHandler.ts`                 |
-| `POST /v1/embeddings`                              | OpenAI Embeddings       | `open-sse/handlers/embeddings.ts`                       |
-| `GET /v1/embeddings`                               | רשימת דגמים             | נתיב API                                                |
-| `POST /v1/images/generations`                      | OpenAI תמונות           | `open-sse/handlers/imageGeneration.ts`                  |
-| `GET /v1/images/generations`                       | רשימת דגמים             | נתיב API                                                |
-| `POST /v1/providers/{provider}/chat/completions`   | OpenAI Chat             | ייעודי לכל ספק עם אימות מודל                            |
-| `POST /v1/providers/{provider}/embeddings`         | OpenAI Embeddings       | ייעודי לכל ספק עם אימות מודל                            |
-| `POST /v1/providers/{provider}/images/generations` | OpenAI תמונות           | ייעודי לכל ספק עם אימות מודל                            |
-| `POST /v1/messages/count_tokens`                   | ספירת האסימונים של קלוד | נתיב API                                                |
-| `GET /v1/models`                                   | רשימת דגמי OpenAI       | מסלול API (צ'אט + הטמעה + תמונה + מודלים מותאמים אישית) |
-| `GET /api/models/catalog`                          | קטלוג                   | כל הדגמים מקובצים לפי ספק + סוג                         |
-| `POST /v1beta/models/*:streamGenerateContent`      | יליד מזל תאומים         | נתיב API                                                |
-| `GET/PUT/DELETE /api/settings/proxy`               | תצורת פרוקסי            | תצורת פרוקסי רשת                                        |
-| `POST /api/settings/proxy/test`                    | קישוריות פרוקסי         | נקודת קצה בדיקת תקינות/קישוריות של פרוקסי               |
-| `GET/POST/DELETE /api/provider-models`             | דגמים מותאמים אישית     | ניהול מודל מותאם אישית לכל ספק                          |
+| Endpoint                                           | Format             | Handler                                              |
+| -------------------------------------------------- | ------------------ | ---------------------------------------------------- |
+| `POST /v1/chat/completions`                        | OpenAI Chat        | `src/sse/handlers/chat.ts`                           |
+| `POST /v1/messages`                                | Claude Messages    | Same handler (auto-detected)                         |
+| `POST /v1/responses`                               | OpenAI Responses   | `open-sse/handlers/responsesHandler.ts`              |
+| `POST /v1/embeddings`                              | OpenAI Embeddings  | `open-sse/handlers/embeddings.ts`                    |
+| `GET /v1/embeddings`                               | Model listing      | API route                                            |
+| `POST /v1/images/generations`                      | OpenAI Images      | `open-sse/handlers/imageGeneration.ts`               |
+| `GET /v1/images/generations`                       | Model listing      | API route                                            |
+| `POST /v1/providers/{provider}/chat/completions`   | OpenAI Chat        | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/embeddings`         | OpenAI Embeddings  | Dedicated per-provider with model validation         |
+| `POST /v1/providers/{provider}/images/generations` | OpenAI Images      | Dedicated per-provider with model validation         |
+| `POST /v1/messages/count_tokens`                   | Claude Token Count | API route                                            |
+| `GET /v1/models`                                   | OpenAI Models list | API route (chat + embedding + image + custom models) |
+| `GET /api/models/catalog`                          | Catalog            | All models grouped by provider + type                |
+| `POST /v1beta/models/*:streamGenerateContent`      | Gemini native      | API route                                            |
+| `GET/PUT/DELETE /api/settings/proxy`               | Proxy Config       | Network proxy configuration                          |
+| `POST /api/settings/proxy/test`                    | Proxy Connectivity | Proxy health/connectivity test endpoint              |
+| `GET/POST/DELETE /api/provider-models`             | Custom Models      | Custom model management per provider                 |
 
-## מטפל עוקף
+## Bypass Handler
 
-המטפל בעקיפה (`open-sse/utils/bypassHandler.ts`) מיירט בקשות "השלכה" ידועות מקלוד CLI - פינגי חימום, חילוצי כותרות וספירת אסימונים - ומחזיר **תגובה מזויפת** מבלי לצרוך אסימוני ספק במעלה הזרם. זה מופעל רק כאשר `User-Agent` מכיל `claude-cli`.
+The bypass handler (`open-sse/utils/bypassHandler.ts`) intercepts known "throwaway" requests from Claude CLI — warmup pings, title extractions, and token counts — and returns a **fake response** without consuming upstream provider tokens. This is triggered only when `User-Agent` contains `claude-cli`.
 
-## בקש צינור לוגר
+## Request Logger Pipeline
 
-לוגר הבקשות (`open-sse/utils/requestLogger.ts`) מספק צינור רישום באגים בן 7 שלבים, מושבת כברירת מחדל, מופעל באמצעות `ENABLE_REQUEST_LOGS=true`:
+The request logger (`open-sse/utils/requestLogger.ts`) provides a 7-stage debug logging pipeline, disabled by default, enabled via `ENABLE_REQUEST_LOGS=true`:
 
 ```
 1_req_client.json → 2_req_source.json → 3_req_openai.json → 4_req_target.json
 → 5_res_provider.txt → 6_res_openai.txt → 7_res_client.txt
 ```
 
-קבצים נכתבים אל `<repo>/logs/<session>/` עבור כל הפעלת בקשה.
+Files are written to `<repo>/logs/<session>/` for each request session.
 
-## מצבי כשל וחוסן
+## Failure Modes and Resilience
 
-## 1) זמינות חשבון/ספק
+## 1) Account/Provider Availability
 
-- צינון חשבון ספק על שגיאות חולפות/שיעור/אישור
-- חזרה בחשבון לפני שהבקשה נכשלה
-- חזרה של מודל משולב כאשר נתיב הדגם/הספק הנוכחי מוצה
+- provider account cooldown on transient/rate/auth errors
+- account fallback before failing request
+- combo model fallback when current model/provider path is exhausted
 
-## 2) תפוגה של אסימון
+## 2) Token Expiry
 
-- בדוק מראש ורענן עם ניסיון חוזר עבור ספקים הניתנים לרענון
-- 401/403 נסה שוב לאחר ניסיון רענון בנתיב הליבה
+- pre-check and refresh with retry for refreshable providers
+- 401/403 retry after refresh attempt in core path
 
-## 3) בטיחות זרם
+## 3) Stream Safety
 
-- בקר זרם מודע לניתוק
-- זרם תרגום עם שטיפה של סוף זרם וטיפול `[DONE]`
-- הערכת שימוש חוזרת כאשר חסרים מטא נתונים של שימוש בספק
+- disconnect-aware stream controller
+- translation stream with end-of-stream flush and `[DONE]` handling
+- usage estimation fallback when provider usage metadata is missing
 
-## 4) השפלת סנכרון בענן
+## 4) Cloud Sync Degradation
 
-- מופיעות שגיאות סנכרון אך זמן הריצה המקומי נמשך
-- למתזמן יש לוגיקה המאפשרת ניסיון חוזר, אך ביצוע תקופתי קורא כרגע לסנכרון של ניסיון יחיד כברירת מחדל
+- sync errors are surfaced but local runtime continues
+- scheduler has retry-capable logic, but periodic execution currently calls single-attempt sync by default
 
-## 5) שלמות נתונים
+## 5) Data Integrity
 
-- העברת צורות DB/תיקון עבור מפתחות חסרים
-- אמצעי הגנה לאיפוס JSON פגומים עבור localDb ו-usageDb
+- SQLite schema migrations and auto-upgrade hooks at startup
+- legacy JSON → SQLite migration compatibility path
 
-## אותות תצפית ותפעול
+## Observability and Operational Signals
 
-מקורות נראות בזמן ריצה:
+Runtime visibility sources:
 
-- יומני מסוף מ-`src/sse/utils/logger.ts`
-- צבירי שימוש לכל בקשה ב-`usage.json`
-- יומן סטטוס בקשה טקסטואלית ב-`log.txt`
-- יומני בקשה/תרגום עמוקים אופציונליים תחת `logs/` כאשר `ENABLE_REQUEST_LOGS=true`
-- נקודות קצה לשימוש בלוח המחוונים (`/api/usage/*`) לצריכת ממשק משתמש
+- console logs from `src/sse/utils/logger.ts`
+- per-request usage aggregates in SQLite (`usage_history`, `call_logs`, `proxy_logs`)
+- textual request status log in `log.txt` (optional/compat)
+- optional deep request/translation logs under `logs/` when `ENABLE_REQUEST_LOGS=true`
+- dashboard usage endpoints (`/api/usage/*`) for UI consumption
 
-## גבולות רגישים לביטחון
+## Security-Sensitive Boundaries
 
-- סוד JWT (`JWT_SECRET`) מאבטח אימות/חתימה של קובצי Cookie של לוח המחוונים
-- יש לעקוף סיסמה ראשונית (`INITIAL_PASSWORD`, ברירת המחדל `123456`) בפריסות אמיתיות
-- סוד מפתח API HMAC (`API_KEY_SECRET`) מאבטח פורמט מפתח API מקומי שנוצר
-- סודות הספק (מפתחות/אסימונים של API) נשמרים ב-DB מקומי ויש להגן עליהם ברמת מערכת הקבצים
-- נקודות קצה של סנכרון ענן מסתמכות על סמנטיקה של אימות מפתח API + מזהה מכונה
+- JWT secret (`JWT_SECRET`) secures dashboard session cookie verification/signing
+- Initial password bootstrap (`INITIAL_PASSWORD`) should be explicitly configured for first-run provisioning
+- API key HMAC secret (`API_KEY_SECRET`) secures generated local API key format
+- Provider secrets (API keys/tokens) are persisted in local DB and should be protected at filesystem level
+- Cloud sync endpoints rely on API key auth + machine id semantics
 
-## מטריצת סביבה וזמן ריצה
+## Environment and Runtime Matrix
 
-משתני סביבה בשימוש פעיל על ידי קוד:
+Environment variables actively used by code:
 
-- אפליקציה/אישור: `JWT_SECRET`, `INITIAL_PASSWORD`
-- אחסון: `DATA_DIR`
-- התנהגות צמתים תואמת: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
-- עקיפה אופציונלית של בסיס אחסון (Linux/macOS כאשר `DATA_DIR` לא מוגדר): `XDG_CONFIG_HOME`
-- גיבוב אבטחה: `API_KEY_SECRET`, `MACHINE_ID_SALT`
-- רישום: `ENABLE_REQUEST_LOGS`
-- סנכרון/כתובת URL בענן: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
-- פרוקסי יוצא: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` וגרסאות קטנות
-- דגלים של תכונות SOCKS5: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
-- עוזרי פלטפורמה/זמן ריצה (לא תצורה ספציפית לאפליקציה): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
+- App/auth: `JWT_SECRET`, `INITIAL_PASSWORD`
+- Storage: `DATA_DIR`
+- Compatible node behavior: `ALLOW_MULTI_CONNECTIONS_PER_COMPAT_NODE`
+- Optional storage base override (Linux/macOS when `DATA_DIR` unset): `XDG_CONFIG_HOME`
+- Security hashing: `API_KEY_SECRET`, `MACHINE_ID_SALT`
+- Logging: `ENABLE_REQUEST_LOGS`
+- Sync/cloud URLing: `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_CLOUD_URL`
+- Outbound proxy: `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, `NO_PROXY` and lowercase variants
+- SOCKS5 feature flags: `ENABLE_SOCKS5_PROXY`, `NEXT_PUBLIC_ENABLE_SOCKS5_PROXY`
+- Platform/runtime helpers (not app-specific config): `APPDATA`, `NODE_ENV`, `PORT`, `HOSTNAME`
 
-## הערות אדריכליות ידועות
+## Known Architectural Notes
 
-1. `usageDb` ו`localDb` חולקים כעת את אותה מדיניות ספריית בסיס (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) עם העברת קבצים מדור קודם.
-2. `/api/v1/route.ts` מחזירה רשימת מודלים סטטית ואינה מקור המודלים העיקרי המשמש את `/v1/models`.
-3. לוגר הבקשות כותב כותרות/גוף מלא כאשר מופעל; התייחס לספריית היומן כרגישה.
-4. התנהגות ענן תלויה ב-`NEXT_PUBLIC_BASE_URL` נכונות ובנגישות לנקודת הקצה בענן.
-5. ספריית `open-sse/` מתפרסמת בתור `@omniroute/open-sse` **חבילת סביבת העבודה npm**. קוד המקור מייבא אותו באמצעות `@omniroute/open-sse/...` (נפתר על ידי Next.js `transpilePackages`). נתיבים לקובץ במסמך זה עדיין משתמשים בשם הספרייה `open-sse/` לצורך עקביות.
-6. תרשימים בלוח המחוונים משתמשים ב-**Recharts** (מבוסס SVG) להדמיות ניתוח נגישות ואינטראקטיביות (תרשימי עמודות שימוש במודל, טבלאות פירוט של ספקים עם אחוזי הצלחה).
-7. מבחני E2E משתמשים ב-**מחזאי** (`tests/e2e/`), מופעלים דרך `npm run test:e2e`. בדיקות יחידה משתמשות ב-**Node.js test runner** (`tests/unit/`), מופעלות דרך `npm run test:plan3`. קוד המקור תחת `src/` הוא **TypeScript** (`.ts`/`.tsx`); סביבת העבודה `open-sse/` נשארת JavaScript (`.js`).
-8. דף ההגדרות מאורגן ב-5 כרטיסיות: אבטחה, ניתוב (6 אסטרטגיות גלובליות: fill-first, round-robin, p2c, אקראי, הכי פחות בשימוש, אופטימיזציה לעלות), חוסן (מגבלות קצב הניתנות לעריכה, מפסק זרם, מדיניות), AI (תקציב חשיבה, הנחיית מערכת, מטמון הנחיה), מתקדם (פרוקסי).
+1. `usageDb` and `localDb` share the same base directory policy (`DATA_DIR` -> `XDG_CONFIG_HOME/omniroute` -> `~/.omniroute`) with legacy file migration.
+2. `/api/v1/route.ts` delegates to the same unified catalog builder used by `/api/v1/models` (`src/app/api/v1/models/catalog.ts`) to avoid semantic drift.
+3. Request logger writes full headers/body when enabled; treat log directory as sensitive.
+4. Cloud behavior depends on correct `NEXT_PUBLIC_BASE_URL` and cloud endpoint reachability.
+5. The `open-sse/` directory is published as the `@omniroute/open-sse` **npm workspace package**. Source code imports it via `@omniroute/open-sse/...` (resolved by Next.js `transpilePackages`). File paths in this document still use the directory name `open-sse/` for consistency.
+6. Charts in the dashboard use **Recharts** (SVG-based) for accessible, interactive analytics visualizations (model usage bar charts, provider breakdown tables with success rates).
+7. E2E tests use **Playwright** (`tests/e2e/`), run via `npm run test:e2e`. Unit tests use **Node.js test runner** (`tests/unit/`), run via `npm run test:unit`. Source code under `src/` is **TypeScript** (`.ts`/`.tsx`); the `open-sse/` workspace remains JavaScript (`.js`).
+8. Settings page is organized into 5 tabs: Security, Routing (6 global strategies: fill-first, round-robin, p2c, random, least-used, cost-optimized), Resilience (editable rate limits, circuit breaker, policies), AI (thinking budget, system prompt, prompt cache), Advanced (proxy).
 
-## רשימת אימות תפעולית
+## Operational Verification Checklist
 
-- בנה ממקור: `npm run build`
-- בניית תמונת Docker: `docker build -t omniroute .`
-- התחל את השירות ואמת:
+- Build from source: `npm run build`
+- Build Docker image: `docker build -t omniroute .`
+- Start service and verify:
 - `GET /api/settings`
 - `GET /api/v1/models`
-- כתובת האתר של בסיס יעד CLI צריכה להיות `http://<host>:20128/v1` כאשר `PORT=20128`
+- CLI target base URL should be `http://<host>:20128/v1` when `PORT=20128`

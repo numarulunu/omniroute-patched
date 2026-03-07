@@ -1,12 +1,12 @@
-# Panduan Pengguna
+# User Guide
 
-🌐 **Languages:** 🇺🇸 [English](../../USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](../es/USER_GUIDE.md) | 🇫🇷 [Français](../fr/USER_GUIDE.md) | 🇮🇹 [Italiano](../it/USER_GUIDE.md) | 🇷🇺 [Русский](../ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](../zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](../de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](../in/USER_GUIDE.md) | 🇹🇭 [ไทย](../th/USER_GUIDE.md) | 🇺🇦 [Українська](../uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](../ar/USER_GUIDE.md) | 🇯🇵 [日本語](../ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](../vi/USER_GUIDE.md) | 🇧🇬 [Български](../bg/USER_GUIDE.md) | 🇩🇰 [Dansk](../da/USER_GUIDE.md) | 🇫🇮 [Suomi](../fi/USER_GUIDE.md) | 🇮🇱 [עברית](../he/USER_GUIDE.md) | 🇭🇺 [Magyar](../hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](../id/USER_GUIDE.md) | 🇰🇷 [한국어](../ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](../ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](../nl/USER_GUIDE.md) | 🇳🇴 [Norsk](../no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](../pt/USER_GUIDE.md) | 🇷🇴 [Română](../ro/USER_GUIDE.md) | 🇵🇱 [Polski](../pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](../sk/USER_GUIDE.md) | 🇸🇪 [Svenska](../sv/USER_GUIDE.md) | 🇵🇭 [Filipino](../phi/USER_GUIDE.md)
+🌐 **Languages:** 🇺🇸 [English](USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](i18n/es/USER_GUIDE.md) | 🇫🇷 [Français](i18n/fr/USER_GUIDE.md) | 🇮🇹 [Italiano](i18n/it/USER_GUIDE.md) | 🇷🇺 [Русский](i18n/ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](i18n/de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](i18n/in/USER_GUIDE.md) | 🇹🇭 [ไทย](i18n/th/USER_GUIDE.md) | 🇺🇦 [Українська](i18n/uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](i18n/ar/USER_GUIDE.md) | 🇯🇵 [日本語](i18n/ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/USER_GUIDE.md) | 🇧🇬 [Български](i18n/bg/USER_GUIDE.md) | 🇩🇰 [Dansk](i18n/da/USER_GUIDE.md) | 🇫🇮 [Suomi](i18n/fi/USER_GUIDE.md) | 🇮🇱 [עברית](i18n/he/USER_GUIDE.md) | 🇭🇺 [Magyar](i18n/hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/USER_GUIDE.md) | 🇰🇷 [한국어](i18n/ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](i18n/nl/USER_GUIDE.md) | 🇳🇴 [Norsk](i18n/no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/USER_GUIDE.md) | 🇷🇴 [Română](i18n/ro/USER_GUIDE.md) | 🇵🇱 [Polski](i18n/pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](i18n/sk/USER_GUIDE.md) | 🇸🇪 [Svenska](i18n/sv/USER_GUIDE.md) | 🇵🇭 [Filipino](i18n/phi/USER_GUIDE.md)
 
-Panduan lengkap untuk mengonfigurasi penyedia, membuat kombo, mengintegrasikan alat CLI, dan menerapkan OmniRoute.
+Complete guide for configuring providers, creating combos, integrating CLI tools, and deploying OmniRoute.
 
 ---
 
-## Daftar Isi
+## Table of Contents
 
 - [Pricing at a Glance](#-pricing-at-a-glance)
 - [Use Cases](#-use-cases)
@@ -18,40 +18,40 @@ Panduan lengkap untuk mengonfigurasi penyedia, membuat kombo, mengintegrasikan a
 
 ---
 
-## 💰 Sekilas tentang Harga
+## 💰 Pricing at a Glance
 
-| Tingkat             | Penyedia          | Biaya                | Reset Kuota               | Terbaik Untuk               |
-| ------------------- | ----------------- | -------------------- | ------------------------- | --------------------------- |
-| **💳 BERLANGGANAN** | Kode Claude (Pro) | $20/bln              | 5 jam + mingguan          | Sudah berlangganan          |
-|                     | Kodeks (Plus/Pro) | $20-200/bln          | 5 jam + mingguan          | Pengguna OpenAI             |
-|                     | CLI Gemini        | **GRATIS**           | 180K/bln + 1K/hari        | Setiap orang!               |
-|                     | Kopilot GitHub    | $10-19/bln           | Bulanan                   | Pengguna GitHub             |
-| **🔑 KUNCI API**    | Pencarian Dalam   | Bayar per penggunaan | Tidak ada                 | Alasan murah                |
-|                     | Bagus             | Bayar per penggunaan | Tidak ada                 | Inferensi ultra-cepat       |
-|                     | xAI (Grok)        | Bayar per penggunaan | Tidak ada                 | Alasan Grok 4               |
-|                     | Mistral           | Bayar per penggunaan | Tidak ada                 | Model yang dihosting di UE  |
-|                     | Kebingungan       | Bayar per penggunaan | Tidak ada                 | Ditambah pencarian          |
-|                     | Bersama AI        | Bayar per penggunaan | Tidak ada                 | Model sumber terbuka        |
-|                     | AI kembang api    | Bayar per penggunaan | Tidak ada                 | Gambar FLUX Cepat           |
-|                     | Otak              | Bayar per penggunaan | Tidak ada                 | Kecepatan skala wafer       |
-|                     | menyatu           | Bayar per penggunaan | Tidak ada                 | Perintah R+ RAG             |
-|                     | NVIDIA NIM        | Bayar per penggunaan | Tidak ada                 | Model perusahaan            |
-| **💰 MURAH**        | GLM-4.7           | $0,6/1 juta          | Setiap hari pukul 10 pagi | Cadangan anggaran           |
-|                     | MiniMax M2.1      | $0,2/1 juta          | 5 jam bergulir            | Pilihan termurah            |
-|                     | Kimi K2           | $9/bln tetap         | 10 juta token/bln         | Biaya yang dapat diprediksi |
-| **🆓 GRATIS**       | iFlow             | $0                   | Tidak terbatas            | 8 model gratis              |
-|                     | Qwen              | $0                   | Tidak terbatas            | 3 model gratis              |
-|                     | Kiro              | $0                   | Tidak terbatas            | Claude gratis               |
+| Tier                | Provider          | Cost        | Quota Reset      | Best For             |
+| ------------------- | ----------------- | ----------- | ---------------- | -------------------- |
+| **💳 SUBSCRIPTION** | Claude Code (Pro) | $20/mo      | 5h + weekly      | Already subscribed   |
+|                     | Codex (Plus/Pro)  | $20-200/mo  | 5h + weekly      | OpenAI users         |
+|                     | Gemini CLI        | **FREE**    | 180K/mo + 1K/day | Everyone!            |
+|                     | GitHub Copilot    | $10-19/mo   | Monthly          | GitHub users         |
+| **🔑 API KEY**      | DeepSeek          | Pay per use | None             | Cheap reasoning      |
+|                     | Groq              | Pay per use | None             | Ultra-fast inference |
+|                     | xAI (Grok)        | Pay per use | None             | Grok 4 reasoning     |
+|                     | Mistral           | Pay per use | None             | EU-hosted models     |
+|                     | Perplexity        | Pay per use | None             | Search-augmented     |
+|                     | Together AI       | Pay per use | None             | Open-source models   |
+|                     | Fireworks AI      | Pay per use | None             | Fast FLUX images     |
+|                     | Cerebras          | Pay per use | None             | Wafer-scale speed    |
+|                     | Cohere            | Pay per use | None             | Command R+ RAG       |
+|                     | NVIDIA NIM        | Pay per use | None             | Enterprise models    |
+| **💰 CHEAP**        | GLM-4.7           | $0.6/1M     | Daily 10AM       | Budget backup        |
+|                     | MiniMax M2.1      | $0.2/1M     | 5-hour rolling   | Cheapest option      |
+|                     | Kimi K2           | $9/mo flat  | 10M tokens/mo    | Predictable cost     |
+| **🆓 FREE**         | iFlow             | $0          | Unlimited        | 8 models free        |
+|                     | Qwen              | $0          | Unlimited        | 3 models free        |
+|                     | Kiro              | $0          | Unlimited        | Claude free          |
 
-**💡 Kiat Pro:** Mulai dengan Gemini CLI (gratis 180 ribu/bulan) + kombo iFlow (gratis tanpa batas) = ​​biaya $0!
+**💡 Pro Tip:** Start with Gemini CLI (180K free/month) + iFlow (unlimited free) combo = $0 cost!
 
 ---
 
-## 🎯 Kasus Penggunaan
+## 🎯 Use Cases
 
-### Kasus 1: "Saya berlangganan Claude Pro"
+### Case 1: "I have Claude Pro subscription"
 
-**Masalah:** Kuota habis tanpa terpakai, batas kecepatan selama coding berat
+**Problem:** Quota expires unused, rate limits during heavy coding
 
 ```
 Combo: "maximize-claude"
@@ -63,9 +63,9 @@ Monthly cost: $20 (subscription) + ~$5 (backup) = $25 total
 vs. $20 + hitting limits = frustration
 ```
 
-### Kasus 2: "Saya ingin tanpa biaya"
+### Case 2: "I want zero cost"
 
-**Masalah:** Tidak mampu berlangganan, memerlukan pengkodean AI yang andal
+**Problem:** Can't afford subscriptions, need reliable AI coding
 
 ```
 Combo: "free-forever"
@@ -77,9 +77,9 @@ Monthly cost: $0
 Quality: Production-ready models
 ```
 
-### Kasus 3: "Saya memerlukan pengkodean 24/7, tanpa gangguan"
+### Case 3: "I need 24/7 coding, no interruptions"
 
-**Masalah:** Tenggat waktu, tidak mampu membayar downtime
+**Problem:** Deadlines, can't afford downtime
 
 ```
 Combo: "always-on"
@@ -93,9 +93,9 @@ Result: 5 layers of fallback = zero downtime
 Monthly cost: $20-200 (subscriptions) + $10-20 (backup)
 ```
 
-### Kasus 4: "Saya ingin AI GRATIS di OpenClaw"
+### Case 4: "I want FREE AI in OpenClaw"
 
-**Masalah:** Membutuhkan asisten AI dalam aplikasi perpesanan, sepenuhnya gratis
+**Problem:** Need AI assistant in messaging apps, completely free
 
 ```
 Combo: "openclaw-free"
@@ -109,11 +109,11 @@ Access via: WhatsApp, Telegram, Slack, Discord, iMessage, Signal...
 
 ---
 
-## 📖 Pengaturan Penyedia
+## 📖 Provider Setup
 
-### 🔐 Penyedia Langganan
+### 🔐 Subscription Providers
 
-#### Kode Claude (Pro/Maks)
+#### Claude Code (Pro/Max)
 
 ```bash
 Dashboard → Providers → Connect Claude Code
@@ -126,9 +126,9 @@ Models:
   cc/claude-haiku-4-5-20251001
 ```
 
-**Kiat Pro:** Gunakan Opus untuk tugas kompleks, Soneta untuk kecepatan. OmniRoute melacak kuota per model!
+**Pro Tip:** Use Opus for complex tasks, Sonnet for speed. OmniRoute tracks quota per model!
 
-#### Kodeks OpenAI (Plus/Pro)
+#### OpenAI Codex (Plus/Pro)
 
 ```bash
 Dashboard → Providers → Connect Codex
@@ -140,7 +140,7 @@ Models:
   cx/gpt-5.1-codex-max
 ```
 
-#### Gemini CLI (GRATIS 180K/bulan!)
+#### Gemini CLI (FREE 180K/month!)
 
 ```bash
 Dashboard → Providers → Connect Gemini CLI
@@ -152,9 +152,9 @@ Models:
   gc/gemini-2.5-pro
 ```
 
-**Nilai Terbaik:** Tingkat gratis yang sangat besar! Gunakan ini sebelum tingkatan berbayar.
+**Best Value:** Huge free tier! Use this before paid tiers.
 
-#### Kopilot GitHub
+#### GitHub Copilot
 
 ```bash
 Dashboard → Providers → Connect GitHub
@@ -167,33 +167,33 @@ Models:
   gh/gemini-3-pro
 ```
 
-### 💰 Penyedia Murah
+### 💰 Cheap Providers
 
-#### GLM-4.7 (Reset harian, $0,6/1 juta)
+#### GLM-4.7 (Daily reset, $0.6/1M)
 
-1. Daftar: [Zhipu AI](https://open.bigmodel.cn/)
-2. Dapatkan kunci API dari Coding Plan
-3. Dasbor → Tambahkan Kunci API: Penyedia: `glm`, Kunci API: `your-key`
+1. Sign up: [Zhipu AI](https://open.bigmodel.cn/)
+2. Get API key from Coding Plan
+3. Dashboard → Add API Key: Provider: `glm`, API Key: `your-key`
 
-**Gunakan:** `glm/glm-4.7` — **Tips Pro:** Paket Coding menawarkan 3× kuota dengan biaya 1/7! Reset setiap hari pukul 10.00.
+**Use:** `glm/glm-4.7` — **Pro Tip:** Coding Plan offers 3× quota at 1/7 cost! Reset daily 10:00 AM.
 
-#### MiniMax M2.1 (reset 5 jam, $0,20/1 juta)
+#### MiniMax M2.1 (5h reset, $0.20/1M)
 
-1. Daftar: [MiniMax](https://www.minimax.io/)
-2. Dapatkan kunci API → Dasbor → Tambahkan Kunci API
+1. Sign up: [MiniMax](https://www.minimax.io/)
+2. Get API key → Dashboard → Add API Key
 
-**Gunakan:** `minimax/MiniMax-M2.1` — **Tips Pro:** Opsi termurah untuk konteks panjang (1 juta token)!
+**Use:** `minimax/MiniMax-M2.1` — **Pro Tip:** Cheapest option for long context (1M tokens)!
 
-#### Kimi K2 ($9/bulan tetap)
+#### Kimi K2 ($9/month flat)
 
-1. Berlangganan: [Moonshot AI](https://platform.moonshot.ai/)
-2. Dapatkan kunci API → Dasbor → Tambahkan Kunci API
+1. Subscribe: [Moonshot AI](https://platform.moonshot.ai/)
+2. Get API key → Dashboard → Add API Key
 
-**Penggunaan:** `kimi/kimi-latest` — **Tips Pro:** Memperbaiki $9/bulan untuk 10 juta token = biaya efektif $0,90/1 juta!
+**Use:** `kimi/kimi-latest` — **Pro Tip:** Fixed $9/month for 10M tokens = $0.90/1M effective cost!
 
-### 🆓 Penyedia GRATIS
+### 🆓 FREE Providers
 
-#### iFlow (8 model GRATIS)
+#### iFlow (8 FREE models)
 
 ```bash
 Dashboard → Connect iFlow → OAuth login → Unlimited usage
@@ -201,7 +201,7 @@ Dashboard → Connect iFlow → OAuth login → Unlimited usage
 Models: if/kimi-k2-thinking, if/qwen3-coder-plus, if/glm-4.7, if/minimax-m2, if/deepseek-r1
 ```
 
-#### Qwen (3 model GRATIS)
+#### Qwen (3 FREE models)
 
 ```bash
 Dashboard → Connect Qwen → Device code auth → Unlimited usage
@@ -209,7 +209,7 @@ Dashboard → Connect Qwen → Device code auth → Unlimited usage
 Models: qw/qwen3-coder-plus, qw/qwen3-coder-flash
 ```
 
-#### Kiro (Claude GRATIS)
+#### Kiro (Claude FREE)
 
 ```bash
 Dashboard → Connect Kiro → AWS Builder ID or Google/GitHub → Unlimited
@@ -219,9 +219,9 @@ Models: kr/claude-sonnet-4.5, kr/claude-haiku-4.5
 
 ---
 
-## 🎨 Kombo
+## 🎨 Combos
 
-### Contoh 1: Maksimalkan Langganan → Cadangan Murah
+### Example 1: Maximize Subscription → Cheap Backup
 
 ```
 Dashboard → Combos → Create New
@@ -235,7 +235,7 @@ Models:
 Use in CLI: premium-coding
 ```
 
-### Contoh 2: Gratis Saja (Tanpa Biaya)
+### Example 2: Free-Only (Zero Cost)
 
 ```
 Name: free-combo
@@ -249,9 +249,9 @@ Cost: $0 forever!
 
 ---
 
-## 🔧 Integrasi CLI
+## 🔧 CLI Integration
 
-### IDE Kursor
+### Cursor IDE
 
 ```
 Settings → Models → Advanced:
@@ -260,9 +260,9 @@ Settings → Models → Advanced:
   Model: cc/claude-opus-4-6
 ```
 
-### Kode Claude
+### Claude Code
 
-Sunting `~/.claude/config.json`:
+Edit `~/.claude/config.json`:
 
 ```json
 {
@@ -271,7 +271,7 @@ Sunting `~/.claude/config.json`:
 }
 ```
 
-### Kodeks CLI
+### Codex CLI
 
 ```bash
 export OPENAI_BASE_URL="http://localhost:20128"
@@ -279,9 +279,9 @@ export OPENAI_API_KEY="your-omniroute-api-key"
 codex "your prompt"
 ```
 
-### Buka Cakar
+### OpenClaw
 
-Sunting `~/.openclaw/openclaw.json`:
+Edit `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -303,9 +303,9 @@ Sunting `~/.openclaw/openclaw.json`:
 }
 ```
 
-**Atau gunakan Dasbor:** Alat CLI → OpenClaw → Konfigurasi otomatis
+**Or use Dashboard:** CLI Tools → OpenClaw → Auto-config
 
-### Cline / Lanjutkan / RooCode
+### Cline / Continue / RooCode
 
 ```
 Provider: OpenAI Compatible
@@ -316,9 +316,28 @@ Model: cc/claude-opus-4-6
 
 ---
 
-## 🚀 Penerapan
+## 🚀 Deployment
 
-### Penerapan VPS
+### Global npm install (Recommended)
+
+```bash
+npm install -g omniroute
+
+# Create config directory
+mkdir -p ~/.omniroute
+
+# Create .env file (see .env.example)
+cp .env.example ~/.omniroute/.env
+
+# Start server
+omniroute
+# Or with custom port:
+omniroute --port 3000
+```
+
+The CLI automatically loads `.env` from `~/.omniroute/.env` or `./.env`.
+
+### VPS Deployment
 
 ```bash
 git clone https://github.com/diegosouzapw/OmniRoute.git
@@ -337,7 +356,44 @@ npm run start
 # Or: pm2 start npm --name omniroute -- start
 ```
 
-### buruh pelabuhan
+### PM2 Deployment (Low Memory)
+
+For servers with limited RAM, use the memory limit option:
+
+```bash
+# With 512MB limit (default)
+pm2 start npm --name omniroute -- start
+
+# Or with custom memory limit
+OMNIROUTE_MEMORY_MB=512 pm2 start npm --name omniroute -- start
+
+# Or using ecosystem.config.js
+pm2 start ecosystem.config.js
+```
+
+Create `ecosystem.config.js`:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "omniroute",
+      script: "npm",
+      args: "start",
+      env: {
+        NODE_ENV: "production",
+        OMNIROUTE_MEMORY_MB: "512",
+        JWT_SECRET: "your-secret",
+        INITIAL_PASSWORD: "your-password",
+      },
+      node_args: "--max-old-space-size=512",
+      max_memory_restart: "300M",
+    },
+  ],
+};
+```
+
+### Docker
 
 ```bash
 # Build image (default = runner-cli with codex/claude/droid preinstalled)
@@ -347,51 +403,54 @@ docker build -t omniroute:cli .
 docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-data:/app/data omniroute:cli
 ```
 
-Untuk mode terintegrasi host dengan biner CLI, lihat bagian Docker di dokumen utama.
+For host-integrated mode with CLI binaries, see the Docker section in the main docs.
 
-### Variabel Lingkungan
+### Environment Variables
 
-| Variabel              | Bawaan                               | Deskripsi                                                             |
-| --------------------- | ------------------------------------ | --------------------------------------------------------------------- |
-| `JWT_SECRET`          | `omniroute-default-secret-change-me` | Rahasia penandatanganan JWT (**perubahan produksi**)                  |
-| `INITIAL_PASSWORD`    | `123456`                             | Kata sandi masuk pertama                                              |
-| `DATA_DIR`            | `~/.omniroute`                       | Direktori data (db, penggunaan, log)                                  |
-| `PORT`                | kerangka default                     | Port layanan (`20128` dalam contoh)                                   |
-| `HOSTNAME`            | kerangka default                     | Ikat host (Docker defaultnya adalah `0.0.0.0`)                        |
-| `NODE_ENV`            | default waktu proses                 | Tetapkan `production` untuk diterapkan                                |
-| `BASE_URL`            | `http://localhost:20128`             | URL dasar internal sisi server                                        |
-| `CLOUD_URL`           | `https://omniroute.dev`              | URL dasar titik akhir sinkronisasi cloud                              |
-| `API_KEY_SECRET`      | `endpoint-proxy-api-key-secret`      | Rahasia HMAC untuk kunci API yang dihasilkan                          |
-| `REQUIRE_API_KEY`     | `false`                              | Terapkan kunci API Pembawa di `/v1/*`                                 |
-| `ENABLE_REQUEST_LOGS` | `false`                              | Mengaktifkan log permintaan/respons                                   |
-| `AUTH_COOKIE_SECURE`  | `false`                              | Paksa cookie autentikasi `Secure` (di belakang proksi terbalik HTTPS) |
+| Variable                  | Default                              | Description                                             |
+| ------------------------- | ------------------------------------ | ------------------------------------------------------- |
+| `JWT_SECRET`              | `omniroute-default-secret-change-me` | JWT signing secret (**change in production**)           |
+| `INITIAL_PASSWORD`        | `123456`                             | First login password                                    |
+| `DATA_DIR`                | `~/.omniroute`                       | Data directory (db, usage, logs)                        |
+| `PORT`                    | framework default                    | Service port (`20128` in examples)                      |
+| `HOSTNAME`                | framework default                    | Bind host (Docker defaults to `0.0.0.0`)                |
+| `NODE_ENV`                | runtime default                      | Set `production` for deploy                             |
+| `BASE_URL`                | `http://localhost:20128`             | Server-side internal base URL                           |
+| `CLOUD_URL`               | `https://omniroute.dev`              | Cloud sync endpoint base URL                            |
+| `API_KEY_SECRET`          | `endpoint-proxy-api-key-secret`      | HMAC secret for generated API keys                      |
+| `REQUIRE_API_KEY`         | `false`                              | Enforce Bearer API key on `/v1/*`                       |
+| `ENABLE_REQUEST_LOGS`     | `false`                              | Enables request/response logs                           |
+| `AUTH_COOKIE_SECURE`      | `false`                              | Force `Secure` auth cookie (behind HTTPS reverse proxy) |
+| `OMNIROUTE_MEMORY_MB`     | `512`                                | Node.js heap limit in MB                                |
+| `PROMPT_CACHE_MAX_SIZE`   | `50`                                 | Max prompt cache entries                                |
+| `SEMANTIC_CACHE_MAX_SIZE` | `100`                                | Max semantic cache entries                              |
 
-Untuk referensi variabel lingkungan selengkapnya, lihat [README](../README.md).
+For the full environment variable reference, see the [README](../README.md).
 
 ---
 
-## 📊 Model yang Tersedia
+## 📊 Available Models
 
 <details>
-<summary><b>Lihat semua model yang tersedia</b></summary>
+<summary><b>View all available models</b></summary>
 
-**Kode Claude (`cc/`)** — Pro/Maks: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
+**Claude Code (`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
 
-**Kodeks (`cx/`)** — Plus/Pro: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
+**Codex (`cx/`)** — Plus/Pro: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
 
-**Gemini CLI (`gc/`)** — GRATIS: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
+**Gemini CLI (`gc/`)** — FREE: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
 
-**Copilot GitHub (`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
+**GitHub Copilot (`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
 
-**GLM (`glm/`)** — $0,6/1 juta: `glm/glm-4.7`
+**GLM (`glm/`)** — $0.6/1M: `glm/glm-4.7`
 
-**MiniMax (`minimax/`)** — $0,2/1 juta: `minimax/MiniMax-M2.1`
+**MiniMax (`minimax/`)** — $0.2/1M: `minimax/MiniMax-M2.1`
 
-**iFlow (`if/`)** — GRATIS: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
+**iFlow (`if/`)** — FREE: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
 
-**Qwen (`qw/`)** — GRATIS: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
+**Qwen (`qw/`)** — FREE: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
 
-**Kiro (`kr/`)** — GRATIS: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
+**Kiro (`kr/`)** — FREE: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
 
 **DeepSeek (`ds/`)**: `ds/deepseek-chat`, `ds/deepseek-reasoner`
 
@@ -401,15 +460,15 @@ Untuk referensi variabel lingkungan selengkapnya, lihat [README](../README.md).
 
 **Mistral (`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
 
-**Kebingungan (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
+**Perplexity (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
 
-**Bersama AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
+**Together AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
 
-**AI Kembang Api (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
+**Fireworks AI (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
 
-**Otak Otak (`cerebras/`)**: `cerebras/llama-3.3-70b`
+**Cerebras (`cerebras/`)**: `cerebras/llama-3.3-70b`
 
-**Di sini (`cohere/`)**: `cohere/command-r-plus-08-2024`
+**Cohere (`cohere/`)**: `cohere/command-r-plus-08-2024`
 
 **NVIDIA NIM (`nvidia/`)**: `nvidia/nvidia/llama-3.3-70b-instruct`
 
@@ -417,11 +476,11 @@ Untuk referensi variabel lingkungan selengkapnya, lihat [README](../README.md).
 
 ---
 
-## 🧩 Fitur Lanjutan
+## 🧩 Advanced Features
 
-### Model Khusus
+### Custom Models
 
-Tambahkan ID model apa pun ke penyedia mana pun tanpa menunggu pembaruan aplikasi:
+Add any model ID to any provider without waiting for an app update:
 
 ```bash
 # Via API
@@ -433,11 +492,11 @@ curl -X POST http://localhost:20128/api/provider-models \
 # Remove: curl -X DELETE "http://localhost:20128/api/provider-models?provider=openai&model=gpt-4.5-preview"
 ```
 
-Atau gunakan Dasbor: **Penyedia → [Penyedia] → Model Khusus**.
+Or use Dashboard: **Providers → [Provider] → Custom Models**.
 
-### Rute Penyedia Khusus
+### Dedicated Provider Routes
 
-Rutekan permintaan langsung ke penyedia tertentu dengan validasi model:
+Route requests directly to a specific provider with model validation:
 
 ```bash
 POST http://localhost:20128/v1/providers/openai/chat/completions
@@ -445,9 +504,9 @@ POST http://localhost:20128/v1/providers/openai/embeddings
 POST http://localhost:20128/v1/providers/fireworks/images/generations
 ```
 
-Awalan penyedia ditambahkan secara otomatis jika tidak ada. Model yang tidak cocok menampilkan `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
-### Konfigurasi Proksi Jaringan
+### Network Proxy Configuration
 
 ```bash
 # Set global proxy
@@ -463,76 +522,76 @@ curl -X POST http://localhost:20128/api/settings/proxy/test \
   -d '{"proxy":{"type":"socks5","host":"proxy.example.com","port":"1080"}}'
 ```
 
-**Prioritas:** Khusus kunci → Khusus kombo → Khusus penyedia → Global → Lingkungan.
+**Precedence:** Key-specific → Combo-specific → Provider-specific → Global → Environment.
 
-### API Katalog Model
+### Model Catalog API
 
 ```bash
 curl http://localhost:20128/api/models/catalog
 ```
 
-Mengembalikan model yang dikelompokkan berdasarkan penyedia dengan tipe (`chat`, `embedding`, `image`).
+Returns models grouped by provider with types (`chat`, `embedding`, `image`).
 
-### Sinkronisasi Awan
+### Cloud Sync
 
-- Sinkronisasi penyedia, kombo, dan pengaturan di seluruh perangkat
-- Sinkronisasi latar belakang otomatis dengan batas waktu + cepat gagal
-- Lebih memilih `BASE_URL`/`CLOUD_URL` sisi server dalam produksi
+- Sync providers, combos, and settings across devices
+- Automatic background sync with timeout + fail-fast
+- Prefer server-side `BASE_URL`/`CLOUD_URL` in production
 
-### LLM Gateway Intelligence (Fase 9)
+### LLM Gateway Intelligence (Phase 9)
 
-- **Cache Semantik** — Cache otomatis non-streaming, suhu=0 tanggapan (bypass dengan `X-OmniRoute-No-Cache: true`)
-- **Idempotency Permintaan** — Menghapus duplikat permintaan dalam waktu 5 detik melalui header `Idempotency-Key` atau `X-Request-Id`
-- **Pelacakan Kemajuan** — Ikut serta dalam acara SSE `event: progress` melalui header `X-OmniRoute-Progress: true`
-
----
-
-### Taman Bermain Penerjemah
-
-Akses melalui **Dasbor → Penerjemah**. Debug dan visualisasikan bagaimana OmniRoute menerjemahkan permintaan API antar penyedia.
-
-| Modus                | Tujuan                                                                                           |
-| -------------------- | ------------------------------------------------------------------------------------------------ |
-| **Taman bermain**    | Pilih format sumber/target, tempelkan permintaan, dan lihat keluaran terjemahan secara instan    |
-| **Penguji Obrolan**  | Kirim pesan obrolan langsung melalui proxy dan periksa siklus permintaan/respons lengkap         |
-| **Bangku Tes**       | Jalankan pengujian batch pada berbagai kombinasi format untuk memverifikasi kebenaran terjemahan |
-| **Monitor Langsung** | Tonton terjemahan real-time saat permintaan mengalir melalui proxy                               |
-
-**Kasus penggunaan:**
-
-- Debug mengapa kombinasi klien/penyedia tertentu gagal
-- Verifikasi bahwa tag pemikiran, panggilan alat, dan perintah sistem diterjemahkan dengan benar
-- Bandingkan perbedaan format antara format OpenAI, Claude, Gemini, dan Responses API
+- **Semantic Cache** — Auto-caches non-streaming, temperature=0 responses (bypass with `X-OmniRoute-No-Cache: true`)
+- **Request Idempotency** — Deduplicates requests within 5s via `Idempotency-Key` or `X-Request-Id` header
+- **Progress Tracking** — Opt-in SSE `event: progress` events via `X-OmniRoute-Progress: true` header
 
 ---
 
-### Strategi Perutean
+### Translator Playground
 
-Konfigurasikan melalui **Dasbor → Pengaturan → Perutean**.
+Access via **Dashboard → Translator**. Debug and visualize how OmniRoute translates API requests between providers.
 
-| Strategi                       | Deskripsi                                                                                                  |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| **Isi Dulu**                   | Menggunakan akun dalam urutan prioritas — akun utama menangani semua permintaan hingga tidak tersedia      |
-| **Robin Bulat**                | Menggilir semua akun dengan batas melekat yang dapat dikonfigurasi (default: 3 panggilan per akun)         |
-| **P2C (Kekuatan Dua Pilihan)** | Pilih 2 akun acak dan rute ke akun yang lebih sehat — menyeimbangkan beban dengan kesadaran akan kesehatan |
-| **Acak**                       | Memilih akun secara acak untuk setiap permintaan menggunakan Fisher-Yates shuffle                          |
-| **Jarang Digunakan**           | Merutekan ke akun dengan stempel waktu `lastUsedAt` terlama, mendistribusikan lalu lintas secara merata    |
-| **Pengoptimalan Biaya**        | Merutekan ke akun dengan nilai prioritas terendah, mengoptimalkan penyedia berbiaya terendah               |
+| Mode             | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| **Playground**   | Select source/target formats, paste a request, and see the translated output instantly |
+| **Chat Tester**  | Send live chat messages through the proxy and inspect the full request/response cycle  |
+| **Test Bench**   | Run batch tests across multiple format combinations to verify translation correctness  |
+| **Live Monitor** | Watch real-time translations as requests flow through the proxy                        |
 
-#### Alias Model Wildcard
+**Use cases:**
 
-Buat pola wildcard untuk memetakan ulang nama model:
+- Debug why a specific client/provider combination fails
+- Verify that thinking tags, tool calls, and system prompts translate correctly
+- Compare format differences between OpenAI, Claude, Gemini, and Responses API formats
+
+---
+
+### Routing Strategies
+
+Configure via **Dashboard → Settings → Routing**.
+
+| Strategy                       | Description                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Fill First**                 | Uses accounts in priority order — primary account handles all requests until unavailable         |
+| **Round Robin**                | Cycles through all accounts with a configurable sticky limit (default: 3 calls per account)      |
+| **P2C (Power of Two Choices)** | Picks 2 random accounts and routes to the healthier one — balances load with awareness of health |
+| **Random**                     | Randomly selects an account for each request using Fisher-Yates shuffle                          |
+| **Least Used**                 | Routes to the account with the oldest `lastUsedAt` timestamp, distributing traffic evenly        |
+| **Cost Optimized**             | Routes to the account with the lowest priority value, optimizing for lowest-cost providers       |
+
+#### Wildcard Model Aliases
+
+Create wildcard patterns to remap model names:
 
 ```
 Pattern: claude-sonnet-*     →  Target: cc/claude-sonnet-4-5-20250929
 Pattern: gpt-*               →  Target: gh/gpt-5.1-codex
 ```
 
-Wildcard mendukung `*` (karakter apa saja) dan `?` (karakter tunggal).
+Wildcards support `*` (any characters) and `?` (single character).
 
-#### Rantai Pengganti
+#### Fallback Chains
 
-Tentukan rantai fallback global yang berlaku di semua permintaan:
+Define global fallback chains that apply across all requests:
 
 ```
 Chain: production-fallback
@@ -543,46 +602,46 @@ Chain: production-fallback
 
 ---
 
-### Ketahanan & Pemutus Sirkuit
+### Resilience & Circuit Breakers
 
-Konfigurasikan melalui **Dasbor → Pengaturan → Ketahanan**.
+Configure via **Dashboard → Settings → Resilience**.
 
-OmniRoute mengimplementasikan ketahanan tingkat penyedia dengan empat komponen:
+OmniRoute implements provider-level resilience with four components:
 
-1. **Profil Penyedia** — Konfigurasi per penyedia untuk:
-   - Ambang batas kegagalan (berapa banyak kegagalan sebelum dibuka)
-   - Durasi pendinginan
-   - Sensitivitas deteksi batas kecepatan
-   - Parameter backoff eksponensial
+1. **Provider Profiles** — Per-provider configuration for:
+   - Failure threshold (how many failures before opening)
+   - Cooldown duration
+   - Rate limit detection sensitivity
+   - Exponential backoff parameters
 
-2. **Batas Tarif yang Dapat Diedit** — Default tingkat sistem dapat dikonfigurasi di dasbor:
-   - **Permintaan Per Menit (RPM)** — Permintaan maksimum per menit per akun
-   - **Waktu Minimum Antar Permintaan** — Kesenjangan minimum dalam milidetik antar permintaan
-   - **Permintaan Bersamaan Maksimum** — Permintaan simultan maksimum per akun
-   - Klik **Edit** untuk mengubah, lalu **Simpan** atau **Batal**. Nilai-nilai bertahan melalui API ketahanan.
+2. **Editable Rate Limits** — System-level defaults configurable in the dashboard:
+   - **Requests Per Minute (RPM)** — Maximum requests per minute per account
+   - **Min Time Between Requests** — Minimum gap in milliseconds between requests
+   - **Max Concurrent Requests** — Maximum simultaneous requests per account
+   - Click **Edit** to modify, then **Save** or **Cancel**. Values persist via the resilience API.
 
-3. **Pemutus Sirkuit** — Melacak kegagalan per penyedia dan secara otomatis membuka sirkuit ketika ambang batas tercapai:
-   - **TUTUP** (Sehat) — Permintaan mengalir normal
-   - **BUKA** — Penyedia diblokir sementara setelah kegagalan berulang kali
-   - **HALF_OPEN** — Menguji apakah penyedia telah pulih
+3. **Circuit Breaker** — Tracks failures per provider and automatically opens the circuit when a threshold is reached:
+   - **CLOSED** (Healthy) — Requests flow normally
+   - **OPEN** — Provider is temporarily blocked after repeated failures
+   - **HALF_OPEN** — Testing if provider has recovered
 
-4. **Kebijakan & Pengidentifikasi Terkunci** — Menampilkan status pemutus sirkuit dan pengidentifikasi terkunci dengan kemampuan buka paksa.
+4. **Policies & Locked Identifiers** — Shows circuit breaker status and locked identifiers with force-unlock capability.
 
-5. **Deteksi Otomatis Batas Tarif** — Memantau header `429` dan `Retry-After` untuk secara proaktif menghindari batas tarif penyedia.
+5. **Rate Limit Auto-Detection** — Monitors `429` and `Retry-After` headers to proactively avoid hitting provider rate limits.
 
-**Kiat Pro:** Gunakan tombol **Reset Semua** untuk menghapus semua pemutus sirkuit dan cooldown saat penyedia pulih dari pemadaman listrik.
+**Pro Tip:** Use **Reset All** button to clear all circuit breakers and cooldowns when a provider recovers from an outage.
 
 ---
 
-### Ekspor/Impor Basis Data
+### Database Export / Import
 
-Kelola cadangan basis data di **Dasbor → Pengaturan → Sistem & Penyimpanan**.
+Manage database backups in **Dashboard → Settings → System & Storage**.
 
-| Aksi                       | Deskripsi                                                                                                                         |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **Ekspor Basis Data**      | Mengunduh database SQLite saat ini sebagai file `.sqlite`                                                                         |
-| **Ekspor Semua (.tar.gz)** | Mengunduh arsip cadangan lengkap termasuk: basis data, pengaturan, kombo, koneksi penyedia (tanpa kredensial), metadata kunci API |
-| **Impor Basis Data**       | Unggah file `.sqlite` untuk menggantikan database saat ini. Cadangan pra-impor dibuat secara otomatis                             |
+| Action                   | Description                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Export Database**      | Downloads the current SQLite database as a `.sqlite` file                                                                      |
+| **Export All (.tar.gz)** | Downloads a full backup archive including: database, settings, combos, provider connections (no credentials), API key metadata |
+| **Import Database**      | Upload a `.sqlite` file to replace the current database. A pre-import backup is automatically created                          |
 
 ```bash
 # API: Export database
@@ -596,38 +655,38 @@ curl -X POST http://localhost:20128/api/db-backups/import \
   -F "file=@backup.sqlite"
 ```
 
-**Validasi Impor:** File yang diimpor divalidasi integritasnya (pemeriksaan pragma SQLite), tabel yang diperlukan (`provider_connections`, `provider_nodes`, `combos`, `api_keys`), dan ukuran (maks 100MB).
+**Import Validation:** The imported file is validated for integrity (SQLite pragma check), required tables (`provider_connections`, `provider_nodes`, `combos`, `api_keys`), and size (max 100MB).
 
-**Kasus Penggunaan:**
+**Use Cases:**
 
-- Migrasi OmniRoute antar mesin
-- Buat cadangan eksternal untuk pemulihan bencana
-- Bagikan konfigurasi antar anggota tim (ekspor semua → bagikan arsip)
-
----
-
-### Pengaturan Dasbor
-
-Halaman pengaturan disusun menjadi 5 tab untuk memudahkan navigasi:
-
-| Tab           | Isi                                                                                                           |
-| ------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Keamanan**  | Pengaturan Login/Kata Sandi, Kontrol Akses IP, Autentikasi API untuk `/models`, dan Pemblokiran Penyedia      |
-| **Perutean**  | Strategi perutean global (6 opsi), alias model wildcard, rantai fallback, default kombo                       |
-| **Ketahanan** | Profil penyedia, batas tarif yang dapat diedit, status pemutus sirkuit, kebijakan & pengidentifikasi terkunci |
-| **AI**        | Memikirkan konfigurasi anggaran, injeksi cepat sistem global, statistik cache cepat                           |
-| **Lanjutan**  | Konfigurasi proksi global (HTTP/SOCKS5)                                                                       |
+- Migrate OmniRoute between machines
+- Create external backups for disaster recovery
+- Share configurations between team members (export all → share archive)
 
 ---
 
-### Biaya & Manajemen Anggaran
+### Settings Dashboard
 
-Akses melalui **Dasbor → Biaya**.
+The settings page is organized into 5 tabs for easy navigation:
 
-| Tab          | Tujuan                                                                                                     |
-| ------------ | ---------------------------------------------------------------------------------------------------------- |
-| **Anggaran** | Tetapkan batas pengeluaran per kunci API dengan anggaran harian/mingguan/bulanan dan pelacakan waktu nyata |
-| **Harga**    | Lihat dan edit entri harga model — biaya per 1K token input/output per penyedia                            |
+| Tab            | Contents                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| **Security**   | Login/Password settings, IP Access Control, API auth for `/models`, and Provider Blocking      |
+| **Routing**    | Global routing strategy (6 options), wildcard model aliases, fallback chains, combo defaults   |
+| **Resilience** | Provider profiles, editable rate limits, circuit breaker status, policies & locked identifiers |
+| **AI**         | Thinking budget configuration, global system prompt injection, prompt cache stats              |
+| **Advanced**   | Global proxy configuration (HTTP/SOCKS5)                                                       |
+
+---
+
+### Costs & Budget Management
+
+Access via **Dashboard → Costs**.
+
+| Tab         | Purpose                                                                                  |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| **Budget**  | Set spending limits per API key with daily/weekly/monthly budgets and real-time tracking |
+| **Pricing** | View and edit model pricing entries — cost per 1K input/output tokens per provider       |
 
 ```bash
 # API: Set a budget
@@ -639,13 +698,13 @@ curl -X POST http://localhost:20128/api/usage/budget \
 curl http://localhost:20128/api/usage/budget
 ```
 
-**Pelacakan Biaya:** Setiap permintaan mencatat penggunaan token dan menghitung biaya menggunakan tabel harga. Lihat pengelompokan di **Dasbor → Penggunaan** menurut penyedia, model, dan kunci API.
+**Cost Tracking:** Every request logs token usage and calculates cost using the pricing table. View breakdowns in **Dashboard → Usage** by provider, model, and API key.
 
 ---
 
-### Transkripsi Audio
+### Audio Transcription
 
-OmniRoute mendukung transkripsi audio melalui titik akhir yang kompatibel dengan OpenAI:
+OmniRoute supports audio transcription via the OpenAI-compatible endpoint:
 
 ```bash
 POST /v1/audio/transcriptions
@@ -659,40 +718,92 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-Penyedia yang tersedia: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
+Available providers: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
 
-Format audio yang didukung: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
-
----
-
-### Strategi Penyeimbangan Kombo
-
-Konfigurasikan penyeimbangan per kombo di **Dasbor → Kombo → Buat/Edit → Strategi**.
-
-| Strategi               | Deskripsi                                                                              |
-| ---------------------- | -------------------------------------------------------------------------------------- |
-| **Robin Bulat**        | Berputar melalui model secara berurutan                                                |
-| **Prioritas**          | Selalu mencoba model pertama; jatuh kembali hanya karena kesalahan                     |
-| **Acak**               | Memilih model acak dari kombo untuk setiap permintaan                                  |
-| **Berbobot**           | Rute secara proporsional berdasarkan bobot yang ditetapkan per model                   |
-| **Jarang Digunakan**   | Merutekan ke model dengan permintaan terkini paling sedikit (menggunakan metrik kombo) |
-| **Dioptimalkan Biaya** | Rute ke model termurah yang tersedia (menggunakan tabel harga)                         |
-
-Default kombo global dapat diatur di **Dasbor → Pengaturan → Perutean → Default Kombo**.
+Supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-### Dasbor Kesehatan
+### Combo Balancing Strategies
 
-Akses melalui **Dasbor → Kesehatan**. Ikhtisar kesehatan sistem real-time dengan 6 kartu:
+Configure per-combo balancing in **Dashboard → Combos → Create/Edit → Strategy**.
 
-| Kartu                  | Apa yang Ditunjukkannya                                                 |
-| ---------------------- | ----------------------------------------------------------------------- |
-| **Status Sistem**      | Uptime, versi, penggunaan memori, direktori data                        |
-| **Kesehatan Penyedia** | Status pemutus sirkuit per penyedia (Tertutup/Terbuka/Setengah Terbuka) |
-| **Batas Tarif**        | Cooldown batas tarif aktif per akun dengan sisa waktu                   |
-| **Penguncian Aktif**   | Penyedia diblokir sementara oleh kebijakan lockout                      |
-| **Cache Tanda Tangan** | Statistik cache deduplikasi (kunci aktif, tingkat hit)                  |
-| **Telemetri Latensi**  | agregasi latensi p50/p95/p99 per penyedia                               |
+| Strategy           | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Round-Robin**    | Rotates through models sequentially                                      |
+| **Priority**       | Always tries the first model; falls back only on error                   |
+| **Random**         | Picks a random model from the combo for each request                     |
+| **Weighted**       | Routes proportionally based on assigned weights per model                |
+| **Least-Used**     | Routes to the model with the fewest recent requests (uses combo metrics) |
+| **Cost-Optimized** | Routes to the cheapest available model (uses pricing table)              |
 
-**Tips Pro:** Halaman Kesehatan disegarkan secara otomatis setiap 10 detik. Gunakan kartu pemutus sirkuit untuk mengidentifikasi penyedia mana yang mengalami masalah.
+Global combo defaults can be set in **Dashboard → Settings → Routing → Combo Defaults**.
+
+---
+
+### Health Dashboard
+
+Access via **Dashboard → Health**. Real-time system health overview with 6 cards:
+
+| Card                  | What It Shows                                               |
+| --------------------- | ----------------------------------------------------------- |
+| **System Status**     | Uptime, version, memory usage, data directory               |
+| **Provider Health**   | Per-provider circuit breaker state (Closed/Open/Half-Open)  |
+| **Rate Limits**       | Active rate limit cooldowns per account with remaining time |
+| **Active Lockouts**   | Providers temporarily blocked by the lockout policy         |
+| **Signature Cache**   | Deduplication cache stats (active keys, hit rate)           |
+| **Latency Telemetry** | p50/p95/p99 latency aggregation per provider                |
+
+**Pro Tip:** The Health page auto-refreshes every 10 seconds. Use the circuit breaker card to identify which providers are experiencing issues.
+
+---
+
+## 🖥️ Desktop Application (Electron)
+
+OmniRoute is available as a native desktop application for Windows, macOS, and Linux.
+
+### Installation
+
+```bash
+# From the electron directory:
+cd electron
+npm install
+
+# Development mode (connect to running Next.js dev server):
+npm run dev
+
+# Production mode (uses standalone build):
+npm start
+```
+
+### Building Installers
+
+```bash
+cd electron
+npm run build          # Current platform
+npm run build:win      # Windows (.exe NSIS)
+npm run build:mac      # macOS (.dmg universal)
+npm run build:linux    # Linux (.AppImage)
+```
+
+Output → `electron/dist-electron/`
+
+### Key Features
+
+| Feature                     | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| **Server Readiness**        | Polls server before showing window (no blank screen) |
+| **System Tray**             | Minimize to tray, change port, quit from tray menu   |
+| **Port Management**         | Change server port from tray (auto-restarts server)  |
+| **Content Security Policy** | Restrictive CSP via session headers                  |
+| **Single Instance**         | Only one app instance can run at a time              |
+| **Offline Mode**            | Bundled Next.js server works without internet        |
+
+### Environment Variables
+
+| Variable              | Default | Description                      |
+| --------------------- | ------- | -------------------------------- |
+| `OMNIROUTE_PORT`      | `20128` | Server port                      |
+| `OMNIROUTE_MEMORY_MB` | `512`   | Node.js heap limit (64–16384 MB) |
+
+📖 Full documentation: [`electron/README.md`](../electron/README.md)

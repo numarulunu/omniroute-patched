@@ -1,12 +1,12 @@
-# API 参考
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-所有 OmniRoute API 端点的完整参考。
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## 目录
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@
 
 ---
 
-## 聊天完成
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### 自定义标头
+### Custom Headers
 
-| 标题                     | 方向 | 描述                          |
-| ------------------------ | ---- | ----------------------------- |
-| `X-OmniRoute-No-Cache`   | 请求 | 设置为 `true` 以绕过缓存      |
-| `X-OmniRoute-Progress`   | 请求 | 对于进度事件设置为 `true`     |
-| `Idempotency-Key`        | 请求 | Dedup 密钥（5 秒窗口）        |
-| `X-Request-Id`           | 请求 | 替代重复数据删除密钥          |
-| `X-OmniRoute-Cache`      | 回应 | `HIT` 或 `MISS`（非流式传输） |
-| `X-OmniRoute-Idempotent` | 回应 | `true` 如果已进行重复数据删除 |
-| `X-OmniRoute-Progress`   | 回应 | `enabled` 如果进度跟踪开启    |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## 嵌入
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-可用的提供商：Nebius、OpenAI、Mistral、Together AI、Fireworks、NVIDIA。
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## 图像生成
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-可用的提供商：OpenAI (DALL-E)、xAI (Grok Image)、Together AI (FLUX)、Fireworks AI。
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## 列出型号
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## 兼容性端点
+## Compatibility Endpoints
 
-|方法|路径|格式|
-| ------ | ------------------------ | | ---------------------- |
-|发布 | `/v1/chat/completions` |开放人工智能 |
-|发布 | `/v1/messages` |人择 |
-|发布 | `/v1/responses` | OpenAI 回应 |
-|发布 | `/v1/embeddings` |开放人工智能 |
-|发布 | `/v1/images/generations` |开放人工智能 |
-|获取 | `/v1/models` |开放人工智能 |
-|发布 | `/v1/messages/count_tokens` |人择 |
-|获取 | `/v1beta/models` |双子座|
-|发布 | `/v1beta/models/{...path}` |双子座生成内容 |
-|发布 | `/v1/api/chat` |奥拉玛 |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### 专用提供商路线
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-如果缺少提供商前缀，则会自动添加。不匹配的模型返回 `400`。
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## 语义缓存
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-响应示例：
+Response example:
 
 ```json
 {
@@ -162,154 +162,164 @@ DELETE /api/cache
 
 ---
 
-## 仪表板和管理
+## Dashboard & Management
 
-### 身份验证
+### Authentication
 
-| 端点                          | 方法      | 描述         |
-| ----------------------------- | --------- | ------------ |
-| `/api/auth/login`             | 发布      | 登录         |
-| `/api/auth/logout`            | 发布      | 退出         |
-| `/api/settings/require-login` | 获取/放置 | 切换需要登录 |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### 提供商管理
+### Provider Management
 
-| 端点                         | 方法           | 描述            |
-| ---------------------------- | -------------- | --------------- |
-| `/api/providers`             | 获取/发布      | 列出/创建提供商 |
-| `/api/providers/[id]`        | 获取/放置/删除 | 管理提供商      |
-| `/api/providers/[id]/test`   | 发布           | 测试提供商连接  |
-| `/api/providers/[id]/models` | 获取           | 列出供应商型号  |
-| `/api/providers/validate`    | 发布           | 验证提供商配置  |
-| `/api/provider-nodes*`       | 各种           | 提供商节点管理  |
-| `/api/provider-models`       | 获取/发布/删除 | 定制型号        |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### OAuth 流程
+### OAuth Flows
 
-| 端点                             | 方法 | 描述                 |
-| -------------------------------- | ---- | -------------------- |
-| `/api/oauth/[provider]/[action]` | 各种 | 特定于提供商的 OAuth |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### 路由和配置
+### Routing & Config
 
-| 端点                  | 方法      | 描述                        |
-| --------------------- | --------- | --------------------------- |
-| `/api/models/alias`   | 获取/发布 | 模型别名                    |
-| `/api/models/catalog` | 获取      | 按提供商+类型列出的所有型号 |
-| `/api/combos*`        | 各种      | 组合管理                    |
-| `/api/keys*`          | 各种      | API 密钥管理                |
-| `/api/pricing`        | 获取      | 型号定价                    |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### 使用与分析
+### Usage & Analytics
 
-|端点 |方法|描述 |
-| ------------------------ | | ------ | -------------------- |
-| `/api/usage/history` |获取 |使用历史 |
-| `/api/usage/logs` |获取 |使用日志 |
-| `/api/usage/request-logs` |获取 |请求级日志 |
-| `/api/usage/[connectionId]` |获取 |每个连接的使用情况 |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### 设置
+### Settings
 
-| 端点                            | 方法      | 描述                 |
-| ------------------------------- | --------- | -------------------- |
-| `/api/settings`                 | 获取/放置 | 常规设置             |
-| `/api/settings/proxy`           | 获取/放置 | 网络代理配置         |
-| `/api/settings/proxy/test`      | 发布      | 测试代理连接         |
-| `/api/settings/ip-filter`       | 获取/放置 | IP 允许列表/阻止列表 |
-| `/api/settings/thinking-budget` | 获取/放置 | 推理代币预算         |
-| `/api/settings/system-prompt`   | 获取/放置 | 全局系统提示         |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### 监控
+### Monitoring
 
-| 端点                     | 方法      | 描述               |
-| ------------------------ | --------- | ------------------ |
-| `/api/sessions`          | 获取      | 活动会话跟踪       |
-| `/api/rate-limits`       | 获取      | 每个帐户的费率限制 |
-| `/api/monitoring/health` | 获取      | 健康检查           |
-| `/api/cache`             | 获取/删除 | 缓存统计/清除      |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### 备份和导出/导入
+### Backup & Export/Import
 
-|端点 |方法|描述 |
-| ------------------------ | | ------ | --------------------------------------- |
-| `/api/db-backups` |获取 |列出可用备份 |
-| `/api/db-backups` |放置 |创建手动备份 |
-| `/api/db-backups` |发布 |从特定备份恢复|
-| `/api/db-backups/export` |获取 |将数据库下载为 .sqlite 文件 |
-| `/api/db-backups/import` |发布 |上传.sqlite 文件来替换数据库 |
-| `/api/db-backups/exportAll` |获取 |下载完整备份为 .tar.gz 存档 |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
-### 云同步
+### Cloud Sync
 
-| 端点                   | 方法 | 描述       |
-| ---------------------- | ---- | ---------- |
-| `/api/sync/cloud`      | 各种 | 云同步操作 |
-| `/api/sync/initialize` | 发布 | 初始化同步 |
-| `/api/cloud/*`         | 各种 | 云管理     |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### CLI 工具
+### CLI Tools
 
-| 端点                               | 方法 | 描述              |
-| ---------------------------------- | ---- | ----------------- |
-| `/api/cli-tools/claude-settings`   | 获取 | 克劳德 CLI 状态   |
-| `/api/cli-tools/codex-settings`    | 获取 | Codex CLI 状态    |
-| `/api/cli-tools/droid-settings`    | 获取 | Droid CLI 状态    |
-| `/api/cli-tools/openclaw-settings` | 获取 | OpenClaw CLI 状态 |
-| `/api/cli-tools/runtime/[toolId]`  | 获取 | 通用 CLI 运行时   |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-CLI 响应包括：`installed`、`runnable`、`command`、`commandPath`、`runtimeMode`、`reason`。
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### 弹性和速率限制
+### ACP Agents
 
-| 端点                    | 方法      | 描述                   |
-| ----------------------- | --------- | ---------------------- |
-| `/api/resilience`       | 获取/放置 | 获取/更新弹性配置文件  |
-| `/api/resilience/reset` | 发布      | 重置断路器             |
-| `/api/rate-limits`      | 获取      | 每个帐户的速率限制状态 |
-| `/api/rate-limit`       | 获取      | 全局限速配置           |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
 
-### 评估
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
 
-| 端点         | 方法      | 描述                  |
-| ------------ | --------- | --------------------- |
-| `/api/evals` | 获取/发布 | 列出评估套件/运行评估 |
+### Resilience & Rate Limits
 
-### 政策
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
-| 端点            | 方法           | 描述         |
-| --------------- | -------------- | ------------ |
-| `/api/policies` | 获取/发布/删除 | 管理路由策略 |
+### Evals
 
-### 合规性
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-|端点 |方法|描述 |
-| ------------------------ | | ------ | -------------------------------------- |
-| `/api/compliance/audit-log` |获取 |合规审核日志（最后 N）|
+### Policies
 
-### v1beta（Gemini 兼容）
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-| 端点                       | 方法 | 描述                          |
-| -------------------------- | ---- | ----------------------------- |
-| `/v1beta/models`           | 获取 | 以 Gemini 格式列出模型        |
-| `/v1beta/models/{...path}` | 发布 | Gemini `generateContent` 端点 |
+### Compliance
 
-这些端点反映了 Gemini 的 API 格式，适用于期望本机 Gemini SDK 兼容性的客户端。
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### 内部/系统 API
+### v1beta (Gemini-Compatible)
 
-| 端点            | 方法 | 描述                                        |
-| --------------- | ---- | ------------------------------------------- |
-| `/api/init`     | 获取 | 应用程序初始化检查（首次运行时使用）        |
-| `/api/tags`     | 获取 | Ollama 兼容模型标签（适用于 Ollama 客户端） |
-| `/api/restart`  | 发布 | 触发服务器优雅重启                          |
-| `/api/shutdown` | 发布 | 触发服务器正常关闭                          |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-> **注意：** 这些端点由系统内部使用或用于 Ollama 客户端兼容性。最终用户通常不会调用它们。
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
+
+### Internal / System APIs
+
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
+
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## 音频转录
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-使用 Deepgram 或 AssemblyAI 转录音频文件。
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**要求：**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**回应：**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**支持的提供商：** `deepgram/nova-3`、`assemblyai/best`。
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**支持的格式：** `mp3`、`wav`、`m4a`、`flac`、`ogg`、`webm`。
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## 奥拉马兼容性
+## Ollama Compatibility
 
-对于使用 Ollama 的 API 格式的客户端：
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-请求会在 Ollama 和内部格式之间自动转换。
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## 遥测
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**回应：**
+**Response:**
 
 ```json
 {
@@ -381,7 +391,7 @@ GET /api/telemetry/summary
 
 ---
 
-## 预算
+## Budget
 
 ```bash
 # Get budget status for all API keys
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## 型号可用性
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## 请求处理
+## Request Processing
 
-1. 客户端向`/v1/*`发送请求
-2. 路由处理程序调用 `handleChat`、`handleEmbedding`、`handleAudioTranscription` 或 `handleImageGeneration`
-3. 模型已解析（直接提供者/模型或别名/组合）
-4. 通过帐户可用性过滤从本地数据库中选择凭证
-5. 对于聊天：`handleChatCore` — 格式检测、翻译、缓存检查、幂等性检查
-6. Provider执行器发送上游请求
-7. 响应转换回客户端格式（聊天）或按原样返回（嵌入/图像/音频）
-8. 使用/日志记录
-9. 根据组合规则对错误应用回退
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-完整架构参考：[link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## 身份验证
+## Authentication
 
-- 仪表板路由 (`/dashboard/*`) 使用 `auth_token` cookie
-- 登录使用保存的密码哈希；回退到 `INITIAL_PASSWORD`
-- `requireLogin` 可通过 `/api/settings/require-login` 切换
-- `/v1/*` 路由在 `REQUIRE_API_KEY=true` 时可选择需要 Bearer API 密钥
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

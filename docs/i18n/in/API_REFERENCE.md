@@ -1,12 +1,12 @@
-# एपीआई संदर्भ
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-सभी ओमनीरूट एपीआई एंडपॉइंट के लिए पूरा संदर्भ।
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## सामग्री तालिका
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@
 
 ---
 
-## चैट समापन
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,23 +36,34 @@ Content-Type: application/json
 }
 ```
 
-### कस्टम हेडर
+### Custom Headers
 
-| हेडर                     | दिशा        | विवरण                                        |
-| ------------------------ | ----------- | -------------------------------------------- | ----- |
-| `X-OmniRoute-No-Cache`   | निवेदन      | कैश को बायपास करने के लिए `true` पर सेट करें |
-| `X-OmniRoute-Progress`   | निवेदन      | प्रगति घटनाओं के लिए `true` पर सेट करें      |
-| `Idempotency-Key`        | निवेदन      | डेडअप कुंजी (5एस विंडो)                      |
-|                          | निवेदन      | वैकल्पिक डिडअप कुंजी                         |
-| `X-OmniRoute-Cache`      | प्रतिक्रिया | `HIT` या `MISS` (गैर-स्ट्रीमिंग)             |
-| `X-OmniRoute-Idempotent` | प्रतिक्रिया | `true` यदि डुप्लीकेट काटा गया है             |
-| `X-OmniRoute-Progress`   | प्रतिक्रिया | `enabled` यदि प्रगति ट्रैकिंग                | पर है |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## एम्बेडिंग
+## Embeddings
 
-उपलब्ध प्रदाता: नेबियस, ओपनएआई, मिस्ट्रल, टुगेदर एआई, फायरवर्क्स, एनवीआईडीआईए।
+```bash
+POST /v1/embeddings
+Authorization: Bearer your-api-key
+Content-Type: application/json
+
+{
+  "model": "nebius/Qwen/Qwen3-Embedding-8B",
+  "input": "The food was delicious"
+}
+```
+
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -61,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## छवि निर्माण
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -75,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-उपलब्ध प्रदाता: OpenAI (DALL-E), xAI (ग्रोक इमेज), टुगेदर AI (FLUX), फायरवर्क्स AI।
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -84,32 +95,45 @@ GET /v1/images/generations
 
 ---
 
-## सूची मॉडल
+## List Models
+
+```bash
+GET /v1/models
+Authorization: Bearer your-api-key
+
+→ Returns all chat, embedding, and image models + combos in OpenAI format
+```
 
 ---
 
-## संगतता समापन बिंदु
+## Compatibility Endpoints
 
-| विधि         | पथ                          | प्रारूप              |
-| ------------ | --------------------------- | -------------------- |
-| पोस्ट        | `/v1/chat/completions`      | ओपनएआई               |
-| पोस्ट        | `/v1/messages`              | मानवशास्त्रीय        |
-| पोस्ट        | `/v1/responses`             | ओपनएआई प्रतिक्रियाएँ |
-| पोस्ट        | `/v1/embeddings`            | ओपनएआई               |
-| पोस्ट        | `/v1/images/generations`    | ओपनएआई               |
-| प्राप्त करें | `/v1/models`                | ओपनएआई               |
-| पोस्ट        | `/v1/messages/count_tokens` | मानवशास्त्रीय        |
-| प्राप्त करें | `/v1beta/models`            | मिथुन                |
-| पोस्ट        | `/v1beta/models/{...path}`  | मिथुन जनरेटकंटेंट    |
-| पोस्ट        | `/v1/api/chat`              | ओलामा                |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### समर्पित प्रदाता मार्ग
+### Dedicated Provider Routes
 
-गायब होने पर प्रदाता उपसर्ग स्वतः जुड़ जाता है। बेमेल मॉडल `400` लौटाते हैं।
+```bash
+POST /v1/providers/{provider}/chat/completions
+POST /v1/providers/{provider}/embeddings
+POST /v1/providers/{provider}/images/generations
+```
+
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## सिमेंटिक कैश
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -119,60 +143,75 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-प्रतिक्रिया उदाहरण:
+Response example:
+
+```json
+{
+  "semanticCache": {
+    "memorySize": 42,
+    "memoryMaxSize": 500,
+    "dbSize": 128,
+    "hitRate": 0.65
+  },
+  "idempotency": {
+    "activeKeys": 3,
+    "windowMs": 5000
+  }
+}
+```
 
 ---
 
-## डैशबोर्ड एवं प्रबंधन
+## Dashboard & Management
 
-### प्रमाणीकरण
+### Authentication
 
-| समापन बिंदु                   | Method  | विवरण                 |
+| Endpoint                      | Method  | Description           |
 | ----------------------------- | ------- | --------------------- |
 | `/api/auth/login`             | POST    | Login                 |
-| `/api/auth/logout`            | POST    | लॉगआउट                |
+| `/api/auth/logout`            | POST    | Logout                |
 | `/api/settings/require-login` | GET/PUT | Toggle login required |
 
 ### Provider Management
 
-| समापन बिंदु                  | Method                        | विवरण                              |
-| ---------------------------- | ----------------------------- | ---------------------------------- |
-| `/api/providers`             | GET/POST                      | प्रदाताओं की सूची बनाएं/बनाएँ      |
-| `/api/providers/[id]`        | GET/PUT/DELETE                | एक प्रदाता प्रबंधित करें           |
-| `/api/providers/[id]/test`   | पोस्ट                         | परीक्षण प्रदाता कनेक्शन            |
-| `/api/providers/[id]/models` | GET                           | सूची प्रदाता मॉडल                  |
-| `/api/providers/validate`    | POST                          | प्रदाता कॉन्फ़िगरेशन सत्यापित करें |
-| `/api/provider-nodes*`       | Various                       | प्रदाता नोड प्रबंधन                |
-| `/api/provider-models`       | प्राप्त करें/पोस्ट करें/हटाएं | कस्टम मॉडल                         |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
 ### OAuth Flows
 
-| समापन बिंदु                      | Method | विवरण                 |
-| -------------------------------- | ------ | --------------------- |
-| `/api/oauth/[provider]/[action]` | विविध  | प्रदाता-विशिष्ट OAuth |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### रूटिंग और कॉन्फ़िगरेशन
+### Routing & Config
 
-| Endpoint              | Method       | विवरण                            |
-| --------------------- | ------------ | -------------------------------- |
-| `/api/models/alias`   | GET/POST     | मॉडल उपनाम                       |
-| `/api/models/catalog` | प्राप्त करें | प्रदाता द्वारा सभी मॉडल + प्रकार |
-| `/api/combos*`        | विविध        | कॉम्बो प्रबंधन                   |
-| `/api/keys*`          | Various      | एपीआई कुंजी प्रबंधन              |
-| `/api/pricing`        | प्राप्त करें | मॉडल मूल्य निर्धारण              |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### उपयोग एवं विश्लेषण
+### Usage & Analytics
 
-| समापन बिंदु                 | विधि         | Description          |
-| --------------------------- | ------------ | -------------------- |
-| `/api/usage/history`        | प्राप्त करें | उपयोग इतिहास         |
-| `/api/usage/logs`           | प्राप्त करें | Usage logs           |
-| `/api/usage/request-logs`   | प्राप्त करें | Request-level logs   |
-| `/api/usage/[connectionId]` | प्राप्त करें | Per-connection usage |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
 ### Settings
 
-| समापन बिंदु                     | Method  | Description            |
+| Endpoint                        | Method  | Description            |
 | ------------------------------- | ------- | ---------------------- |
 | `/api/settings`                 | GET/PUT | General settings       |
 | `/api/settings/proxy`           | GET/PUT | Network proxy config   |
@@ -183,94 +222,104 @@ DELETE /api/cache
 
 ### Monitoring
 
-| समापन बिंदु              | विधि               | विवरण                |
-| ------------------------ | ------------------ | -------------------- |
-| `/api/sessions`          | प्राप्त करें       | सक्रिय सत्र ट्रैकिंग |
-| `/api/rate-limits`       | प्राप्त करें       | प्रति खाता दर सीमा   |
-| `/api/monitoring/health` | प्राप्त करें       | स्वास्थ्य जांच       |
-| `/api/cache`             | प्राप्त करें/हटाएं | कैश आँकड़े / साफ़    |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### बैकअप और निर्यात/आयात
+### Backup & Export/Import
 
-| समापन बिंदु                 | विधि         | विवरण                                              |
-| --------------------------- | ------------ | -------------------------------------------------- |
-| `/api/db-backups`           | प्राप्त करें | उपलब्ध बैकअप की सूची                               |
-| `/api/db-backups`           | डालो         | मैन्युअल बैकअप बनाएं                               |
-| `/api/db-backups`           | पोस्ट        | किसी विशिष्ट बैकअप से पुनर्स्थापित करें            |
-| `/api/db-backups/export`    | प्राप्त करें | डेटाबेस को .sqlite फ़ाइल के रूप में डाउनलोड करें   |
-| `/api/db-backups/import`    | पोस्ट        | डेटाबेस को बदलने के लिए .sqlite फ़ाइल अपलोड करें   |
-| `/api/db-backups/exportAll` | प्राप्त करें | .tar.gz संग्रह के रूप में पूर्ण बैकअप डाउनलोड करें |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
-### क्लाउड सिंक
+### Cloud Sync
 
-| समापन बिंदु            | विधि  | विवरण              |
-| ---------------------- | ----- | ------------------ |
-| `/api/sync/cloud`      | विविध | क्लाउड सिंक ऑपरेशन |
-| `/api/sync/initialize` | पोस्ट | सिंक प्रारंभ करें  |
-| `/api/cloud/*`         | विविध | बादल प्रबंधन       |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### सीएलआई उपकरण
+### CLI Tools
 
-| समापन बिंदु                        | विधि         | विवरण                 |
-| ---------------------------------- | ------------ | --------------------- |
-| `/api/cli-tools/claude-settings`   | प्राप्त करें | क्लाउड सीएलआई स्थिति  |
-| `/api/cli-tools/codex-settings`    | प्राप्त करें | कोडेक्स सीएलआई स्थिति |
-| `/api/cli-tools/droid-settings`    | प्राप्त करें | Droid CLI स्थिति      |
-| `/api/cli-tools/openclaw-settings` | प्राप्त करें | ओपनक्लॉ सीएलआई स्थिति |
-|                                    | प्राप्त करें | जेनेरिक सीएलआई रनटाइम |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-सीएलआई प्रतिक्रियाओं में शामिल हैं: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`।
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### लचीलापन और दर सीमाएँ
+### ACP Agents
 
-| समापन बिंदु             | विधि          | विवरण                                 |
-| ----------------------- | ------------- | ------------------------------------- |
-| `/api/resilience`       | प्राप्त/डालें | लचीलापन प्रोफ़ाइल प्राप्त/अद्यतन करें |
-| `/api/resilience/reset` | पोस्ट         | सर्किट ब्रेकर रीसेट करें              |
-| `/api/rate-limits`      | प्राप्त करें  | प्रति खाता दर सीमा स्थिति             |
-| `/api/rate-limit`       | प्राप्त करें  | वैश्विक दर सीमा विन्यास               |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
 
-### मूल्यांकन
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
 
-| समापन बिंदु  | विधि               | विवरण                         |
-| ------------ | ------------------ | ----------------------------- |
-| `/api/evals` | प्राप्त/पोस्ट करें | सूची eval सुइट्स/रन मूल्यांकन |
+### Resilience & Rate Limits
 
-### नीतियां
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
-| समापन बिंदु     | विधि                          | विवरण                        |
-| --------------- | ----------------------------- | ---------------------------- |
-| `/api/policies` | प्राप्त करें/पोस्ट करें/हटाएं | रूटिंग नीतियां प्रबंधित करें |
+### Evals
 
-### अनुपालन
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-| समापन बिंदु                 | विधि         | विवरण                       |
-| --------------------------- | ------------ | --------------------------- |
-| `/api/compliance/audit-log` | प्राप्त करें | अनुपालन ऑडिट लॉग (अंतिम एन) |
+### Policies
 
-### v1बीटा (मिथुन-संगत)
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-| समापन बिंदु                | विधि         | विवरण                                   |
-| -------------------------- | ------------ | --------------------------------------- |
-| `/v1beta/models`           | प्राप्त करें | जेमिनी प्रारूप में मॉडलों की सूची बनाएं |
-| `/v1beta/models/{...path}` | पोस्ट        | मिथुन `generateContent` समापन बिंदु     |
+### Compliance
 
-ये समापन बिंदु उन ग्राहकों के लिए जेमिनी के एपीआई प्रारूप को प्रतिबिंबित करते हैं जो मूल जेमिनी एसडीके संगतता की अपेक्षा करते हैं।
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### आंतरिक/सिस्टम एपीआई
+### v1beta (Gemini-Compatible)
 
-| समापन बिंदु     | विधि         | विवरण                                               |
-| --------------- | ------------ | --------------------------------------------------- |
-| `/api/init`     | प्राप्त करें | एप्लिकेशन इनिशियलाइज़ेशन जांच (पहले रन पर प्रयुक्त) |
-| `/api/tags`     | प्राप्त करें | ओलामा-संगत मॉडल टैग (ओलामा ग्राहकों के लिए)         |
-| `/api/restart`  | पोस्ट        | ट्रिगर सुशोभित सर्वर पुनरारंभ                       |
-| `/api/shutdown` | पोस्ट        | ट्रिगर ग्रेसफुल सर्वर शटडाउन                        |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-> **ध्यान दें:** इन समापन बिंदुओं का उपयोग सिस्टम द्वारा आंतरिक रूप से या ओलामा क्लाइंट संगतता के लिए किया जाता है। उन्हें आम तौर पर अंतिम उपयोगकर्ताओं द्वारा नहीं बुलाया जाता है।
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
+
+### Internal / System APIs
+
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
+
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## ऑडियो ट्रांसक्रिप्शन
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -278,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-डीपग्राम या असेंबलीएआई का उपयोग करके ऑडियो फ़ाइलों को ट्रांसक्राइब करें।
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**अनुरोध:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -289,55 +338,114 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**प्रतिक्रिया:**
+**Response:**
 
-**समर्थित प्रदाता:** `deepgram/nova-3`, `assemblyai/best`।
+```json
+{
+  "text": "Hello, this is the transcribed audio content.",
+  "task": "transcribe",
+  "language": "en",
+  "duration": 12.5
+}
+```
 
-**समर्थित प्रारूप:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`।
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
----
-
-## ओलामा अनुकूलता
-
-ओलामा के एपीआई प्रारूप का उपयोग करने वाले ग्राहकों के लिए:
-
-अनुरोध स्वचालित रूप से ओलामा और आंतरिक प्रारूपों के बीच अनुवादित होते हैं।
-
----
-
-## टेलीमेट्री
-
-**प्रतिक्रिया:**
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## बजट
+## Ollama Compatibility
+
+For clients that use Ollama's API format:
+
+```bash
+# Chat endpoint (Ollama format)
+POST /v1/api/chat
+
+# Model listing (Ollama format)
+GET /api/tags
+```
+
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## मॉडल उपलब्धता
+## Telemetry
+
+```bash
+# Get latency telemetry summary (p50/p95/p99 per provider)
+GET /api/telemetry/summary
+```
+
+**Response:**
+
+```json
+{
+  "providers": {
+    "claudeCode": { "p50": 245, "p95": 890, "p99": 1200, "count": 150 },
+    "github": { "p50": 180, "p95": 620, "p99": 950, "count": 320 }
+  }
+}
+```
 
 ---
 
-## अनुरोध प्रसंस्करण
+## Budget
 
-1. ग्राहक `/v1/*` पर अनुरोध भेजता है
-2. रूट हैंडलर `handleChat`, `handleEmbedding`, `handleAudioTranscription`, या `handleImageGeneration` को कॉल करता है।
-3. मॉडल हल हो गया है (प्रत्यक्ष प्रदाता/मॉडल या उपनाम/कॉम्बो)
-4. खाता उपलब्धता फ़िल्टरिंग के साथ स्थानीय डीबी से चयनित क्रेडेंशियल
-5. चैट के लिए: `handleChatCore` - प्रारूप का पता लगाना, अनुवाद, कैश जांच, निष्क्रियता जांच
-6. प्रदाता निष्पादक अपस्ट्रीम अनुरोध भेजता है
-7. प्रतिक्रिया को क्लाइंट प्रारूप (चैट) में वापस अनुवादित किया गया या जैसा है वैसा ही लौटाया गया (एम्बेडिंग/छवियां/ऑडियो)
-8. उपयोग/लॉगिंग रिकॉर्ड किया गया
-9. कॉम्बो नियमों के अनुसार त्रुटियों पर फ़ॉलबैक लागू होता है
+```bash
+# Get budget status for all API keys
+GET /api/usage/budget
 
-पूर्ण वास्तुकला संदर्भ: [link](ARCHITECTURE.md)
+# Set or update a budget
+POST /api/usage/budget
+Content-Type: application/json
+
+{
+  "keyId": "key-123",
+  "limit": 50.00,
+  "period": "monthly"
+}
+```
 
 ---
 
-## प्रमाणीकरण
+## Model Availability
 
-- डैशबोर्ड रूट (`/dashboard/*`) `auth_token` कुकी का उपयोग करते हैं
-- लॉगिन सहेजे गए पासवर्ड हैश का उपयोग करता है; `INITIAL_PASSWORD` पर फ़ॉलबैक
-- `requireLogin` `/api/settings/require-login` के माध्यम से टॉगल करने योग्य
-- `/v1/*` मार्गों को वैकल्पिक रूप से बियरर एपीआई कुंजी की आवश्यकता होती है जब `REQUIRE_API_KEY=true`
+```bash
+# Get real-time model availability across all providers
+GET /api/models/availability
+
+# Check availability for a specific model
+POST /api/models/availability
+Content-Type: application/json
+
+{
+  "model": "claude-sonnet-4-5-20250929"
+}
+```
+
+---
+
+## Request Processing
+
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
+
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
+
+---
+
+## Authentication
+
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

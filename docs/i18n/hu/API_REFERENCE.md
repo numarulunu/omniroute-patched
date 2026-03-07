@@ -1,12 +1,12 @@
-# API-referencia
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-Teljes referencia az összes OmniRoute API-végponthoz.
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## Tartalomjegyzék
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@ Teljes referencia az összes OmniRoute API-végponthoz.
 
 ---
 
-## Csevegés befejezése
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### Egyéni fejlécek
+### Custom Headers
 
-| Fejléc                   | Irány  | Leírás                                               |
-| ------------------------ | ------ | ---------------------------------------------------- |
-| `X-OmniRoute-No-Cache`   | Kérés  | Állítsa `true` értékre a gyorsítótár megkerüléséhez  |
-| `X-OmniRoute-Progress`   | Kérés  | Állítsa `true` értékre az előrehaladási eseményekhez |
-| `Idempotency-Key`        | Kérés  | Dedup kulcs (5s ablak)                               |
-| `X-Request-Id`           | Kérés  | Alternatív dedup kulcs                               |
-| `X-OmniRoute-Cache`      | Válasz | `HIT` vagy `MISS` (nem adatfolyam)                   |
-| `X-OmniRoute-Idempotent` | Válasz | `true`, ha deduplikált                               |
-| `X-OmniRoute-Progress`   | Válasz | `enabled` ha a haladás követése a                    |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## Beágyazások
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-Elérhető szolgáltatók: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## Képgenerálás
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-Elérhető szolgáltatók: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## Modellek listázása
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## Kompatibilitási végpontok
+## Compatibility Endpoints
 
-| Módszer | Útvonal                     | Formátum                 |
-| ------- | --------------------------- | ------------------------ |
-| POST    | `/v1/chat/completions`      | OpenAI                   |
-| POST    | `/v1/messages`              | Antropikus               |
-| POST    | `/v1/responses`             | OpenAI válaszok          |
-| POST    | `/v1/embeddings`            | OpenAI                   |
-| POST    | `/v1/images/generations`    | OpenAI                   |
-| GET     | `/v1/models`                | OpenAI                   |
-| POST    | `/v1/messages/count_tokens` | Antropikus               |
-| GET     | `/v1beta/models`            | Ikrek                    |
-| POST    | `/v1beta/models/{...path}`  | Gemini GenerationContent |
-| POST    | `/v1/api/chat`              | Ollama                   |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### Dedikált szolgáltatói útvonalak
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-A szolgáltató előtagja automatikusan hozzáadódik, ha hiányzik. A nem egyező modellek a következőt adják vissza: `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## Szemantikus gyorsítótár
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-Válasz példa:
+Response example:
 
 ```json
 {
@@ -162,154 +162,164 @@ Válasz példa:
 
 ---
 
-## Irányítópult és kezelés
+## Dashboard & Management
 
-### Hitelesítés
+### Authentication
 
-| Végpont                       | Módszer | Leírás                  |
-| ----------------------------- | ------- | ----------------------- |
-| `/api/auth/login`             | POST    | Bejelentkezés           |
-| `/api/auth/logout`            | POST    | Kijelentkezés           |
-| `/api/settings/require-login` | GET/PUT | Bejelentkezés szükséges |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### Szolgáltatói menedzsment
+### Provider Management
 
-| Végpont                      | Módszer         | Leírás                                      |
-| ---------------------------- | --------------- | ------------------------------------------- |
-| `/api/providers`             | GET/POST        | Szolgáltatók listázása/létrehozása          |
-| `/api/providers/[id]`        | GET/PUT/DELETE  | Szolgáltató kezelése                        |
-| `/api/providers/[id]/test`   | POST            | Szolgáltatói kapcsolat tesztelése           |
-| `/api/providers/[id]/models` | GET             | Szolgáltatói modellek listázása             |
-| `/api/providers/validate`    | POST            | A szolgáltató konfigurációjának ellenőrzése |
-| `/api/provider-nodes*`       | Különféle       | Szolgáltatói csomópontok kezelése           |
-| `/api/provider-models`       | GET/POST/DELETE | Egyedi modellek                             |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### OAuth-folyamatok
+### OAuth Flows
 
-| Végpont                          | Módszer   | Leírás                       |
-| -------------------------------- | --------- | ---------------------------- |
-| `/api/oauth/[provider]/[action]` | Különféle | Szolgáltató-specifikus OAuth |
+| Endpoint                         | Method  | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
 ### Routing & Config
 
-| Végpont               | Módszer   | Leírás                                    |
-| --------------------- | --------- | ----------------------------------------- |
-| `/api/models/alias`   | GET/POST  | Modell álnevek                            |
-| `/api/models/catalog` | GET       | Minden modell szolgáltató + típus szerint |
-| `/api/combos*`        | Különféle | Kombinált menedzsment                     |
-| `/api/keys*`          | Különféle | API-kulcskezelés                          |
-| `/api/pricing`        | GET       | Modell árképzés                           |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### Használat és elemzések
+### Usage & Analytics
 
-| Végpont                     | Módszer | Leírás                     |
-| --------------------------- | ------- | -------------------------- |
-| `/api/usage/history`        | GET     | Használati előzmények      |
-| `/api/usage/logs`           | GET     | Használati naplók          |
-| `/api/usage/request-logs`   | GET     | Kérelem szintű naplók      |
-| `/api/usage/[connectionId]` | GET     | Kapcsolatonkénti használat |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### Beállítások
+### Settings
 
-| Végpont                         | Módszer | Leírás                               |
-| ------------------------------- | ------- | ------------------------------------ |
-| `/api/settings`                 | GET/PUT | Általános beállítások                |
-| `/api/settings/proxy`           | GET/PUT | Hálózati proxy konfiguráció          |
-| `/api/settings/proxy/test`      | POST    | Proxy kapcsolat tesztelése           |
-| `/api/settings/ip-filter`       | GET/PUT | IP engedélyezési lista/blokkolólista |
-| `/api/settings/thinking-budget` | GET/PUT | Indoklási jelképes költségvetés      |
-| `/api/settings/system-prompt`   | GET/PUT | Globális rendszerkérdés              |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
 ### Monitoring
 
-| Végpont                  | Módszer    | Leírás                           |
-| ------------------------ | ---------- | -------------------------------- |
-| `/api/sessions`          | GET        | Aktív munkamenet-követés         |
-| `/api/rate-limits`       | GET        | Számlánkénti kamatkorlátok       |
-| `/api/monitoring/health` | GET        | állapotfelmérés                  |
-| `/api/cache`             | GET/DELETE | Gyorsítótár statisztika / törlés |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### Biztonsági mentés és exportálás/importálás
+### Backup & Export/Import
 
-| Végpont                     | Módszer | Leírás                                                     |
-| --------------------------- | ------- | ---------------------------------------------------------- |
-| `/api/db-backups`           | GET     | Az elérhető biztonsági másolatok listája                   |
-| `/api/db-backups`           | PUT     | Kézi biztonsági mentés létrehozása                         |
-| `/api/db-backups`           | POST    | Visszaállítás egy adott biztonsági másolatból              |
-| `/api/db-backups/export`    | GET     | Adatbázis letöltése .sqlite fájlként                       |
-| `/api/db-backups/import`    | POST    | Töltse fel az .sqlite fájlt az adatbázis                   |
-| `/api/db-backups/exportAll` | GET     | A teljes biztonsági másolat letöltése .tar.gz archívumként |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
 ### Cloud Sync
 
-| Végpont                | Módszer   | Leírás                          |
-| ---------------------- | --------- | ------------------------------- |
-| `/api/sync/cloud`      | Különféle | Felhő szinkronizálási műveletek |
-| `/api/sync/initialize` | POST      | Szinkronizálás inicializálása   |
-| `/api/cloud/*`         | Különféle | Felhőkezelés                    |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### CLI eszközök
+### CLI Tools
 
-| Végpont                            | Módszer | Leírás                   |
-| ---------------------------------- | ------- | ------------------------ |
-| `/api/cli-tools/claude-settings`   | GET     | Claude CLI állapota      |
-| `/api/cli-tools/codex-settings`    | GET     | Codex CLI állapota       |
-| `/api/cli-tools/droid-settings`    | GET     | Droid CLI állapot        |
-| `/api/cli-tools/openclaw-settings` | GET     | OpenClaw CLI állapota    |
-| `/api/cli-tools/runtime/[toolId]`  | GET     | Általános CLI futásidejű |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-A CLI-válaszok a következők: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### Rugalmassági és sebességi korlátok
+### ACP Agents
 
-| Végpont                 | Módszer | Leírás                                      |
-| ----------------------- | ------- | ------------------------------------------- |
-| `/api/resilience`       | GET/PUT | Rugalmassági profilok beszerzése/frissítése |
-| `/api/resilience/reset` | POST    | Megszakítók visszaállítása                  |
-| `/api/rate-limits`      | GET     | számlánkénti kamatláb korlát állapota       |
-| `/api/rate-limit`       | GET     | Globális díjkorlát konfiguráció             |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
+
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
+
+### Resilience & Rate Limits
+
+| Endpoint                | Method  | Description                     |
+| ----------------------- | ------- | ------------------------------- |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
 ### Evals
 
-| Végpont      | Módszer  | Leírás                                       |
-| ------------ | -------- | -------------------------------------------- |
-| `/api/evals` | GET/POST | Eval suites listázás / kiértékelés futtatása |
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-### Irányelvek
+### Policies
 
-| Végpont         | Módszer         | Leírás                           |
-| --------------- | --------------- | -------------------------------- |
-| `/api/policies` | GET/POST/DELETE | Útválasztási házirendek kezelése |
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-### Megfelelés
+### Compliance
 
-| Végpont                     | Módszer | Leírás                                     |
-| --------------------------- | ------- | ------------------------------------------ |
-| `/api/compliance/audit-log` | GET     | Megfelelőségi ellenőrzési napló (utolsó N) |
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### v1beta (Gemini-kompatibilis)
+### v1beta (Gemini-Compatible)
 
-| Végpont                    | Módszer | Leírás                              |
-| -------------------------- | ------- | ----------------------------------- |
-| `/v1beta/models`           | GET     | Modellek listája Gemini formátumban |
-| `/v1beta/models/{...path}` | POST    | Gemini `generateContent` végpont    |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-Ezek a végpontok tükrözik a Gemini API-formátumát azon ügyfelek számára, akik natív Gemini SDK-kompatibilitást várnak el.
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
 
-### Belső / Rendszer API-k
+### Internal / System APIs
 
-| Végpont         | Módszer | Leírás                                                            |
-| --------------- | ------- | ----------------------------------------------------------------- |
-| `/api/init`     | GET     | Alkalmazás inicializálási ellenőrzése (első futtatáskor használt) |
-| `/api/tags`     | GET     | Ollama-kompatibilis modellcímkék (Ollama ügyfelek számára)        |
-| `/api/restart`  | POST    | A kiszolgáló kecses újraindításának elindítása                    |
-| `/api/shutdown` | POST    | A kiszolgáló kecses leállításának elindítása                      |
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
 
-> **Megjegyzés:** Ezeket a végpontokat a rendszer belsőleg vagy az Ollama kliens kompatibilitás érdekében használja. Általában nem hívják a végfelhasználók.
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## Hang átírása
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-Írja át a hangfájlokat a Deepgram vagy az AssemblyAI segítségével.
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**Kérés:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**Válasz:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**Támogatott szolgáltatók:** `deepgram/nova-3`, `assemblyai/best`.
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**Támogatott formátumok:** `mp3`, `wav`, `m4a`, `flac`, `ogg`,
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## Ollama kompatibilitás
+## Ollama Compatibility
 
-Az Ollama API formátumát használó ügyfelek számára:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-A kéréseket a rendszer automatikusan lefordítja az Ollama és a belső formátumok között.
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## Telemetria
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**Válasz:**
+**Response:**
 
 ```json
 {
@@ -381,7 +391,7 @@ GET /api/telemetry/summary
 
 ---
 
-## Költségvetés
+## Budget
 
 ```bash
 # Get budget status for all API keys
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## A modell elérhetősége
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## Kérelem feldolgozása
+## Request Processing
 
-1. Az ügyfél kérelmet küld a következő címre: `/v1/*`
-2. Az útvonalkezelő hívások: `handleChat`, `handleEmbedding`, `handleAudioTranscription` vagy `handleImageGeneration`
-3. A modell feloldva (közvetlen szolgáltató/modell vagy álnév/kombináció)
-4. A helyi adatbázisból kiválasztott hitelesítő adatok fiók elérhetőségi szűréssel
-5. Csevegés esetén: `handleChatCore` — formátumészlelés, fordítás, gyorsítótár ellenőrzés, idempotencia ellenőrzés
-6. A szolgáltató végrehajtója upstream kérést küld
-7. A válasz visszafordítva ügyfélformátumra (csevegés) vagy visszaküldve (beágyazások/képek/audio)
-8. Használat/naplózás rögzítve
-9. A hibákra a tartalék a kombinált szabályok szerint érvényes
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-Teljes architektúra hivatkozás: [link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## Hitelesítés
+## Authentication
 
-- Az irányítópult útvonalai (`/dashboard/*`) `auth_token` cookie-t használnak
-- A bejelentkezés elmentett jelszókivonatot használ; vissza a `INITIAL_PASSWORD`
-- `requireLogin` átkapcsolható a következőn keresztül: `/api/settings/require-login`
-- A `/v1/*` útvonalak opcionálisan megkövetelik a Bearer API kulcsot, amikor `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`

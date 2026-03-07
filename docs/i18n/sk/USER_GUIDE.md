@@ -1,12 +1,12 @@
-# Používateľská príručka
+# User Guide
 
-🌐 **Languages:** 🇺🇸 [English](../../USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](../es/USER_GUIDE.md) | 🇫🇷 [Français](../fr/USER_GUIDE.md) | 🇮🇹 [Italiano](../it/USER_GUIDE.md) | 🇷🇺 [Русский](../ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](../zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](../de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](../in/USER_GUIDE.md) | 🇹🇭 [ไทย](../th/USER_GUIDE.md) | 🇺🇦 [Українська](../uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](../ar/USER_GUIDE.md) | 🇯🇵 [日本語](../ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](../vi/USER_GUIDE.md) | 🇧🇬 [Български](../bg/USER_GUIDE.md) | 🇩🇰 [Dansk](../da/USER_GUIDE.md) | 🇫🇮 [Suomi](../fi/USER_GUIDE.md) | 🇮🇱 [עברית](../he/USER_GUIDE.md) | 🇭🇺 [Magyar](../hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](../id/USER_GUIDE.md) | 🇰🇷 [한국어](../ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](../ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](../nl/USER_GUIDE.md) | 🇳🇴 [Norsk](../no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](../pt/USER_GUIDE.md) | 🇷🇴 [Română](../ro/USER_GUIDE.md) | 🇵🇱 [Polski](../pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](../sk/USER_GUIDE.md) | 🇸🇪 [Svenska](../sv/USER_GUIDE.md) | 🇵🇭 [Filipino](../phi/USER_GUIDE.md)
+🌐 **Languages:** 🇺🇸 [English](USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](i18n/es/USER_GUIDE.md) | 🇫🇷 [Français](i18n/fr/USER_GUIDE.md) | 🇮🇹 [Italiano](i18n/it/USER_GUIDE.md) | 🇷🇺 [Русский](i18n/ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](i18n/de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](i18n/in/USER_GUIDE.md) | 🇹🇭 [ไทย](i18n/th/USER_GUIDE.md) | 🇺🇦 [Українська](i18n/uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](i18n/ar/USER_GUIDE.md) | 🇯🇵 [日本語](i18n/ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/USER_GUIDE.md) | 🇧🇬 [Български](i18n/bg/USER_GUIDE.md) | 🇩🇰 [Dansk](i18n/da/USER_GUIDE.md) | 🇫🇮 [Suomi](i18n/fi/USER_GUIDE.md) | 🇮🇱 [עברית](i18n/he/USER_GUIDE.md) | 🇭🇺 [Magyar](i18n/hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/USER_GUIDE.md) | 🇰🇷 [한국어](i18n/ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](i18n/nl/USER_GUIDE.md) | 🇳🇴 [Norsk](i18n/no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/USER_GUIDE.md) | 🇷🇴 [Română](i18n/ro/USER_GUIDE.md) | 🇵🇱 [Polski](i18n/pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](i18n/sk/USER_GUIDE.md) | 🇸🇪 [Svenska](i18n/sv/USER_GUIDE.md) | 🇵🇭 [Filipino](i18n/phi/USER_GUIDE.md)
 
-Kompletný sprievodca pre konfiguráciu poskytovateľov, vytváranie komb, integráciu nástrojov CLI a nasadenie OmniRoute.
+Complete guide for configuring providers, creating combos, integrating CLI tools, and deploying OmniRoute.
 
 ---
 
-## Obsah
+## Table of Contents
 
 - [Pricing at a Glance](#-pricing-at-a-glance)
 - [Use Cases](#-use-cases)
@@ -18,40 +18,40 @@ Kompletný sprievodca pre konfiguráciu poskytovateľov, vytváranie komb, integ
 
 ---
 
-## 💰 Prehľad cien
+## 💰 Pricing at a Glance
 
-| Úroveň            | Poskytovateľ      | Náklady             | Obnovenie kvóty              | Najlepšie pre               |
-| ----------------- | ----------------- | ------------------- | ---------------------------- | --------------------------- |
-| **💳 PREDPLATNÉ** | Claude Code (Pro) | 20 USD/mesiac       | 5h + týždenne                | Už prihlásené               |
-|                   | Codex (Plus/Pro)  | 20 – 200 USD/mesiac | 5h + týždenne                | Používatelia OpenAI         |
-|                   | Gemini CLI        | **ZADARMO**         | 180 tis./mesiac + 1 tis./deň | Všetci!                     |
-|                   | GitHub Copilot    | 10 – 19 USD/mes.    | Mesačne                      | Používatelia GitHubu        |
-| **🔑 API KEY**    | DeepSeek          | Platba za použitie  | Žiadne                       | Lacné uvažovanie            |
-|                   | Groq              | Platba za použitie  | Žiadne                       | Ultra-rýchle odvodenie      |
-|                   | xAI (Grok)        | Platba za použitie  | Žiadne                       | Grok 4 zdôvodnenie          |
-|                   | Mistral           | Platba za použitie  | Žiadne                       | Modely hostené v EÚ         |
-|                   | Zmätok            | Platba za použitie  | Žiadne                       | Rozšírené vyhľadávanie      |
-|                   | Spolu AI          | Platba za použitie  | Žiadne                       | Modely s otvoreným zdrojom  |
-|                   | Ohňostroje AI     | Platba za použitie  | Žiadne                       | Fast FLUX obrázky           |
-|                   | Cerebras          | Platba za použitie  | Žiadne                       | Rýchlosť plátkovej stupnice |
-|                   | Cohere            | Platba za použitie  | Žiadne                       | Príkaz R+ RAG               |
-|                   | NVIDIA NIM        | Platba za použitie  | Žiadne                       | Podnikové modely            |
-| **💰 LACNO**      | GLM-4,7           | 0,6 USD/1 milión    | Denne 10:00                  | Záloha rozpočtu             |
-|                   | MiniMax M2.1      | 0,2 USD/1 milión    | 5-hodinové valcovanie        | Najlacnejšia možnosť        |
-|                   | Kimi K2           | 9 USD/mesiac byt    | 10 miliónov tokenov/mesiac   | Predvídateľné náklady       |
-| **🆓 ZDARMA**     | iFlow             | 0 USD               | Neobmedzené                  | 8 modelov zadarmo           |
-|                   | Qwen              | 0 USD               | Neobmedzené                  | 3 modely zadarmo            |
-|                   | Kiro              | 0 USD               | Neobmedzené                  | Claude zadarmo              |
+| Tier                | Provider          | Cost        | Quota Reset      | Best For             |
+| ------------------- | ----------------- | ----------- | ---------------- | -------------------- |
+| **💳 SUBSCRIPTION** | Claude Code (Pro) | $20/mo      | 5h + weekly      | Already subscribed   |
+|                     | Codex (Plus/Pro)  | $20-200/mo  | 5h + weekly      | OpenAI users         |
+|                     | Gemini CLI        | **FREE**    | 180K/mo + 1K/day | Everyone!            |
+|                     | GitHub Copilot    | $10-19/mo   | Monthly          | GitHub users         |
+| **🔑 API KEY**      | DeepSeek          | Pay per use | None             | Cheap reasoning      |
+|                     | Groq              | Pay per use | None             | Ultra-fast inference |
+|                     | xAI (Grok)        | Pay per use | None             | Grok 4 reasoning     |
+|                     | Mistral           | Pay per use | None             | EU-hosted models     |
+|                     | Perplexity        | Pay per use | None             | Search-augmented     |
+|                     | Together AI       | Pay per use | None             | Open-source models   |
+|                     | Fireworks AI      | Pay per use | None             | Fast FLUX images     |
+|                     | Cerebras          | Pay per use | None             | Wafer-scale speed    |
+|                     | Cohere            | Pay per use | None             | Command R+ RAG       |
+|                     | NVIDIA NIM        | Pay per use | None             | Enterprise models    |
+| **💰 CHEAP**        | GLM-4.7           | $0.6/1M     | Daily 10AM       | Budget backup        |
+|                     | MiniMax M2.1      | $0.2/1M     | 5-hour rolling   | Cheapest option      |
+|                     | Kimi K2           | $9/mo flat  | 10M tokens/mo    | Predictable cost     |
+| **🆓 FREE**         | iFlow             | $0          | Unlimited        | 8 models free        |
+|                     | Qwen              | $0          | Unlimited        | 3 models free        |
+|                     | Kiro              | $0          | Unlimited        | Claude free          |
 
-**💡 Tip pre profesionálov:** Začnite s kombináciou Gemini CLI (180 000 zadarmo/mesiac) + iFlow (neobmedzene zadarmo) = cena 0 $!
+**💡 Pro Tip:** Start with Gemini CLI (180K free/month) + iFlow (unlimited free) combo = $0 cost!
 
 ---
 
-## 🎯 Prípady použitia
+## 🎯 Use Cases
 
-### Prípad 1: „Mám predplatné Claude Pro“
+### Case 1: "I have Claude Pro subscription"
 
-**Problém:** Platnosť kvóty vyprší nevyužitá, obmedzenia sadzieb počas náročného kódovania
+**Problem:** Quota expires unused, rate limits during heavy coding
 
 ```
 Combo: "maximize-claude"
@@ -63,9 +63,9 @@ Monthly cost: $20 (subscription) + ~$5 (backup) = $25 total
 vs. $20 + hitting limits = frustration
 ```
 
-### Prípad 2: „Chcem nulové náklady“
+### Case 2: "I want zero cost"
 
-**Problém:** Nemôžem si dovoliť predplatné, potrebujem spoľahlivé kódovanie AI
+**Problem:** Can't afford subscriptions, need reliable AI coding
 
 ```
 Combo: "free-forever"
@@ -77,9 +77,9 @@ Monthly cost: $0
 Quality: Production-ready models
 ```
 
-### Prípad 3: „Potrebujem kódovanie 24/7, žiadne prerušenia“
+### Case 3: "I need 24/7 coding, no interruptions"
 
-**Problém:** Termíny, nemôžem si dovoliť prestoje
+**Problem:** Deadlines, can't afford downtime
 
 ```
 Combo: "always-on"
@@ -93,9 +93,9 @@ Result: 5 layers of fallback = zero downtime
 Monthly cost: $20-200 (subscriptions) + $10-20 (backup)
 ```
 
-### Prípad 4: „Chcem AI ZDARMA v OpenClaw“
+### Case 4: "I want FREE AI in OpenClaw"
 
-**Problém:** Potrebujete asistenta AI v aplikáciách na odosielanie správ, úplne zadarmo
+**Problem:** Need AI assistant in messaging apps, completely free
 
 ```
 Combo: "openclaw-free"
@@ -109,9 +109,9 @@ Access via: WhatsApp, Telegram, Slack, Discord, iMessage, Signal...
 
 ---
 
-## 📖 Nastavenie poskytovateľa
+## 📖 Provider Setup
 
-### 🔐 Poskytovatelia predplatného
+### 🔐 Subscription Providers
 
 #### Claude Code (Pro/Max)
 
@@ -126,7 +126,7 @@ Models:
   cc/claude-haiku-4-5-20251001
 ```
 
-**Tip pre profesionálov:** Používajte Opus na zložité úlohy, Sonnet na rýchlosť. OmniRoute sleduje kvótu na model!
+**Pro Tip:** Use Opus for complex tasks, Sonnet for speed. OmniRoute tracks quota per model!
 
 #### OpenAI Codex (Plus/Pro)
 
@@ -140,7 +140,7 @@ Models:
   cx/gpt-5.1-codex-max
 ```
 
-#### Gemini CLI (ZADARMO 180 000/mesiac!)
+#### Gemini CLI (FREE 180K/month!)
 
 ```bash
 Dashboard → Providers → Connect Gemini CLI
@@ -152,7 +152,7 @@ Models:
   gc/gemini-2.5-pro
 ```
 
-**Najlepšia hodnota:** Obrovská bezplatná úroveň! Použite to pred platenými úrovňami.
+**Best Value:** Huge free tier! Use this before paid tiers.
 
 #### GitHub Copilot
 
@@ -167,33 +167,33 @@ Models:
   gh/gemini-3-pro
 ```
 
-### 💰 Lacní poskytovatelia
+### 💰 Cheap Providers
 
-#### GLM-4,7 (denný reset, 0,6 $/1 milión)
+#### GLM-4.7 (Daily reset, $0.6/1M)
 
-1. Zaregistrujte sa: [Zhipu AI](https://open.bigmodel.cn/)
-2. Získajte kľúč API z plánu kódovania
-3. Dashboard → Pridať kľúč API: Poskytovateľ: `glm`, kľúč API: `your-key`
+1. Sign up: [Zhipu AI](https://open.bigmodel.cn/)
+2. Get API key from Coding Plan
+3. Dashboard → Add API Key: Provider: `glm`, API Key: `your-key`
 
-**Použite:** `glm/glm-4.7` — **Tip pre profesionálov:** Kódovací plán ponúka 3× kvótu za 1/7 cenu! Resetovať denne o 10:00.
+**Use:** `glm/glm-4.7` — **Pro Tip:** Coding Plan offers 3× quota at 1/7 cost! Reset daily 10:00 AM.
 
 #### MiniMax M2.1 (5h reset, $0.20/1M)
 
-1. Zaregistrujte sa: [MiniMax](https://www.minimax.io/)
-2. Získať kľúč API → Dashboard → Pridať kľúč API
+1. Sign up: [MiniMax](https://www.minimax.io/)
+2. Get API key → Dashboard → Add API Key
 
-**Použitie:** `minimax/MiniMax-M2.1` — **Tip pre profesionálov:** Najlacnejšia možnosť pre dlhý kontext (1 milión tokenov)!
+**Use:** `minimax/MiniMax-M2.1` — **Pro Tip:** Cheapest option for long context (1M tokens)!
 
-#### Kimi K2 (9 USD/mesiac)
+#### Kimi K2 ($9/month flat)
 
-1. Prihlásiť sa na odber: [Moonshot AI](https://platform.moonshot.ai/)
-2. Získať kľúč API → Dashboard → Pridať kľúč API
+1. Subscribe: [Moonshot AI](https://platform.moonshot.ai/)
+2. Get API key → Dashboard → Add API Key
 
-**Použitie:** `kimi/kimi-latest` — **Tip pre profesionálov:** Pevné 9 $/mesiac za 10 miliónov tokenov = 0,90 $/1 milión efektívnych nákladov!
+**Use:** `kimi/kimi-latest` — **Pro Tip:** Fixed $9/month for 10M tokens = $0.90/1M effective cost!
 
-### 🆓 BEZPLATNÍ poskytovatelia
+### 🆓 FREE Providers
 
-#### iFlow (8 modelov ZDARMA)
+#### iFlow (8 FREE models)
 
 ```bash
 Dashboard → Connect iFlow → OAuth login → Unlimited usage
@@ -201,7 +201,7 @@ Dashboard → Connect iFlow → OAuth login → Unlimited usage
 Models: if/kimi-k2-thinking, if/qwen3-coder-plus, if/glm-4.7, if/minimax-m2, if/deepseek-r1
 ```
 
-#### Qwen (3 modely ZDARMA)
+#### Qwen (3 FREE models)
 
 ```bash
 Dashboard → Connect Qwen → Device code auth → Unlimited usage
@@ -219,9 +219,9 @@ Models: kr/claude-sonnet-4.5, kr/claude-haiku-4.5
 
 ---
 
-## 🎨 Kombinácie
+## 🎨 Combos
 
-### Príklad 1: Maximalizujte predplatné → Lacné zálohovanie
+### Example 1: Maximize Subscription → Cheap Backup
 
 ```
 Dashboard → Combos → Create New
@@ -235,7 +235,7 @@ Models:
 Use in CLI: premium-coding
 ```
 
-### Príklad 2: Iba zadarmo (nulové náklady)
+### Example 2: Free-Only (Zero Cost)
 
 ```
 Name: free-combo
@@ -249,9 +249,9 @@ Cost: $0 forever!
 
 ---
 
-## 🔧 Integrácia CLI
+## 🔧 CLI Integration
 
-### IDE kurzora
+### Cursor IDE
 
 ```
 Settings → Models → Advanced:
@@ -262,7 +262,7 @@ Settings → Models → Advanced:
 
 ### Claude Code
 
-Upraviť `~/.claude/config.json`:
+Edit `~/.claude/config.json`:
 
 ```json
 {
@@ -271,7 +271,7 @@ Upraviť `~/.claude/config.json`:
 }
 ```
 
-### Kódex CLI
+### Codex CLI
 
 ```bash
 export OPENAI_BASE_URL="http://localhost:20128"
@@ -281,7 +281,7 @@ codex "your prompt"
 
 ### OpenClaw
 
-Upraviť `~/.openclaw/openclaw.json`:
+Edit `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -303,9 +303,9 @@ Upraviť `~/.openclaw/openclaw.json`:
 }
 ```
 
-**Alebo použite Dashboard:** Nástroje CLI → OpenClaw → Automatická konfigurácia
+**Or use Dashboard:** CLI Tools → OpenClaw → Auto-config
 
-### Cline / Pokračovať / RooCode
+### Cline / Continue / RooCode
 
 ```
 Provider: OpenAI Compatible
@@ -316,9 +316,28 @@ Model: cc/claude-opus-4-6
 
 ---
 
-## 🚀 Nasadenie
+## 🚀 Deployment
 
-### Nasadenie VPS
+### Global npm install (Recommended)
+
+```bash
+npm install -g omniroute
+
+# Create config directory
+mkdir -p ~/.omniroute
+
+# Create .env file (see .env.example)
+cp .env.example ~/.omniroute/.env
+
+# Start server
+omniroute
+# Or with custom port:
+omniroute --port 3000
+```
+
+The CLI automatically loads `.env` from `~/.omniroute/.env` or `./.env`.
+
+### VPS Deployment
 
 ```bash
 git clone https://github.com/diegosouzapw/OmniRoute.git
@@ -337,6 +356,43 @@ npm run start
 # Or: pm2 start npm --name omniroute -- start
 ```
 
+### PM2 Deployment (Low Memory)
+
+For servers with limited RAM, use the memory limit option:
+
+```bash
+# With 512MB limit (default)
+pm2 start npm --name omniroute -- start
+
+# Or with custom memory limit
+OMNIROUTE_MEMORY_MB=512 pm2 start npm --name omniroute -- start
+
+# Or using ecosystem.config.js
+pm2 start ecosystem.config.js
+```
+
+Create `ecosystem.config.js`:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "omniroute",
+      script: "npm",
+      args: "start",
+      env: {
+        NODE_ENV: "production",
+        OMNIROUTE_MEMORY_MB: "512",
+        JWT_SECRET: "your-secret",
+        INITIAL_PASSWORD: "your-password",
+      },
+      node_args: "--max-old-space-size=512",
+      max_memory_restart: "300M",
+    },
+  ],
+};
+```
+
 ### Docker
 
 ```bash
@@ -347,51 +403,54 @@ docker build -t omniroute:cli .
 docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-data:/app/data omniroute:cli
 ```
 
-Informácie o režime integrovanom s hostiteľom s binárnymi súbormi CLI nájdete v časti Docker v hlavných dokumentoch.
+For host-integrated mode with CLI binaries, see the Docker section in the main docs.
 
-### Premenné prostredia
+### Environment Variables
 
-| Premenná              | Predvolené                           | Popis                                                                         |
-| --------------------- | ------------------------------------ | ----------------------------------------------------------------------------- |
-| `JWT_SECRET`          | `omniroute-default-secret-change-me` | Tajomstvo podpisu JWT (**zmena vo výrobe**)                                   |
-| `INITIAL_PASSWORD`    | `123456`                             | Prvé prihlasovacie heslo                                                      |
-| `DATA_DIR`            | `~/.omniroute`                       | Adresár údajov (db, využitie, protokoly)                                      |
-| `PORT`                | štandardný rámec                     | Servisný port (v príkladoch `20128`)                                          |
-| `HOSTNAME`            | štandardný rámec                     | Bind host (Docker predvolene `0.0.0.0`)                                       |
-| `NODE_ENV`            | runtime default                      | Nastaviť `production` na nasadenie                                            |
-| `BASE_URL`            | `http://localhost:20128`             | Interná základná adresa URL na strane servera                                 |
-| `CLOUD_URL`           | `https://omniroute.dev`              | Základná adresa URL koncového bodu synchronizácie v cloude                    |
-| `API_KEY_SECRET`      | `endpoint-proxy-api-key-secret`      | Tajný kľúč HMAC pre vygenerované kľúče API                                    |
-| `REQUIRE_API_KEY`     | `false`                              | Vynútiť kľúč rozhrania Bearer API na `/v1/*`                                  |
-| `ENABLE_REQUEST_LOGS` | `false`                              | Povolí protokoly požiadaviek/odpovedí                                         |
-| `AUTH_COOKIE_SECURE`  | `false`                              | Vynútiť `Secure` autorizačný súbor cookie (za HTTPS reverzným proxy serverom) |
+| Variable                  | Default                              | Description                                             |
+| ------------------------- | ------------------------------------ | ------------------------------------------------------- |
+| `JWT_SECRET`              | `omniroute-default-secret-change-me` | JWT signing secret (**change in production**)           |
+| `INITIAL_PASSWORD`        | `123456`                             | First login password                                    |
+| `DATA_DIR`                | `~/.omniroute`                       | Data directory (db, usage, logs)                        |
+| `PORT`                    | framework default                    | Service port (`20128` in examples)                      |
+| `HOSTNAME`                | framework default                    | Bind host (Docker defaults to `0.0.0.0`)                |
+| `NODE_ENV`                | runtime default                      | Set `production` for deploy                             |
+| `BASE_URL`                | `http://localhost:20128`             | Server-side internal base URL                           |
+| `CLOUD_URL`               | `https://omniroute.dev`              | Cloud sync endpoint base URL                            |
+| `API_KEY_SECRET`          | `endpoint-proxy-api-key-secret`      | HMAC secret for generated API keys                      |
+| `REQUIRE_API_KEY`         | `false`                              | Enforce Bearer API key on `/v1/*`                       |
+| `ENABLE_REQUEST_LOGS`     | `false`                              | Enables request/response logs                           |
+| `AUTH_COOKIE_SECURE`      | `false`                              | Force `Secure` auth cookie (behind HTTPS reverse proxy) |
+| `OMNIROUTE_MEMORY_MB`     | `512`                                | Node.js heap limit in MB                                |
+| `PROMPT_CACHE_MAX_SIZE`   | `50`                                 | Max prompt cache entries                                |
+| `SEMANTIC_CACHE_MAX_SIZE` | `100`                                | Max semantic cache entries                              |
 
-Úplnú referenciu premenných prostredia nájdete v [README](../README.md).
+For the full environment variable reference, see the [README](../README.md).
 
 ---
 
-## 📊 Dostupné modely
+## 📊 Available Models
 
 <details>
-<summary><b>Zobraziť všetky dostupné modely</b></summary>
+<summary><b>View all available models</b></summary>
 
 **Claude Code (`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
 
 **Codex (`cx/`)** — Plus/Pro: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
 
-**Gemini CLI (`gc/`)** — ZDARMA: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
+**Gemini CLI (`gc/`)** — FREE: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
 
 **GitHub Copilot (`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
 
-**GLM (`glm/`)** – 0,6 USD/1 milión: `glm/glm-4.7`
+**GLM (`glm/`)** — $0.6/1M: `glm/glm-4.7`
 
-**MiniMax (`minimax/`)** – 0,2 USD/1 milión: `minimax/MiniMax-M2.1`
+**MiniMax (`minimax/`)** — $0.2/1M: `minimax/MiniMax-M2.1`
 
-**iFlow (`if/`)** — ZDARMA: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
+**iFlow (`if/`)** — FREE: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
 
-**Qwen (`qw/`)** – ZDARMA: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
+**Qwen (`qw/`)** — FREE: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
 
-**Kiro (`kr/`)** – ZDARMA: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
+**Kiro (`kr/`)** — FREE: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
 
 **DeepSeek (`ds/`)**: `ds/deepseek-chat`, `ds/deepseek-reasoner`
 
@@ -401,11 +460,11 @@ Informácie o režime integrovanom s hostiteľom s binárnymi súbormi CLI nájd
 
 **Mistral (`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
 
-**Zmätok (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
+**Perplexity (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
 
 **Together AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
 
-**Umelá inteligencia ohňostrojov (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
+**Fireworks AI (`fireworks/`)**: `fireworks/accounts/fireworks/models/deepseek-v3p1`
 
 **Cerebras (`cerebras/`)**: `cerebras/llama-3.3-70b`
 
@@ -417,11 +476,11 @@ Informácie o režime integrovanom s hostiteľom s binárnymi súbormi CLI nájd
 
 ---
 
-## 🧩 Pokročilé funkcie
+## 🧩 Advanced Features
 
-### Vlastné modely
+### Custom Models
 
-Pridajte akékoľvek ID modelu k akémukoľvek poskytovateľovi bez čakania na aktualizáciu aplikácie:
+Add any model ID to any provider without waiting for an app update:
 
 ```bash
 # Via API
@@ -433,11 +492,11 @@ curl -X POST http://localhost:20128/api/provider-models \
 # Remove: curl -X DELETE "http://localhost:20128/api/provider-models?provider=openai&model=gpt-4.5-preview"
 ```
 
-Alebo použite Dashboard: **Poskytovatelia → [Poskytovateľ] → Vlastné modely**.
+Or use Dashboard: **Providers → [Provider] → Custom Models**.
 
-### Vyhradené trasy poskytovateľa
+### Dedicated Provider Routes
 
-Smerujte požiadavky priamo ku konkrétnemu poskytovateľovi s overením modelu:
+Route requests directly to a specific provider with model validation:
 
 ```bash
 POST http://localhost:20128/v1/providers/openai/chat/completions
@@ -445,9 +504,9 @@ POST http://localhost:20128/v1/providers/openai/embeddings
 POST http://localhost:20128/v1/providers/fireworks/images/generations
 ```
 
-Ak chýba predpona poskytovateľa, automaticky sa pridá. Nezhodné modely vrátia `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
-### Konfigurácia sieťového proxy
+### Network Proxy Configuration
 
 ```bash
 # Set global proxy
@@ -463,76 +522,76 @@ curl -X POST http://localhost:20128/api/settings/proxy/test \
   -d '{"proxy":{"type":"socks5","host":"proxy.example.com","port":"1080"}}'
 ```
 
-**Prednosť:** Špecifické pre kľúč → Špecifické pre kombináciu → Špecifické pre poskytovateľa → Globálne → Prostredie.
+**Precedence:** Key-specific → Combo-specific → Provider-specific → Global → Environment.
 
-### API katalógu modelov
+### Model Catalog API
 
 ```bash
 curl http://localhost:20128/api/models/catalog
 ```
 
-Vráti modely zoskupené podľa poskytovateľa s typmi (`chat`, `embedding`, `image`).
+Returns models grouped by provider with types (`chat`, `embedding`, `image`).
 
 ### Cloud Sync
 
-- Synchronizujte poskytovateľov, kombinácie a nastavenia medzi zariadeniami
-- Automatická synchronizácia na pozadí s časovým limitom + rýchle zlyhanie
-- Vo výrobe uprednostňujete `BASE_URL`/`CLOUD_URL` na strane servera
+- Sync providers, combos, and settings across devices
+- Automatic background sync with timeout + fail-fast
+- Prefer server-side `BASE_URL`/`CLOUD_URL` in production
 
-### LLM Gateway Intelligence (9. fáza)
+### LLM Gateway Intelligence (Phase 9)
 
-- **Sémantická vyrovnávacia pamäť** – Automatické ukladanie do vyrovnávacej pamäte bez streamovania, teplota = 0 odoziev (obíďte pomocou `X-OmniRoute-No-Cache: true`)
-  – **Idempotencia žiadosti** – Deduplikuje žiadosti do 5 s prostredníctvom hlavičky `Idempotency-Key` alebo `X-Request-Id`
-  – **Sledovanie pokroku** – Prihláste sa do udalostí SSE `event: progress` prostredníctvom hlavičky `X-OmniRoute-Progress: true`
-
----
-
-### Ihrisko pre prekladateľov
-
-Prístup cez **Dashboard → Translator**. Laďte a vizualizujte, ako OmniRoute prekladá požiadavky API medzi poskytovateľmi.
-
-| Režim                 | Účel                                                                                       |
-| --------------------- | ------------------------------------------------------------------------------------------ |
-| **Ihrisko**           | Vyberte zdrojové/cieľové formáty, vložte požiadavku a okamžite si pozrite preložený výstup |
-| **Tester chatu**      | Posielajte správy živého chatu cez proxy a skontrolujte celý cyklus žiadostí/odpovedí      |
-| **Testovacia lavica** | Spustite dávkové testy vo viacerých kombináciách formátov na overenie správnosti prekladu  |
-| **Živý monitor**      | Sledujte preklady v reálnom čase, keď požiadavky prechádzajú cez server proxy              |
-
-**Prípady použitia:**
-
-- Odlaďte, prečo konkrétna kombinácia klient/poskytovateľ zlyhá
-- Overte, či sa značky myslenia, volania nástrojov a systémové výzvy prekladajú správne
-- Porovnajte rozdiely medzi formátmi OpenAI, Claude, Gemini a Responses API
+- **Semantic Cache** — Auto-caches non-streaming, temperature=0 responses (bypass with `X-OmniRoute-No-Cache: true`)
+- **Request Idempotency** — Deduplicates requests within 5s via `Idempotency-Key` or `X-Request-Id` header
+- **Progress Tracking** — Opt-in SSE `event: progress` events via `X-OmniRoute-Progress: true` header
 
 ---
 
-### Stratégie smerovania
+### Translator Playground
 
-Konfigurujte cez **Dashboard → Nastavenia → Smerovanie**.
+Access via **Dashboard → Translator**. Debug and visualize how OmniRoute translates API requests between providers.
 
-| Stratégia                     | Popis                                                                                                  |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Vyplňte ako prvé**          | Používa účty v poradí podľa priority – primárny účet spracováva všetky požiadavky, kým nie je dostupný |
-| **Round Robin**               | Prechádza cez všetky účty s konfigurovateľným fixným limitom (predvolené: 3 hovory na účet)            |
-| **P2C (sila dvoch možností)** | Vyberie 2 náhodné účty a cesty k zdravšiemu — vyrovnáva záťaž s uvedomením si zdravia                  |
-| **Náhodné**                   | Náhodne vyberie účet pre každú požiadavku pomocou Fisher-Yates shuffle                                 |
-| **Najmenej používané**        | Smeruje na účet s najstaršou časovou pečiatkou `lastUsedAt`, rovnomerne rozdeľuje návštevnosť          |
-| **Costovo optimalizované**    | Smeruje na účet s najnižšou prioritou, optimalizácia pre poskytovateľov s najnižšou cenou              |
+| Mode             | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| **Playground**   | Select source/target formats, paste a request, and see the translated output instantly |
+| **Chat Tester**  | Send live chat messages through the proxy and inspect the full request/response cycle  |
+| **Test Bench**   | Run batch tests across multiple format combinations to verify translation correctness  |
+| **Live Monitor** | Watch real-time translations as requests flow through the proxy                        |
 
-#### Aliasy modelu so zástupnými znakmi
+**Use cases:**
 
-Vytvorte vzory zástupných znakov na premapovanie názvov modelov:
+- Debug why a specific client/provider combination fails
+- Verify that thinking tags, tool calls, and system prompts translate correctly
+- Compare format differences between OpenAI, Claude, Gemini, and Responses API formats
+
+---
+
+### Routing Strategies
+
+Configure via **Dashboard → Settings → Routing**.
+
+| Strategy                       | Description                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Fill First**                 | Uses accounts in priority order — primary account handles all requests until unavailable         |
+| **Round Robin**                | Cycles through all accounts with a configurable sticky limit (default: 3 calls per account)      |
+| **P2C (Power of Two Choices)** | Picks 2 random accounts and routes to the healthier one — balances load with awareness of health |
+| **Random**                     | Randomly selects an account for each request using Fisher-Yates shuffle                          |
+| **Least Used**                 | Routes to the account with the oldest `lastUsedAt` timestamp, distributing traffic evenly        |
+| **Cost Optimized**             | Routes to the account with the lowest priority value, optimizing for lowest-cost providers       |
+
+#### Wildcard Model Aliases
+
+Create wildcard patterns to remap model names:
 
 ```
 Pattern: claude-sonnet-*     →  Target: cc/claude-sonnet-4-5-20250929
 Pattern: gpt-*               →  Target: gh/gpt-5.1-codex
 ```
 
-Zástupné znaky podporujú `*` (ľubovoľné znaky) a `?` (jeden znak).
+Wildcards support `*` (any characters) and `?` (single character).
 
-#### Záložné reťazce
+#### Fallback Chains
 
-Definujte globálne záložné reťazce, ktoré platia pre všetky požiadavky:
+Define global fallback chains that apply across all requests:
 
 ```
 Chain: production-fallback
@@ -543,46 +602,46 @@ Chain: production-fallback
 
 ---
 
-### Odolnosť a ističe
+### Resilience & Circuit Breakers
 
-Konfigurujte cez **Dashboard → Nastavenia → Odolnosť**.
+Configure via **Dashboard → Settings → Resilience**.
 
-OmniRoute implementuje odolnosť na úrovni poskytovateľa so štyrmi komponentmi:
+OmniRoute implements provider-level resilience with four components:
 
-1. **Profily poskytovateľa** — Konfigurácia podľa jednotlivých poskytovateľov pre:
-   - Prah zlyhania (koľko porúch pred otvorením)
-   - Trvanie chladenia
-   - Citlivosť detekcie limitu rýchlosti
-   - Exponenciálne parametre backoff
+1. **Provider Profiles** — Per-provider configuration for:
+   - Failure threshold (how many failures before opening)
+   - Cooldown duration
+   - Rate limit detection sensitivity
+   - Exponential backoff parameters
 
-2. **Upraviteľné limity rýchlosti** — Predvolené nastavenia na úrovni systému konfigurovateľné na paneli:
-   - **Požiadavky za minútu (RPM)** – Maximálny počet žiadostí za minútu na účet
-   - **Min Time Between Requests** – Minimálna medzera v milisekundách medzi požiadavkami
-   - **Max Concurrent Requests** – Maximálny počet simultánnych požiadaviek na účet
-   - Kliknite na **Upraviť** a upravte, potom na **Uložiť** alebo **Zrušiť**. Hodnoty pretrvávajú prostredníctvom rozhrania API odolnosti.
+2. **Editable Rate Limits** — System-level defaults configurable in the dashboard:
+   - **Requests Per Minute (RPM)** — Maximum requests per minute per account
+   - **Min Time Between Requests** — Minimum gap in milliseconds between requests
+   - **Max Concurrent Requests** — Maximum simultaneous requests per account
+   - Click **Edit** to modify, then **Save** or **Cancel**. Values persist via the resilience API.
 
-3. **Circuit Breaker** – Sleduje zlyhania podľa poskytovateľa a automaticky otvára okruh, keď sa dosiahne prah:
-   - **ZATVORENÉ** (zdravé) – požiadavky prebiehajú normálne
-   - **OPEN** — Poskytovateľ je po opakovaných zlyhaniach dočasne zablokovaný
-   - **HALF_OPEN** – Testuje sa, či sa poskytovateľ zotavil
+3. **Circuit Breaker** — Tracks failures per provider and automatically opens the circuit when a threshold is reached:
+   - **CLOSED** (Healthy) — Requests flow normally
+   - **OPEN** — Provider is temporarily blocked after repeated failures
+   - **HALF_OPEN** — Testing if provider has recovered
 
-4. **Policies & Locked Identifiers** – Zobrazuje stav ističa a uzamknuté identifikátory s možnosťou vynútenia odomknutia.
+4. **Policies & Locked Identifiers** — Shows circuit breaker status and locked identifiers with force-unlock capability.
 
-5. **Automatická detekcia limitu sadzby** — Monitoruje hlavičky `429` a `Retry-After`, aby sa proaktívne vyhlo prekročeniu limitov sadzby poskytovateľa.
+5. **Rate Limit Auto-Detection** — Monitors `429` and `Retry-After` headers to proactively avoid hitting provider rate limits.
 
-**Tip pre profesionálov:** Pomocou tlačidla **Resetovať všetko** vymažte všetky ističe a chladenia, keď sa poskytovateľ zotaví z výpadku.
+**Pro Tip:** Use **Reset All** button to clear all circuit breakers and cooldowns when a provider recovers from an outage.
 
 ---
 
-### Export/Import databázy
+### Database Export / Import
 
-Spravujte zálohy databázy v **Dashboard → Nastavenia → Systém a úložisko**.
+Manage database backups in **Dashboard → Settings → System & Storage**.
 
-| Akcia                           | Popis                                                                                                                           |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **Exportovať databázu**         | Stiahne aktuálnu databázu SQLite ako súbor `.sqlite`                                                                            |
-| **Exportovať všetko (.tar.gz)** | Stiahne celý záložný archív vrátane: databázy, nastavení, kombinácií, pripojení poskytovateľa (bez poverení), metadát kľúča API |
-| **Importovať databázu**         | Ak chcete nahradiť aktuálnu databázu, nahrajte súbor `.sqlite`. Automaticky sa vytvorí záloha pred importom                     |
+| Action                   | Description                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Export Database**      | Downloads the current SQLite database as a `.sqlite` file                                                                      |
+| **Export All (.tar.gz)** | Downloads a full backup archive including: database, settings, combos, provider connections (no credentials), API key metadata |
+| **Import Database**      | Upload a `.sqlite` file to replace the current database. A pre-import backup is automatically created                          |
 
 ```bash
 # API: Export database
@@ -596,38 +655,38 @@ curl -X POST http://localhost:20128/api/db-backups/import \
   -F "file=@backup.sqlite"
 ```
 
-**Overenie importu:** Overí sa integrita importovaného súboru (kontrola SQLite pragma), požadované tabuľky (`provider_connections`, `provider_nodes`, `combos`, ) a veľkosť (max. 0 MB).
+**Import Validation:** The imported file is validated for integrity (SQLite pragma check), required tables (`provider_connections`, `provider_nodes`, `combos`, `api_keys`), and size (max 100MB).
 
-**Prípady použitia:**
+**Use Cases:**
 
-- Migrujte OmniRoute medzi strojmi
-- Vytvorte externé zálohy na obnovu po havárii
-- Zdieľanie konfigurácií medzi členmi tímu (exportovať všetko → zdieľať archív)
-
----
-
-### Panel nastavení
-
-Stránka nastavení je usporiadaná do 5 kariet pre jednoduchú navigáciu:
-
-| Tab            | Obsah                                                                                                                        |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **Bezpečnosť** | Nastavenia prihlasovacieho mena/hesla, riadenie prístupu IP, overenie API pre `/models` a blokovanie poskytovateľa           |
-| **Smerovanie** | Globálna stratégia smerovania (6 možností), aliasy modelu so zástupnými znakmi, záložné reťazce, predvolené nastavenia komba |
-| **Odolnosť**   | Profily poskytovateľov, upraviteľné limity sadzieb, stav ističa, zásady a zamknuté identifikátory                            |
-| **AI**         | Konfigurácia rozpočtu myslenia, rýchle vloženie globálneho systému, rýchle štatistiky vyrovnávacej pamäte                    |
-| **Pokročilé**  | Globálna konfigurácia proxy (HTTP/SOCKS5)                                                                                    |
+- Migrate OmniRoute between machines
+- Create external backups for disaster recovery
+- Share configurations between team members (export all → share archive)
 
 ---
 
-### Správa nákladov a rozpočtu
+### Settings Dashboard
 
-Prístup cez **Dashboard → Náklady**.
+The settings page is organized into 5 tabs for easy navigation:
 
-| Tab          | Účel                                                                                                       |
-| ------------ | ---------------------------------------------------------------------------------------------------------- |
-| **Rozpočet** | Nastavte limity výdavkov na kľúč API s dennými/týždennými/mesačnými rozpočtami a sledovaním v reálnom čase |
-| **Ceny**     | Zobrazenie a úprava položiek cien modelu – cena za 1 000 vstupných/výstupných tokenov na poskytovateľa     |
+| Tab            | Contents                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| **Security**   | Login/Password settings, IP Access Control, API auth for `/models`, and Provider Blocking      |
+| **Routing**    | Global routing strategy (6 options), wildcard model aliases, fallback chains, combo defaults   |
+| **Resilience** | Provider profiles, editable rate limits, circuit breaker status, policies & locked identifiers |
+| **AI**         | Thinking budget configuration, global system prompt injection, prompt cache stats              |
+| **Advanced**   | Global proxy configuration (HTTP/SOCKS5)                                                       |
+
+---
+
+### Costs & Budget Management
+
+Access via **Dashboard → Costs**.
+
+| Tab         | Purpose                                                                                  |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| **Budget**  | Set spending limits per API key with daily/weekly/monthly budgets and real-time tracking |
+| **Pricing** | View and edit model pricing entries — cost per 1K input/output tokens per provider       |
 
 ```bash
 # API: Set a budget
@@ -639,13 +698,13 @@ curl -X POST http://localhost:20128/api/usage/budget \
 curl http://localhost:20128/api/usage/budget
 ```
 
-**Sledovanie nákladov:** Každá požiadavka zaznamenáva používanie tokenu a vypočítava náklady pomocou cenovej tabuľky. Pozrite si rozpisy v **Dashboard → Použitie** podľa poskytovateľa, modelu a kľúča API.
+**Cost Tracking:** Every request logs token usage and calculates cost using the pricing table. View breakdowns in **Dashboard → Usage** by provider, model, and API key.
 
 ---
 
-### Zvukový prepis
+### Audio Transcription
 
-OmniRoute podporuje prepis zvuku cez koncový bod kompatibilný s OpenAI:
+OmniRoute supports audio transcription via the OpenAI-compatible endpoint:
 
 ```bash
 POST /v1/audio/transcriptions
@@ -659,40 +718,92 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-Dostupní poskytovatelia: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
+Available providers: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
 
-Podporované zvukové formáty: `mp3`, `wav`, `m4a`, `flac`, `ogg`,
-
----
-
-### Kombinované stratégie vyvažovania
-
-Nakonfigurujte vyváženie jednotlivých kombinácií v **Dashboard → Combos → Create/Edit → Strategy**.
-
-| Stratégia                    | Popis                                                                                   |
-| ---------------------------- | --------------------------------------------------------------------------------------- |
-| **Round-Robin**              | Postupne rotuje medzi modelmi                                                           |
-| **Priorita**                 | Vždy vyskúšajte prvý model; vracia sa len pri chybe                                     |
-| **Náhodné**                  | Vyberie náhodný model z kombinácie pre každú požiadavku                                 |
-| **Vážený**                   | Trasy proporcionálne na základe pridelených hmotností na model                          |
-| **Najmenej používané**       | Smeruje k modelu s najmenším počtom nedávnych požiadaviek (používa kombinovanú metriku) |
-| **Nákladovo optimalizované** | Trasy k najlacnejšiemu dostupnému modelu (používa cenovú tabuľku)                       |
-
-Globálne predvolené nastavenia pre kombináciu je možné nastaviť v **Dashboard → Settings → Routing → Combo Defaults**.
+Supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-### Informačný panel zdravia
+### Combo Balancing Strategies
 
-Prístup cez **Dashboard → Health**. Prehľad stavu systému v reálnom čase so 6 kartami:
+Configure per-combo balancing in **Dashboard → Combos → Create/Edit → Strategy**.
 
-| Karta                           | Čo ukazuje                                                                   |
-| ------------------------------- | ---------------------------------------------------------------------------- |
-| **Stav systému**                | Uptime, verzia, využitie pamäte, dátový adresár                              |
-| **Zdravie poskytovateľa**       | Stav ističa podľa poskytovateľa (zatvorené/otvorené/polootvorené)            |
-| **Obmedzenia sadzieb**          | Aktívne zníženia rýchlosti limitu na účet so zostávajúcim časom              |
-| **Aktívne blokovania**          | Poskytovatelia dočasne zablokovaní politikou uzamknutia                      |
-| **Vyrovnávacia pamäť podpisov** | Štatistiky vyrovnávacej pamäte deduplikácie (aktívne kľúče, počet prístupov) |
-| **Telemetria latencie**         | p50/p95/p99 agregácia latencie podľa poskytovateľa                           |
+| Strategy           | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Round-Robin**    | Rotates through models sequentially                                      |
+| **Priority**       | Always tries the first model; falls back only on error                   |
+| **Random**         | Picks a random model from the combo for each request                     |
+| **Weighted**       | Routes proportionally based on assigned weights per model                |
+| **Least-Used**     | Routes to the model with the fewest recent requests (uses combo metrics) |
+| **Cost-Optimized** | Routes to the cheapest available model (uses pricing table)              |
 
-**Tip pre profesionálov:** Stránka Zdravie sa automaticky obnovuje každých 10 sekúnd. Pomocou karty ističa identifikujte, ktorí poskytovatelia majú problémy.
+Global combo defaults can be set in **Dashboard → Settings → Routing → Combo Defaults**.
+
+---
+
+### Health Dashboard
+
+Access via **Dashboard → Health**. Real-time system health overview with 6 cards:
+
+| Card                  | What It Shows                                               |
+| --------------------- | ----------------------------------------------------------- |
+| **System Status**     | Uptime, version, memory usage, data directory               |
+| **Provider Health**   | Per-provider circuit breaker state (Closed/Open/Half-Open)  |
+| **Rate Limits**       | Active rate limit cooldowns per account with remaining time |
+| **Active Lockouts**   | Providers temporarily blocked by the lockout policy         |
+| **Signature Cache**   | Deduplication cache stats (active keys, hit rate)           |
+| **Latency Telemetry** | p50/p95/p99 latency aggregation per provider                |
+
+**Pro Tip:** The Health page auto-refreshes every 10 seconds. Use the circuit breaker card to identify which providers are experiencing issues.
+
+---
+
+## 🖥️ Desktop Application (Electron)
+
+OmniRoute is available as a native desktop application for Windows, macOS, and Linux.
+
+### Installation
+
+```bash
+# From the electron directory:
+cd electron
+npm install
+
+# Development mode (connect to running Next.js dev server):
+npm run dev
+
+# Production mode (uses standalone build):
+npm start
+```
+
+### Building Installers
+
+```bash
+cd electron
+npm run build          # Current platform
+npm run build:win      # Windows (.exe NSIS)
+npm run build:mac      # macOS (.dmg universal)
+npm run build:linux    # Linux (.AppImage)
+```
+
+Output → `electron/dist-electron/`
+
+### Key Features
+
+| Feature                     | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| **Server Readiness**        | Polls server before showing window (no blank screen) |
+| **System Tray**             | Minimize to tray, change port, quit from tray menu   |
+| **Port Management**         | Change server port from tray (auto-restarts server)  |
+| **Content Security Policy** | Restrictive CSP via session headers                  |
+| **Single Instance**         | Only one app instance can run at a time              |
+| **Offline Mode**            | Bundled Next.js server works without internet        |
+
+### Environment Variables
+
+| Variable              | Default | Description                      |
+| --------------------- | ------- | -------------------------------- |
+| `OMNIROUTE_PORT`      | `20128` | Server port                      |
+| `OMNIROUTE_MEMORY_MB` | `512`   | Node.js heap limit (64–16384 MB) |
+
+📖 Full documentation: [`electron/README.md`](../electron/README.md)

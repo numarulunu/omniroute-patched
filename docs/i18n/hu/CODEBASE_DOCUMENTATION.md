@@ -1,22 +1,22 @@
-# omniroute — Kódbázis-dokumentáció
+# omniroute — Codebase Documentation
 
-🌐 **Languages:** 🇺🇸 [English](../../CODEBASE_DOCUMENTATION.md) | 🇧🇷 [Português (Brasil)](../pt-BR/CODEBASE_DOCUMENTATION.md) | 🇪🇸 [Español](../es/CODEBASE_DOCUMENTATION.md) | 🇫🇷 [Français](../fr/CODEBASE_DOCUMENTATION.md) | 🇮🇹 [Italiano](../it/CODEBASE_DOCUMENTATION.md) | 🇷🇺 [Русский](../ru/CODEBASE_DOCUMENTATION.md) | 🇨🇳 [中文 (简体)](../zh-CN/CODEBASE_DOCUMENTATION.md) | 🇩🇪 [Deutsch](../de/CODEBASE_DOCUMENTATION.md) | 🇮🇳 [हिन्दी](../in/CODEBASE_DOCUMENTATION.md) | 🇹🇭 [ไทย](../th/CODEBASE_DOCUMENTATION.md) | 🇺🇦 [Українська](../uk-UA/CODEBASE_DOCUMENTATION.md) | 🇸🇦 [العربية](../ar/CODEBASE_DOCUMENTATION.md) | 🇯🇵 [日本語](../ja/CODEBASE_DOCUMENTATION.md) | 🇻🇳 [Tiếng Việt](../vi/CODEBASE_DOCUMENTATION.md) | 🇧🇬 [Български](../bg/CODEBASE_DOCUMENTATION.md) | 🇩🇰 [Dansk](../da/CODEBASE_DOCUMENTATION.md) | 🇫🇮 [Suomi](../fi/CODEBASE_DOCUMENTATION.md) | 🇮🇱 [עברית](../he/CODEBASE_DOCUMENTATION.md) | 🇭🇺 [Magyar](../hu/CODEBASE_DOCUMENTATION.md) | 🇮🇩 [Bahasa Indonesia](../id/CODEBASE_DOCUMENTATION.md) | 🇰🇷 [한국어](../ko/CODEBASE_DOCUMENTATION.md) | 🇲🇾 [Bahasa Melayu](../ms/CODEBASE_DOCUMENTATION.md) | 🇳🇱 [Nederlands](../nl/CODEBASE_DOCUMENTATION.md) | 🇳🇴 [Norsk](../no/CODEBASE_DOCUMENTATION.md) | 🇵🇹 [Português (Portugal)](../pt/CODEBASE_DOCUMENTATION.md) | 🇷🇴 [Română](../ro/CODEBASE_DOCUMENTATION.md) | 🇵🇱 [Polski](../pl/CODEBASE_DOCUMENTATION.md) | 🇸🇰 [Slovenčina](../sk/CODEBASE_DOCUMENTATION.md) | 🇸🇪 [Svenska](../sv/CODEBASE_DOCUMENTATION.md) | 🇵🇭 [Filipino](../phi/CODEBASE_DOCUMENTATION.md)
+🌐 **Languages:** 🇺🇸 [English](CODEBASE_DOCUMENTATION.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/CODEBASE_DOCUMENTATION.md) | 🇪🇸 [Español](i18n/es/CODEBASE_DOCUMENTATION.md) | 🇫🇷 [Français](i18n/fr/CODEBASE_DOCUMENTATION.md) | 🇮🇹 [Italiano](i18n/it/CODEBASE_DOCUMENTATION.md) | 🇷🇺 [Русский](i18n/ru/CODEBASE_DOCUMENTATION.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/CODEBASE_DOCUMENTATION.md) | 🇩🇪 [Deutsch](i18n/de/CODEBASE_DOCUMENTATION.md) | 🇮🇳 [हिन्दी](i18n/in/CODEBASE_DOCUMENTATION.md) | 🇹🇭 [ไทย](i18n/th/CODEBASE_DOCUMENTATION.md) | 🇺🇦 [Українська](i18n/uk-UA/CODEBASE_DOCUMENTATION.md) | 🇸🇦 [العربية](i18n/ar/CODEBASE_DOCUMENTATION.md) | 🇯🇵 [日本語](i18n/ja/CODEBASE_DOCUMENTATION.md) | 🇻🇳 [Tiếng Việt](i18n/vi/CODEBASE_DOCUMENTATION.md) | 🇧🇬 [Български](i18n/bg/CODEBASE_DOCUMENTATION.md) | 🇩🇰 [Dansk](i18n/da/CODEBASE_DOCUMENTATION.md) | 🇫🇮 [Suomi](i18n/fi/CODEBASE_DOCUMENTATION.md) | 🇮🇱 [עברית](i18n/he/CODEBASE_DOCUMENTATION.md) | 🇭🇺 [Magyar](i18n/hu/CODEBASE_DOCUMENTATION.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/CODEBASE_DOCUMENTATION.md) | 🇰🇷 [한국어](i18n/ko/CODEBASE_DOCUMENTATION.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/CODEBASE_DOCUMENTATION.md) | 🇳🇱 [Nederlands](i18n/nl/CODEBASE_DOCUMENTATION.md) | 🇳🇴 [Norsk](i18n/no/CODEBASE_DOCUMENTATION.md) | 🇵🇹 [Português (Portugal)](i18n/pt/CODEBASE_DOCUMENTATION.md) | 🇷🇴 [Română](i18n/ro/CODEBASE_DOCUMENTATION.md) | 🇵🇱 [Polski](i18n/pl/CODEBASE_DOCUMENTATION.md) | 🇸🇰 [Slovenčina](i18n/sk/CODEBASE_DOCUMENTATION.md) | 🇸🇪 [Svenska](i18n/sv/CODEBASE_DOCUMENTATION.md) | 🇵🇭 [Filipino](i18n/phi/CODEBASE_DOCUMENTATION.md)
 
-> Átfogó, kezdőbarát útmutató az **omniroute** több szolgáltató AI-proxy routeréhez.
-
----
-
-## 1. Mi az omniroute?
-
-Az omniroute egy **proxy router**, amely AI kliensek (Claude CLI, Codex, Cursor IDE stb.) és mesterséges intelligenciaszolgáltatók (Anthropic, Google, OpenAI, AWS, GitHub stb.) között helyezkedik el. Egy nagy problémát old meg:
-
-> **A különböző AI-kliensek különböző „nyelveket” (API-formátumokat) beszélnek, és a különböző AI-szolgáltatók is eltérő „nyelveket” várnak el.** Az omniroute automatikusan lefordítja őket.
-
-Tekints úgy, mint egy univerzális fordító az Egyesült Nemzetek Szervezetében – minden küldött bármilyen nyelven beszélhet, és a fordító bármely más küldött számára átalakítja.
+> A comprehensive, beginner-friendly guide to the **omniroute** multi-provider AI proxy router.
 
 ---
 
-## 2. Építészet áttekintése
+## 1. What Is omniroute?
+
+omniroute is a **proxy router** that sits between AI clients (Claude CLI, Codex, Cursor IDE, etc.) and AI providers (Anthropic, Google, OpenAI, AWS, GitHub, etc.). It solves one big problem:
+
+> **Different AI clients speak different "languages" (API formats), and different AI providers expect different "languages" too.** omniroute translates between them automatically.
+
+Think of it like a universal translator at the United Nations — any delegate can speak any language, and the translator converts it for any other delegate.
+
+---
+
+## 2. Architecture Overview
 
 ```mermaid
 graph LR
@@ -61,20 +61,20 @@ graph LR
     H -.-> G
 ```
 
-### Alapelv: Hub-and-spoke fordítás
+### Core Principle: Hub-and-Spoke Translation
 
-Minden formátumfordítás átmegy az **OpenAI formátumon, mint központon**:
+All format translation passes through **OpenAI format as the hub**:
 
 ```
 Client Format → [OpenAI Hub] → Provider Format    (request)
 Provider Format → [OpenAI Hub] → Client Format    (response)
 ```
 
-Ez azt jelenti, hogy csak **N fordítóra** (formátumonként egy) van szüksége a **N²** (minden pár) helyett.
+This means you only need **N translators** (one per format) instead of **N²** (every pair).
 
 ---
 
-## 3. Projekt felépítése
+## 3. Project Structure
 
 ```
 omniroute/
@@ -104,22 +104,22 @@ omniroute/
 
 ---
 
-## 4. Modulonkénti lebontás
+## 4. Module-by-Module Breakdown
 
-### 4.1 konfiguráció (`open-sse/config/`)
+### 4.1 Config (`open-sse/config/`)
 
-Az **egyetlen igazságforrás** minden szolgáltatói konfigurációhoz.
+The **single source of truth** for all provider configuration.
 
-| Fájl                          | Cél                                                                                                                                                                                                                                                                            |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `constants.ts`                | `PROVIDERS` objektum alap URL-ekkel, OAuth hitelesítési adatokkal (alapértelmezett), fejlécekkel és alapértelmezett rendszerkérdésekkel minden szolgáltatóhoz. Meghatározza a következőt is: `HTTP_STATUS`, `ERROR_TYPES`, `COOLDOWN_MS`, `BACKOFF_CONFIG` és `SKIP_PATTERNS`. |
-| `credentialLoader.ts`         | Betölti a külső hitelesítő adatokat a `data/provider-credentials.json` helyről, és egyesíti őket a `PROVIDERS` merevkódolt alapértékeihez. Kizárja a titkokat a forrás ellenőrzése alól, miközben fenntartja a visszafelé kompatibilitást.                                     |
-| `providerModels.ts`           | Központi modellnyilvántartás: térképszolgáltatói álnevek → modellazonosítók. Funkciók, mint például `getModels()`, `getProviderByAlias()`.                                                                                                                                     |
-| `codexInstructions.ts`        | A Codex kérésekbe beszúrt rendszerutasítások (szerkesztési megszorítások, sandbox-szabályok, jóváhagyási szabályzatok).                                                                                                                                                        |
-| `defaultThinkingSignature.ts` | Claude és Gemini modellek alapértelmezett "gondolkodó" aláírásai.                                                                                                                                                                                                              |
-| `ollamaModels.ts`             | Sémadefiníció helyi Ollama modellekhez (név, méret, család, kvantálás).                                                                                                                                                                                                        |
+| File                          | Purpose                                                                                                                                                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `constants.ts`                | `PROVIDERS` object with base URLs, OAuth credentials (defaults), headers, and default system prompts for every provider. Also defines `HTTP_STATUS`, `ERROR_TYPES`, `COOLDOWN_MS`, `BACKOFF_CONFIG`, and `SKIP_PATTERNS`. |
+| `credentialLoader.ts`         | Loads external credentials from `data/provider-credentials.json` and merges them over the hardcoded defaults in `PROVIDERS`. Keeps secrets out of source control while maintaining backwards compatibility.               |
+| `providerModels.ts`           | Central model registry: maps provider aliases → model IDs. Functions like `getModels()`, `getProviderByAlias()`.                                                                                                          |
+| `codexInstructions.ts`        | System instructions injected into Codex requests (editing constraints, sandbox rules, approval policies).                                                                                                                 |
+| `defaultThinkingSignature.ts` | Default "thinking" signatures for Claude and Gemini models.                                                                                                                                                               |
+| `ollamaModels.ts`             | Schema definition for local Ollama models (name, size, family, quantization).                                                                                                                                             |
 
-#### Hitelesítési adatok betöltésének folyamata
+#### Credential Loading Flow
 
 ```mermaid
 flowchart TD
@@ -142,9 +142,9 @@ flowchart TD
 
 ---
 
-### 4.2 Végrehajtók (`open-sse/executors/`)
+### 4.2 Executors (`open-sse/executors/`)
 
-A végrehajtók a **szolgáltató-specifikus logikát** a **stratégiai minta** segítségével foglalják magukba. Minden végrehajtó szükség szerint felülírja az alapmetódusokat.
+Executors encapsulate **provider-specific logic** using the **Strategy Pattern**. Each executor overrides base methods as needed.
 
 ```mermaid
 classDiagram
@@ -194,32 +194,32 @@ classDiagram
     BaseExecutor <|-- GithubExecutor
 ```
 
-| Végrehajtó       | Szolgáltató                                | Legfontosabb szakterületek                                                                                                                  |
-| ---------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `base.ts`        | —                                          | Absztrakt alap: URL-építés, fejlécek, újrapróbálkozási logika, hitelesítő adatok frissítése                                                 |
-| `default.ts`     | Claude, Gemini, OpenAI, GLM, Kimi, MiniMax | Általános OAuth-token frissítés szabványos szolgáltatók számára                                                                             |
-| `antigravity.ts` | Google Cloud Code                          | Projekt/munkamenet azonosító generálása, több URL-es tartalék, egyéni újrapróbálkozás a hibaüzenetekből ("visszaállítás 2 óra 7 perc után") |
-| `cursor.ts`      | Kurzor IDE                                 | **Legösszetettebb**: SHA-256 ellenőrzőösszeg hitelesítés, Protobuf kéréskódolás, bináris EventStream → SSE válaszelemzés                    |
-| `codex.ts`       | OpenAI Codex                               | Rendszerutasításokat injektál, gondolkodási szinteket kezel, eltávolítja a nem támogatott paramétereket                                     |
-| `gemini-cli.ts`  | Google Gemini CLI                          | Egyéni URL-építés (`streamGenerateContent`), Google OAuth-token frissítése                                                                  |
-| `github.ts`      | GitHub másodpilóta                         | Kettős token rendszer (GitHub OAuth + másodpilóta token), VSCode fejléc utánzás                                                             |
-| `kiro.ts`        | AWS CodeWhisperer                          | AWS EventStream bináris elemzés, AMZN eseménykeretek, token becslés                                                                         |
-| `index.ts`       | —                                          | Gyári: térképszolgáltató neve → végrehajtó osztály, alapértelmezett tartalék                                                                |
+| Executor         | Provider                                   | Key Specializations                                                                                                 |
+| ---------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `base.ts`        | —                                          | Abstract base: URL building, headers, retry logic, credential refresh                                               |
+| `default.ts`     | Claude, Gemini, OpenAI, GLM, Kimi, MiniMax | Generic OAuth token refresh for standard providers                                                                  |
+| `antigravity.ts` | Google Cloud Code                          | Project/session ID generation, multi-URL fallback, custom retry parsing from error messages ("reset after 2h7m23s") |
+| `cursor.ts`      | Cursor IDE                                 | **Most complex**: SHA-256 checksum auth, Protobuf request encoding, binary EventStream → SSE response parsing       |
+| `codex.ts`       | OpenAI Codex                               | Injects system instructions, manages thinking levels, removes unsupported parameters                                |
+| `gemini-cli.ts`  | Google Gemini CLI                          | Custom URL building (`streamGenerateContent`), Google OAuth token refresh                                           |
+| `github.ts`      | GitHub Copilot                             | Dual token system (GitHub OAuth + Copilot token), VSCode header mimicking                                           |
+| `kiro.ts`        | AWS CodeWhisperer                          | AWS EventStream binary parsing, AMZN event frames, token estimation                                                 |
+| `index.ts`       | —                                          | Factory: maps provider name → executor class, with default fallback                                                 |
 
 ---
 
-### 4.3 Kezelők (`open-sse/handlers/`)
+### 4.3 Handlers (`open-sse/handlers/`)
 
-A **hangszerelési réteg** — koordinálja a fordítást, a végrehajtást, a streamelést és a hibakezelést.
+The **orchestration layer** — coordinates translation, execution, streaming, and error handling.
 
-| Fájl                  | Cél                                                                                                                                                                                                               |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `chatCore.ts`         | **Központi hangszerelő** (~600 sor). Kezeli a teljes kérés életciklust: formátumészlelés → fordítás → végrehajtó feladása → streaming/nem streaming válasz → token frissítés → hibakezelés → használati naplózás. |
-| `responsesHandler.ts` | Adapter az OpenAI Responses API-jához: átalakítja a válaszformátumot → Chat Completions → elküldi a `chatCore` címre → konvertálja vissza az SSE-t válaszformátumba.                                              |
-| `embeddings.ts`       | Beágyazás generációs kezelő: feloldja a beágyazási modellt → szolgáltató, elküldi a szolgáltató API-nak, visszaküldi az OpenAI-kompatibilis beágyazási választ. 6+ szolgáltatót támogat.                          |
-| `imageGeneration.ts`  | Képgeneráló kezelő: feloldja a képmodell → szolgáltatót, támogatja az OpenAI-kompatibilis, a Gemini-image (Antigravitáció) és a tartalék (Nebius) módokat. A base64 vagy URL képeket adja vissza.                 |
+| File                  | Purpose                                                                                                                                                                                                                |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `chatCore.ts`         | **Central orchestrator** (~600 lines). Handles the complete request lifecycle: format detection → translation → executor dispatch → streaming/non-streaming response → token refresh → error handling → usage logging. |
+| `responsesHandler.ts` | Adapter for OpenAI's Responses API: converts Responses format → Chat Completions → sends to `chatCore` → converts SSE back to Responses format.                                                                        |
+| `embeddings.ts`       | Embedding generation handler: resolves embedding model → provider, dispatches to provider API, returns OpenAI-compatible embedding response. Supports 6+ providers.                                                    |
+| `imageGeneration.ts`  | Image generation handler: resolves image model → provider, supports OpenAI-compatible, Gemini-image (Antigravity), and fallback (Nebius) modes. Returns base64 or URL images.                                          |
 
-#### Életciklus kérése (chatCore.ts)
+#### Request Lifecycle (chatCore.ts)
 
 ```mermaid
 sequenceDiagram
@@ -258,28 +258,28 @@ sequenceDiagram
 
 ---
 
-### 4.4 Szolgáltatások (`open-sse/services/`)
+### 4.4 Services (`open-sse/services/`)
 
-Üzleti logika, amely támogatja a kezelőket és a végrehajtókat.
+Business logic that supports the handlers and executors.
 
-| Fájl                 | Cél                                                                                                                                                                                                                                                                                                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `provider.ts`        | **Formátumészlelés** (`detectFormat`): elemzi a kérés törzsszerkezetét a Claude/OpenAI/Gemini/Antigravity/Responses formátumok azonosításához (beleértve a `max_tokens` heurisztikus Claude-ot). Továbbá: URL-építés, fejlécépítés, gondolkodási konfiguráció normalizálása. Támogatja a `openai-compatible-*` és `anthropic-compatible-*` dinamikus szolgáltatókat. |
-| `model.ts`           | Modellkarakterlánc-elemzés (`claude/model-name` → `{provider: "claude", model: "model-name"}`), álnév-feloldás ütközésészleléssel, bemeneti fertőtlenítés (elutasítja az útvonal bejárását/vezérlő karaktereket) és a modellinformáció-feloldás aszinkron alias getter támogatással.                                                                                 |
-| `accountFallback.ts` | Rate-limit-kezelés: exponenciális visszalépés (1s → 2mp → 4mp → max 2perc), fiókhűtés-kezelés, hibabesorolás (mely hibák váltanak ki visszaesést, illetve nem).                                                                                                                                                                                                      |
-| `tokenRefresh.ts`    | OAuth-token frissítése **minden szolgáltatóhoz**: Google (Gemini, Antigravity), Claude, Codex, Qwen, iFlow, GitHub (OAuth + másodpilóta kettős token), Kiro (AWS SSO OIDC + Social Auth). Tartalmazza a menet közbeni ígéret-deduplikációs gyorsítótárat és az újrapróbálkozást exponenciális visszalépéssel.                                                        |
-| `combo.ts`           | **Kombinált modellek**: tartalék modellek láncai. Ha az A modell meghibásodik egy tartalék jogosultsági hibával, próbálja ki a B, majd a C modellt stb. A tényleges upstream állapotkódokat adja vissza.                                                                                                                                                             |
-| `usage.ts`           | Lekéri a kvóta/használati adatokat a szolgáltatói API-któl (GitHub másodpilóta kvóták, antigravitációs modellkvóták, Codex sebességkorlátok, Kiro használati lebontások, Claude beállítások).                                                                                                                                                                        |
-| `accountSelector.ts` | Intelligens számlakiválasztás pontozási algoritmussal: figyelembe veszi a prioritást, az egészségi állapotot, a körmérkőzéses pozíciót és a lemondási állapotot, hogy kiválaszthassa az optimális fiókot minden egyes kérelemhez.                                                                                                                                    |
-| `contextManager.ts`  | Kéréskörnyezet-életciklus-kezelés: kérésenkénti kontextusobjektumokat hoz létre és nyomon követ metaadatokkal (kérelemazonosító, időbélyegek, szolgáltatói információk) hibakereséshez és naplózáshoz.                                                                                                                                                               |
-| `ipFilter.ts`        | IP-alapú hozzáférés-vezérlés: támogatja az engedélyezési listát és a tiltólistát. Az API-kérelmek feldolgozása előtt ellenőrzi az ügyfél IP-címét a konfigurált szabályok szerint.                                                                                                                                                                                   |
-| `sessionManager.ts`  | Munkamenetkövetés ügyfél ujjlenyomattal: nyomon követi az aktív munkameneteket kivonatolt ügyfélazonosítók segítségével, figyeli a kérések számát, és munkamenet-metrikákat biztosít.                                                                                                                                                                                |
-| `signatureCache.ts`  | Aláírás-alapú deduplikációs gyorsítótár kérése: megakadályozza a duplikált kéréseket azáltal, hogy gyorsítótárazza a legutóbbi kérelmek aláírásait, és egy időablakon belül visszaadja a gyorsítótárazott válaszokat az azonos kérésekre.                                                                                                                            |
-| `systemPrompt.ts`    | Globális rendszerprompt injekció: minden kérés elé vagy hozzáfűz egy konfigurálható rendszerpromptot, szolgáltatónkénti kompatibilitáskezeléssel.                                                                                                                                                                                                                    |
-| `thinkingBudget.ts`  | Érvelési jogkivonat-költségvetés-kezelés: támogatja az áthárítást, az automatikus (szalagos gondolkodási konfiguráció), az egyéni (fix költségvetésű) és az adaptív (bonyolultságra skálázott) módokat a gondolkodási/érvelési tokenek vezérléséhez.                                                                                                                 |
-| `wildcardRouter.ts`  | Helyettesítő karakterminta-útválasztás: a helyettesítő karaktermintákat (pl. `*/claude-*`) konkrét szolgáltató/modell párokra oldja fel a rendelkezésre állás és a prioritás alapján.                                                                                                                                                                                |
+| File                 | Purpose                                                                                                                                                                                                                                                                                                                                |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `provider.ts`        | **Format detection** (`detectFormat`): analyzes request body structure to identify Claude/OpenAI/Gemini/Antigravity/Responses formats (includes `max_tokens` heuristic for Claude). Also: URL building, header building, thinking config normalization. Supports `openai-compatible-*` and `anthropic-compatible-*` dynamic providers. |
+| `model.ts`           | Model string parsing (`claude/model-name` → `{provider: "claude", model: "model-name"}`), alias resolution with collision detection, input sanitization (rejects path traversal/control chars), and model info resolution with async alias getter support.                                                                             |
+| `accountFallback.ts` | Rate-limit handling: exponential backoff (1s → 2s → 4s → max 2min), account cooldown management, error classification (which errors trigger fallback vs. not).                                                                                                                                                                         |
+| `tokenRefresh.ts`    | OAuth token refresh for **every provider**: Google (Gemini, Antigravity), Claude, Codex, Qwen, iFlow, GitHub (OAuth + Copilot dual-token), Kiro (AWS SSO OIDC + Social Auth). Includes in-flight promise deduplication cache and retry with exponential backoff.                                                                       |
+| `combo.ts`           | **Combo models**: chains of fallback models. If model A fails with a fallback-eligible error, try model B, then C, etc. Returns actual upstream status codes.                                                                                                                                                                          |
+| `usage.ts`           | Fetches quota/usage data from provider APIs (GitHub Copilot quotas, Antigravity model quotas, Codex rate limits, Kiro usage breakdowns, Claude settings).                                                                                                                                                                              |
+| `accountSelector.ts` | Smart account selection with scoring algorithm: considers priority, health status, round-robin position, and cooldown state to pick the optimal account for each request.                                                                                                                                                              |
+| `contextManager.ts`  | Request context lifecycle management: creates and tracks per-request context objects with metadata (request ID, timestamps, provider info) for debugging and logging.                                                                                                                                                                  |
+| `ipFilter.ts`        | IP-based access control: supports allowlist and blocklist modes. Validates client IP against configured rules before processing API requests.                                                                                                                                                                                          |
+| `sessionManager.ts`  | Session tracking with client fingerprinting: tracks active sessions using hashed client identifiers, monitors request counts, and provides session metrics.                                                                                                                                                                            |
+| `signatureCache.ts`  | Request signature-based deduplication cache: prevents duplicate requests by caching recent request signatures and returning cached responses for identical requests within a time window.                                                                                                                                              |
+| `systemPrompt.ts`    | Global system prompt injection: prepends or appends a configurable system prompt to all requests, with per-provider compatibility handling.                                                                                                                                                                                            |
+| `thinkingBudget.ts`  | Reasoning token budget management: supports passthrough, auto (strip thinking config), custom (fixed budget), and adaptive (complexity-scaled) modes for controlling thinking/reasoning tokens.                                                                                                                                        |
+| `wildcardRouter.ts`  | Wildcard model pattern routing: resolves wildcard patterns (e.g., `*/claude-*`) to concrete provider/model pairs based on availability and priority.                                                                                                                                                                                   |
 
-#### Token frissítési deduplikáció
+#### Token Refresh Deduplication
 
 ```mermaid
 sequenceDiagram
@@ -300,7 +300,7 @@ sequenceDiagram
     Cache->>Cache: Delete cache entry
 ```
 
-#### Fiók tartalék állapotú gép
+#### Account Fallback State Machine
 
 ```mermaid
 stateDiagram-v2
@@ -325,7 +325,7 @@ stateDiagram-v2
     }
 ```
 
-#### Kombinált modelllánc
+#### Combo Model Chain
 
 ```mermaid
 flowchart LR
@@ -344,11 +344,11 @@ flowchart LR
 
 ---
 
-### 4.5 Fordító (`open-sse/translator/`)
+### 4.5 Translator (`open-sse/translator/`)
 
-A **formátumfordító motor** egy önregisztráló bővítményrendszerrel.
+The **format translation engine** using a self-registering plugin system.
 
-#### Építészet
+#### Architecture
 
 ```mermaid
 graph TD
@@ -374,15 +374,15 @@ graph TD
     end
 ```
 
-| Címtár       | Fájlok    | Leírás                                                                                                                                                                                                                                                     |
-| ------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request/`   | 8 fordító | A kéréstörzsek átalakítása formátumok között. Az importáláskor minden fájl önmagát regisztrálja a `register(from, to, fn)` segítségével.                                                                                                                   |
-| `response/`  | 7 fordító | A streaming válaszdarabok konvertálása formátumok között. Kezeli az SSE eseménytípusokat, gondolkodási blokkokat, eszközhívásokat.                                                                                                                         |
-| `helpers/`   | 6 segítő  | Megosztott segédprogramok: `claudeHelper` (rendszerkérdések kibontása, gondolkodási konfiguráció), `geminiHelper` (alkatrészek/tartalom-leképezés), `openaiHelper` (formátumszűrés), `toolCallHelper`), _TOK_K_, hiányzó válasz_OM_8 `responsesApiHelper`. |
-| `index.ts`   | —         | Fordítómotor: `translateRequest()`, `translateResponse()`, állapotkezelés, nyilvántartás.                                                                                                                                                                  |
-| `formats.ts` | —         | Formátumkonstansok: `OPENAI`, `CLAUDE`, `GEMINI`, `ANTIGRAVITY`, `KIRO`, `CURSOR`_, _.EN*92_NI, *.                                                                                                                                                         |
+| Directory    | Files         | Description                                                                                                                                                                                                                                                      |
+| ------------ | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `request/`   | 8 translators | Convert request bodies between formats. Each file self-registers via `register(from, to, fn)` on import.                                                                                                                                                         |
+| `response/`  | 7 translators | Convert streaming response chunks between formats. Handles SSE event types, thinking blocks, tool calls.                                                                                                                                                         |
+| `helpers/`   | 6 helpers     | Shared utilities: `claudeHelper` (system prompt extraction, thinking config), `geminiHelper` (parts/contents mapping), `openaiHelper` (format filtering), `toolCallHelper` (ID generation, missing response injection), `maxTokensHelper`, `responsesApiHelper`. |
+| `index.ts`   | —             | Translation engine: `translateRequest()`, `translateResponse()`, state management, registry.                                                                                                                                                                     |
+| `formats.ts` | —             | Format constants: `OPENAI`, `CLAUDE`, `GEMINI`, `ANTIGRAVITY`, `KIRO`, `CURSOR`, `OPENAI_RESPONSES`.                                                                                                                                                             |
 
-#### Kulcstervezés: Önregisztráló beépülő modulok
+#### Key Design: Self-Registering Plugins
 
 ```javascript
 // Each translator file calls register() on import:
@@ -397,15 +397,15 @@ import "./request/claude-to-openai.js"; // ← self-registers
 
 ### 4.6 Utils (`open-sse/utils/`)
 
-| Fájl               | Cél                                                                                                                                                                                                                                                                                                                                 |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `error.ts`         | Hibaválasz kiépítése (OpenAI-kompatibilis formátum), felfelé irányuló hibaelemzés, Antigravitációs újrapróbálkozási idő kivonat a hibaüzenetekből, SSE hibaadatfolyam.                                                                                                                                                              |
-| `stream.ts`        | **SSE Transform Stream** – a mag adatfolyam-folyamat. Két mód: `TRANSLATE` (teljes formátumú fordítás) és `PASSTHROUGH` (használat normalizálása + kibontása). Kezeli a darabok pufferelését, a felhasználás becslését, a tartalom hosszának követését. A folyamonkénti kódoló/dekódoló példányok elkerülik a megosztott állapotot. |
-| `streamHelpers.ts` | Alacsony szintű SSE-segédprogramok: `parseSSELine` (szóköz-toleráns), `hasValuableContent` (üres darabokat szűr az OpenAI/Claude/Gemini számára), `fixInvalidId`, `perf_metrics` tisztítás).                                                                                                                                        |
-| `usageTracking.ts` | Tokenhasználati kinyerés bármilyen formátumból (Claude/OpenAI/Gemini/Responses), becslés külön eszköz/üzenet char-per-token arányokkal, puffer hozzáadása (2000 token biztonsági ráhagyás), formátum-specifikus mezőszűrés, konzolnaplózás ANSI színekkel.                                                                          |
-| `requestLogger.ts` | Fájlalapú kérések naplózása (feliratkozás a `ENABLE_REQUEST_LOGS=true` segítségével). Munkamenet mappákat hoz létre számozott fájlokkal: `1_req_client.json` → `7_res_client.txt`. Minden I/O aszinkron (gyújt és felejt). Elfedi az érzékeny fejléceket.                                                                           |
-| `bypassHandler.ts` | Elfogja a Claude CLI meghatározott mintáit (címkivonás, bemelegítés, számlálás), és hamis válaszokat ad vissza anélkül, hogy bármelyik szolgáltatót is felhívná. Támogatja a streaminget és a nem adatfolyamot egyaránt. Szándékosan a Claude CLI hatókörére korlátozva.                                                            |
-| `networkProxy.ts`  | Feloldja egy adott szolgáltató kimenő proxy URL-jét elsőbbséggel: szolgáltató-specifikus konfiguráció → globális konfiguráció → környezeti változók (`HTTPS_PROXY`/`HTTP_PROXY`/`ALL_PROXY`). Támogatja a `NO_PROXY` kizárásokat. Gyorsítótár konfiguráció 30 másodpercig.                                                          |
+| File               | Purpose                                                                                                                                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `error.ts`         | Error response building (OpenAI-compatible format), upstream error parsing, Antigravity retry-time extraction from error messages, SSE error streaming.                                                                                                                              |
+| `stream.ts`        | **SSE Transform Stream** — the core streaming pipeline. Two modes: `TRANSLATE` (full format translation) and `PASSTHROUGH` (normalize + extract usage). Handles chunk buffering, usage estimation, content length tracking. Per-stream encoder/decoder instances avoid shared state. |
+| `streamHelpers.ts` | Low-level SSE utilities: `parseSSELine` (whitespace-tolerant), `hasValuableContent` (filters empty chunks for OpenAI/Claude/Gemini), `fixInvalidId`, `formatSSE` (format-aware SSE serialization with `perf_metrics` cleanup).                                                       |
+| `usageTracking.ts` | Token usage extraction from any format (Claude/OpenAI/Gemini/Responses), estimation with separate tool/message char-per-token ratios, buffer addition (2000 tokens safety margin), format-specific field filtering, console logging with ANSI colors.                                |
+| `requestLogger.ts` | File-based request logging (opt-in via `ENABLE_REQUEST_LOGS=true`). Creates session folders with numbered files: `1_req_client.json` → `7_res_client.txt`. All I/O is async (fire-and-forget). Masks sensitive headers.                                                              |
+| `bypassHandler.ts` | Intercepts specific patterns from Claude CLI (title extraction, warmup, count) and returns fake responses without calling any provider. Supports both streaming and non-streaming. Intentionally limited to Claude CLI scope.                                                        |
+| `networkProxy.ts`  | Resolves outbound proxy URL for a given provider with precedence: provider-specific config → global config → environment variables (`HTTPS_PROXY`/`HTTP_PROXY`/`ALL_PROXY`). Supports `NO_PROXY` exclusions. Caches config for 30s.                                                  |
 
 #### SSE Streaming Pipeline
 
@@ -429,7 +429,7 @@ flowchart TD
     style M fill:#9f9,stroke:#333
 ```
 
-#### Kérjen naplózó munkamenet-struktúrát
+#### Request Logger Session Structure
 
 ```
 logs/
@@ -447,109 +447,109 @@ logs/
 
 ---
 
-### 4.7 Alkalmazási réteg (`src/`)
+### 4.7 Application Layer (`src/`)
 
-| Címtár        | Cél                                                                                          |
-| ------------- | -------------------------------------------------------------------------------------------- |
-| `src/app/`    | Webes felhasználói felület, API-útvonalak, Express köztes szoftver, OAuth visszahíváskezelők |
-| `src/lib/`    | Adatbázis-hozzáférés (`localDb.ts`, `usageDb.ts`), hitelesítés, megosztott                   |
-| `src/mitm/`   | Man-in-the-middle proxy segédprogramok a szolgáltatói forgalom lehallgatásához               |
-| `src/models/` | Adatbázismodell-definíciók                                                                   |
-| `src/shared/` | Az open-sse függvények körüli burkolók (szolgáltató, adatfolyam, hiba stb.)                  |
-| `src/sse/`    | SSE végpontkezelők, amelyek az open-sse könyvtárat az Express útvonalakhoz kötik             |
-| `src/store/`  | Alkalmazás állapotkezelés                                                                    |
+| Directory     | Purpose                                                                |
+| ------------- | ---------------------------------------------------------------------- |
+| `src/app/`    | Web UI, API routes, Express middleware, OAuth callback handlers        |
+| `src/lib/`    | Database access (`localDb.ts`, `usageDb.ts`), authentication, shared   |
+| `src/mitm/`   | Man-in-the-middle proxy utilities for intercepting provider traffic    |
+| `src/models/` | Database model definitions                                             |
+| `src/shared/` | Wrappers around open-sse functions (provider, stream, error, etc.)     |
+| `src/sse/`    | SSE endpoint handlers that wire the open-sse library to Express routes |
+| `src/store/`  | Application state management                                           |
 
-#### Figyelemre méltó API-útvonalak
+#### Notable API Routes
 
-| Útvonal                                       | Módszerek       | Cél                                                                                                            |
-| --------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------- |
-| `/api/provider-models`                        | GET/POST/DELETE | CRUD egyedi modellekhez szolgáltatónként                                                                       |
-| `/api/models/catalog`                         | GET             | Összesített katalógus az összes modellről (csevegés, beágyazás, kép, egyéni) szolgáltató szerint csoportosítva |
-| `/api/settings/proxy`                         | GET/PUT/DELETE  | Hierarchikus kimenő proxykonfiguráció (`global/providers/combos/keys`)                                         |
-| `/api/settings/proxy/test`                    | POST            | Ellenőrzi a proxy-kapcsolatot, és visszaadja a nyilvános IP-címet/latenciát                                    |
-| `/v1/providers/[provider]/chat/completions`   | POST            | Dedikált szolgáltatónkénti csevegés-befejezések modellellenőrzéssel                                            |
-| `/v1/providers/[provider]/embeddings`         | POST            | Dedikált szolgáltatónkénti beágyazások modellellenőrzéssel                                                     |
-| `/v1/providers/[provider]/images/generations` | POST            | Dedikált szolgáltatónkénti képgenerálás modellellenőrzéssel                                                    |
-| `/api/settings/ip-filter`                     | GET/PUT         | IP engedélyezési lista/blokklista kezelése                                                                     |
-| `/api/settings/thinking-budget`               | GET/PUT         | Indoklási token költségkeret-konfiguráció (passthrough/auto/custom/adaptative)                                 |
-| `/api/settings/system-prompt`                 | GET/PUT         | Globális rendszer azonnali befecskendezése minden kérelemhez                                                   |
-| `/api/sessions`                               | GET             | Aktív munkamenet-követés és mérőszámok                                                                         |
-| `/api/rate-limits`                            | GET             | számlánkénti kamatláb korlát állapota                                                                          |
-
----
-
-## 5. Kulcsfontosságú tervezési minták
-
-### 5.1 Hub-and-Spoke fordítás
-
-Minden formátum az **OpenAI formátumon keresztül történik, mint a hub**. Új szolgáltató hozzáadásához csak **egy pár** fordítót kell írni (OpenAI-ra/OpenAI-ról), N párra nem.
-
-### 5.2 Végrehajtó stratégia minta
-
-Minden szolgáltatónak van egy dedikált végrehajtó osztálya, amely a `BaseExecutor`-ból öröklődik. A `executors/index.ts` gyára futás közben választja ki a megfelelőt.
-
-### 5.3 Önregisztráló beépülő modulrendszer
-
-A fordítómodulok regisztrálják magukat az importáláskor a `register()` címen. Új fordító hozzáadása csak egy fájl létrehozását és importálását jelenti.
-
-### 5.4 Fiók visszaállítása exponenciális visszalépéssel
-
-Amikor egy szolgáltató visszaadja a 429/401/500 számot, a rendszer átválthat a következő fiókra, exponenciális lehűtést alkalmazva (1 mp → 2 mp → 4 mp → max 2 perc).
-
-### 5.5 kombinált modellláncok
-
-A „kombó” több `provider/model` karakterláncot csoportosít. Ha az első sikertelen, akkor automatikusan visszaáll a következőre.
-
-### 5.6 Állapotalapú adatfolyam-fordítás
-
-A válaszfordítás a `initState()` mechanizmuson keresztül fenntartja az állapotot az SSE-darabokon (gondolkodási blokk követése, eszközhívás-gyűjtés, tartalomblokk indexelése).
-
-### 5.7 Használati biztonsági puffer
-
-Egy 2000 tokenből álló puffert adunk a jelentett használathoz, hogy megakadályozzuk, hogy az ügyfelek elérjék a kontextusablak korlátait a rendszerkérések és a formátumfordítás miatti többletterhelés miatt.
+| Route                                         | Methods         | Purpose                                                                               |
+| --------------------------------------------- | --------------- | ------------------------------------------------------------------------------------- |
+| `/api/provider-models`                        | GET/POST/DELETE | CRUD for custom models per provider                                                   |
+| `/api/models/catalog`                         | GET             | Aggregated catalog of all models (chat, embedding, image, custom) grouped by provider |
+| `/api/settings/proxy`                         | GET/PUT/DELETE  | Hierarchical outbound proxy configuration (`global/providers/combos/keys`)            |
+| `/api/settings/proxy/test`                    | POST            | Validates proxy connectivity and returns public IP/latency                            |
+| `/v1/providers/[provider]/chat/completions`   | POST            | Dedicated per-provider chat completions with model validation                         |
+| `/v1/providers/[provider]/embeddings`         | POST            | Dedicated per-provider embeddings with model validation                               |
+| `/v1/providers/[provider]/images/generations` | POST            | Dedicated per-provider image generation with model validation                         |
+| `/api/settings/ip-filter`                     | GET/PUT         | IP allowlist/blocklist management                                                     |
+| `/api/settings/thinking-budget`               | GET/PUT         | Reasoning token budget configuration (passthrough/auto/custom/adaptive)               |
+| `/api/settings/system-prompt`                 | GET/PUT         | Global system prompt injection for all requests                                       |
+| `/api/sessions`                               | GET             | Active session tracking and metrics                                                   |
+| `/api/rate-limits`                            | GET             | Per-account rate limit status                                                         |
 
 ---
 
-## 6. Támogatott formátumok
+## 5. Key Design Patterns
 
-| Formátum                | Irány        | Azonosító          |
-| ----------------------- | ------------ | ------------------ |
-| OpenAI Chat befejezések | forrás + cél | `openai`           |
-| OpenAI Responses API    | forrás + cél | `openai-responses` |
-| Antropikus Claude       | forrás + cél | `claude`           |
-| Google Gemini           | forrás + cél | `gemini`           |
-| Google Gemini CLI       | csak cél     | `gemini-cli`       |
-| Antigravitáció          | forrás + cél | `antigravity`      |
-| AWS Kiro                | csak cél     | `kiro`             |
-| Kurzor                  | csak cél     | `cursor`           |
+### 5.1 Hub-and-Spoke Translation
 
----
+All formats translate through **OpenAI format as the hub**. Adding a new provider only requires writing **one pair** of translators (to/from OpenAI), not N pairs.
 
-## 7. Támogatott szolgáltatók
+### 5.2 Executor Strategy Pattern
 
-| Szolgáltató              | Hitelesítési módszer        | Végrehajtó      | Főbb megjegyzések                                    |
-| ------------------------ | --------------------------- | --------------- | ---------------------------------------------------- |
-| Antropikus Claude        | API-kulcs vagy OAuth        | Alapértelmezett | `x-api-key` fejlécet használ                         |
-| Google Gemini            | API-kulcs vagy OAuth        | Alapértelmezett | `x-goog-api-key` fejlécet használ                    |
-| Google Gemini CLI        | OAuth                       | GeminiCLI       | `streamGenerateContent` végpontot használ            |
-| Antigravitáció           | OAuth                       | Antigravitáció  | Több URL-es tartalék, egyéni újrapróbálkozás         |
-| OpenAI                   | API kulcs                   | Alapértelmezett | Normál hordozó hitelesítés                           |
-| Codex                    | OAuth                       | Codex           | Rendszerutasításokat ad be, irányítja a gondolkodást |
-| GitHub másodpilóta       | OAuth + másodpilóta token   | Github          | Kettős token, VSCode fejléc utánzás                  |
-| Kiro (AWS)               | AWS SSO OIDC vagy Social    | Kiro            | Bináris EventStream elemzés                          |
-| Kurzor IDE               | Ellenőrzőösszeg hitelesítés | Kurzor          | Protobuf kódolás, SHA-256 ellenőrző összegek         |
-| Qwen                     | OAuth                       | Alapértelmezett | Normál hitelesítés                                   |
-| iFlow                    | OAuth (alap + hordozó)      | Alapértelmezett | Kettős hitelesítési fejléc                           |
-| OpenRouter               | API kulcs                   | Alapértelmezett | Normál hordozó hitelesítés                           |
-| GLM, Kimi, MiniMax       | API kulcs                   | Alapértelmezett | Claude-kompatibilis, használja a `x-api-key`         |
-| `openai-compatible-*`    | API kulcs                   | Alapértelmezett | Dinamikus: bármely OpenAI-kompatibilis végpont       |
-| `anthropic-compatible-*` | API kulcs                   | Alapértelmezett | Dinamikus: bármely Claude-kompatibilis végpont       |
+Each provider has a dedicated executor class inheriting from `BaseExecutor`. The factory in `executors/index.ts` selects the right one at runtime.
+
+### 5.3 Self-Registering Plugin System
+
+Translator modules register themselves on import via `register()`. Adding a new translator is just creating a file and importing it.
+
+### 5.4 Account Fallback with Exponential Backoff
+
+When a provider returns 429/401/500, the system can switch to the next account, applying exponential cooldowns (1s → 2s → 4s → max 2min).
+
+### 5.5 Combo Model Chains
+
+A "combo" groups multiple `provider/model` strings. If the first fails, fallback to the next automatically.
+
+### 5.6 Stateful Streaming Translation
+
+Response translation maintains state across SSE chunks (thinking block tracking, tool call accumulation, content block indexing) via the `initState()` mechanism.
+
+### 5.7 Usage Safety Buffer
+
+A 2000-token buffer is added to reported usage to prevent clients from hitting context window limits due to overhead from system prompts and format translation.
 
 ---
 
-## 8. Adatfolyam összefoglalása
+## 6. Supported Formats
 
-### Streaming kérés
+| Format                  | Direction       | Identifier         |
+| ----------------------- | --------------- | ------------------ |
+| OpenAI Chat Completions | source + target | `openai`           |
+| OpenAI Responses API    | source + target | `openai-responses` |
+| Anthropic Claude        | source + target | `claude`           |
+| Google Gemini           | source + target | `gemini`           |
+| Google Gemini CLI       | target only     | `gemini-cli`       |
+| Antigravity             | source + target | `antigravity`      |
+| AWS Kiro                | target only     | `kiro`             |
+| Cursor                  | target only     | `cursor`           |
+
+---
+
+## 7. Supported Providers
+
+| Provider                 | Auth Method            | Executor    | Key Notes                                     |
+| ------------------------ | ---------------------- | ----------- | --------------------------------------------- |
+| Anthropic Claude         | API key or OAuth       | Default     | Uses `x-api-key` header                       |
+| Google Gemini            | API key or OAuth       | Default     | Uses `x-goog-api-key` header                  |
+| Google Gemini CLI        | OAuth                  | GeminiCLI   | Uses `streamGenerateContent` endpoint         |
+| Antigravity              | OAuth                  | Antigravity | Multi-URL fallback, custom retry parsing      |
+| OpenAI                   | API key                | Default     | Standard Bearer auth                          |
+| Codex                    | OAuth                  | Codex       | Injects system instructions, manages thinking |
+| GitHub Copilot           | OAuth + Copilot token  | Github      | Dual token, VSCode header mimicking           |
+| Kiro (AWS)               | AWS SSO OIDC or Social | Kiro        | Binary EventStream parsing                    |
+| Cursor IDE               | Checksum auth          | Cursor      | Protobuf encoding, SHA-256 checksums          |
+| Qwen                     | OAuth                  | Default     | Standard auth                                 |
+| iFlow                    | OAuth (Basic + Bearer) | Default     | Dual auth header                              |
+| OpenRouter               | API key                | Default     | Standard Bearer auth                          |
+| GLM, Kimi, MiniMax       | API key                | Default     | Claude-compatible, use `x-api-key`            |
+| `openai-compatible-*`    | API key                | Default     | Dynamic: any OpenAI-compatible endpoint       |
+| `anthropic-compatible-*` | API key                | Default     | Dynamic: any Claude-compatible endpoint       |
+
+---
+
+## 8. Data Flow Summary
+
+### Streaming Request
 
 ```mermaid
 flowchart LR
@@ -566,7 +566,7 @@ flowchart LR
     K --> L["logUsage()\nsaveRequestUsage()"]
 ```
 
-### Nem streamelési kérelem
+### Non-Streaming Request
 
 ```mermaid
 flowchart LR

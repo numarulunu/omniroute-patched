@@ -1,87 +1,87 @@
-# トラブルシューティング
+# Troubleshooting
 
-🌐 **Languages:** 🇺🇸 [English](../../TROUBLESHOOTING.md) | 🇧🇷 [Português (Brasil)](../pt-BR/TROUBLESHOOTING.md) | 🇪🇸 [Español](../es/TROUBLESHOOTING.md) | 🇫🇷 [Français](../fr/TROUBLESHOOTING.md) | 🇮🇹 [Italiano](../it/TROUBLESHOOTING.md) | 🇷🇺 [Русский](../ru/TROUBLESHOOTING.md) | 🇨🇳 [中文 (简体)](../zh-CN/TROUBLESHOOTING.md) | 🇩🇪 [Deutsch](../de/TROUBLESHOOTING.md) | 🇮🇳 [हिन्दी](../in/TROUBLESHOOTING.md) | 🇹🇭 [ไทย](../th/TROUBLESHOOTING.md) | 🇺🇦 [Українська](../uk-UA/TROUBLESHOOTING.md) | 🇸🇦 [العربية](../ar/TROUBLESHOOTING.md) | 🇯🇵 [日本語](../ja/TROUBLESHOOTING.md) | 🇻🇳 [Tiếng Việt](../vi/TROUBLESHOOTING.md) | 🇧🇬 [Български](../bg/TROUBLESHOOTING.md) | 🇩🇰 [Dansk](../da/TROUBLESHOOTING.md) | 🇫🇮 [Suomi](../fi/TROUBLESHOOTING.md) | 🇮🇱 [עברית](../he/TROUBLESHOOTING.md) | 🇭🇺 [Magyar](../hu/TROUBLESHOOTING.md) | 🇮🇩 [Bahasa Indonesia](../id/TROUBLESHOOTING.md) | 🇰🇷 [한국어](../ko/TROUBLESHOOTING.md) | 🇲🇾 [Bahasa Melayu](../ms/TROUBLESHOOTING.md) | 🇳🇱 [Nederlands](../nl/TROUBLESHOOTING.md) | 🇳🇴 [Norsk](../no/TROUBLESHOOTING.md) | 🇵🇹 [Português (Portugal)](../pt/TROUBLESHOOTING.md) | 🇷🇴 [Română](../ro/TROUBLESHOOTING.md) | 🇵🇱 [Polski](../pl/TROUBLESHOOTING.md) | 🇸🇰 [Slovenčina](../sk/TROUBLESHOOTING.md) | 🇸🇪 [Svenska](../sv/TROUBLESHOOTING.md) | 🇵🇭 [Filipino](../phi/TROUBLESHOOTING.md)
+🌐 **Languages:** 🇺🇸 [English](TROUBLESHOOTING.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/TROUBLESHOOTING.md) | 🇪🇸 [Español](i18n/es/TROUBLESHOOTING.md) | 🇫🇷 [Français](i18n/fr/TROUBLESHOOTING.md) | 🇮🇹 [Italiano](i18n/it/TROUBLESHOOTING.md) | 🇷🇺 [Русский](i18n/ru/TROUBLESHOOTING.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/TROUBLESHOOTING.md) | 🇩🇪 [Deutsch](i18n/de/TROUBLESHOOTING.md) | 🇮🇳 [हिन्दी](i18n/in/TROUBLESHOOTING.md) | 🇹🇭 [ไทย](i18n/th/TROUBLESHOOTING.md) | 🇺🇦 [Українська](i18n/uk-UA/TROUBLESHOOTING.md) | 🇸🇦 [العربية](i18n/ar/TROUBLESHOOTING.md) | 🇯🇵 [日本語](i18n/ja/TROUBLESHOOTING.md) | 🇻🇳 [Tiếng Việt](i18n/vi/TROUBLESHOOTING.md) | 🇧🇬 [Български](i18n/bg/TROUBLESHOOTING.md) | 🇩🇰 [Dansk](i18n/da/TROUBLESHOOTING.md) | 🇫🇮 [Suomi](i18n/fi/TROUBLESHOOTING.md) | 🇮🇱 [עברית](i18n/he/TROUBLESHOOTING.md) | 🇭🇺 [Magyar](i18n/hu/TROUBLESHOOTING.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/TROUBLESHOOTING.md) | 🇰🇷 [한국어](i18n/ko/TROUBLESHOOTING.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/TROUBLESHOOTING.md) | 🇳🇱 [Nederlands](i18n/nl/TROUBLESHOOTING.md) | 🇳🇴 [Norsk](i18n/no/TROUBLESHOOTING.md) | 🇵🇹 [Português (Portugal)](i18n/pt/TROUBLESHOOTING.md) | 🇷🇴 [Română](i18n/ro/TROUBLESHOOTING.md) | 🇵🇱 [Polski](i18n/pl/TROUBLESHOOTING.md) | 🇸🇰 [Slovenčina](i18n/sk/TROUBLESHOOTING.md) | 🇸🇪 [Svenska](i18n/sv/TROUBLESHOOTING.md) | 🇵🇭 [Filipino](i18n/phi/TROUBLESHOOTING.md)
 
-OmniRoute の一般的な問題と解決策。
-
----
-
-## クイックフィックス
-
-| 問題                                      | ソリューション                                                                  |
-| ----------------------------------------- | ------------------------------------------------------------------------------- |
-| 最初のログインが機能しない                | `.env` の `INITIAL_PASSWORD` を確認します (デフォルト: `123456`)。              |
-| ダッシュボードが間違ったポートで開きます  | `PORT=20128` と `NEXT_PUBLIC_BASE_URL=http://localhost:20128` を設定します。    |
-| `logs/` の下にリクエスト ログがありません | `ENABLE_REQUEST_LOGS=true` を設定                                               |
-| EACCES: 許可が拒否されました              | `DATA_DIR=/path/to/writable/dir` を設定して `~/.omniroute` をオーバーライドする |
-| ルーティング戦略が保存されない            | v1.4.11+ に更新 (設定永続性のための Zod スキーマ修正)                           |
+Common problems and solutions for OmniRoute.
 
 ---
 
-## プロバイダーの問題
+## Quick Fixes
 
-### 「言語モデルがメッセージを提供しませんでした」
-
-**原因:** プロバイダーの割り当てが枯渇しました。
-
-**修正:**
-
-1. ダッシュボードのクォータ トラッカーを確認する
-2. フォールバック層とのコンボを使用する
-3. より安価な/無料枠に切り替える
-
-### レート制限
-
-**原因:** サブスクリプション割り当てを使い果たしました。
-
-**修正:**
-
-- フォールバックを追加: `cc/claude-opus-4-6 → glm/glm-4.7 → if/kimi-k2-thinking`
-- 安価なバックアップとして GLM/MiniMax を使用する
-
-### OAuth トークンの有効期限が切れました
-
-OmniRoute はトークンを自動更新します。問題が解決しない場合:
-
-1. ダッシュボード → プロバイダー → 再接続
-2. プロバイダー接続を削除して再度追加します。
+| Problem                       | Solution                                                           |
+| ----------------------------- | ------------------------------------------------------------------ |
+| First login not working       | Set `INITIAL_PASSWORD` in `.env` (no hardcoded default)            |
+| Dashboard opens on wrong port | Set `PORT=20128` and `NEXT_PUBLIC_BASE_URL=http://localhost:20128` |
+| No request logs under `logs/` | Set `ENABLE_REQUEST_LOGS=true`                                     |
+| EACCES: permission denied     | Set `DATA_DIR=/path/to/writable/dir` to override `~/.omniroute`    |
+| Routing strategy not saving   | Update to v1.4.11+ (Zod schema fix for settings persistence)       |
 
 ---
 
-## クラウドの問題
+## Provider Issues
 
-### クラウド同期エラー
+### "Language model did not provide messages"
 
-1. `BASE_URL` が実行中のインスタンス (例: `http://localhost:20128`) を指していることを確認します。
-2. `CLOUD_URL` がクラウド エンドポイント (例: `https://omniroute.dev`) を指していることを確認します。
-3. `NEXT_PUBLIC_*` 値をサーバー側の値と一致させておく
+**Cause:** Provider quota exhausted.
 
-### クラウド `stream=false` は 500 を返します
+**Fix:**
 
-**症状:** 非ストリーミング通話のクラウド エンドポイントで `Unexpected token 'd'...` が発生します。
+1. Check dashboard quota tracker
+2. Use a combo with fallback tiers
+3. Switch to cheaper/free tier
 
-**原因:** クライアントが JSON を期待しているのに、アップストリームは SSE ペイロードを返します。
+### Rate Limiting
 
-**回避策:** クラウド直接呼び出しには `stream=true` を使用します。ローカル ランタイムには SSE→JSON フォールバックが含まれます。
+**Cause:** Subscription quota exhausted.
 
-### クラウドは接続済みだが「API キーが無効です」と表示します
+**Fix:**
 
-1. ローカル ダッシュボードから新しいキーを作成します (`/api/keys`)
-2. クラウド同期を実行します: [クラウドを有効にする] → [今すぐ同期]
-3. 古い/非同期キーはクラウド上でも `401` を返すことができます
+- Add fallback: `cc/claude-opus-4-6 → glm/glm-4.7 → if/kimi-k2-thinking`
+- Use GLM/MiniMax as cheap backup
+
+### OAuth Token Expired
+
+OmniRoute auto-refreshes tokens. If issues persist:
+
+1. Dashboard → Provider → Reconnect
+2. Delete and re-add the provider connection
 
 ---
 
-## Docker の問題
+## Cloud Issues
 
-### CLI ツールがインストールされていないと表示される
+### Cloud Sync Errors
 
-1. 実行時フィールドを確認します: `curl http://localhost:20128/api/cli-tools/runtime/codex | jq`
-2. ポータブル モードの場合: イメージ ターゲット `runner-cli` (バンドルされた CLI) を使用します。
-3. ホスト マウント モードの場合: `CLI_EXTRA_PATHS` を設定し、ホストの bin ディレクトリを読み取り専用としてマウントします。
-4. `installed=true` および `runnable=false` の場合: バイナリは見つかりましたが、ヘルスチェックに失敗しました
+1. Verify `BASE_URL` points to your running instance (e.g., `http://localhost:20128`)
+2. Verify `CLOUD_URL` points to your cloud endpoint (e.g., `https://omniroute.dev`)
+3. Keep `NEXT_PUBLIC_*` values aligned with server-side values
 
-### 迅速なランタイム検証
+### Cloud `stream=false` Returns 500
+
+**Symptom:** `Unexpected token 'd'...` on cloud endpoint for non-streaming calls.
+
+**Cause:** Upstream returns SSE payload while client expects JSON.
+
+**Workaround:** Use `stream=true` for cloud direct calls. Local runtime includes SSE→JSON fallback.
+
+### Cloud Says Connected but "Invalid API key"
+
+1. Create a fresh key from local dashboard (`/api/keys`)
+2. Run cloud sync: Enable Cloud → Sync Now
+3. Old/non-synced keys can still return `401` on cloud
+
+---
+
+## Docker Issues
+
+### CLI Tool Shows Not Installed
+
+1. Check runtime fields: `curl http://localhost:20128/api/cli-tools/runtime/codex | jq`
+2. For portable mode: use image target `runner-cli` (bundled CLIs)
+3. For host mount mode: set `CLI_EXTRA_PATHS` and mount host bin directory as read-only
+4. If `installed=true` and `runnable=false`: binary was found but failed healthcheck
+
+### Quick Runtime Validation
 
 ```bash
 curl -s http://localhost:20128/api/cli-tools/codex-settings | jq '{installed,runnable,commandPath,runtimeMode,reason}'
@@ -91,21 +91,24 @@ curl -s http://localhost:20128/api/cli-tools/openclaw-settings | jq '{installed,
 
 ---
 
-## コストの問題
+## Cost Issues
 
-### 高コスト
+### High Costs
 
-1.「ダッシュボード」→「使用状況」で使用状況統計を確認します。2. プライマリ モデルを GLM/MiniMax に切り替える 3. 重要ではないタスクには無料枠 (Gemini CLI、iFlow) を使用する 4. API キーごとにコスト予算を設定します: [ダッシュボード] → [API キー] → [予算]
+1. Check usage stats in Dashboard → Usage
+2. Switch primary model to GLM/MiniMax
+3. Use free tier (Gemini CLI, iFlow) for non-critical tasks
+4. Set cost budgets per API key: Dashboard → API Keys → Budget
 
 ---
 
-## デバッグ
+## Debugging
 
-### リクエストログを有効にする
+### Enable Request Logs
 
-`.env` ファイルに `ENABLE_REQUEST_LOGS=true` を設定します。ログは `logs/` ディレクトリの下に表示されます。
+Set `ENABLE_REQUEST_LOGS=true` in your `.env` file. Logs appear under `logs/` directory.
 
-### プロバイダーの健全性を確認する
+### Check Provider Health
 
 ```bash
 # Health dashboard
@@ -115,102 +118,137 @@ http://localhost:20128/dashboard/health
 curl http://localhost:20128/api/monitoring/health
 ```
 
-### ランタイムストレージ
+### Runtime Storage
 
-- メイン状態: `${DATA_DIR}/db.json` (プロバイダー、コンボ、エイリアス、キー、設定)
-- 使用法: `${DATA_DIR}/usage.json`、`${DATA_DIR}/log.txt`、`${DATA_DIR}/call_logs/`
-- リクエストログ：`<repo>/logs/...`（`ENABLE_REQUEST_LOGS=true`の場合）
-
----
-
-## サーキットブレーカーの問題
-
-### プロバイダーが OPEN 状態でスタックしている
-
-プロバイダーのサーキット ブレーカーが OPEN の場合、リクエストはクールダウンが期限切れになるまでブロックされます。
-
-**修正:**
-
-1. **ダッシュボード → 設定 → レジリエンス** に移動します
-2. 影響を受けるプロバイダーのサーキット ブレーカー カードを確認します。
-3. [**すべてリセット**] をクリックしてすべてのブレーカーをクリアするか、クールダウンが期限切れになるまで待ちます。
-4. リセットする前に、プロバイダーが実際に利用可能であることを確認します。
-
-### プロバイダーがサーキットブレーカーを落とし続けます
-
-プロバイダーが繰り返し OPEN 状態になる場合:
-
-1. **ダッシュボード → ヘルス → プロバイダーのヘルス** で障害パターンを確認します。
-2. **[設定] → [復元力] → [プロバイダー プロファイル]** に移動し、失敗のしきい値を増やします。
-3. プロバイダーが API 制限を変更したか、再認証が必要かどうかを確認します。
-4. レイテンシーテレメトリを確認します - レイテンシーが長いとタイムアウトベースのエラーが発生する可能性があります
+- Main state: `${DATA_DIR}/storage.sqlite` (providers, combos, aliases, keys, settings)
+- Usage: SQLite tables in `storage.sqlite` (`usage_history`, `call_logs`, `proxy_logs`) + optional `${DATA_DIR}/log.txt` and `${DATA_DIR}/call_logs/`
+- Request logs: `<repo>/logs/...` (when `ENABLE_REQUEST_LOGS=true`)
 
 ---
 
-## 音声文字起こしの問題
+## Circuit Breaker Issues
 
-### 「サポートされていないモデル」エラー
+### Provider stuck in OPEN state
 
-- 正しいプレフィックスを使用していることを確認してください: `deepgram/nova-3` または `assemblyai/best`
-- **「ダッシュボード」→「プロバイダー」**でプロバイダーが接続されていることを確認します。
+When a provider's circuit breaker is OPEN, requests are blocked until the cooldown expires.
 
-### 文字起こしが空を返すか失敗する
+**Fix:**
 
-- サポートされているオーディオ形式を確認します: `mp3`、`wav`、`m4a`、`flac`、`ogg`、`webm`
-- ファイル サイズがプロバイダーの制限内であることを確認します (通常は < 25MB)
-- プロバイダー カードのプロバイダー API キーの有効性を確認します。
+1. Go to **Dashboard → Settings → Resilience**
+2. Check the circuit breaker card for the affected provider
+3. Click **Reset All** to clear all breakers, or wait for the cooldown to expire
+4. Verify the provider is actually available before resetting
 
----
+### Provider keeps tripping the circuit breaker
 
-## トランスレータのデバッグ
+If a provider repeatedly enters OPEN state:
 
-**ダッシュボード → トランスレーター** を使用して、形式変換の問題をデバッグします。
-
-| モード                | いつ使用するか                                                                                              |
-| --------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **遊び場**            | 入力/出力形式を並べて比較します。失敗したリクエストを貼り付けて、それがどのように変換されるかを確認します。 |
-| **チャット テスター** | ライブ メッセージを送信し、ヘッダーを含む完全なリクエスト/レスポンス ペイロードを検査します。               |
-| **テストベンチ**      | フォーマットの組み合わせ全体でバッチ テストを実行して、どの翻訳が壊れているかを見つけます。                 |
-| **ライブモニター**    | リアルタイムのリクエスト フローを監視して断続的な翻訳の問題を検出                                           |
-
-### 一般的な形式の問題
-
-- **思考タグが表示されない** — ターゲットプロバイダーが思考と思考予算設定をサポートしているかどうかを確認してください
-- **ツール呼び出しのドロップ** — 一部の形式変換では、サポートされていないフィールドが削除される場合があります。プレイグラウンド モードで確認する
-- **システム プロンプトがありません** — クロードとジェミニはシステム プロンプトの処理方法が異なります。翻訳出力を確認する
-- **SDK はオブジェクトではなく生の文字列を返します** — v1.1.0 で修正されました: 応答サニタイザーは、OpenAI SDK Pydantic 検証エラーの原因となる非標準フィールド (`x_groq`、`usage_breakdown` など) を削除するようになりました。
-- **GLM/ERNIE が `system` ロールを拒否します** — v1.1.0 で修正: ロール ノーマライザーは、互換性のないモデルのシステム メッセージをユーザー メッセージに自動的にマージします
-- **`developer` ロールが認識されない** — v1.1.0 で修正: 非 OpenAI プロバイダーの場合は自動的に `system` に変換されます
-- **`json_schema` が Gemini で動作しない** — v1.1.0 で修正: `response_format` は Gemini の `responseMimeType` + `responseSchema` に変換されるようになりました。
+1. Check **Dashboard → Health → Provider Health** for the failure pattern
+2. Go to **Settings → Resilience → Provider Profiles** and increase the failure threshold
+3. Check if the provider has changed API limits or requires re-authentication
+4. Review latency telemetry — high latency may cause timeout-based failures
 
 ---
 
-## 復元力の設定
+## Audio Transcription Issues
 
-### 自動レート制限がトリガーされない
+### "Unsupported model" error
 
-- 自動レート制限は API キープロバイダーにのみ適用されます (OAuth/サブスクリプションには適用されません)
-- **設定 → 復元力 → プロバイダー プロファイル** で自動レート制限が有効になっていることを確認します
-- プロバイダーが `429` ステータス コードまたは `Retry-After` ヘッダーを返すかどうかを確認します。
+- Ensure you're using the correct prefix: `deepgram/nova-3` or `assemblyai/best`
+- Verify the provider is connected in **Dashboard → Providers**
 
-### 指数バックオフの調整
+### Transcription returns empty or fails
 
-プロバイダー プロファイルは次の設定をサポートします。
-
-- **基本遅延** — 最初の失敗後の初期待機時間 (デフォルト: 1 秒)
-- **最大遅延** — 最大待機時間の上限 (デフォルト: 30 秒)
-- **乗数** — 連続した失敗ごとにどれだけ遅延を増加させるか (デフォルト: 2x)
-
-### 対雷の群れ
-
-多くの同時リクエストがレート制限プロバイダーに到達すると、OmniRoute はミューテックスと自動レート制限を使用してリクエストをシリアル化し、連鎖的な失敗を防ぎます。これは API キープロバイダーの場合は自動的に行われます。
+- Check supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`
+- Verify file size is within provider limits (typically < 25MB)
+- Check provider API key validity in the provider card
 
 ---
 
-## まだ行き詰まっていますか?
+## Translator Debugging
 
-- **GitHub の問題**: [github.com/diegosouzapw/OmniRoute/issues](https://github.com/diegosouzapw/OmniRoute/issues)
-- **アーキテクチャ**: 内部の詳細については、[link](ARCHITECTURE.md) を参照してください。
-- **API リファレンス**: すべてのエンドポイントについては、[link](API_REFERENCE.md) を参照してください。
-- **ヘルス ダッシュボード**: リアルタイムのシステム ステータスについては、**ダッシュボード → ヘルス** を確認してください。
-- **トランスレータ**: **ダッシュボード → トランスレータ**を使用して形式の問題をデバッグします
+Use **Dashboard → Translator** to debug format translation issues:
+
+| Mode             | When to Use                                                                                  |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| **Playground**   | Compare input/output formats side by side — paste a failing request to see how it translates |
+| **Chat Tester**  | Send live messages and inspect the full request/response payload including headers           |
+| **Test Bench**   | Run batch tests across format combinations to find which translations are broken             |
+| **Live Monitor** | Watch real-time request flow to catch intermittent translation issues                        |
+
+### Common format issues
+
+- **Thinking tags not appearing** — Check if the target provider supports thinking and the thinking budget setting
+- **Tool calls dropping** — Some format translations may strip unsupported fields; verify in Playground mode
+- **System prompt missing** — Claude and Gemini handle system prompts differently; check translation output
+- **SDK returns raw string instead of object** — Fixed in v1.1.0: response sanitizer now strips non-standard fields (`x_groq`, `usage_breakdown`, etc.) that cause OpenAI SDK Pydantic validation failures
+- **GLM/ERNIE rejects `system` role** — Fixed in v1.1.0: role normalizer automatically merges system messages into user messages for incompatible models
+- **`developer` role not recognized** — Fixed in v1.1.0: automatically converted to `system` for non-OpenAI providers
+- **`json_schema` not working with Gemini** — Fixed in v1.1.0: `response_format` is now converted to Gemini's `responseMimeType` + `responseSchema`
+
+---
+
+## Resilience Settings
+
+### Auto rate-limit not triggering
+
+- Auto rate-limit only applies to API key providers (not OAuth/subscription)
+- Verify **Settings → Resilience → Provider Profiles** has auto-rate-limit enabled
+- Check if the provider returns `429` status codes or `Retry-After` headers
+
+### Tuning exponential backoff
+
+Provider profiles support these settings:
+
+- **Base delay** — Initial wait time after first failure (default: 1s)
+- **Max delay** — Maximum wait time cap (default: 30s)
+- **Multiplier** — How much to increase delay per consecutive failure (default: 2x)
+
+### Anti-thundering herd
+
+When many concurrent requests hit a rate-limited provider, OmniRoute uses mutex + auto rate-limiting to serialize requests and prevent cascading failures. This is automatic for API key providers.
+
+---
+
+## Optional RAG / LLM failure taxonomy (16 problems)
+
+Some OmniRoute users place the gateway in front of RAG or agent stacks. In those setups it is common to see a strange pattern: OmniRoute looks healthy (providers up, routing profiles ok, no rate limit alerts) but the final answer is still wrong.
+
+In practice these incidents usually come from the downstream RAG pipeline, not from the gateway itself.
+
+If you want a shared vocabulary to describe those failures you can use the WFGY ProblemMap, an external MIT license text resource that defines sixteen recurring RAG / LLM failure patterns. At a high level it covers:
+
+- retrieval drift and broken context boundaries
+- empty or stale indexes and vector stores
+- embedding versus semantic mismatch
+- prompt assembly and context window issues
+- logic collapse and overconfident answers
+- long chain and agent coordination failures
+- multi agent memory and role drift
+- deployment and bootstrap ordering problems
+
+The idea is simple:
+
+1. When you investigate a bad response, capture:
+   - user task and request
+   - route or provider combo in OmniRoute
+   - any RAG context used downstream (retrieved documents, tool calls, etc)
+2. Map the incident to one or two WFGY ProblemMap numbers (`No.1` … `No.16`).
+3. Store the number in your own dashboard, runbook, or incident tracker next to the OmniRoute logs.
+4. Use the corresponding WFGY page to decide whether you need to change your RAG stack, retriever, or routing strategy.
+
+Full text and concrete recipes live here (MIT license, text only):
+
+[WFGY ProblemMap README](https://github.com/onestardao/WFGY/blob/main/ProblemMap/README.md)
+
+You can ignore this section if you do not run RAG or agent pipelines behind OmniRoute.
+
+---
+
+## Still Stuck?
+
+- **GitHub Issues**: [github.com/diegosouzapw/OmniRoute/issues](https://github.com/diegosouzapw/OmniRoute/issues)
+- **Architecture**: See [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) for internal details
+- **API Reference**: See [`docs/API_REFERENCE.md`](API_REFERENCE.md) for all endpoints
+- **Health Dashboard**: Check **Dashboard → Health** for real-time system status
+- **Translator**: Use **Dashboard → Translator** to debug format issues

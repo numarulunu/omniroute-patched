@@ -1,12 +1,12 @@
-# Brukerveiledning
+# User Guide
 
-🌐 **Languages:** 🇺🇸 [English](../../USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](../es/USER_GUIDE.md) | 🇫🇷 [Français](../fr/USER_GUIDE.md) | 🇮🇹 [Italiano](../it/USER_GUIDE.md) | 🇷🇺 [Русский](../ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](../zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](../de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](../in/USER_GUIDE.md) | 🇹🇭 [ไทย](../th/USER_GUIDE.md) | 🇺🇦 [Українська](../uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](../ar/USER_GUIDE.md) | 🇯🇵 [日本語](../ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](../vi/USER_GUIDE.md) | 🇧🇬 [Български](../bg/USER_GUIDE.md) | 🇩🇰 [Dansk](../da/USER_GUIDE.md) | 🇫🇮 [Suomi](../fi/USER_GUIDE.md) | 🇮🇱 [עברית](../he/USER_GUIDE.md) | 🇭🇺 [Magyar](../hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](../id/USER_GUIDE.md) | 🇰🇷 [한국어](../ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](../ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](../nl/USER_GUIDE.md) | 🇳🇴 [Norsk](../no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](../pt/USER_GUIDE.md) | 🇷🇴 [Română](../ro/USER_GUIDE.md) | 🇵🇱 [Polski](../pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](../sk/USER_GUIDE.md) | 🇸🇪 [Svenska](../sv/USER_GUIDE.md) | 🇵🇭 [Filipino](../phi/USER_GUIDE.md)
+🌐 **Languages:** 🇺🇸 [English](USER_GUIDE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/USER_GUIDE.md) | 🇪🇸 [Español](i18n/es/USER_GUIDE.md) | 🇫🇷 [Français](i18n/fr/USER_GUIDE.md) | 🇮🇹 [Italiano](i18n/it/USER_GUIDE.md) | 🇷🇺 [Русский](i18n/ru/USER_GUIDE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/USER_GUIDE.md) | 🇩🇪 [Deutsch](i18n/de/USER_GUIDE.md) | 🇮🇳 [हिन्दी](i18n/in/USER_GUIDE.md) | 🇹🇭 [ไทย](i18n/th/USER_GUIDE.md) | 🇺🇦 [Українська](i18n/uk-UA/USER_GUIDE.md) | 🇸🇦 [العربية](i18n/ar/USER_GUIDE.md) | 🇯🇵 [日本語](i18n/ja/USER_GUIDE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/USER_GUIDE.md) | 🇧🇬 [Български](i18n/bg/USER_GUIDE.md) | 🇩🇰 [Dansk](i18n/da/USER_GUIDE.md) | 🇫🇮 [Suomi](i18n/fi/USER_GUIDE.md) | 🇮🇱 [עברית](i18n/he/USER_GUIDE.md) | 🇭🇺 [Magyar](i18n/hu/USER_GUIDE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/USER_GUIDE.md) | 🇰🇷 [한국어](i18n/ko/USER_GUIDE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/USER_GUIDE.md) | 🇳🇱 [Nederlands](i18n/nl/USER_GUIDE.md) | 🇳🇴 [Norsk](i18n/no/USER_GUIDE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/USER_GUIDE.md) | 🇷🇴 [Română](i18n/ro/USER_GUIDE.md) | 🇵🇱 [Polski](i18n/pl/USER_GUIDE.md) | 🇸🇰 [Slovenčina](i18n/sk/USER_GUIDE.md) | 🇸🇪 [Svenska](i18n/sv/USER_GUIDE.md) | 🇵🇭 [Filipino](i18n/phi/USER_GUIDE.md)
 
-Komplett veiledning for å konfigurere leverandører, lage kombinasjoner, integrere CLI-verktøy og distribuere OmniRoute.
+Complete guide for configuring providers, creating combos, integrating CLI tools, and deploying OmniRoute.
 
 ---
 
-## Innholdsfortegnelse
+## Table of Contents
 
 - [Pricing at a Glance](#-pricing-at-a-glance)
 - [Use Cases](#-use-cases)
@@ -18,40 +18,40 @@ Komplett veiledning for å konfigurere leverandører, lage kombinasjoner, integr
 
 ---
 
-## 💰 Priser på et øyeblikk
+## 💰 Pricing at a Glance
 
-| Nivå              | Leverandør        | Kostnad         | Kvote Tilbakestill      | Best for                 |
-| ----------------- | ----------------- | --------------- | ----------------------- | ------------------------ |
-| **💳 ABONNEMENT** | Claude Code (Pro) | $20/md          | 5t + ukentlig           | Allerede abonnert        |
-|                   | Codex (Pluss/Pro) | $20-200/md      | 5t + ukentlig           | OpenAI-brukere           |
-|                   | Gemini CLI        | **GRATIS**      | 180K/mnd + 1K/dag       | Alle sammen!             |
-|                   | GitHub Copilot    | $10-19/md       | Månedlig                | GitHub-brukere           |
-| **🔑 API NØKKEL** | DeepSeek          | Betal per bruk  | Ingen                   | Billig resonnement       |
-|                   | Groq              | Betal per bruk  | Ingen                   | Ultrarask slutning       |
-|                   | xAI (Grok)        | Betal per bruk  | Ingen                   | Grok 4 resonnement       |
-|                   | Mistral           | Betal per bruk  | Ingen                   | EU-vertsbaserte modeller |
-|                   | Forvirring        | Betal per bruk  | Ingen                   | Søkeutvidet              |
-|                   | Sammen AI         | Betal per bruk  | Ingen                   | Åpen kildekode-modeller  |
-|                   | Fyrverkeri AI     | Betal per bruk  | Ingen                   | Rask FLUX bilder         |
-|                   | Cerebras          | Betal per bruk  | Ingen                   | Wafer-skala hastighet    |
-|                   | Sammenheng        | Betal per bruk  | Ingen                   | Kommando R+ RAG          |
-|                   | NVIDIA NIM        | Betal per bruk  | Ingen                   | Bedriftsmodeller         |
-| **💰 BILLIG**     | GLM-4.7           | $0,6/1M         | Daglig 10:00            | Budsjett backup          |
-|                   | MiniMax M2.1      | $0,2/1 million  | 5-timers rullende       | Billigste alternativ     |
-|                   | Kimi K2           | $9/md leilighet | 10 millioner tokens/mnd | Forutsigbar kostnad      |
-| **🆓 GRATIS**     | iFlow             | $0              | Ubegrenset              | 8 modeller gratis        |
-|                   | Qwen              | $0              | Ubegrenset              | 3 modeller gratis        |
-|                   | Kiro              | $0              | Ubegrenset              | Claude gratis            |
+| Tier                | Provider          | Cost        | Quota Reset      | Best For             |
+| ------------------- | ----------------- | ----------- | ---------------- | -------------------- |
+| **💳 SUBSCRIPTION** | Claude Code (Pro) | $20/mo      | 5h + weekly      | Already subscribed   |
+|                     | Codex (Plus/Pro)  | $20-200/mo  | 5h + weekly      | OpenAI users         |
+|                     | Gemini CLI        | **FREE**    | 180K/mo + 1K/day | Everyone!            |
+|                     | GitHub Copilot    | $10-19/mo   | Monthly          | GitHub users         |
+| **🔑 API KEY**      | DeepSeek          | Pay per use | None             | Cheap reasoning      |
+|                     | Groq              | Pay per use | None             | Ultra-fast inference |
+|                     | xAI (Grok)        | Pay per use | None             | Grok 4 reasoning     |
+|                     | Mistral           | Pay per use | None             | EU-hosted models     |
+|                     | Perplexity        | Pay per use | None             | Search-augmented     |
+|                     | Together AI       | Pay per use | None             | Open-source models   |
+|                     | Fireworks AI      | Pay per use | None             | Fast FLUX images     |
+|                     | Cerebras          | Pay per use | None             | Wafer-scale speed    |
+|                     | Cohere            | Pay per use | None             | Command R+ RAG       |
+|                     | NVIDIA NIM        | Pay per use | None             | Enterprise models    |
+| **💰 CHEAP**        | GLM-4.7           | $0.6/1M     | Daily 10AM       | Budget backup        |
+|                     | MiniMax M2.1      | $0.2/1M     | 5-hour rolling   | Cheapest option      |
+|                     | Kimi K2           | $9/mo flat  | 10M tokens/mo    | Predictable cost     |
+| **🆓 FREE**         | iFlow             | $0          | Unlimited        | 8 models free        |
+|                     | Qwen              | $0          | Unlimited        | 3 models free        |
+|                     | Kiro              | $0          | Unlimited        | Claude free          |
 
-**💡 Profftips:** Start med Gemini CLI (180K gratis/måned) + iFlow (ubegrenset gratis) kombinasjon = $0 kostnad!
+**💡 Pro Tip:** Start with Gemini CLI (180K free/month) + iFlow (unlimited free) combo = $0 cost!
 
 ---
 
-## 🎯 Brukssaker
+## 🎯 Use Cases
 
-### Sak 1: "Jeg har Claude Pro-abonnement"
+### Case 1: "I have Claude Pro subscription"
 
-**Problem:** Kvoten utløper ubrukt, satsgrenser under tung koding
+**Problem:** Quota expires unused, rate limits during heavy coding
 
 ```
 Combo: "maximize-claude"
@@ -63,9 +63,9 @@ Monthly cost: $20 (subscription) + ~$5 (backup) = $25 total
 vs. $20 + hitting limits = frustration
 ```
 
-### Tilfelle 2: "Jeg vil ha null kostnad"
+### Case 2: "I want zero cost"
 
-**Problem:** Har ikke råd til abonnementer, trenger pålitelig AI-koding
+**Problem:** Can't afford subscriptions, need reliable AI coding
 
 ```
 Combo: "free-forever"
@@ -77,9 +77,9 @@ Monthly cost: $0
 Quality: Production-ready models
 ```
 
-### Tilfelle 3: "Jeg trenger 24/7 koding, ingen avbrudd"
+### Case 3: "I need 24/7 coding, no interruptions"
 
-**Problem:** Tidsfrister, har ikke råd til nedetid
+**Problem:** Deadlines, can't afford downtime
 
 ```
 Combo: "always-on"
@@ -93,9 +93,9 @@ Result: 5 layers of fallback = zero downtime
 Monthly cost: $20-200 (subscriptions) + $10-20 (backup)
 ```
 
-### Tilfelle 4: "Jeg vil ha GRATIS AI i OpenClaw"
+### Case 4: "I want FREE AI in OpenClaw"
 
-**Problem:** Trenger AI-assistent i meldingsapper, helt gratis
+**Problem:** Need AI assistant in messaging apps, completely free
 
 ```
 Combo: "openclaw-free"
@@ -109,9 +109,9 @@ Access via: WhatsApp, Telegram, Slack, Discord, iMessage, Signal...
 
 ---
 
-## 📖 Leverandøroppsett
+## 📖 Provider Setup
 
-### 🔐 Abonnementsleverandører
+### 🔐 Subscription Providers
 
 #### Claude Code (Pro/Max)
 
@@ -126,7 +126,7 @@ Models:
   cc/claude-haiku-4-5-20251001
 ```
 
-**Profftips:** Bruk Opus for komplekse oppgaver, Sonnet for hastighet. OmniRoute sporer kvote per modell!
+**Pro Tip:** Use Opus for complex tasks, Sonnet for speed. OmniRoute tracks quota per model!
 
 #### OpenAI Codex (Plus/Pro)
 
@@ -140,7 +140,7 @@ Models:
   cx/gpt-5.1-codex-max
 ```
 
-#### Gemini CLI (GRATIS 180K/måned!)
+#### Gemini CLI (FREE 180K/month!)
 
 ```bash
 Dashboard → Providers → Connect Gemini CLI
@@ -152,7 +152,7 @@ Models:
   gc/gemini-2.5-pro
 ```
 
-**Mest verdi:** Enormt gratis nivå! Bruk dette før betalte nivåer.
+**Best Value:** Huge free tier! Use this before paid tiers.
 
 #### GitHub Copilot
 
@@ -167,33 +167,33 @@ Models:
   gh/gemini-3-pro
 ```
 
-### 💰 Billige leverandører
+### 💰 Cheap Providers
 
-#### GLM-4.7 (Daglig tilbakestilling, $0,6/1M)
+#### GLM-4.7 (Daily reset, $0.6/1M)
 
-1. Registrer deg: [Zhipu AI](https://open.bigmodel.cn/)
-2. Få API-nøkkel fra Coding Plan
-3. Dashboard → Legg til API-nøkkel: Leverandør: `glm`, API-nøkkel: `your-key`
+1. Sign up: [Zhipu AI](https://open.bigmodel.cn/)
+2. Get API key from Coding Plan
+3. Dashboard → Add API Key: Provider: `glm`, API Key: `your-key`
 
-**Bruk:** `glm/glm-4.7` — **Profftips:** Kodeplan tilbyr 3× kvote til 1/7 kostnad! Tilbakestill daglig 10:00.
+**Use:** `glm/glm-4.7` — **Pro Tip:** Coding Plan offers 3× quota at 1/7 cost! Reset daily 10:00 AM.
 
-#### MiniMax M2.1 (5t tilbakestilling, $0,20/1M)
+#### MiniMax M2.1 (5h reset, $0.20/1M)
 
-1. Registrer deg: [MiniMax](https://www.minimax.io/)
-2. Hent API-nøkkel → Dashboard → Legg til API-nøkkel
+1. Sign up: [MiniMax](https://www.minimax.io/)
+2. Get API key → Dashboard → Add API Key
 
-**Bruk:** `minimax/MiniMax-M2.1` — **Profftips:** Billigste alternativet for lang kontekst (1M tokens)!
+**Use:** `minimax/MiniMax-M2.1` — **Pro Tip:** Cheapest option for long context (1M tokens)!
 
-#### Kimi K2 ($9/mnd leilighet)
+#### Kimi K2 ($9/month flat)
 
-1. Abonner: [Moonshot AI](https://platform.moonshot.ai/)
-2. Hent API-nøkkel → Dashboard → Legg til API-nøkkel
+1. Subscribe: [Moonshot AI](https://platform.moonshot.ai/)
+2. Get API key → Dashboard → Add API Key
 
-**Bruk:** `kimi/kimi-latest` — **Profftips:** Fast $9/måned for 10M tokens = $0,90/1M effektiv kostnad!
+**Use:** `kimi/kimi-latest` — **Pro Tip:** Fixed $9/month for 10M tokens = $0.90/1M effective cost!
 
-### 🆓 GRATIS Leverandører
+### 🆓 FREE Providers
 
-#### iFlow (8 GRATIS modeller)
+#### iFlow (8 FREE models)
 
 ```bash
 Dashboard → Connect iFlow → OAuth login → Unlimited usage
@@ -201,7 +201,7 @@ Dashboard → Connect iFlow → OAuth login → Unlimited usage
 Models: if/kimi-k2-thinking, if/qwen3-coder-plus, if/glm-4.7, if/minimax-m2, if/deepseek-r1
 ```
 
-#### Qwen (3 GRATIS modeller)
+#### Qwen (3 FREE models)
 
 ```bash
 Dashboard → Connect Qwen → Device code auth → Unlimited usage
@@ -209,7 +209,7 @@ Dashboard → Connect Qwen → Device code auth → Unlimited usage
 Models: qw/qwen3-coder-plus, qw/qwen3-coder-flash
 ```
 
-#### Kiro (Claude GRATIS)
+#### Kiro (Claude FREE)
 
 ```bash
 Dashboard → Connect Kiro → AWS Builder ID or Google/GitHub → Unlimited
@@ -219,9 +219,9 @@ Models: kr/claude-sonnet-4.5, kr/claude-haiku-4.5
 
 ---
 
-## 🎨 Kombinasjoner
+## 🎨 Combos
 
-### Eksempel 1: Maksimer abonnement → Billig sikkerhetskopi
+### Example 1: Maximize Subscription → Cheap Backup
 
 ```
 Dashboard → Combos → Create New
@@ -235,7 +235,7 @@ Models:
 Use in CLI: premium-coding
 ```
 
-### Eksempel 2: Kun gratis (nullkostnad)
+### Example 2: Free-Only (Zero Cost)
 
 ```
 Name: free-combo
@@ -249,9 +249,9 @@ Cost: $0 forever!
 
 ---
 
-## 🔧 CLI-integrasjon
+## 🔧 CLI Integration
 
-### Markør IDE
+### Cursor IDE
 
 ```
 Settings → Models → Advanced:
@@ -262,7 +262,7 @@ Settings → Models → Advanced:
 
 ### Claude Code
 
-Rediger `~/.claude/config.json`:
+Edit `~/.claude/config.json`:
 
 ```json
 {
@@ -281,7 +281,7 @@ codex "your prompt"
 
 ### OpenClaw
 
-Rediger `~/.openclaw/openclaw.json`:
+Edit `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -303,9 +303,9 @@ Rediger `~/.openclaw/openclaw.json`:
 }
 ```
 
-**Eller bruk Dashboard:** CLI Tools → OpenClaw → Auto-config
+**Or use Dashboard:** CLI Tools → OpenClaw → Auto-config
 
-### Cline / Fortsett / RooCode
+### Cline / Continue / RooCode
 
 ```
 Provider: OpenAI Compatible
@@ -316,9 +316,28 @@ Model: cc/claude-opus-4-6
 
 ---
 
-## 🚀 Utrulling
+## 🚀 Deployment
 
-### VPS-distribusjon
+### Global npm install (Recommended)
+
+```bash
+npm install -g omniroute
+
+# Create config directory
+mkdir -p ~/.omniroute
+
+# Create .env file (see .env.example)
+cp .env.example ~/.omniroute/.env
+
+# Start server
+omniroute
+# Or with custom port:
+omniroute --port 3000
+```
+
+The CLI automatically loads `.env` from `~/.omniroute/.env` or `./.env`.
+
+### VPS Deployment
 
 ```bash
 git clone https://github.com/diegosouzapw/OmniRoute.git
@@ -337,6 +356,43 @@ npm run start
 # Or: pm2 start npm --name omniroute -- start
 ```
 
+### PM2 Deployment (Low Memory)
+
+For servers with limited RAM, use the memory limit option:
+
+```bash
+# With 512MB limit (default)
+pm2 start npm --name omniroute -- start
+
+# Or with custom memory limit
+OMNIROUTE_MEMORY_MB=512 pm2 start npm --name omniroute -- start
+
+# Or using ecosystem.config.js
+pm2 start ecosystem.config.js
+```
+
+Create `ecosystem.config.js`:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: "omniroute",
+      script: "npm",
+      args: "start",
+      env: {
+        NODE_ENV: "production",
+        OMNIROUTE_MEMORY_MB: "512",
+        JWT_SECRET: "your-secret",
+        INITIAL_PASSWORD: "your-password",
+      },
+      node_args: "--max-old-space-size=512",
+      max_memory_restart: "300M",
+    },
+  ],
+};
+```
+
 ### Docker
 
 ```bash
@@ -347,51 +403,54 @@ docker build -t omniroute:cli .
 docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-data:/app/data omniroute:cli
 ```
 
-For vertsintegrert modus med CLI-binærfiler, se Docker-delen i hoveddokumentene.
+For host-integrated mode with CLI binaries, see the Docker section in the main docs.
 
-### Miljøvariabler
+### Environment Variables
 
-| Variabel              | Standard                             | Beskrivelse                                                      |
-| --------------------- | ------------------------------------ | ---------------------------------------------------------------- |
-| `JWT_SECRET`          | `omniroute-default-secret-change-me` | JWT signeringshemmelighet (**endring i produksjon**)             |
-| `INITIAL_PASSWORD`    | `123456`                             | Første påloggingspassord                                         |
-| `DATA_DIR`            | `~/.omniroute`                       | Datakatalog (db, bruk, logger)                                   |
-| `PORT`                | standard rammeverk                   | Tjenesteport (`20128` i eksempler)                               |
-| `HOSTNAME`            | standard rammeverk                   | Bind vert (Docker er standard til `0.0.0.0`)                     |
-| `NODE_ENV`            | kjøretidsstandard                    | Sett `production` for distribusjon                               |
-| `BASE_URL`            | `http://localhost:20128`             | Intern basis-URL på tjenersiden                                  |
-| `CLOUD_URL`           | `https://omniroute.dev`              | Nettadresse for endepunkt for nettskysynkronisering              |
-| `API_KEY_SECRET`      | `endpoint-proxy-api-key-secret`      | HMAC-hemmelighet for genererte API-nøkler                        |
-| `REQUIRE_API_KEY`     | `false`                              | Håndhev Bearer API-nøkkel på `/v1/*`                             |
-| `ENABLE_REQUEST_LOGS` | `false`                              | Aktiverer forespørsels-/svarlogger                               |
-| `AUTH_COOKIE_SECURE`  | `false`                              | Tving `Secure` auth-informasjonskapsel (bak HTTPS omvendt proxy) |
+| Variable                  | Default                              | Description                                             |
+| ------------------------- | ------------------------------------ | ------------------------------------------------------- |
+| `JWT_SECRET`              | `omniroute-default-secret-change-me` | JWT signing secret (**change in production**)           |
+| `INITIAL_PASSWORD`        | `123456`                             | First login password                                    |
+| `DATA_DIR`                | `~/.omniroute`                       | Data directory (db, usage, logs)                        |
+| `PORT`                    | framework default                    | Service port (`20128` in examples)                      |
+| `HOSTNAME`                | framework default                    | Bind host (Docker defaults to `0.0.0.0`)                |
+| `NODE_ENV`                | runtime default                      | Set `production` for deploy                             |
+| `BASE_URL`                | `http://localhost:20128`             | Server-side internal base URL                           |
+| `CLOUD_URL`               | `https://omniroute.dev`              | Cloud sync endpoint base URL                            |
+| `API_KEY_SECRET`          | `endpoint-proxy-api-key-secret`      | HMAC secret for generated API keys                      |
+| `REQUIRE_API_KEY`         | `false`                              | Enforce Bearer API key on `/v1/*`                       |
+| `ENABLE_REQUEST_LOGS`     | `false`                              | Enables request/response logs                           |
+| `AUTH_COOKIE_SECURE`      | `false`                              | Force `Secure` auth cookie (behind HTTPS reverse proxy) |
+| `OMNIROUTE_MEMORY_MB`     | `512`                                | Node.js heap limit in MB                                |
+| `PROMPT_CACHE_MAX_SIZE`   | `50`                                 | Max prompt cache entries                                |
+| `SEMANTIC_CACHE_MAX_SIZE` | `100`                                | Max semantic cache entries                              |
 
-For hele miljøvariabelreferansen, se [README](../README.md).
+For the full environment variable reference, see the [README](../README.md).
 
 ---
 
-## 📊 Tilgjengelige modeller
+## 📊 Available Models
 
 <details>
-<summary><b>Se alle tilgjengelige modeller</b></summary>
+<summary><b>View all available models</b></summary>
 
-**Claude-kode (`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
+**Claude Code (`cc/`)** — Pro/Max: `cc/claude-opus-4-6`, `cc/claude-sonnet-4-5-20250929`, `cc/claude-haiku-4-5-20251001`
 
-**Kodeks (`cx/`)** — Pluss/Proff: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
+**Codex (`cx/`)** — Plus/Pro: `cx/gpt-5.2-codex`, `cx/gpt-5.1-codex-max`
 
-**Gemini CLI (`gc/`)** — GRATIS: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
+**Gemini CLI (`gc/`)** — FREE: `gc/gemini-3-flash-preview`, `gc/gemini-2.5-pro`
 
 **GitHub Copilot (`gh/`)**: `gh/gpt-5`, `gh/claude-4.5-sonnet`
 
-**GLM (`glm/`)** — $0,6/1M: `glm/glm-4.7`
+**GLM (`glm/`)** — $0.6/1M: `glm/glm-4.7`
 
-**MiniMax (`minimax/`)** — $0,2/1M: `minimax/MiniMax-M2.1`
+**MiniMax (`minimax/`)** — $0.2/1M: `minimax/MiniMax-M2.1`
 
-**iFlow (`if/`)** — GRATIS: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
+**iFlow (`if/`)** — FREE: `if/kimi-k2-thinking`, `if/qwen3-coder-plus`, `if/deepseek-r1`
 
-**Qwen (`qw/`)** — GRATIS: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
+**Qwen (`qw/`)** — FREE: `qw/qwen3-coder-plus`, `qw/qwen3-coder-flash`
 
-**Kiro (`kr/`)** — GRATIS: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
+**Kiro (`kr/`)** — FREE: `kr/claude-sonnet-4.5`, `kr/claude-haiku-4.5`
 
 **DeepSeek (`ds/`)**: `ds/deepseek-chat`, `ds/deepseek-reasoner`
 
@@ -401,7 +460,7 @@ For hele miljøvariabelreferansen, se [README](../README.md).
 
 **Mistral (`mistral/`)**: `mistral/mistral-large-2501`, `mistral/codestral-2501`
 
-**Forvirring (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
+**Perplexity (`pplx/`)**: `pplx/sonar-pro`, `pplx/sonar`
 
 **Together AI (`together/`)**: `together/meta-llama/Llama-3.3-70B-Instruct-Turbo`
 
@@ -409,7 +468,7 @@ For hele miljøvariabelreferansen, se [README](../README.md).
 
 **Cerebras (`cerebras/`)**: `cerebras/llama-3.3-70b`
 
-**Kohere (`cohere/`)**: `cohere/command-r-plus-08-2024`
+**Cohere (`cohere/`)**: `cohere/command-r-plus-08-2024`
 
 **NVIDIA NIM (`nvidia/`)**: `nvidia/nvidia/llama-3.3-70b-instruct`
 
@@ -417,11 +476,11 @@ For hele miljøvariabelreferansen, se [README](../README.md).
 
 ---
 
-## 🧩 Avanserte funksjoner
+## 🧩 Advanced Features
 
-### Egendefinerte modeller
+### Custom Models
 
-Legg til hvilken som helst modell-ID til en hvilken som helst leverandør uten å vente på en appoppdatering:
+Add any model ID to any provider without waiting for an app update:
 
 ```bash
 # Via API
@@ -433,11 +492,11 @@ curl -X POST http://localhost:20128/api/provider-models \
 # Remove: curl -X DELETE "http://localhost:20128/api/provider-models?provider=openai&model=gpt-4.5-preview"
 ```
 
-Eller bruk Dashboard: **Leverandører → [Leverandør] → Egendefinerte modeller**.
+Or use Dashboard: **Providers → [Provider] → Custom Models**.
 
-### Dedikerte leverandørruter
+### Dedicated Provider Routes
 
-Rute forespørsler direkte til en spesifikk leverandør med modellvalidering:
+Route requests directly to a specific provider with model validation:
 
 ```bash
 POST http://localhost:20128/v1/providers/openai/chat/completions
@@ -445,7 +504,7 @@ POST http://localhost:20128/v1/providers/openai/embeddings
 POST http://localhost:20128/v1/providers/fireworks/images/generations
 ```
 
-Leverandørprefikset blir automatisk lagt til hvis det mangler. Umatchede modeller returnerer `400`.
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ### Network Proxy Configuration
 
@@ -463,7 +522,7 @@ curl -X POST http://localhost:20128/api/settings/proxy/test \
   -d '{"proxy":{"type":"socks5","host":"proxy.example.com","port":"1080"}}'
 ```
 
-**Forrang:** Nøkkelspesifikk → Kombinasjonsspesifikk → Leverandørspesifikk → Global → Miljø.
+**Precedence:** Key-specific → Combo-specific → Provider-specific → Global → Environment.
 
 ### Model Catalog API
 
@@ -471,68 +530,68 @@ curl -X POST http://localhost:20128/api/settings/proxy/test \
 curl http://localhost:20128/api/models/catalog
 ```
 
-Returnerer modeller gruppert etter leverandør med typer (`chat`, `embedding`, `image`).
+Returns models grouped by provider with types (`chat`, `embedding`, `image`).
 
 ### Cloud Sync
 
-- Synkroniser leverandører, kombinasjoner og innstillinger på tvers av enheter
-- Automatisk bakgrunnssynkronisering med timeout + feil-rask
-- Foretrekk server-side `BASE_URL`/`CLOUD_URL` i produksjon
+- Sync providers, combos, and settings across devices
+- Automatic background sync with timeout + fail-fast
+- Prefer server-side `BASE_URL`/`CLOUD_URL` in production
 
-### LLM Gateway Intelligence (fase 9)
+### LLM Gateway Intelligence (Phase 9)
 
-- **Semantisk hurtigbuffer** — Automatisk hurtigbufring uten strømming, temperatur=0 svar (omgå med `X-OmniRoute-No-Cache: true`)
-- **Request Idempotency** — Dedupliserer forespørsler innen 5 sekunder via `Idempotency-Key` eller `X-Request-Id` header
-- **Fremdriftssporing** — Meld deg på SSE `event: progress` hendelser via `X-OmniRoute-Progress: true` header
-
----
-
-### Oversetter Lekeplass
-
-Tilgang via **Dashboard → Oversetter**. Feilsøk og visualiser hvordan OmniRoute oversetter API-forespørsler mellom leverandører.
-
-| Modus            | Formål                                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------------------ |
-| **Lekeplass**    | Velg kilde-/målformater, lim inn en forespørsel og se den oversatte utgangen umiddelbart         |
-| **Chattetester** | Send live chat-meldinger gjennom proxyen og inspiser hele forespørsels-/svarsyklusen             |
-| **Testbenk**     | Kjør batch-tester på tvers av flere formatkombinasjoner for å bekrefte oversettelsens korrekthet |
-| **Live Monitor** | Se sanntidsoversettelser mens forespørsler strømmer gjennom proxyen                              |
-
-**Brukstilfeller:**
-
-- Feilsøk hvorfor en spesifikk klient/leverandør-kombinasjon mislykkes
-- Bekreft at tankekoder, verktøykall og systemmeldinger oversettes riktig
-- Sammenlign formatforskjeller mellom OpenAI, Claude, Gemini og Responses API-formater
+- **Semantic Cache** — Auto-caches non-streaming, temperature=0 responses (bypass with `X-OmniRoute-No-Cache: true`)
+- **Request Idempotency** — Deduplicates requests within 5s via `Idempotency-Key` or `X-Request-Id` header
+- **Progress Tracking** — Opt-in SSE `event: progress` events via `X-OmniRoute-Progress: true` header
 
 ---
 
-### Rutingstrategier
+### Translator Playground
 
-Konfigurer via **Dashboard → Innstillinger → Ruting**.
+Access via **Dashboard → Translator**. Debug and visualize how OmniRoute translates API requests between providers.
 
-| Strategi                       | Beskrivelse                                                                                              |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| **Fyll først**                 | Bruker kontoer i prioritert rekkefølge — primærkonto håndterer alle forespørsler inntil utilgjengelig    |
-| **Round Robin**                | Bla gjennom alle kontoer med en konfigurerbar klebrig grense (standard: 3 samtaler per konto)            |
-| **P2C (Power of Two Choices)** | Velger 2 tilfeldige kontoer og ruter til den sunnere — balanserer belastning med bevissthet om helse     |
-| **Tilfeldig**                  | Velger tilfeldig en konto for hver forespørsel ved hjelp av Fisher-Yates shuffle                         |
-| **Minst brukt**                | Ruter til kontoen med det eldste `lastUsedAt` tidsstemplet, fordeler trafikk jevnt                       |
-| **Kostnadsoptimalisert**       | Ruter til kontoen med den laveste prioritetsverdien, optimalisering for de laveste kostnadsleverandørene |
+| Mode             | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| **Playground**   | Select source/target formats, paste a request, and see the translated output instantly |
+| **Chat Tester**  | Send live chat messages through the proxy and inspect the full request/response cycle  |
+| **Test Bench**   | Run batch tests across multiple format combinations to verify translation correctness  |
+| **Live Monitor** | Watch real-time translations as requests flow through the proxy                        |
 
-#### Jokertegn modellaliaser
+**Use cases:**
 
-Lag jokertegnmønstre for å tilordne modellnavn på nytt:
+- Debug why a specific client/provider combination fails
+- Verify that thinking tags, tool calls, and system prompts translate correctly
+- Compare format differences between OpenAI, Claude, Gemini, and Responses API formats
+
+---
+
+### Routing Strategies
+
+Configure via **Dashboard → Settings → Routing**.
+
+| Strategy                       | Description                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Fill First**                 | Uses accounts in priority order — primary account handles all requests until unavailable         |
+| **Round Robin**                | Cycles through all accounts with a configurable sticky limit (default: 3 calls per account)      |
+| **P2C (Power of Two Choices)** | Picks 2 random accounts and routes to the healthier one — balances load with awareness of health |
+| **Random**                     | Randomly selects an account for each request using Fisher-Yates shuffle                          |
+| **Least Used**                 | Routes to the account with the oldest `lastUsedAt` timestamp, distributing traffic evenly        |
+| **Cost Optimized**             | Routes to the account with the lowest priority value, optimizing for lowest-cost providers       |
+
+#### Wildcard Model Aliases
+
+Create wildcard patterns to remap model names:
 
 ```
 Pattern: claude-sonnet-*     →  Target: cc/claude-sonnet-4-5-20250929
 Pattern: gpt-*               →  Target: gh/gpt-5.1-codex
 ```
 
-Jokertegn støtter `*` (alle tegn) og `?` (enkelttegn).
+Wildcards support `*` (any characters) and `?` (single character).
 
-#### Reservekjeder
+#### Fallback Chains
 
-Definer globale reservekjeder som gjelder for alle forespørsler:
+Define global fallback chains that apply across all requests:
 
 ```
 Chain: production-fallback
@@ -543,46 +602,46 @@ Chain: production-fallback
 
 ---
 
-### Spenst og effektbrytere
+### Resilience & Circuit Breakers
 
-Konfigurer via **Dashboard → Innstillinger → Resiliens**.
+Configure via **Dashboard → Settings → Resilience**.
 
-OmniRoute implementerer motstandskraft på leverandørnivå med fire komponenter:
+OmniRoute implements provider-level resilience with four components:
 
-1. **Leverandørprofiler** — Konfigurasjon per leverandør for:
-   - Feilterskel (hvor mange feil før åpning)
-   - Nedkjølingsvarighet
-   - Følsomhet for deteksjon av hastighetsgrense
-   - Eksponentielle backoff-parametere
+1. **Provider Profiles** — Per-provider configuration for:
+   - Failure threshold (how many failures before opening)
+   - Cooldown duration
+   - Rate limit detection sensitivity
+   - Exponential backoff parameters
 
-2. **Redigerbare rategrenser** — Standardinnstillinger på systemnivå som kan konfigureres i dashbordet:
-   - **Forespørsler per minutt (RPM)** — Maksimalt antall forespørsler per minutt per konto
-   - **Min time Between Requests** — Minimumsavstand i millisekunder mellom forespørsler
-   - **Maks samtidige forespørsler** — Maksimalt antall samtidige forespørsler per konto
-   - Klikk på **Rediger** for å endre, deretter **Lagre** eller **Avbryt**. Verdiene vedvarer via resilience API.
+2. **Editable Rate Limits** — System-level defaults configurable in the dashboard:
+   - **Requests Per Minute (RPM)** — Maximum requests per minute per account
+   - **Min Time Between Requests** — Minimum gap in milliseconds between requests
+   - **Max Concurrent Requests** — Maximum simultaneous requests per account
+   - Click **Edit** to modify, then **Save** or **Cancel**. Values persist via the resilience API.
 
-3. **Circuit Breaker** — Sporer feil per leverandør og åpner automatisk kretsen når en terskel er nådd:
-   - **STENGT** (Sunn) — Forespørslene flyter normalt
-   - **ÅPEN** — Leverandøren er midlertidig blokkert etter gjentatte feil
-   - **HALF_OPEN** — Tester om leverandøren har kommet seg
+3. **Circuit Breaker** — Tracks failures per provider and automatically opens the circuit when a threshold is reached:
+   - **CLOSED** (Healthy) — Requests flow normally
+   - **OPEN** — Provider is temporarily blocked after repeated failures
+   - **HALF_OPEN** — Testing if provider has recovered
 
-4. **Retningslinjer og låste identifikatorer** — Viser strømbryterstatus og låste identifikatorer med tvangsopplåsingsfunksjon.
+4. **Policies & Locked Identifiers** — Shows circuit breaker status and locked identifiers with force-unlock capability.
 
-5. **Rate Limit Auto-Detection** — Overvåker `429` og `Retry-After` overskrifter for å proaktivt unngå å treffe leverandørens takstgrenser.
+5. **Rate Limit Auto-Detection** — Monitors `429` and `Retry-After` headers to proactively avoid hitting provider rate limits.
 
-**Profftips:** Bruk **Tilbakestill alle**-knappen for å fjerne alle strømbrytere og nedkjøling når en leverandør kommer seg etter et strømbrudd.
+**Pro Tip:** Use **Reset All** button to clear all circuit breakers and cooldowns when a provider recovers from an outage.
 
 ---
 
-### Databaseeksport/import
+### Database Export / Import
 
-Administrer sikkerhetskopiering av databaser i **Dashboard → Innstillinger → System og lagring**.
+Manage database backups in **Dashboard → Settings → System & Storage**.
 
-| Handling                     | Beskrivelse                                                                                                                                                      |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Eksporter database**       | Laster ned gjeldende SQLite-database som en `.sqlite`-fil                                                                                                        |
-| **Eksporter alle (.tar.gz)** | Laster ned et fullstendig sikkerhetskopiarkiv inkludert: database, innstillinger, kombinasjoner, leverandørtilkoblinger (ingen legitimasjon), API-nøkkelmetadata |
-| **Importer database**        | Last opp en `.sqlite`-fil for å erstatte gjeldende database. En forhåndsimport-sikkerhetskopi opprettes automatisk                                               |
+| Action                   | Description                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Export Database**      | Downloads the current SQLite database as a `.sqlite` file                                                                      |
+| **Export All (.tar.gz)** | Downloads a full backup archive including: database, settings, combos, provider connections (no credentials), API key metadata |
+| **Import Database**      | Upload a `.sqlite` file to replace the current database. A pre-import backup is automatically created                          |
 
 ```bash
 # API: Export database
@@ -596,38 +655,38 @@ curl -X POST http://localhost:20128/api/db-backups/import \
   -F "file=@backup.sqlite"
 ```
 
-**Importvalidering:** Den importerte filen er validert for integritet (SQLite pragmasjekk), nødvendige tabeller (`provider_connections`, `provider_nodes`, `combos`, `api_keys`) og størrelse (maks 100 MB).
+**Import Validation:** The imported file is validated for integrity (SQLite pragma check), required tables (`provider_connections`, `provider_nodes`, `combos`, `api_keys`), and size (max 100MB).
 
-**Brukstilfeller:**
+**Use Cases:**
 
-- Migrer OmniRoute mellom maskiner
-- Lag eksterne sikkerhetskopier for katastrofegjenoppretting
-- Del konfigurasjoner mellom teammedlemmer (eksporter alle → del arkiv)
-
----
-
-### Innstillinger Dashboard
-
-Innstillingssiden er organisert i 5 faner for enkel navigering:
-
-| Tab           | Innhold                                                                                                           |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Sikkerhet** | Innstillinger for pålogging/passord, IP-tilgangskontroll, API-autentisering for `/models` og leverandørblokkering |
-| **Ruting**    | Global rutingstrategi (6 alternativer), jokertegnmodellaliaser, reservekjeder, kombinasjonsstandarder             |
-| **Resiliens** | Leverandørprofiler, redigerbare hastighetsgrenser, strømbryterstatus, retningslinjer og låste identifikatorer     |
-| **AI**        | Tenker budsjettkonfigurasjon, global systempromptinjeksjon, promptbufferstatistikk                                |
-| **Avansert**  | Global proxy-konfigurasjon (HTTP/SOCKS5)                                                                          |
+- Migrate OmniRoute between machines
+- Create external backups for disaster recovery
+- Share configurations between team members (export all → share archive)
 
 ---
 
-### Kostnader og budsjettstyring
+### Settings Dashboard
 
-Tilgang via **Dashboard → Kostnader**.
+The settings page is organized into 5 tabs for easy navigation:
 
-| Tab          | Formål                                                                                           |
-| ------------ | ------------------------------------------------------------------------------------------------ |
-| **Budsjett** | Angi utgiftsgrenser per API-nøkkel med daglige/ukentlige/månedlige budsjetter og sanntidssporing |
-| **Pris**     | Se og rediger modellprisoppføringer — kostnad per 1K input/output tokens per leverandør          |
+| Tab            | Contents                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| **Security**   | Login/Password settings, IP Access Control, API auth for `/models`, and Provider Blocking      |
+| **Routing**    | Global routing strategy (6 options), wildcard model aliases, fallback chains, combo defaults   |
+| **Resilience** | Provider profiles, editable rate limits, circuit breaker status, policies & locked identifiers |
+| **AI**         | Thinking budget configuration, global system prompt injection, prompt cache stats              |
+| **Advanced**   | Global proxy configuration (HTTP/SOCKS5)                                                       |
+
+---
+
+### Costs & Budget Management
+
+Access via **Dashboard → Costs**.
+
+| Tab         | Purpose                                                                                  |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| **Budget**  | Set spending limits per API key with daily/weekly/monthly budgets and real-time tracking |
+| **Pricing** | View and edit model pricing entries — cost per 1K input/output tokens per provider       |
 
 ```bash
 # API: Set a budget
@@ -639,13 +698,13 @@ curl -X POST http://localhost:20128/api/usage/budget \
 curl http://localhost:20128/api/usage/budget
 ```
 
-**Kostnadssporing:** Hver forespørsel logger tokenbruk og beregner kostnad ved hjelp av pristabellen. Se oversikter i **Dashboard → Bruk** etter leverandør, modell og API-nøkkel.
+**Cost Tracking:** Every request logs token usage and calculates cost using the pricing table. View breakdowns in **Dashboard → Usage** by provider, model, and API key.
 
 ---
 
-### Lydtranskripsjon
+### Audio Transcription
 
-OmniRoute støtter lydtranskripsjon via det OpenAI-kompatible endepunktet:
+OmniRoute supports audio transcription via the OpenAI-compatible endpoint:
 
 ```bash
 POST /v1/audio/transcriptions
@@ -659,40 +718,92 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-Tilgjengelige leverandører: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
+Available providers: **Deepgram** (`deepgram/`), **AssemblyAI** (`assemblyai/`).
 
-Støttede lydformater: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
-
----
-
-### Kombinasjonsbalanseringsstrategier
-
-Konfigurer balansering per kombinasjon i **Dashboard → Combos → Opprett/Rediger → Strategi**.
-
-| Strategi                 | Beskrivelse                                                                         |
-| ------------------------ | ----------------------------------------------------------------------------------- |
-| **Round-Robin**          | Roterer gjennom modellene sekvensielt                                               |
-| **Prioritet**            | Prøver alltid den første modellen; faller tilbake kun på feil                       |
-| **Tilfeldig**            | Velger en tilfeldig modell fra kombinasjonen for hver forespørsel                   |
-| **Vektet**               | Ruter proporsjonalt basert på tildelte vekter per modell                            |
-| **Minst brukt**          | Ruter til modellen med færrest nylige forespørsler (bruker kombinasjonsberegninger) |
-| **Kostnadsoptimalisert** | Ruter til den billigste tilgjengelige modellen (bruker pristabell)                  |
-
-Globale kombinasjonsstandarder kan angis i **Dashboard → Innstillinger → Ruting → Combo-standarder**.
+Supported audio formats: `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-### Helse Dashboard
+### Combo Balancing Strategies
 
-Tilgang via **Dashboard → Helse**. Sanntids systemhelseoversikt med 6 kort:
+Configure per-combo balancing in **Dashboard → Combos → Create/Edit → Strategy**.
 
-| Kort                  | Hva det viser                                                 |
-| --------------------- | ------------------------------------------------------------- |
-| **Systemstatus**      | Oppetid, versjon, minnebruk, datakatalog                      |
-| **Leverandørs helse** | Per leverandør effektbrytertilstand (lukket/åpen/halvåpen)    |
-| **Satsgrenser**       | Aktive nedkjølingshastigheter per konto med gjenværende tid   |
-| **Aktive Lockouts**   | Leverandører midlertidig blokkert av lockout-policyen         |
-| **Signaturbuffer**    | Dedupliseringsbufferstatistikk (aktive nøkler, trefffrekvens) |
-| **Latens-telemetri**  | p50/p95/p99 latensaggregering per leverandør                  |
+| Strategy           | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Round-Robin**    | Rotates through models sequentially                                      |
+| **Priority**       | Always tries the first model; falls back only on error                   |
+| **Random**         | Picks a random model from the combo for each request                     |
+| **Weighted**       | Routes proportionally based on assigned weights per model                |
+| **Least-Used**     | Routes to the model with the fewest recent requests (uses combo metrics) |
+| **Cost-Optimized** | Routes to the cheapest available model (uses pricing table)              |
 
-**Profftips:** Helsesiden oppdateres automatisk hvert 10. sekund. Bruk kretsbryterkortet til å identifisere hvilke leverandører som har problemer.
+Global combo defaults can be set in **Dashboard → Settings → Routing → Combo Defaults**.
+
+---
+
+### Health Dashboard
+
+Access via **Dashboard → Health**. Real-time system health overview with 6 cards:
+
+| Card                  | What It Shows                                               |
+| --------------------- | ----------------------------------------------------------- |
+| **System Status**     | Uptime, version, memory usage, data directory               |
+| **Provider Health**   | Per-provider circuit breaker state (Closed/Open/Half-Open)  |
+| **Rate Limits**       | Active rate limit cooldowns per account with remaining time |
+| **Active Lockouts**   | Providers temporarily blocked by the lockout policy         |
+| **Signature Cache**   | Deduplication cache stats (active keys, hit rate)           |
+| **Latency Telemetry** | p50/p95/p99 latency aggregation per provider                |
+
+**Pro Tip:** The Health page auto-refreshes every 10 seconds. Use the circuit breaker card to identify which providers are experiencing issues.
+
+---
+
+## 🖥️ Desktop Application (Electron)
+
+OmniRoute is available as a native desktop application for Windows, macOS, and Linux.
+
+### Installation
+
+```bash
+# From the electron directory:
+cd electron
+npm install
+
+# Development mode (connect to running Next.js dev server):
+npm run dev
+
+# Production mode (uses standalone build):
+npm start
+```
+
+### Building Installers
+
+```bash
+cd electron
+npm run build          # Current platform
+npm run build:win      # Windows (.exe NSIS)
+npm run build:mac      # macOS (.dmg universal)
+npm run build:linux    # Linux (.AppImage)
+```
+
+Output → `electron/dist-electron/`
+
+### Key Features
+
+| Feature                     | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| **Server Readiness**        | Polls server before showing window (no blank screen) |
+| **System Tray**             | Minimize to tray, change port, quit from tray menu   |
+| **Port Management**         | Change server port from tray (auto-restarts server)  |
+| **Content Security Policy** | Restrictive CSP via session headers                  |
+| **Single Instance**         | Only one app instance can run at a time              |
+| **Offline Mode**            | Bundled Next.js server works without internet        |
+
+### Environment Variables
+
+| Variable              | Default | Description                      |
+| --------------------- | ------- | -------------------------------- |
+| `OMNIROUTE_PORT`      | `20128` | Server port                      |
+| `OMNIROUTE_MEMORY_MB` | `512`   | Node.js heap limit (64–16384 MB) |
+
+📖 Full documentation: [`electron/README.md`](../electron/README.md)

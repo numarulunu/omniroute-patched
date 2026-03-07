@@ -1,12 +1,12 @@
-# การอ้างอิง API
+# API Reference
 
-🌐 **Languages:** 🇺🇸 [English](../../API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](../pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](../es/API_REFERENCE.md) | 🇫🇷 [Français](../fr/API_REFERENCE.md) | 🇮🇹 [Italiano](../it/API_REFERENCE.md) | 🇷🇺 [Русский](../ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](../zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](../de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](../in/API_REFERENCE.md) | 🇹🇭 [ไทย](../th/API_REFERENCE.md) | 🇺🇦 [Українська](../uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](../ar/API_REFERENCE.md) | 🇯🇵 [日本語](../ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](../vi/API_REFERENCE.md) | 🇧🇬 [Български](../bg/API_REFERENCE.md) | 🇩🇰 [Dansk](../da/API_REFERENCE.md) | 🇫🇮 [Suomi](../fi/API_REFERENCE.md) | 🇮🇱 [עברית](../he/API_REFERENCE.md) | 🇭🇺 [Magyar](../hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](../id/API_REFERENCE.md) | 🇰🇷 [한국어](../ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](../ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](../nl/API_REFERENCE.md) | 🇳🇴 [Norsk](../no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](../pt/API_REFERENCE.md) | 🇷🇴 [Română](../ro/API_REFERENCE.md) | 🇵🇱 [Polski](../pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](../sk/API_REFERENCE.md) | 🇸🇪 [Svenska](../sv/API_REFERENCE.md) | 🇵🇭 [Filipino](../phi/API_REFERENCE.md)
+🌐 **Languages:** 🇺🇸 [English](API_REFERENCE.md) | 🇧🇷 [Português (Brasil)](i18n/pt-BR/API_REFERENCE.md) | 🇪🇸 [Español](i18n/es/API_REFERENCE.md) | 🇫🇷 [Français](i18n/fr/API_REFERENCE.md) | 🇮🇹 [Italiano](i18n/it/API_REFERENCE.md) | 🇷🇺 [Русский](i18n/ru/API_REFERENCE.md) | 🇨🇳 [中文 (简体)](i18n/zh-CN/API_REFERENCE.md) | 🇩🇪 [Deutsch](i18n/de/API_REFERENCE.md) | 🇮🇳 [हिन्दी](i18n/in/API_REFERENCE.md) | 🇹🇭 [ไทย](i18n/th/API_REFERENCE.md) | 🇺🇦 [Українська](i18n/uk-UA/API_REFERENCE.md) | 🇸🇦 [العربية](i18n/ar/API_REFERENCE.md) | 🇯🇵 [日本語](i18n/ja/API_REFERENCE.md) | 🇻🇳 [Tiếng Việt](i18n/vi/API_REFERENCE.md) | 🇧🇬 [Български](i18n/bg/API_REFERENCE.md) | 🇩🇰 [Dansk](i18n/da/API_REFERENCE.md) | 🇫🇮 [Suomi](i18n/fi/API_REFERENCE.md) | 🇮🇱 [עברית](i18n/he/API_REFERENCE.md) | 🇭🇺 [Magyar](i18n/hu/API_REFERENCE.md) | 🇮🇩 [Bahasa Indonesia](i18n/id/API_REFERENCE.md) | 🇰🇷 [한국어](i18n/ko/API_REFERENCE.md) | 🇲🇾 [Bahasa Melayu](i18n/ms/API_REFERENCE.md) | 🇳🇱 [Nederlands](i18n/nl/API_REFERENCE.md) | 🇳🇴 [Norsk](i18n/no/API_REFERENCE.md) | 🇵🇹 [Português (Portugal)](i18n/pt/API_REFERENCE.md) | 🇷🇴 [Română](i18n/ro/API_REFERENCE.md) | 🇵🇱 [Polski](i18n/pl/API_REFERENCE.md) | 🇸🇰 [Slovenčina](i18n/sk/API_REFERENCE.md) | 🇸🇪 [Svenska](i18n/sv/API_REFERENCE.md) | 🇵🇭 [Filipino](i18n/phi/API_REFERENCE.md)
 
-ข้อมูลอ้างอิงที่สมบูรณ์สำหรับตำแหน่งข้อมูล OmniRoute API ทั้งหมด
+Complete reference for all OmniRoute API endpoints.
 
 ---
 
-## สารบัญ
+## Table of Contents
 
 - [Chat Completions](#chat-completions)
 - [Embeddings](#embeddings)
@@ -20,7 +20,7 @@
 
 ---
 
-## เสร็จสิ้นการแชท
+## Chat Completions
 
 ```bash
 POST /v1/chat/completions
@@ -36,21 +36,21 @@ Content-Type: application/json
 }
 ```
 
-### ส่วนหัวที่กำหนดเอง
+### Custom Headers
 
-| ส่วนหัว                  | ทิศทาง  | คำอธิบาย                                    |
-| ------------------------ | ------- | ------------------------------------------- |
-| `X-OmniRoute-No-Cache`   | ขอ      | ตั้งค่าเป็น `true` เพื่อข้ามแคช             |
-| `X-OmniRoute-Progress`   | ขอ      | ตั้งค่าเป็น `true` สำหรับกิจกรรมความคืบหน้า |
-| `Idempotency-Key`        | ขอ      | ปุ่ม Dedup (หน้าต่าง 5s)                    |
-| `X-Request-Id`           | ขอ      | คีย์สำรองสำรอง                              |
-| `X-OmniRoute-Cache`      | ตอบกลับ | `HIT` หรือ `MISS` (ไม่ใช่สตรีมมิ่ง)         |
-| `X-OmniRoute-Idempotent` | ตอบกลับ | `true` หากขจัดข้อมูลซ้ำซ้อน                 |
-| `X-OmniRoute-Progress`   | ตอบกลับ | `enabled` หากติดตามความคืบหน้าบน            |
+| Header                   | Direction | Description                       |
+| ------------------------ | --------- | --------------------------------- |
+| `X-OmniRoute-No-Cache`   | Request   | Set to `true` to bypass cache     |
+| `X-OmniRoute-Progress`   | Request   | Set to `true` for progress events |
+| `Idempotency-Key`        | Request   | Dedup key (5s window)             |
+| `X-Request-Id`           | Request   | Alternative dedup key             |
+| `X-OmniRoute-Cache`      | Response  | `HIT` or `MISS` (non-streaming)   |
+| `X-OmniRoute-Idempotent` | Response  | `true` if deduplicated            |
+| `X-OmniRoute-Progress`   | Response  | `enabled` if progress tracking on |
 
 ---
 
-## การฝัง
+## Embeddings
 
 ```bash
 POST /v1/embeddings
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 ```
 
-ผู้ให้บริการที่มีอยู่: Nebius, OpenAI, Mistral, Together AI, ดอกไม้ไฟ, NVIDIA
+Available providers: Nebius, OpenAI, Mistral, Together AI, Fireworks, NVIDIA.
 
 ```bash
 # List all embedding models
@@ -72,7 +72,7 @@ GET /v1/embeddings
 
 ---
 
-## การสร้างภาพ
+## Image Generation
 
 ```bash
 POST /v1/images/generations
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 ```
 
-ผู้ให้บริการที่มีอยู่: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI
+Available providers: OpenAI (DALL-E), xAI (Grok Image), Together AI (FLUX), Fireworks AI.
 
 ```bash
 # List all image models
@@ -95,7 +95,7 @@ GET /v1/images/generations
 
 ---
 
-## รายการรุ่น
+## List Models
 
 ```bash
 GET /v1/models
@@ -106,22 +106,22 @@ Authorization: Bearer your-api-key
 
 ---
 
-## จุดสิ้นสุดความเข้ากันได้
+## Compatibility Endpoints
 
-| วิธีการ | เส้นทาง                     | รูปแบบ                |
-| ------- | --------------------------- | --------------------- |
-| โพสต์   | `/v1/chat/completions`      | OpenAI                |
-| โพสต์   | `/v1/messages`              | มานุษยวิทยา           |
-| โพสต์   | `/v1/responses`             | การตอบสนองของ OpenAI  |
-| โพสต์   | `/v1/embeddings`            | OpenAI                |
-| โพสต์   | `/v1/images/generations`    | OpenAI                |
-| รับ     | `/v1/models`                | OpenAI                |
-| โพสต์   | `/v1/messages/count_tokens` | มานุษยวิทยา           |
-| รับ     | `/v1beta/models`            | ราศีเมถุน             |
-| โพสต์   | `/v1beta/models/{...path}`  | ราศีเมถุนสร้างเนื้อหา |
-| โพสต์   | `/v1/api/chat`              | โอลามา                |
+| Method | Path                        | Format                 |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/v1/chat/completions`      | OpenAI                 |
+| POST   | `/v1/messages`              | Anthropic              |
+| POST   | `/v1/responses`             | OpenAI Responses       |
+| POST   | `/v1/embeddings`            | OpenAI                 |
+| POST   | `/v1/images/generations`    | OpenAI                 |
+| GET    | `/v1/models`                | OpenAI                 |
+| POST   | `/v1/messages/count_tokens` | Anthropic              |
+| GET    | `/v1beta/models`            | Gemini                 |
+| POST   | `/v1beta/models/{...path}`  | Gemini generateContent |
+| POST   | `/v1/api/chat`              | Ollama                 |
 
-### เส้นทางของผู้ให้บริการเฉพาะ
+### Dedicated Provider Routes
 
 ```bash
 POST /v1/providers/{provider}/chat/completions
@@ -129,11 +129,11 @@ POST /v1/providers/{provider}/embeddings
 POST /v1/providers/{provider}/images/generations
 ```
 
-คำนำหน้าผู้ให้บริการจะถูกเพิ่มอัตโนมัติหากไม่มี โมเดลที่ไม่ตรงกันส่งคืน `400`
+The provider prefix is auto-added if missing. Mismatched models return `400`.
 
 ---
 
-## แคชความหมาย
+## Semantic Cache
 
 ```bash
 # Get cache stats
@@ -143,7 +143,7 @@ GET /api/cache
 DELETE /api/cache
 ```
 
-ตัวอย่างการตอบกลับ:
+Response example:
 
 ```json
 {
@@ -162,154 +162,164 @@ DELETE /api/cache
 
 ---
 
-## แดชบอร์ดและการจัดการ
+## Dashboard & Management
 
-### การรับรองความถูกต้อง
+### Authentication
 
-| จุดสิ้นสุด                    | วิธีการ | คำอธิบาย               |
-| ----------------------------- | ------- | ---------------------- |
-| `/api/auth/login`             | โพสต์   | เข้าสู่ระบบ            |
-| `/api/auth/logout`            | โพสต์   | ออกจากระบบ             |
-| `/api/settings/require-login` | รับ/ใส่ | ต้องสลับการเข้าสู่ระบบ |
+| Endpoint                      | Method  | Description           |
+| ----------------------------- | ------- | --------------------- |
+| `/api/auth/login`             | POST    | Login                 |
+| `/api/auth/logout`            | POST    | Logout                |
+| `/api/settings/require-login` | GET/PUT | Toggle login required |
 
-### การจัดการผู้ให้บริการ
+### Provider Management
 
-| จุดสิ้นสุด                   | วิธีการ      | คำอธิบาย                       |
-| ---------------------------- | ------------ | ------------------------------ |
-| `/api/providers`             | รับ/โพสต์    | รายชื่อ / สร้างผู้ให้บริการ    |
-| `/api/providers/[id]`        | รับ/วาง/ลบ   | จัดการผู้ให้บริการ             |
-| `/api/providers/[id]/test`   | โพสต์        | การเชื่อมต่อผู้ให้บริการทดสอบ  |
-| `/api/providers/[id]/models` | รับ          | รายชื่อรุ่นของผู้ให้บริการ     |
-| `/api/providers/validate`    | โพสต์        | ตรวจสอบการกำหนดค่าผู้ให้บริการ |
-| `/api/provider-nodes*`       | ต่างๆ        | การจัดการโหนดผู้ให้บริการ      |
-| `/api/provider-models`       | รับ/โพสต์/ลบ | โมเดลที่กำหนดเอง               |
+| Endpoint                     | Method          | Description              |
+| ---------------------------- | --------------- | ------------------------ |
+| `/api/providers`             | GET/POST        | List / create providers  |
+| `/api/providers/[id]`        | GET/PUT/DELETE  | Manage a provider        |
+| `/api/providers/[id]/test`   | POST            | Test provider connection |
+| `/api/providers/[id]/models` | GET             | List provider models     |
+| `/api/providers/validate`    | POST            | Validate provider config |
+| `/api/provider-nodes*`       | Various         | Provider node management |
+| `/api/provider-models`       | GET/POST/DELETE | Custom models            |
 
-### กระแส OAuth
+### OAuth Flows
 
-| จุดสิ้นสุด                       | วิธีการ | คำอธิบาย                |
+| Endpoint                         | Method  | Description             |
 | -------------------------------- | ------- | ----------------------- |
-| `/api/oauth/[provider]/[action]` | ต่างๆ   | OAuth เฉพาะผู้ให้บริการ |
+| `/api/oauth/[provider]/[action]` | Various | Provider-specific OAuth |
 
-### การกำหนดเส้นทางและการกำหนดค่า
+### Routing & Config
 
-| จุดสิ้นสุด            | วิธีการ   | คำอธิบาย                        |
-| --------------------- | --------- | ------------------------------- |
-| `/api/models/alias`   | รับ/โพสต์ | นามแฝงโมเดล                     |
-| `/api/models/catalog` | รับ       | ทุกรุ่นตามผู้ให้บริการ + ประเภท |
-| `/api/combos*`        | ต่างๆ     | การจัดการคำสั่งผสม              |
-| `/api/keys*`          | ต่างๆ     | การจัดการคีย์ API               |
-| `/api/pricing`        | รับ       | ราคารุ่น                        |
+| Endpoint              | Method   | Description                   |
+| --------------------- | -------- | ----------------------------- |
+| `/api/models/alias`   | GET/POST | Model aliases                 |
+| `/api/models/catalog` | GET      | All models by provider + type |
+| `/api/combos*`        | Various  | Combo management              |
+| `/api/keys*`          | Various  | API key management            |
+| `/api/pricing`        | GET      | Model pricing                 |
 
-### การใช้งานและการวิเคราะห์
+### Usage & Analytics
 
-| จุดสิ้นสุด                  | วิธีการ | คำอธิบาย                 |
-| --------------------------- | ------- | ------------------------ |
-| `/api/usage/history`        | รับ     | ประวัติการใช้งาน         |
-| `/api/usage/logs`           | รับ     | บันทึกการใช้งาน          |
-| `/api/usage/request-logs`   | รับ     | บันทึกระดับคำขอ          |
-| `/api/usage/[connectionId]` | รับ     | การใช้งานต่อการเชื่อมต่อ |
+| Endpoint                    | Method | Description          |
+| --------------------------- | ------ | -------------------- |
+| `/api/usage/history`        | GET    | Usage history        |
+| `/api/usage/logs`           | GET    | Usage logs           |
+| `/api/usage/request-logs`   | GET    | Request-level logs   |
+| `/api/usage/[connectionId]` | GET    | Per-connection usage |
 
-### การตั้งค่า
+### Settings
 
-| จุดสิ้นสุด                      | วิธีการ | คำอธิบาย                        |
-| ------------------------------- | ------- | ------------------------------- |
-| `/api/settings`                 | รับ/ใส่ | การตั้งค่าทั่วไป                |
-| `/api/settings/proxy`           | รับ/ใส่ | การกำหนดค่าพร็อกซีเครือข่าย     |
-| `/api/settings/proxy/test`      | โพสต์   | ทดสอบการเชื่อมต่อพร็อกซี        |
-| `/api/settings/ip-filter`       | รับ/ใส่ | รายการ IP ที่อนุญาต/รายการบล็อก |
-| `/api/settings/thinking-budget` | รับ/ใส่ | งบประมาณโทเค็นการใช้เหตุผล      |
-| `/api/settings/system-prompt`   | รับ/ใส่ | พร้อมท์ระบบโกลบอล               |
+| Endpoint                        | Method  | Description            |
+| ------------------------------- | ------- | ---------------------- |
+| `/api/settings`                 | GET/PUT | General settings       |
+| `/api/settings/proxy`           | GET/PUT | Network proxy config   |
+| `/api/settings/proxy/test`      | POST    | Test proxy connection  |
+| `/api/settings/ip-filter`       | GET/PUT | IP allowlist/blocklist |
+| `/api/settings/thinking-budget` | GET/PUT | Reasoning token budget |
+| `/api/settings/system-prompt`   | GET/PUT | Global system prompt   |
 
-### การตรวจสอบ
+### Monitoring
 
-| จุดสิ้นสุด               | วิธีการ | คำอธิบาย                     |
-| ------------------------ | ------- | ---------------------------- |
-| `/api/sessions`          | รับ     | การติดตามเซสชันที่ใช้งานอยู่ |
-| `/api/rate-limits`       | รับ     | ขีดจำกัดอัตราต่อบัญชี        |
-| `/api/monitoring/health` | รับ     | ตรวจสุขภาพ                   |
-| `/api/cache`             | รับ/ลบ  | สถิติแคช / ล้าง              |
+| Endpoint                 | Method     | Description             |
+| ------------------------ | ---------- | ----------------------- |
+| `/api/sessions`          | GET        | Active session tracking |
+| `/api/rate-limits`       | GET        | Per-account rate limits |
+| `/api/monitoring/health` | GET        | Health check            |
+| `/api/cache`             | GET/DELETE | Cache stats / clear     |
 
-### สำรองและส่งออก/นำเข้า
+### Backup & Export/Import
 
-| จุดสิ้นสุด                  | วิธีการ | คำอธิบาย                                    |
-| --------------------------- | ------- | ------------------------------------------- |
-| `/api/db-backups`           | รับ     | แสดงรายการข้อมูลสำรองที่มีอยู่              |
-| `/api/db-backups`           | ใส่     | สร้างการสำรองข้อมูลด้วยตนเอง                |
-| `/api/db-backups`           | โพสต์   | กู้คืนจากข้อมูลสำรองเฉพาะ                   |
-| `/api/db-backups/export`    | รับ     | ดาวน์โหลดฐานข้อมูลเป็นไฟล์ .sqlite          |
-| `/api/db-backups/import`    | โพสต์   | อัปโหลดไฟล์ .sqlite เพื่อแทนที่ฐานข้อมูล    |
-| `/api/db-backups/exportAll` | รับ     | ดาวน์โหลดข้อมูลสำรองแบบเต็มเป็นไฟล์ .tar.gz |
+| Endpoint                    | Method | Description                             |
+| --------------------------- | ------ | --------------------------------------- |
+| `/api/db-backups`           | GET    | List available backups                  |
+| `/api/db-backups`           | PUT    | Create a manual backup                  |
+| `/api/db-backups`           | POST   | Restore from a specific backup          |
+| `/api/db-backups/export`    | GET    | Download database as .sqlite file       |
+| `/api/db-backups/import`    | POST   | Upload .sqlite file to replace database |
+| `/api/db-backups/exportAll` | GET    | Download full backup as .tar.gz archive |
 
-### คลาวด์ซิงค์
+### Cloud Sync
 
-| จุดสิ้นสุด             | วิธีการ | คำอธิบาย                  |
-| ---------------------- | ------- | ------------------------- |
-| `/api/sync/cloud`      | ต่างๆ   | การดำเนินการซิงค์บนคลาวด์ |
-| `/api/sync/initialize` | โพสต์   | เริ่มต้นการซิงค์          |
-| `/api/cloud/*`         | ต่างๆ   | การจัดการคลาวด์           |
+| Endpoint               | Method  | Description           |
+| ---------------------- | ------- | --------------------- |
+| `/api/sync/cloud`      | Various | Cloud sync operations |
+| `/api/sync/initialize` | POST    | Initialize sync       |
+| `/api/cloud/*`         | Various | Cloud management      |
 
-### เครื่องมือ CLI
+### CLI Tools
 
-| จุดสิ้นสุด                         | วิธีการ | คำอธิบาย           |
-| ---------------------------------- | ------- | ------------------ |
-| `/api/cli-tools/claude-settings`   | รับ     | สถานะ Claude CLI   |
-| `/api/cli-tools/codex-settings`    | รับ     | สถานะ Codex CLI    |
-| `/api/cli-tools/droid-settings`    | รับ     | สถานะ Droid CLI    |
-| `/api/cli-tools/openclaw-settings` | รับ     | สถานะ OpenClaw CLI |
-| `/api/cli-tools/runtime/[toolId]`  | รับ     | รันไทม์ CLI ทั่วไป |
+| Endpoint                           | Method | Description         |
+| ---------------------------------- | ------ | ------------------- |
+| `/api/cli-tools/claude-settings`   | GET    | Claude CLI status   |
+| `/api/cli-tools/codex-settings`    | GET    | Codex CLI status    |
+| `/api/cli-tools/droid-settings`    | GET    | Droid CLI status    |
+| `/api/cli-tools/openclaw-settings` | GET    | OpenClaw CLI status |
+| `/api/cli-tools/runtime/[toolId]`  | GET    | Generic CLI runtime |
 
-การตอบกลับของ CLI ได้แก่: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`
+CLI responses include: `installed`, `runnable`, `command`, `commandPath`, `runtimeMode`, `reason`.
 
-### ความยืดหยุ่นและขีดจำกัดอัตรา
+### ACP Agents
 
-| จุดสิ้นสุด              | วิธีการ | คำอธิบาย                        |
+| Endpoint          | Method | Description                                              |
+| ----------------- | ------ | -------------------------------------------------------- |
+| `/api/acp/agents` | GET    | List all detected agents (built-in + custom) with status |
+| `/api/acp/agents` | POST   | Add custom agent or refresh detection cache              |
+| `/api/acp/agents` | DELETE | Remove a custom agent by `id` query param                |
+
+GET response includes `agents[]` (id, name, binary, version, installed, protocol, isCustom) and `summary` (total, installed, notFound, builtIn, custom).
+
+### Resilience & Rate Limits
+
+| Endpoint                | Method  | Description                     |
 | ----------------------- | ------- | ------------------------------- |
-| `/api/resilience`       | รับ/ใส่ | รับ/อัปเดตโปรไฟล์ความยืดหยุ่น   |
-| `/api/resilience/reset` | โพสต์   | รีเซ็ตเบรกเกอร์วงจร             |
-| `/api/rate-limits`      | รับ     | สถานะขีดจำกัดอัตราต่อบัญชี      |
-| `/api/rate-limit`       | รับ     | การกำหนดค่าขีดจำกัดอัตราทั่วโลก |
+| `/api/resilience`       | GET/PUT | Get/update resilience profiles  |
+| `/api/resilience/reset` | POST    | Reset circuit breakers          |
+| `/api/rate-limits`      | GET     | Per-account rate limit status   |
+| `/api/rate-limit`       | GET     | Global rate limit configuration |
 
-### เอวาลส์
+### Evals
 
-| จุดสิ้นสุด   | วิธีการ   | คำอธิบาย                                |
-| ------------ | --------- | --------------------------------------- |
-| `/api/evals` | รับ/โพสต์ | แสดงรายการชุด eval / ดำเนินการประเมินผล |
+| Endpoint     | Method   | Description                       |
+| ------------ | -------- | --------------------------------- |
+| `/api/evals` | GET/POST | List eval suites / run evaluation |
 
-### นโยบาย
+### Policies
 
-| จุดสิ้นสุด      | วิธีการ      | คำอธิบาย                    |
-| --------------- | ------------ | --------------------------- |
-| `/api/policies` | รับ/โพสต์/ลบ | จัดการนโยบายการกำหนดเส้นทาง |
+| Endpoint        | Method          | Description             |
+| --------------- | --------------- | ----------------------- |
+| `/api/policies` | GET/POST/DELETE | Manage routing policies |
 
-### การปฏิบัติตาม
+### Compliance
 
-| จุดสิ้นสุด                  | วิธีการ | คำอธิบาย                                          |
-| --------------------------- | ------- | ------------------------------------------------- |
-| `/api/compliance/audit-log` | รับ     | บันทึกการตรวจสอบการปฏิบัติตามข้อกำหนด (N สุดท้าย) |
+| Endpoint                    | Method | Description                   |
+| --------------------------- | ------ | ----------------------------- |
+| `/api/compliance/audit-log` | GET    | Compliance audit log (last N) |
 
-### v1beta (เข้ากันได้กับราศีเมถุน)
+### v1beta (Gemini-Compatible)
 
-| จุดสิ้นสุด                 | วิธีการ | คำอธิบาย                            |
-| -------------------------- | ------- | ----------------------------------- |
-| `/v1beta/models`           | รับ     | รายการรุ่นในรูปแบบราศีเมถุน         |
-| `/v1beta/models/{...path}` | โพสต์   | ราศีเมถุน `generateContent` ปลายทาง |
+| Endpoint                   | Method | Description                       |
+| -------------------------- | ------ | --------------------------------- |
+| `/v1beta/models`           | GET    | List models in Gemini format      |
+| `/v1beta/models/{...path}` | POST   | Gemini `generateContent` endpoint |
 
-ตำแหน่งข้อมูลเหล่านี้สะท้อนรูปแบบ API ของ Gemini สำหรับไคลเอนต์ที่คาดหวังความเข้ากันได้ของ Gemini SDK ดั้งเดิม
+These endpoints mirror Gemini's API format for clients that expect native Gemini SDK compatibility.
 
-### API ภายใน / ระบบ
+### Internal / System APIs
 
-| จุดสิ้นสุด      | วิธีการ | คำอธิบาย                                               |
-| --------------- | ------- | ------------------------------------------------------ |
-| `/api/init`     | รับ     | การตรวจสอบการเริ่มต้นแอปพลิเคชัน (ใช้ในการรันครั้งแรก) |
-| `/api/tags`     | รับ     | แท็กโมเดลที่เข้ากันได้กับ Ollama (สำหรับลูกค้า Ollama) |
-| `/api/restart`  | โพสต์   | ทริกเกอร์การรีสตาร์ทเซิร์ฟเวอร์อย่างสง่างาม            |
-| `/api/shutdown` | โพสต์   | ทริกเกอร์การปิดระบบเซิร์ฟเวอร์อย่างสง่างาม             |
+| Endpoint        | Method | Description                                          |
+| --------------- | ------ | ---------------------------------------------------- |
+| `/api/init`     | GET    | Application initialization check (used on first run) |
+| `/api/tags`     | GET    | Ollama-compatible model tags (for Ollama clients)    |
+| `/api/restart`  | POST   | Trigger graceful server restart                      |
+| `/api/shutdown` | POST   | Trigger graceful server shutdown                     |
 
-> **หมายเหตุ:** ตำแหน่งข้อมูลเหล่านี้ถูกใช้ภายในโดยระบบหรือเพื่อความเข้ากันได้กับไคลเอ็นต์ Ollama โดยทั่วไปแล้วจะไม่ถูกเรียกโดยผู้ใช้ปลายทาง
+> **Note:** These endpoints are used internally by the system or for Ollama client compatibility. They are not typically called by end users.
 
 ---
 
-## การถอดเสียง
+## Audio Transcription
 
 ```bash
 POST /v1/audio/transcriptions
@@ -317,9 +327,9 @@ Authorization: Bearer your-api-key
 Content-Type: multipart/form-data
 ```
 
-ถอดเสียงไฟล์เสียงโดยใช้ Deepgram หรือ AssemblyAI
+Transcribe audio files using Deepgram or AssemblyAI.
 
-**คำขอ:**
+**Request:**
 
 ```bash
 curl -X POST http://localhost:20128/v1/audio/transcriptions \
@@ -328,7 +338,7 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
   -F "model=deepgram/nova-3"
 ```
 
-**คำตอบ:**
+**Response:**
 
 ```json
 {
@@ -339,15 +349,15 @@ curl -X POST http://localhost:20128/v1/audio/transcriptions \
 }
 ```
 
-**ผู้ให้บริการที่รองรับ:** `deepgram/nova-3`, `assemblyai/best`
+**Supported providers:** `deepgram/nova-3`, `assemblyai/best`.
 
-**รูปแบบที่รองรับ:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`
+**Supported formats:** `mp3`, `wav`, `m4a`, `flac`, `ogg`, `webm`.
 
 ---
 
-## ความเข้ากันได้ของ Ollama
+## Ollama Compatibility
 
-สำหรับลูกค้าที่ใช้รูปแบบ API ของ Ollama:
+For clients that use Ollama's API format:
 
 ```bash
 # Chat endpoint (Ollama format)
@@ -357,18 +367,18 @@ POST /v1/api/chat
 GET /api/tags
 ```
 
-คำขอจะได้รับการแปลโดยอัตโนมัติระหว่าง Ollama และรูปแบบภายใน
+Requests are automatically translated between Ollama and internal formats.
 
 ---
 
-## มาตรระยะไกล
+## Telemetry
 
 ```bash
 # Get latency telemetry summary (p50/p95/p99 per provider)
 GET /api/telemetry/summary
 ```
 
-**คำตอบ:**
+**Response:**
 
 ```json
 {
@@ -381,7 +391,7 @@ GET /api/telemetry/summary
 
 ---
 
-## งบประมาณ
+## Budget
 
 ```bash
 # Get budget status for all API keys
@@ -400,7 +410,7 @@ Content-Type: application/json
 
 ---
 
-## รุ่นที่มีจำหน่าย
+## Model Availability
 
 ```bash
 # Get real-time model availability across all providers
@@ -417,25 +427,25 @@ Content-Type: application/json
 
 ---
 
-## คำขอดำเนินการ
+## Request Processing
 
-1. ลูกค้าส่งคำขอไปที่ `/v1/*`
-2. ตัวจัดการเส้นทางเรียก `handleChat`, `handleEmbedding`, `handleAudioTranscription` หรือ `handleImageGeneration`
-3. โมเดลได้รับการแก้ไขแล้ว (ผู้ให้บริการโดยตรง/โมเดลหรือนามแฝง/คอมโบ)
-4. ข้อมูลรับรองที่เลือกจากฐานข้อมูลท้องถิ่นพร้อมการกรองความพร้อมใช้งานของบัญชี
-5. สำหรับการแชท: `handleChatCore` — การตรวจจับรูปแบบ การแปล การตรวจสอบแคช การตรวจสอบค่าเดิม
-6. ผู้ดำเนินการของผู้ให้บริการส่งคำขออัปสตรีม
-7. การตอบสนองถูกแปลกลับเป็นรูปแบบไคลเอนต์ (แชท) หรือส่งคืนตามสภาพ (การฝัง/รูปภาพ/เสียง)
-8. บันทึกการใช้งาน/การบันทึก
-9. การใช้ทางเลือกสำรองจะมีผลกับข้อผิดพลาดตามกฎคอมโบ
+1. Client sends request to `/v1/*`
+2. Route handler calls `handleChat`, `handleEmbedding`, `handleAudioTranscription`, or `handleImageGeneration`
+3. Model is resolved (direct provider/model or alias/combo)
+4. Credentials selected from local DB with account availability filtering
+5. For chat: `handleChatCore` — format detection, translation, cache check, idempotency check
+6. Provider executor sends upstream request
+7. Response translated back to client format (chat) or returned as-is (embeddings/images/audio)
+8. Usage/logging recorded
+9. Fallback applies on errors according to combo rules
 
-การอ้างอิงสถาปัตยกรรมแบบเต็ม: [link](ARCHITECTURE.md)
+Full architecture reference: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ---
 
-## การรับรองความถูกต้อง
+## Authentication
 
-- เส้นทางแดชบอร์ด (`/dashboard/*`) ใช้คุกกี้ `auth_token`
-- การเข้าสู่ระบบใช้แฮชรหัสผ่านที่บันทึกไว้ สำรองไปที่ `INITIAL_PASSWORD`
-- `requireLogin` สลับได้ผ่าน `/api/settings/require-login`
-- เส้นทาง `/v1/*` เป็นทางเลือกที่ต้องใช้คีย์ Bearer API เมื่อ `REQUIRE_API_KEY=true`
+- Dashboard routes (`/dashboard/*`) use `auth_token` cookie
+- Login uses saved password hash; fallback to `INITIAL_PASSWORD`
+- `requireLogin` toggleable via `/api/settings/require-login`
+- `/v1/*` routes optionally require Bearer API key when `REQUIRE_API_KEY=true`
