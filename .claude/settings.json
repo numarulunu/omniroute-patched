@@ -1,0 +1,12 @@
+{
+  "respectGitIgnore": true,
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(rg:*)",
+      "Bash(node:*)",
+      "Bash(npm run:*)"
+    ],
+    "deny": []
+  }
+}
