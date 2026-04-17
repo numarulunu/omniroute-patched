@@ -92,20 +92,28 @@ signature the error points at, commit, and move on.
 
 ### Step 4 — deploy
 
-Standard procedure (see `project_omniroute.md` memory):
+Deployment is now handled by Coolify on the N8N server, building from the
+private fork at `git@github.com:numarulunu/omniroute-patched.git` (branch
+`ionut-patches`). Push your rebased patches and Coolify rebuilds.
 
 ```bash
 cd "/c/Users/Gaming PC/Desktop/Claude/OmniRoute"
-tar --exclude=node_modules --exclude=.next --exclude=.git --exclude=logs \
-    --exclude=.serena --exclude=.agents --exclude=.claude --exclude='*.log' --exclude=data \
-    -czf - . | ssh root@178.104.203.128 \
-    "rm -rf /opt/omniroute-src && mkdir -p /opt/omniroute-src && tar -xzf - -C /opt/omniroute-src && rm -f /opt/omniroute-src/package-lock.json"
-ssh root@178.104.203.128 "cd /opt/omniroute-src && docker build -q -t omniroute:patched-v3 ."
-ssh root@178.104.203.128 "sed -i 's|^OMNIROUTE_IMAGE=.*|OMNIROUTE_IMAGE=omniroute:patched-v3|' /opt/omniroute/.env && cd /opt/omniroute && docker compose up -d"
+git push --force-with-lease origin ionut-patches
+# Trigger Coolify build (auto-deploy may be enabled; this forces a rebuild):
+ssh root@178.104.203.128 \
+  "curl -s -X POST 'http://localhost:8000/api/v1/deploy?uuid=yj7526rpmiup0dbzd1lb9967&force=true' \
+   -H 'Authorization: Bearer \$COOLIFY_TOKEN'"
 ```
 
-Bump the image tag each time (`patched-v2` → `v3` → `v4`...) so Docker
-actually recreates the container.
+Coolify clones the private fork via deploy key (SSH), builds the
+`runner-cli` stage of the Dockerfile, and starts a container bound to
+`127.0.0.1:20128` with a bind-mount at `/opt/omniroute/data/omniroute →
+/app/data`. Build takes ~5 min (Next.js + global npm install of
+`@openai/codex`, `@anthropic-ai/claude-code`, `droid`, `openclaw`).
+
+Live URLs:
+- Public: https://omniroute.ionutrosu.xyz (via Pangolin + Newt tunnel)
+- Coolify app UUID: `yj7526rpmiup0dbzd1lb9967`
 
 ## Outstanding update at time of writing
 
