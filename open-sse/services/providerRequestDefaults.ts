@@ -43,15 +43,7 @@ export function applyProviderRequestDefaults(
   const next: JsonRecord = { ...record };
 
   const defaultTemperature = toFiniteNumber(defaults.temperature);
-  // Claude Code / Anthropic thinking endpoints reject any `temperature` on
-  // thinking requests (Opus 4.7 OAuth returns 400 "`temperature` is deprecated
-  // for this model."). Skip injecting the provider default when the body is
-  // about to ride the thinking path — either explicitly enabled, adaptive, or
-  // the CC-compatible builder's default `{ type: "adaptive" }`.
-  const pendingThinking = asRecord(next.thinking);
-  const thinkingActive =
-    pendingThinking?.type === "enabled" || pendingThinking?.type === "adaptive";
-  if (!thinkingActive && next.temperature === undefined && defaultTemperature !== null) {
+  if (next.temperature === undefined && defaultTemperature !== null) {
     next.temperature = defaultTemperature;
     changed = true;
   }
