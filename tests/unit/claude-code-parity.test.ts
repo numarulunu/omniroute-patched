@@ -177,13 +177,17 @@ describe("remapToolNamesInRequest", () => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe("enforceThinkingTemperature", () => {
-  it("sets temperature to 1 when thinking is enabled", () => {
-    const body = {
+  it("strips temperature when thinking is enabled", () => {
+    const body: Record<string, unknown> = {
       thinking: { type: "enabled", budget_tokens: 1000 },
       temperature: 0.7,
     };
     enforceThinkingTemperature(body);
-    assert.equal(body.temperature, 1, "temperature must be 1 when thinking is active");
+    assert.equal(
+      "temperature" in body,
+      false,
+      "temperature key must be removed when thinking is active (Opus 4.7 OAuth rejects it)"
+    );
   });
 
   it("does not modify temperature when thinking is not present", () => {

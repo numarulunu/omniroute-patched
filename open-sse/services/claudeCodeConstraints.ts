@@ -2,16 +2,18 @@
  * Claude Code API constraints.
  *
  * Enforces Anthropic API requirements that real Claude Code handles:
- * 1. temperature=1 when thinking is enabled
+ * 1. Strip temperature when thinking is enabled
  * 2. Disable thinking when tool_choice forces a specific tool
  * 3. Enforce max 4 cache_control breakpoints
  * 4. Normalize cache_control TTL ordering
  */
 
 export function enforceThinkingTemperature(body: Record<string, unknown>): void {
+  // Anthropic's Opus 4.7 OAuth endpoint rejects any temperature on thinking requests.
+  // Real Claude Code CLI omits it entirely; match that by stripping the key.
   const thinking = body.thinking as Record<string, unknown> | undefined;
   if (thinking?.type === "enabled" || thinking?.type === "adaptive") {
-    body.temperature = 1;
+    delete body.temperature;
   }
 }
 
