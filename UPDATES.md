@@ -29,8 +29,10 @@ to re-place by hand — that's a "conflict."
   (adds Import buttons + hidden file inputs for Codex and Claude)
 - `src/sse/services/auth.ts` + `tests/unit/sse-auth.test.mjs` — MODIFIED
   (SSE auth hardening)
-- `patch-*.js` — source-level idempotent patch scripts (reusable;
-  run after a fresh upstream clone, before `docker build`)
+- `patches/` — standalone Node.js scripts that can reconstruct the
+  patches outside of git (bundle / source / client install modes). The
+  git history on this branch is the primary record; these are a
+  safety net. See `patches/README.md` for per-script docs.
 
 Non-patch noise that's intentionally NOT committed:
 
