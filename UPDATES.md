@@ -29,10 +29,10 @@ to re-place by hand — that's a "conflict."
   (adds Import buttons + hidden file inputs for Codex and Claude)
 - `src/sse/services/auth.ts` + `tests/unit/sse-auth.test.mjs` — MODIFIED
   (SSE auth hardening)
-- `patches/` — standalone Node.js scripts that can reconstruct the
-  patches outside of git (bundle / source / client install modes). The
-  git history on this branch is the primary record; these are a
-  safety net. See `patches/README.md` for per-script docs.
+  **Patches live exclusively as git commits on `ionut-patches`.** No
+  standalone patch scripts are kept in the tree — `git log`, `git show
+<sha>`, and `git rebase` are the full patch-management system for
+  this fork.
 
 Non-patch noise that's intentionally NOT committed:
 
