@@ -23,6 +23,11 @@ import {
 import { isLocalProvider } from "@omniroute/open-sse/config/providerRegistry.ts";
 import { COOLDOWN_MS } from "@omniroute/open-sse/config/constants.ts";
 import { preflightQuota } from "@omniroute/open-sse/services/quotaPreflight.ts";
+import {
+  fetchCodexQuota,
+  getCodexQuotaCooldownMs,
+  type CodexDualWindowQuota,
+} from "@omniroute/open-sse/services/codexQuotaFetcher.ts";
 import { getCodexModelScope } from "@omniroute/open-sse/executors/codex.ts";
 import { getProviderAlias, resolveProviderId } from "@/shared/constants/providers";
 import { isModelExcludedByConnection } from "@/domain/connectionModelRules";
@@ -210,6 +215,59 @@ function getCodexScopeRateLimitedUntil(
   const scopeMap = asRecord(providerSpecificData.codexScopeRateLimitedUntil);
   const value = scopeMap[scope];
   return typeof value === "string" && value.trim().length > 0 ? value : null;
+}
+
+function isFutureTimestamp(value: string | null): value is string {
+  if (!value) return false;
+  const timestamp = new Date(value).getTime();
+  return Number.isFinite(timestamp) && timestamp > Date.now();
+}
+
+function isCodexQuotaExhaustionError(errorText: string): boolean {
+  const lower = String(errorText || "").toLowerCase();
+  if (!lower) return false;
+  return (
+    lower.includes("usage limit") ||
+    lower.includes("quota reached") ||
+    lower.includes("quota exceeded") ||
+    lower.includes("quota will reset") ||
+    lower.includes("quota exhausted") ||
+    lower.includes("exhausted your capacity") ||
+    lower.includes("weekly limit") ||
+    lower.includes("5h limit") ||
+    lower.includes("7d limit")
+  );
+}
+
+async function resolveCodexScopeRateLimitedUntil(
+  connectionId: string,
+  connection: ProviderConnectionView,
+  model: string
+): Promise<string | null> {
+  const persistedScopeUntil = getCodexScopeRateLimitedUntil(connection.providerSpecificData, model);
+  if (isFutureTimestamp(persistedScopeUntil)) {
+    return persistedScopeUntil;
+  }
+
+  try {
+    const quota = (await fetchCodexQuota(
+      connectionId,
+      connection as unknown as Record<string, unknown>
+    )) as CodexDualWindowQuota | null;
+    if (!quota) return null;
+
+    const fetchedResetAt = toStringOrNull(quota.resetAt);
+    if (isFutureTimestamp(fetchedResetAt)) {
+      return fetchedResetAt;
+    }
+
+    const quotaCooldownMs = getCodexQuotaCooldownMs(quota);
+    if (quotaCooldownMs > 0) {
+      return new Date(Date.now() + quotaCooldownMs).toISOString();
+    }
+  } catch {}
+
+  return null;
 }
 
 function isCodexScopeUnavailable(
@@ -1269,8 +1327,10 @@ export async function markAccountUnavailable(
     if (provider === "codex" && status === 429 && model && conn) {
       const scope = getCodexModelScope(model);
       const existingScopeMap = asRecord(conn.providerSpecificData.codexScopeRateLimitedUntil);
-      const persistedScopeUntil = getCodexScopeRateLimitedUntil(conn.providerSpecificData, model);
-      const scopeRateLimitedUntil = persistedScopeUntil || rateLimitedUntil;
+      const quotaScopeUntil = isCodexQuotaExhaustionError(errorText)
+        ? await resolveCodexScopeRateLimitedUntil(connectionId, conn, model)
+        : null;
+      const scopeRateLimitedUntil = quotaScopeUntil || rateLimitedUntil;
       const scopeCooldownMs = Math.max(new Date(scopeRateLimitedUntil).getTime() - Date.now(), 0);
 
       await updateProviderConnection(connectionId, {

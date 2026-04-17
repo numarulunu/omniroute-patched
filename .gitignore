@@ -181,3 +181,6 @@ bin/omniroute.mjs
 .omc/
 audit-report.json
 bun.lock
+
+# Dev tools
+.serena/

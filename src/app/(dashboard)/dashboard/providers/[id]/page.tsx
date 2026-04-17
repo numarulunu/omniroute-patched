@@ -993,6 +993,10 @@ export default function ProviderDetailPage() {
   );
   const [applyingCodexAuthId, setApplyingCodexAuthId] = useState<string | null>(null);
   const [exportingCodexAuthId, setExportingCodexAuthId] = useState<string | null>(null);
+  const [importingCodexAuthJson, setImportingCodexAuthJson] = useState(false);
+  const importCodexAuthJsonInputRef = useRef<HTMLInputElement | null>(null);
+  const [importingClaudeCredentialsJson, setImportingClaudeCredentialsJson] = useState(false);
+  const importClaudeCredentialsJsonInputRef = useRef<HTMLInputElement | null>(null);
   const isOpenAICompatible = isOpenAICompatibleProvider(providerId);
   const isCcCompatible = isClaudeCodeCompatibleProvider(providerId);
   const isAnthropicCompatible =
@@ -1742,6 +1746,100 @@ export default function ProviderDetailPage() {
       notify.error(defaultError);
     } finally {
       setExportingCodexAuthId(null);
+    }
+  };
+
+  const handleImportCodexAuthJson = async (file: File) => {
+    if (importingCodexAuthJson) return;
+    setImportingCodexAuthJson(true);
+
+    const defaultError =
+      typeof t.has === "function" && t.has("codexAuthImportFailed")
+        ? t("codexAuthImportFailed")
+        : "Failed to import auth.json";
+    const defaultSuccess =
+      typeof t.has === "function" && t.has("codexAuthImported")
+        ? t("codexAuthImported")
+        : "Codex account imported from auth.json";
+
+    try {
+      const text = await file.text();
+      let parsed: any;
+      try {
+        parsed = JSON.parse(text);
+      } catch {
+        notify.error("File is not valid JSON");
+        return;
+      }
+
+      const res = await fetch("/api/providers/codex/import-auth-json", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed),
+      });
+
+      if (!res.ok) {
+        notify.error(await parseApiErrorMessage(res, defaultError));
+        return;
+      }
+
+      notify.success(defaultSuccess);
+      await fetchConnections();
+    } catch (error) {
+      console.error("Error importing Codex auth.json:", error);
+      notify.error(defaultError);
+    } finally {
+      setImportingCodexAuthJson(false);
+      if (importCodexAuthJsonInputRef.current) {
+        importCodexAuthJsonInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleImportClaudeCredentialsJson = async (file: File) => {
+    if (importingClaudeCredentialsJson) return;
+    setImportingClaudeCredentialsJson(true);
+
+    const defaultError =
+      typeof t.has === "function" && t.has("claudeCredentialsImportFailed")
+        ? t("claudeCredentialsImportFailed")
+        : "Failed to import credentials.json";
+    const defaultSuccess =
+      typeof t.has === "function" && t.has("claudeCredentialsImported")
+        ? t("claudeCredentialsImported")
+        : "Claude account imported from credentials.json";
+
+    try {
+      const text = await file.text();
+      let parsed: any;
+      try {
+        parsed = JSON.parse(text);
+      } catch {
+        notify.error("File is not valid JSON");
+        return;
+      }
+
+      const res = await fetch("/api/providers/claude/import-credentials-json", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed),
+      });
+
+      if (!res.ok) {
+        notify.error(await parseApiErrorMessage(res, defaultError));
+        return;
+      }
+
+      notify.success(defaultSuccess);
+      await fetchConnections();
+    } catch (error) {
+      console.error("Error importing Claude credentials.json:", error);
+      notify.error(defaultError);
+    } finally {
+      setImportingClaudeCredentialsJson(false);
+      if (importClaudeCredentialsJsonInputRef.current) {
+        importClaudeCredentialsJsonInputRef.current.value = "";
+      }
     }
   };
 
@@ -2711,6 +2809,28 @@ export default function ProviderDetailPage() {
                     Experimental OAuth
                   </Button>
                 )}
+                {providerId === "codex" && (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    icon="upload_file"
+                    disabled={importingCodexAuthJson}
+                    onClick={() => importCodexAuthJsonInputRef.current?.click()}
+                  >
+                    {importingCodexAuthJson ? "Importing…" : "Import auth.json"}
+                  </Button>
+                )}
+                {providerId === "claude" && (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    icon="upload_file"
+                    disabled={importingClaudeCredentialsJson}
+                    onClick={() => importClaudeCredentialsJsonInputRef.current?.click()}
+                  >
+                    {importingClaudeCredentialsJson ? "Importing…" : "Import credentials.json"}
+                  </Button>
+                )}
               </div>
             ) : (
               connections.length === 0 && (
@@ -2718,6 +2838,20 @@ export default function ProviderDetailPage() {
                   {t("add")}
                 </Button>
               )
+            )}
+            {providerId === "codex" && (
+              <p className="text-xs text-text-muted mt-3 max-w-md mx-auto">
+                Remote-hosted OmniRoute can&apos;t open the ChatGPT OAuth callback on this machine.
+                Run <code className="font-mono">codex login</code> on your PC, then upload{" "}
+                <code className="font-mono">~/.codex/auth.json</code>.
+              </p>
+            )}
+            {providerId === "claude" && (
+              <p className="text-xs text-text-muted mt-3 max-w-md mx-auto">
+                Claude&apos;s OAuth is IP rate-limited and often fails on headless servers. Run{" "}
+                <code className="font-mono">claude</code> on your PC once, then upload{" "}
+                <code className="font-mono">~/.claude/.credentials.json</code>.
+              </p>
             )}
           </div>
 
@@ -3043,6 +3177,34 @@ export default function ProviderDetailPage() {
             </div>
           )}
         </Card>
+      )}
+
+      {/* Codex auth.json file picker (hidden) */}
+      {providerId === "codex" && (
+        <input
+          ref={importCodexAuthJsonInputRef}
+          type="file"
+          accept="application/json,.json"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) handleImportCodexAuthJson(file);
+          }}
+        />
+      )}
+
+      {/* Claude credentials.json file picker (hidden) */}
+      {providerId === "claude" && (
+        <input
+          ref={importClaudeCredentialsJsonInputRef}
+          type="file"
+          accept="application/json,.json"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) handleImportClaudeCredentialsJson(file);
+          }}
+        />
       )}
 
       {/* Modals */}

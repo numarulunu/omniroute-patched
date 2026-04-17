@@ -14,6 +14,7 @@ const settingsDb = await import("../../src/lib/db/settings.ts");
 const apiKeysDb = await import("../../src/lib/db/apiKeys.ts");
 const auth = await import("../../src/sse/services/auth.ts");
 const quotaCache = await import("../../src/domain/quotaCache.ts");
+const originalFetch = globalThis.fetch;
 
 async function resetStorage() {
   core.resetDbInstance();
@@ -60,6 +61,10 @@ async function flushWrites() {
 
 test.beforeEach(async () => {
   await resetStorage();
+});
+
+test.afterEach(() => {
+  globalThis.fetch = originalFetch;
 });
 
 test.after(async () => {
@@ -898,6 +903,186 @@ test("markAccountUnavailable stores Codex scope-specific cooldowns without a glo
   assert.equal(updated.rateLimitedUntil, undefined);
   assert.ok(updated.providerSpecificData.codexScopeRateLimitedUntil.spark);
   assert.equal(selected.allRateLimited, true);
+});
+
+test("markAccountUnavailable parks a Codex scope until the fetched quota reset and selection moves to the next account", async () => {
+  const primary = await seedConnection("codex", {
+    authType: "oauth",
+    name: "codex-primary",
+    email: "codex-primary@example.com",
+    apiKey: null,
+    accessToken: "codex-primary-access",
+    refreshToken: "codex-primary-refresh",
+    priority: 1,
+    providerSpecificData: {
+      workspaceId: "workspace-primary",
+    },
+  });
+  const fallback = await seedConnection("codex", {
+    authType: "oauth",
+    name: "codex-fallback",
+    email: "codex-fallback@example.com",
+    apiKey: null,
+    accessToken: "codex-fallback-access",
+    refreshToken: "codex-fallback-refresh",
+    priority: 2,
+    providerSpecificData: {
+      workspaceId: "workspace-fallback",
+    },
+  });
+
+  globalThis.fetch = async () =>
+    new Response(
+      JSON.stringify({
+        rate_limit: {
+          primary_window: {
+            used_percent: 82,
+            reset_after_seconds: 45,
+          },
+          secondary_window: {
+            used_percent: 99,
+            reset_after_seconds: 300,
+          },
+        },
+      }),
+      {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      }
+    );
+
+  const result = await auth.markAccountUnavailable(
+    primary.id,
+    429,
+    "usage limit reached",
+    "codex",
+    "gpt-5.4"
+  );
+  await flushWrites();
+  const updated = await providersDb.getProviderConnectionById(primary.id);
+  const selected = await auth.getProviderCredentials("codex", null, null, "gpt-5.4");
+
+  assert.equal(result.shouldFallback, true);
+  assert.ok(result.cooldownMs >= 295_000);
+  assert.ok(result.cooldownMs <= 300_000);
+  assert.equal(updated.rateLimitedUntil, undefined);
+  assert.equal(updated.testStatus, "unavailable");
+  assert.ok(msUntil(updated.providerSpecificData.codexScopeRateLimitedUntil.codex) >= 295_000);
+  assert.equal(selected.connectionId, fallback.id);
+});
+
+test("getProviderCredentials makes an expired Codex scope park eligible again", async () => {
+  const recovered = await seedConnection("codex", {
+    authType: "oauth",
+    name: "codex-recovered",
+    email: "codex-recovered@example.com",
+    apiKey: null,
+    accessToken: "codex-recovered-access",
+    refreshToken: "codex-recovered-refresh",
+    priority: 1,
+    providerSpecificData: {
+      codexScopeRateLimitedUntil: {
+        codex: new Date(Date.now() - 60_000).toISOString(),
+      },
+    },
+  });
+  await seedConnection("codex", {
+    authType: "oauth",
+    name: "codex-secondary",
+    email: "codex-secondary@example.com",
+    apiKey: null,
+    accessToken: "codex-secondary-access",
+    refreshToken: "codex-secondary-refresh",
+    priority: 2,
+  });
+
+  const selected = await auth.getProviderCredentials("codex", null, null, "gpt-5.4");
+
+  assert.equal(selected.connectionId, recovered.id);
+});
+
+test("getProviderCredentials keeps the spark scope available when only the Codex scope is parked", async () => {
+  const connection = await seedConnection("codex", {
+    authType: "oauth",
+    name: "codex-scope-isolation",
+    email: "codex-scope-isolation@example.com",
+    apiKey: null,
+    accessToken: "codex-scope-isolation-access",
+    refreshToken: "codex-scope-isolation-refresh",
+    providerSpecificData: {
+      codexScopeRateLimitedUntil: {
+        codex: futureIso(180_000),
+      },
+    },
+  });
+
+  const blocked = await auth.getProviderCredentials("codex", null, null, "gpt-5.4");
+  const spark = await auth.getProviderCredentials("codex", null, null, "codex-spark-mini");
+
+  assert.equal(blocked.allRateLimited, true);
+  assert.equal(spark.connectionId, connection.id);
+});
+
+test("markAccountUnavailable falls back to the short Codex cooldown when quota fetch fails", async () => {
+  const connection = await seedConnection("codex", {
+    authType: "oauth",
+    name: "codex-fetch-failure",
+    email: "codex-fetch-failure@example.com",
+    apiKey: null,
+    accessToken: "codex-fetch-failure-access",
+    refreshToken: "codex-fetch-failure-refresh",
+    providerSpecificData: {
+      workspaceId: "workspace-fetch-failure",
+    },
+  });
+
+  globalThis.fetch = async () => {
+    throw new Error("quota endpoint unavailable");
+  };
+
+  const result = await auth.markAccountUnavailable(
+    connection.id,
+    429,
+    "usage limit reached",
+    "codex",
+    "gpt-5.4"
+  );
+  const updated = await providersDb.getProviderConnectionById(connection.id);
+
+  assert.equal(result.shouldFallback, true);
+  assert.ok(result.cooldownMs > 0);
+  assert.ok(result.cooldownMs < 120_000);
+  assert.equal(updated.rateLimitedUntil, undefined);
+  assert.ok(updated.providerSpecificData.codexScopeRateLimitedUntil.codex);
+});
+
+test("markAccountUnavailable keeps generic Codex 429s on the existing short fallback path", async () => {
+  const connection = await seedConnection("codex", {
+    authType: "oauth",
+    name: "codex-generic-429",
+    email: "codex-generic-429@example.com",
+    apiKey: null,
+    accessToken: "codex-generic-429-access",
+    refreshToken: "codex-generic-429-refresh",
+  });
+  let fetchCalls = 0;
+  globalThis.fetch = async () => {
+    fetchCalls++;
+    throw new Error("should not be called");
+  };
+
+  const result = await auth.markAccountUnavailable(
+    connection.id,
+    429,
+    "too many requests",
+    "codex",
+    "gpt-5.4"
+  );
+
+  assert.equal(result.shouldFallback, true);
+  assert.ok(result.cooldownMs > 0);
+  assert.ok(result.cooldownMs < 120_000);
+  assert.equal(fetchCalls, 0);
 });
 
 test("markAccountUnavailable returns without fallback on bad requests", async () => {
