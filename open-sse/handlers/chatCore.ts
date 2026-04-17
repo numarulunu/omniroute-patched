@@ -8,6 +8,7 @@ import {
   COLORS,
 } from "../utils/stream.ts";
 import { createStreamController, pipeWithDisconnect } from "../utils/streamHandler.ts";
+import { createSseHeartbeatTransform } from "../utils/sseHeartbeat.ts";
 import { addBufferToUsage, filterUsageForFormat, estimateUsage } from "../utils/usageTracking.ts";
 import { refreshWithRetry } from "../services/tokenRefresh.ts";
 import { createRequestLogger } from "../utils/requestLogger.ts";
@@ -2710,6 +2711,7 @@ export async function handleChatCore({
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
     Connection: "keep-alive",
+    "X-Accel-Buffering": "no",
     "Access-Control-Allow-Origin": getCorsOrigin(),
     [OMNIROUTE_RESPONSE_HEADERS.cache]: "MISS",
     ...buildOmniRouteResponseMetaHeaders({
@@ -2886,6 +2888,13 @@ export async function handleChatCore({
   } else {
     finalStream = pipeWithDisconnect(providerResponse, transformStream, streamController);
   }
+
+  // Inject SSE keepalive comments (: keepalive <iso>\n\n) every 15s so clients
+  // with idle-read timeouts (Codex CLI aborts at ~60s) don't bail during long
+  // upstream reasoning phases on huge contexts.
+  finalStream = finalStream.pipeThrough(
+    createSseHeartbeatTransform({ signal: streamController.signal })
+  );
 
   return {
     success: true,
