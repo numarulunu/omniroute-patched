@@ -110,9 +110,13 @@ export function openaiToClaudeRequest(model, body, stream) {
   };
 
   // Temperature
-  if (body.temperature !== undefined) {
-    result.temperature = body.temperature;
-  }
+  // Anthropic OAuth endpoints (Opus 4.7+ via claude-code beta) reject any
+  // `temperature` on the request: "`temperature` is deprecated for this model."
+  // Real Claude Code CLI never forwards a temperature, so we drop it too.
+  // Keeping the branch documented instead of silently omitting it.
+  // if (body.temperature !== undefined) {
+  //   result.temperature = body.temperature;
+  // }
   if (body.top_p !== undefined) {
     result.top_p = body.top_p;
   }
