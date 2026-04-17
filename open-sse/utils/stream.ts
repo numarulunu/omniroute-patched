@@ -1089,8 +1089,13 @@ export function createSSEStream(options: StreamOptions = {}) {
                   );
                 }
                 const responseBody = {
+                  id: `chatcmpl-${Date.now()}`,
+                  object: "chat.completion",
+                  created: Math.floor(Date.now() / 1000),
+                  model: model || "unknown",
                   choices: [
                     {
+                      index: 0,
                       message,
                       finish_reason: passthroughHasToolCalls ? "tool_calls" : "stop",
                     },
@@ -1295,8 +1300,13 @@ export function createSSEStream(options: StreamOptions = {}) {
                   .sort((a, b) => a.index - b.index);
               }
               const responseBody = {
+                id: `chatcmpl-${Date.now()}`,
+                object: "chat.completion",
+                created: Math.floor(Date.now() / 1000),
+                model: model || "unknown",
                 choices: [
                   {
+                    index: 0,
                     message,
                     finish_reason: hasToolCalls ? "tool_calls" : "stop",
                   },
