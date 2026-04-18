@@ -14,16 +14,22 @@ export function clientWantsJsonResponse(acceptHeader: unknown): boolean {
 /**
  * Resolves stream behavior from request body + Accept header.
  * Priority: explicit `stream: true/false` in body wins.
- * Accept header only acts as fallback when stream is not explicitly set.
- * Fixes #656: clients sending both `stream: true` and `Accept: application/json`
- * should still get streaming responses — body intent takes precedence.
+ * Accept header acts as fallback ONLY when it explicitly requests SSE.
+ * Ionut patch: default to non-streaming (OpenAI spec compliance) when neither
+ * body.stream nor Accept header is set. The Vercel AI SDK `doGenerate` path
+ * (used by bolt.diy for title/enhance-prompt) sends no Accept header and no
+ * stream flag — previous default-true caused it to receive SSE and fail JSON
+ * parsing with "Invalid JSON response".
  */
 export function resolveStreamFlag(bodyStream: unknown, acceptHeader: unknown): boolean {
   // Explicit body value always wins
   if (bodyStream === true) return true;
   if (bodyStream === false) return false;
-  // No explicit stream param — fall back to Accept header heuristic
-  return !clientWantsJsonResponse(acceptHeader);
+  // No explicit body.stream — only stream if Accept explicitly opts in.
+  if (typeof acceptHeader === "string" && acceptHeader.toLowerCase().includes("text/event-stream")) {
+    return true;
+  }
+  return false;
 }
 
 /**

@@ -35,12 +35,12 @@ test("T26: non-fenced content is returned unchanged", () => {
   assert.equal(stripMarkdownCodeFence(plain), plain);
 });
 
-test("T26: undefined stream falls back to Accept header heuristic (#656)", () => {
-  // No explicit stream param — Accept: application/json means no streaming
+test("T26: undefined stream defaults to non-streaming (OpenAI spec)", () => {
+  // Ionut patch: default to JSON unless Accept explicitly opts into SSE.
   assert.equal(resolveStreamFlag(undefined, "application/json"), false);
-  // No explicit stream param + no JSON accept = stream by default
   assert.equal(resolveStreamFlag(undefined, "text/event-stream"), true);
-  assert.equal(resolveStreamFlag(undefined, undefined), true);
+  assert.equal(resolveStreamFlag(undefined, undefined), false);
+  assert.equal(resolveStreamFlag(undefined, "*/*"), false);
 });
 
 test("T26: explicit stream:false always prevents streaming", () => {
