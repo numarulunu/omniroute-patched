@@ -274,11 +274,15 @@ function purifyHistory(messages: Record<string, unknown>[], targetTokens: number
   let result = [...system, ...nonSystem.slice(-keep)];
   result = fixToolPairs(result);
 
-  // Add summary of dropped messages
+  // Add summary of dropped messages.
+  // NOTE: use role="user", not "system". Claude's Messages API rejects
+  // role="system" inside the messages array (system goes at top level).
+  // This runs post-translation, so we don't know which provider the body
+  // will hit — user role is accepted by all (OpenAI, Claude, Gemini).
   if (keep < nonSystem.length) {
     const dropped = nonSystem.length - keep;
     result.splice(system.length, 0, {
-      role: "system",
+      role: "user",
       content: `[Context compressed: ${dropped} earlier messages removed to fit context window]`,
     });
   }
