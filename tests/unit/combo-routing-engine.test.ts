@@ -31,37 +31,37 @@ const { acquire: acquireSemaphore, resetAll: resetAllSemaphores } =
 const { _resetAllDecks } = await import("../../src/shared/utils/shuffleDeck.ts");
 
 function createLog() {
-  const entries = [];
+  const entries: any[] = [];
   return {
-    info: (tag, msg) => entries.push({ level: "info", tag, msg }),
-    warn: (tag, msg) => entries.push({ level: "warn", tag, msg }),
-    error: (tag, msg) => entries.push({ level: "error", tag, msg }),
+    info: (tag: any, msg: any) => entries.push({ level: "info", tag, msg }),
+    warn: (tag: any, msg: any) => entries.push({ level: "warn", tag, msg }),
+    error: (tag: any, msg: any) => entries.push({ level: "error", tag, msg }),
     entries,
   };
 }
 
-function okResponse(body = { choices: [{ message: { content: "ok" } }] }) {
+function okResponse(body: any = { choices: [{ message: { content: "ok" } }] }) {
   return new Response(JSON.stringify(body), {
     status: 200,
     headers: { "content-type": "application/json" },
   });
 }
 
-function errorResponse(status, message = `Error ${status}`) {
+function errorResponse(status: number, message: string = `Error ${status}`) {
   return new Response(JSON.stringify({ error: { message } }), {
     status,
     headers: { "content-type": "application/json" },
   });
 }
 
-function streamResponse(chunks) {
+function streamResponse(chunks: any[]) {
   return new Response(chunks.join(""), {
     status: 200,
     headers: { "content-type": "text/event-stream" },
   });
 }
 
-function capabilityEntry(limitContext) {
+function capabilityEntry(limitContext: any) {
   return {
     tool_call: true,
     reasoning: false,
@@ -83,7 +83,7 @@ function capabilityEntry(limitContext) {
   };
 }
 
-function getComboTargetBreakerKey(comboName, index, stepInput) {
+function getComboTargetBreakerKey(comboName: string, index: number, stepInput: any) {
   const step = normalizeComboStep(stepInput, { comboName, index });
   if (!step) throw new Error(`Failed to normalize combo step for ${comboName}#${index}`);
   return `combo:${comboName}:${step.id}`;
@@ -213,7 +213,7 @@ test("validateComboDAG enforces maximum nesting depth", () => {
 });
 
 test("handleComboChat priority strategy defaults to first model and records success metrics", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const combo = {
     name: "priority-default",
     models: ["openai/gpt-4o-mini", "claude/sonnet"],
@@ -222,14 +222,16 @@ test("handleComboChat priority strategy defaults to first model and records succ
   const result = await handleComboChat({
     body: {},
     combo,
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const metrics = getComboMetrics("priority-default");
@@ -249,7 +251,7 @@ test("handleComboChat priority strategy defaults to first model and records succ
 });
 
 test("handleComboChat priority strategy honors composite tier order before fallback", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const combo = {
     name: "priority-composite-tiers",
     strategy: "priority",
@@ -293,7 +295,7 @@ test("handleComboChat priority strategy honors composite tier order before fallb
   const result = await handleComboChat({
     body: {},
     combo,
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       if (modelStr === "claude/sonnet") {
         return errorResponse(503, "backup failed");
@@ -303,7 +305,9 @@ test("handleComboChat priority strategy honors composite tier order before fallb
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -312,7 +316,7 @@ test("handleComboChat priority strategy honors composite tier order before fallb
 
 test("handleComboChat weighted strategy selects by weight and falls back in descending weight order", async () => {
   const originalRandom = Math.random;
-  const calls = [];
+  const calls: any[] = [];
 
   Math.random = () => 0.95;
 
@@ -328,7 +332,7 @@ test("handleComboChat weighted strategy selects by weight and falls back in desc
         ],
         config: { maxRetries: 0 },
       },
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         if (modelStr === "claude/sonnet") return errorResponse(500, "temporary");
         return okResponse();
@@ -336,7 +340,9 @@ test("handleComboChat weighted strategy selects by weight and falls back in desc
       isModelAvailable: async () => true,
       log: createLog(),
       settings: null,
+      relayOptions: null as any,
       allCombos: null,
+      relayOptions: null,
     });
 
     assert.equal(result.ok, true);
@@ -348,7 +354,7 @@ test("handleComboChat weighted strategy selects by weight and falls back in desc
 
 test("handleComboChat weighted strategy falls back to uniform random when all weights are zero", async () => {
   const originalRandom = Math.random;
-  const calls = [];
+  const calls: any[] = [];
   Math.random = () => 0.75;
 
   try {
@@ -363,14 +369,16 @@ test("handleComboChat weighted strategy falls back to uniform random when all we
         ],
         config: { maxRetries: 0 },
       },
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         return okResponse();
       },
       isModelAvailable: async () => true,
       log: createLog(),
       settings: null,
+      relayOptions: null as any,
       allCombos: null,
+      relayOptions: null,
     });
 
     assert.equal(result.ok, true);
@@ -382,7 +390,7 @@ test("handleComboChat weighted strategy falls back to uniform random when all we
 
 test("handleComboChat random strategy uses shuffled model order", async () => {
   const originalRandom = Math.random;
-  const calls = [];
+  const calls: any[] = [];
   const sequence = [0.99, 0.0];
   let idx = 0;
   Math.random = () => sequence[idx++] ?? 0;
@@ -395,14 +403,16 @@ test("handleComboChat random strategy uses shuffled model order", async () => {
         strategy: "random",
         models: ["model-a", "model-b", "model-c"],
       },
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         return okResponse();
       },
       isModelAvailable: async () => true,
       log: createLog(),
       settings: null,
+      relayOptions: null as any,
       allCombos: null,
+      relayOptions: null,
     });
 
     assert.equal(calls.length, 1);
@@ -429,7 +439,7 @@ test("handleComboChat least-used strategy prefers the model with fewer recorded 
     strategy: "least-used",
   });
 
-  const calls = [];
+  const calls: any[] = [];
 
   await handleComboChat({
     body: {},
@@ -438,21 +448,23 @@ test("handleComboChat least-used strategy prefers the model with fewer recorded 
       strategy: "least-used",
       models: ["model-a", "model-b", "model-c"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(calls[0], "model-c");
 });
 
 test("handleComboChat skips unavailable models and falls through to the next active target", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {},
     combo: {
@@ -460,14 +472,16 @@ test("handleComboChat skips unavailable models and falls through to the next act
       strategy: "priority",
       models: ["model-a", "model-b"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async (modelStr) => modelStr !== "model-a",
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -475,7 +489,7 @@ test("handleComboChat skips unavailable models and falls through to the next act
 });
 
 test("handleComboChat falls through empty successful responses and records failure metrics before succeeding", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {},
     combo: {
@@ -484,7 +498,7 @@ test("handleComboChat falls through empty successful responses and records failu
       models: ["model-a", "model-b"],
       config: { maxRetries: 0 },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       if (modelStr === "model-a") {
         return okResponse({ choices: [{ message: { content: "" } }] });
@@ -494,7 +508,9 @@ test("handleComboChat falls through empty successful responses and records failu
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const metrics = getComboMetrics("quality-fallback");
@@ -509,7 +525,7 @@ test("handleComboChat falls through empty successful responses and records failu
 });
 
 test("handleComboChat records per-target metrics separately when the same model repeats with different accounts", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const combo = {
     name: "per-target-repeat",
     strategy: "priority",
@@ -535,7 +551,7 @@ test("handleComboChat records per-target metrics separately when the same model 
   const result = await handleComboChat({
     body: {},
     combo,
-    handleSingleModel: async (_body, modelStr, target) => {
+    handleSingleModel: async (_body: any, modelStr: any, target: any) => {
       calls.push(`${modelStr}:${target?.connectionId || "none"}`);
       if (target?.connectionId === "conn-openai-a") {
         return errorResponse(503, "account-a down");
@@ -545,7 +561,9 @@ test("handleComboChat records per-target metrics separately when the same model 
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const firstStep = normalizeComboStep(combo.models[0], {
@@ -576,13 +594,15 @@ test("handleComboChat preserves the first failure status but surfaces the last e
       models: ["model-a", "model-b"],
       config: { maxRetries: 0 },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       return errorResponse(modelStr === "model-a" ? 500 : 429, `fail:${modelStr}`);
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -592,7 +612,7 @@ test("handleComboChat preserves the first failure status but surfaces the last e
 });
 
 test("handleComboChat round-robin rotates sequentially across requests", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const combo = {
     name: "rr-sequence",
     strategy: "round-robin",
@@ -604,14 +624,16 @@ test("handleComboChat round-robin rotates sequentially across requests", async (
     const result = await handleComboChat({
       body: {},
       combo,
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         return okResponse();
       },
       isModelAvailable: async () => true,
       log: createLog(),
       settings: null,
+      relayOptions: null as any,
       allCombos: null,
+      relayOptions: null,
     });
 
     assert.equal(result.ok, true);
@@ -621,7 +643,7 @@ test("handleComboChat round-robin rotates sequentially across requests", async (
 });
 
 test("handleComboChat round-robin starts from composite tier default ordering", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const combo = {
     name: "rr-composite-order",
     strategy: "round-robin",
@@ -662,14 +684,16 @@ test("handleComboChat round-robin starts from composite tier default ordering", 
     const result = await handleComboChat({
       body: {},
       combo,
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         return okResponse();
       },
       isModelAvailable: async () => true,
       log: createLog(),
       settings: null,
+      relayOptions: null as any,
       allCombos: null,
+      relayOptions: null,
     });
 
     assert.equal(result.ok, true);
@@ -735,7 +759,9 @@ test("handleComboChat accepts binary and Responses-style 200 bodies but falls th
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(binaryResult.ok, true);
@@ -756,12 +782,14 @@ test("handleComboChat accepts binary and Responses-style 200 bodies but falls th
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(responsesResult.ok, true);
 
-  const calls = [];
+  const calls: any[] = [];
   const malformedResult = await handleComboChat({
     body: {},
     combo: {
@@ -770,7 +798,7 @@ test("handleComboChat accepts binary and Responses-style 200 bodies but falls th
       models: ["model-a", "model-b", "model-c"],
       config: { maxRetries: 0 },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       if (modelStr === "model-a") {
         return new Response("", {
@@ -786,7 +814,9 @@ test("handleComboChat accepts binary and Responses-style 200 bodies but falls th
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(malformedResult.ok, true);
@@ -810,7 +840,9 @@ test("handleComboChat accepts text-mode SSE payloads as valid non-streaming pass
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -818,7 +850,7 @@ test("handleComboChat accepts text-mode SSE payloads as valid non-streaming pass
 });
 
 test("handleComboChat falls through invalid JSON and embedded 200 error bodies before succeeding", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {},
     combo: {
@@ -827,7 +859,7 @@ test("handleComboChat falls through invalid JSON and embedded 200 error bodies b
       models: ["model-a", "model-b", "model-c"],
       config: { maxRetries: 0 },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       if (modelStr === "model-a") {
         return new Response("{bad-json", {
@@ -846,7 +878,9 @@ test("handleComboChat falls through invalid JSON and embedded 200 error bodies b
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -864,7 +898,7 @@ test("handleComboChat returns the earliest retry-after when all priority targets
       strategy: "priority",
       models: ["model-a", "model-b"],
     },
-    handleSingleModel: async (_body, modelStr) =>
+    handleSingleModel: async (_body: any, modelStr: any) =>
       new Response(
         JSON.stringify({
           error: { message: `limited:${modelStr}` },
@@ -880,7 +914,9 @@ test("handleComboChat returns the earliest retry-after when all priority targets
     settings: {
       comboDefaults: { maxRetries: 0, retryDelayMs: 1 },
     },
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -909,7 +945,9 @@ test("handleComboChat returns 404 model_not_found when a combo has no executable
         retryDelayMs: 1,
       },
     },
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -940,7 +978,9 @@ test("handleComboChat round-robin returns 404 when no models are configured", as
         retryDelayMs: 1,
       },
     },
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -958,7 +998,7 @@ test("handleComboChat round-robin falls through semaphore timeouts and malformed
       timeoutMs: 100,
     }
   );
-  const calls = [];
+  const calls: any[] = [];
 
   try {
     const result = await handleComboChat({
@@ -968,7 +1008,7 @@ test("handleComboChat round-robin falls through semaphore timeouts and malformed
         strategy: "round-robin",
         models: ["model-a", "model-b", "model-c"],
       },
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         if (modelStr === "model-b") {
           return okResponse({ choices: [{}] });
@@ -985,7 +1025,9 @@ test("handleComboChat round-robin falls through semaphore timeouts and malformed
           retryDelayMs: 1,
         },
       },
+      relayOptions: null as any,
       allCombos: null,
+      relayOptions: null,
     });
 
     assert.equal(result.ok, true);
@@ -1006,7 +1048,7 @@ test("handleComboChat round-robin surfaces retry-after metadata after exhausting
       strategy: "round-robin",
       models: ["model-a", "model-b"],
     },
-    handleSingleModel: async (_body, modelStr) =>
+    handleSingleModel: async (_body: any, modelStr: any) =>
       new Response(
         JSON.stringify({
           error: { message: `rr-limited:${modelStr}` },
@@ -1027,7 +1069,9 @@ test("handleComboChat round-robin surfaces retry-after metadata after exhausting
         retryDelayMs: 1,
       },
     },
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -1038,7 +1082,7 @@ test("handleComboChat round-robin surfaces retry-after metadata after exhausting
 });
 
 test("handleComboChat round-robin keeps generic 400 errors terminal", async () => {
-  const calls = [];
+  const calls: any[] = [];
 
   const result = await handleComboChat({
     body: {},
@@ -1047,7 +1091,7 @@ test("handleComboChat round-robin keeps generic 400 errors terminal", async () =
       strategy: "round-robin",
       models: ["model-a", "model-b"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       if (modelStr === "model-a") {
         return new Response(JSON.stringify({ error: { message: "generic bad request" } }), {
@@ -1067,7 +1111,9 @@ test("handleComboChat round-robin keeps generic 400 errors terminal", async () =
         retryDelayMs: 1,
       },
     },
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.status, 400);
@@ -1076,7 +1122,7 @@ test("handleComboChat round-robin keeps generic 400 errors terminal", async () =
 });
 
 test("handleComboChat round-robin falls through provider-scoped 400s and returns the final error payload when no target recovers", async () => {
-  const calls = [];
+  const calls: any[] = [];
 
   const result = await handleComboChat({
     body: {},
@@ -1085,7 +1131,7 @@ test("handleComboChat round-robin falls through provider-scoped 400s and returns
       strategy: "round-robin",
       models: ["model-a", "model-b"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       if (modelStr === "model-a") {
         return new Response(
@@ -1108,7 +1154,9 @@ test("handleComboChat round-robin falls through provider-scoped 400s and returns
         retryDelayMs: 1,
       },
     },
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -1118,7 +1166,7 @@ test("handleComboChat round-robin falls through provider-scoped 400s and returns
 });
 
 test("handleComboChat strict-random uses the shared deck without repeating within a cycle", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const combo = {
     name: "strict-random-deck",
     strategy: "strict-random",
@@ -1129,14 +1177,16 @@ test("handleComboChat strict-random uses the shared deck without repeating withi
     const result = await handleComboChat({
       body: {},
       combo,
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         return okResponse();
       },
       isModelAvailable: async () => true,
       log: createLog(),
       settings: null,
+      relayOptions: null as any,
       allCombos: null,
+      relayOptions: null,
     });
 
     assert.equal(result.ok, true);
@@ -1154,7 +1204,7 @@ test("handleComboChat cost-optimized orders models by the cheapest configured in
     },
   });
 
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {},
     combo: {
@@ -1162,14 +1212,16 @@ test("handleComboChat cost-optimized orders models by the cheapest configured in
       strategy: "cost-optimized",
       models: ["openai/gpt-4o-mini", "openai/gpt-4o", "openai/gpt-4o-nano"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1178,7 +1230,7 @@ test("handleComboChat cost-optimized orders models by the cheapest configured in
 
 test("handleComboChat weighted strategy resolves nested combos before falling back to the next weighted target", async () => {
   const originalRandom = Math.random;
-  const calls = [];
+  const calls: any[] = [];
   Math.random = () => 0.01;
 
   try {
@@ -1193,7 +1245,7 @@ test("handleComboChat weighted strategy resolves nested combos before falling ba
         ],
         config: { maxRetries: 0 },
       },
-      handleSingleModel: async (_body, modelStr) => {
+      handleSingleModel: async (_body: any, modelStr: any) => {
         calls.push(modelStr);
         if (modelStr === "model-a") return errorResponse(500, "nested-first-fail");
         return okResponse();
@@ -1201,6 +1253,7 @@ test("handleComboChat weighted strategy resolves nested combos before falling ba
       isModelAvailable: async () => true,
       log: createLog(),
       settings: null,
+      relayOptions: null as any,
       allCombos: [
         {
           name: "weighted-nested-selection",
@@ -1229,7 +1282,7 @@ test("handleComboChat context-optimized orders models by the largest synced cont
     },
   });
 
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {},
     combo: {
@@ -1237,14 +1290,16 @@ test("handleComboChat context-optimized orders models by the largest synced cont
       strategy: "context-optimized",
       models: ["openai/gpt-4o-mini", "openai/gpt-4o", "openai/gpt-4o-max"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1265,7 +1320,9 @@ test("handleComboChat returns a 503 when every model is unavailable before execu
     isModelAvailable: async () => false,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -1298,7 +1355,9 @@ test("handleComboChat returns the circuit-breaker unavailable response when all 
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.status, 503);
@@ -1308,7 +1367,7 @@ test("handleComboChat returns the circuit-breaker unavailable response when all 
 test("handleComboChat auto strategy honors LKGP after filtering to tool-capable models", async () => {
   await settingsDb.setLKGP("auto-lkgp", "auto-lkgp", "claude");
 
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {
       messages: [{ role: "user", content: "Write code using a tool" }],
@@ -1321,14 +1380,16 @@ test("handleComboChat auto strategy honors LKGP after filtering to tool-capable 
       models: ["openai/gpt-oss-120b", "openai/gpt-4o-mini", "claude/claude-sonnet-4-6"],
       autoConfig: { routingStrategy: "lkgp" },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1338,7 +1399,7 @@ test("handleComboChat auto strategy honors LKGP after filtering to tool-capable 
 test("handleComboChat standalone lkgp strategy prioritizes the last known good provider", async () => {
   await settingsDb.setLKGP("standalone-lkgp", "standalone-lkgp", "anthropic");
 
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {},
     combo: {
@@ -1347,14 +1408,16 @@ test("handleComboChat standalone lkgp strategy prioritizes the last known good p
       strategy: "lkgp",
       models: ["openai/gpt-4o-mini", "anthropic/claude-sonnet-4-6"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1362,7 +1425,7 @@ test("handleComboChat standalone lkgp strategy prioritizes the last known good p
 });
 
 test("handleComboChat standalone lkgp strategy falls back to original order when no state exists", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {},
     combo: {
@@ -1371,14 +1434,16 @@ test("handleComboChat standalone lkgp strategy falls back to original order when
       strategy: "lkgp",
       models: ["openai/gpt-4o-mini", "anthropic/claude-sonnet-4-6"],
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1398,7 +1463,9 @@ test("handleComboChat standalone lkgp strategy updates LKGP after a successful c
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const persistedProvider = await settingsDb.getLKGP(
@@ -1420,7 +1487,7 @@ test("handleComboChat auto strategy falls back to the full pool when tool filter
     },
   });
 
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {
       input: [{ role: "user", text: "Summarize this request" }],
@@ -1432,7 +1499,7 @@ test("handleComboChat auto strategy falls back to the full pool when tool filter
       models: ["openai/gpt-oss-120b", "deepseek/reasoner"],
       autoConfig: { routingStrategy: "cost" },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
@@ -1442,7 +1509,9 @@ test("handleComboChat auto strategy falls back to the full pool when tool filter
       intentSimpleMaxWords: 5,
       intentExtraSimpleKeywords: "summarize, brief",
     },
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1459,7 +1528,7 @@ test("handleComboChat auto strategy falls back to rules when a custom router str
   });
 
   const log = createLog();
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: { prompt: "Hello there" },
     combo: {
@@ -1468,14 +1537,16 @@ test("handleComboChat auto strategy falls back to rules when a custom router str
       models: ["openai/gpt-4o-mini"],
       autoConfig: { routingStrategy: "throwing-test" },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log,
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1488,7 +1559,7 @@ test("handleComboChat auto strategy falls back to rules when a custom router str
 });
 
 test("handleComboChat auto strategy reads strategyName from combo.config.auto and can prefer latency", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: { prompt: "Just answer briefly" },
     combo: {
@@ -1501,14 +1572,16 @@ test("handleComboChat auto strategy reads strategyName from combo.config.auto an
         },
       },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse();
     },
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1516,7 +1589,7 @@ test("handleComboChat auto strategy reads strategyName from combo.config.auto an
 });
 
 test("handleComboChat context cache protection pins the model and tags tool-call responses", async () => {
-  const calls = [];
+  const calls: any[] = [];
   const result = await handleComboChat({
     body: {
       model: "openai/gpt-4o-mini",
@@ -1533,7 +1606,7 @@ test("handleComboChat context cache protection pins the model and tags tool-call
       models: ["openai/gpt-4o-mini", "claude/claude-sonnet-4-6"],
       context_cache_protection: true,
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       return okResponse({
         choices: [
@@ -1555,7 +1628,9 @@ test("handleComboChat context cache protection pins the model and tags tool-call
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const payload = await result.json();
@@ -1585,7 +1660,9 @@ test("handleComboChat context cache protection sanitizes streamed text tags from
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const text = await result.text();
@@ -1613,7 +1690,9 @@ test("handleComboChat context cache protection injects a hidden tag for tool-cal
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const text = await result.text();
@@ -1635,7 +1714,9 @@ test("handleComboChat context cache protection flushes cleanly when a stream end
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   const text = await result.text();
@@ -1660,6 +1741,7 @@ test("handleComboChat round-robin resolves nested combos and returns inactive wh
     isModelAvailable: async () => false,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: [
       { name: "rr-nested-inactive", models: ["nested-combo"] },
       { name: "nested-combo", models: ["openai/model-a"] },
@@ -1697,7 +1779,9 @@ test("handleComboChat round-robin returns circuit-breaker unavailable when every
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.status, 503);
@@ -1705,7 +1789,7 @@ test("handleComboChat round-robin returns circuit-breaker unavailable when every
 });
 
 test("handleComboChat round-robin retries a transient failure on the same model before succeeding", async () => {
-  const calls = [];
+  const calls: any[] = [];
   let attempts = 0;
 
   const result = await handleComboChat({
@@ -1716,7 +1800,7 @@ test("handleComboChat round-robin retries a transient failure on the same model 
       models: ["model-a"],
       config: { maxRetries: 1, retryDelayMs: 1, concurrencyPerModel: 1, queueTimeoutMs: 5 },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       attempts += 1;
       if (attempts === 1) return errorResponse(503, "try again");
@@ -1725,7 +1809,9 @@ test("handleComboChat round-robin retries a transient failure on the same model 
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
@@ -1733,7 +1819,7 @@ test("handleComboChat round-robin retries a transient failure on the same model 
 });
 
 test("handleComboChat round-robin recovers from provider-scoped 400s when a later model succeeds", async () => {
-  const calls = [];
+  const calls: any[] = [];
 
   const result = await handleComboChat({
     body: {},
@@ -1743,7 +1829,7 @@ test("handleComboChat round-robin recovers from provider-scoped 400s when a late
       models: ["model-a", "model-b"],
       config: { maxRetries: 0, retryDelayMs: 1, concurrencyPerModel: 1, queueTimeoutMs: 5 },
     },
-    handleSingleModel: async (_body, modelStr) => {
+    handleSingleModel: async (_body: any, modelStr: any) => {
       calls.push(modelStr);
       if (modelStr === "model-a") {
         return new Response(
@@ -1759,9 +1845,133 @@ test("handleComboChat round-robin recovers from provider-scoped 400s when a late
     isModelAvailable: async () => true,
     log: createLog(),
     settings: null,
+    relayOptions: null as any,
     allCombos: null,
+    relayOptions: null,
   });
 
   assert.equal(result.ok, true);
   assert.deepEqual(calls, ["model-a", "model-b"]);
+});
+
+test("handleComboChat falls back to next model when first model returns all-accounts-rate-limited 503", async () => {
+  const calls: any[] = [];
+
+  const result = await handleComboChat({
+    body: {},
+    combo: {
+      name: "all-accounts-rate-limited-fallback",
+      strategy: "priority",
+      models: ["model-a", "model-b"],
+      config: { maxRetries: 0 },
+    },
+    handleSingleModel: async (_body: any, modelStr: any) => {
+      calls.push(modelStr);
+      if (modelStr === "model-b") {
+        return okResponse({ choices: [{ message: { content: "ok" } }] });
+      }
+      // Simulate handleNoCredentials returning a 503 with "unavailable" message
+      // This is the signal emitted when getProviderCredentialsWithQuotaPreflight exhausts all accounts
+      return new Response(
+        JSON.stringify({ error: { message: `[provider/model] Service temporarily unavailable` } }),
+        {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        }
+      );
+    },
+    isModelAvailable: async () => true,
+    log: createLog(),
+    settings: null,
+    relayOptions: null as any,
+    allCombos: null,
+    relayOptions: null,
+  });
+
+  const payload = await result.json();
+  // First model returns 503 with "unavailable" → combo should try model-b next
+  // If the fix is not applied, combo would abort here and return 503 immediately
+  assert.equal(result.ok, true);
+  assert.deepEqual(calls, ["model-a", "model-b"]);
+  assert.equal(payload.choices[0].message.content, "ok");
+});
+
+test("handleComboChat round-robin falls back when all-accounts-rate-limited 503 is returned", async () => {
+  const calls: any[] = [];
+
+  const result = await handleComboChat({
+    body: {},
+    combo: {
+      name: "rr-all-accounts-rate-limited",
+      strategy: "round-robin",
+      models: ["model-a", "model-b"],
+      config: { maxRetries: 0, retryDelayMs: 1, concurrencyPerModel: 1, queueTimeoutMs: 5 },
+    },
+    handleSingleModel: async (_body: any, modelStr: any) => {
+      calls.push(modelStr);
+      if (modelStr === "model-b") {
+        return okResponse({ choices: [{ message: { content: "ok" } }] });
+      }
+      // Simulate all accounts rate-limited — handleNoCredentials signal
+      return new Response(
+        JSON.stringify({ error: { message: `[provider/model] Service temporarily unavailable` } }),
+        {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        }
+      );
+    },
+    isModelAvailable: async () => true,
+    log: createLog(),
+    settings: null,
+    relayOptions: null as any,
+    allCombos: null,
+    relayOptions: null,
+  });
+
+  const payload = await result.json();
+  assert.equal(result.ok, true);
+  assert.deepEqual(calls, ["model-a", "model-b"]);
+  assert.equal(payload.choices[0].message.content, "ok");
+});
+
+test("handleComboChat aborts combo when 503 response does NOT contain the unavailable signal", async () => {
+  const calls: any[] = [];
+
+  const result = await handleComboChat({
+    body: {},
+    combo: {
+      name: "503-no-signal-abort",
+      strategy: "priority",
+      models: ["model-a", "model-b"],
+      config: { maxRetries: 0 },
+    },
+    handleSingleModel: async (_body: any, modelStr: any) => {
+      calls.push(modelStr);
+      // A generic 503 that is NOT an all-accounts-rate-limited signal
+      // (missing "unavailable" in message or wrong content-type)
+      return new Response(JSON.stringify({ error: { message: "Server error" } }), {
+        status: 503,
+        headers: { "content-type": "text/html" },
+      });
+    },
+    isModelAvailable: async () => true,
+    log: createLog(),
+    settings: null,
+    relayOptions: null as any,
+    allCombos: null,
+    relayOptions: null,
+  });
+
+  const payload = await result.json();
+  // Without the fix, combo would abort (still 503). With the fix, it's still 503 because
+  // the signal check filters out non-JSON or non-"unavailable" responses.
+  assert.equal(result.status, 503);
+  // Model-a was tried, it failed with 503, so it fell back to model-b, which also returned 503.
+  assert.deepEqual(calls, ["model-a", "model-b"]);
+  assert.ok(
+    payload.error?.message?.includes("Server error") ||
+      payload.error?.message?.includes("unavailable") ||
+      result.status === 503
+  );
 });

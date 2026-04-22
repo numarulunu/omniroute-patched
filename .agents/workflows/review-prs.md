@@ -88,6 +88,7 @@ done
 ```
 
 This ensures:
+
 1. PRs merge into the release branch, not directly into `main`
 2. Merge conflict detection is accurate against the release branch
 3. The release branch accumulates all changes before the final merge to `main`
@@ -162,9 +163,9 @@ Perform a **global impact assessment** to verify whether the PR changes are comp
 
 ### 7. Pre-Merge Fixes & CI Green-Lighting (if approved)
 
-> **⚠️ Fixes should be pushed back to the PR branch before merging.** We want the PR itself to be green and fully valid before it integrates.
+> **⚠️ Fixes and Conflict Resolutions MUST be pushed back to the PR branch before merging.** We want the PR itself to be green and fully valid before it integrates.
 
-- **Sync latest fixes:** Merge the current `release` branch into the PR branch so the PR inherits any latest CI or integration test fixes (preventing false-positive failures).
+- **Sync latest fixes & Resolve Conflicts:** Merge the current `release` branch into the PR branch. If there are merge conflicts, you MUST resolve them inside the author's PR branch. NEVER resolve conflicts by closing their PR and doing the work in a separate branch, as this steals credit from the original author.
 - **Implement improvements:** Apply the required fixes identified in the analysis directly on the PR branch (e.g., adding missing API routes, fixing SSRF, applying comments from other agents).
 - **Pushing changes to PR branches:**
 
@@ -192,26 +193,30 @@ Perform a **global impact assessment** to verify whether the PR changes are comp
 
 ### 8. Merge into Release Branch
 
-> **⚠️ IMPORTANT**: PRs are merged into the **release branch** (`release/vX.Y.Z`), NOT into `main`.
+### 8. Merge into Release Branch (NEVER CLOSE!)
 
-- Once the PR is green (you can check with `gh pr status`), merge the PR into the release branch.
-- The PR's base was already changed to the release branch in step 3.5, so the default merge target is correct.
+> **⚠️ CRITICAL**: NEVER use `gh pr close` for a PR whose idea or code was accepted. Closing a PR in a contributor's face after taking their idea—or closing it just because it had conflicts—is unacceptable.
+> You MUST ALWAYS resolve conflicts and apply fixes on the author's PR branch, and then merge the PR using GitHub so the contributor gets the official "Merged" badge and proper credit on their profile.
 
-  ```bash
-  # Merge the PR (base is already set to release/vX.Y.Z from step 3.5)
-  gh pr merge <NUMBER> --repo <owner>/<repo> --squash --body "Integrated into release/vX.Y.Z"
+Even if the PR had severe conflicts or required significant architectural adjustments, you MUST:
 
-  # If the PR is a draft, mark it as ready first
-  gh pr ready <NUMBER> --repo <owner>/<repo>
-  ```
+1. Resolve any conflicts and apply the fixes directly to their PR branch (as detailed in step 7).
+2. Once the PR branch is green, conflict-free, and correct, merge it into the release branch using the GitHub CLI.
 
-- Post a **thank-you comment** on the PR via the GitHub API
+```bash
+# Merge the PR (base is already set to release/vX.Y.Z from step 3.5)
+gh pr merge <NUMBER> --repo <owner>/<repo> --squash --body "Integrated into release/vX.Y.Z"
+```
+
+In ALL cases:
+
+- Post a **thank-you comment** on the PR via the GitHub API before or immediately after merging.
 - The message should:
-  - Thank the author by name/username for their contribution
-  - Briefly mention what the PR accomplishes and any improvements applied
-  - Note it will be included in the upcoming release
-  - Be friendly, professional, and encouraging
-- Example: _"Thanks @author for this great contribution! 🎉 The [feature/fix] has been integrated into the release/vX.Y.Z branch and will be part of the next release. We appreciate your effort!"_
+  - Thank the author by name/username for their contribution.
+  - Explain what was adjusted or improved (if we pushed fixes to their branch).
+  - Note it will be included in the upcoming release.
+  - Be friendly, professional, and encouraging.
+- Example: _"Thanks @author for this great contribution! 🎉 We've added a few small adjustments to your branch to align with our latest architecture, and it's now officially merged into the release/vX.Y.Z branch. It will be part of the next release. We appreciate your effort!"_
 
 ### 9. Sync Local Release Branch
 
