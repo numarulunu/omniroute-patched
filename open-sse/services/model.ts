@@ -318,6 +318,14 @@ function resolveModelByProviderInference(modelId, extendedContext) {
     // Gemini/Gemma models → Gemini provider
     return { provider: "gemini", model: modelId, extendedContext };
   }
+  // Codex-native naming (gpt-5.x-codex, codex-spark, codex-mini, …) must route
+  // to the codex provider (ChatGPT OAuth), not fall through to openai which
+  // requires a separate API key. Forward-compatible with future Codex CLI
+  // default bumps (e.g. gpt-5.5-codex) that land before the registry catches up.
+  if (/(?:^|-)codex(?:-|$)/i.test(modelId)) {
+    const canonicalModel = resolveProviderModelAlias("codex", modelId);
+    return { provider: "codex", model: canonicalModel, extendedContext };
+  }
 
   // Last resort: treat as openai model
   return {

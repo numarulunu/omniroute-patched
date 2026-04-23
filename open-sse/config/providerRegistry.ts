@@ -384,6 +384,29 @@ export const REGISTRY: Record<string, RegistryEntry> = {
       tokenUrl: "https://auth.openai.com/oauth/token",
     },
     models: [
+      { id: "gpt-5.5", name: "GPT 5.5", targetFormat: "openai-responses" },
+      { id: "gpt-5.5-mini", name: "GPT 5.5 Mini", targetFormat: "openai-responses" },
+      { id: "gpt-5.5-codex", name: "GPT 5.5 Codex", targetFormat: "openai-responses" },
+      {
+        id: "gpt-5.5-codex-xhigh",
+        name: "GPT 5.5 Codex (xHigh)",
+        targetFormat: "openai-responses",
+      },
+      {
+        id: "gpt-5.5-codex-high",
+        name: "GPT 5.5 Codex (High)",
+        targetFormat: "openai-responses",
+      },
+      {
+        id: "gpt-5.5-codex-low",
+        name: "GPT 5.5 Codex (Low)",
+        targetFormat: "openai-responses",
+      },
+      {
+        id: "gpt-5.5-codex-none",
+        name: "GPT 5.5 Codex (None)",
+        targetFormat: "openai-responses",
+      },
       { id: "gpt-5.4", name: "GPT 5.4", targetFormat: "openai-responses" },
       { id: "gpt-5.4-mini", name: "GPT 5.4 Mini", targetFormat: "openai-responses" },
       { id: "gpt-5.3-codex", name: "GPT 5.3 Codex" },
