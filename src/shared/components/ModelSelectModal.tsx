@@ -9,6 +9,7 @@ import { getCompatibleFallbackModels } from "@/lib/providers/managedAvailableMod
 import {
   getModelCatalogSourceLabel,
   matchesModelCatalogQuery,
+  normalizeModelCatalogSource,
 } from "@/shared/utils/modelCatalogSearch";
 import {
   OAUTH_PROVIDERS,
@@ -30,10 +31,13 @@ export default function ModelSelectModal({
   onClose,
   onSelect,
   selectedModel,
+  selectedModels = [],
   activeProviders = [],
   title,
   modelAliases = {},
   addedModelValues = [],
+  multiSelect = false,
+  showCombos = true,
 }) {
   const t = useTranslations("common");
   const resolvedTitle = title ?? t("selectModel");
@@ -141,7 +145,7 @@ export default function ModelSelectModal({
             name: cm.name || cm.id,
             value: `${alias}/${cm.id}`,
             isCustom: true,
-            source: cm.source === "api-sync" ? "api-sync" : "custom",
+            source: normalizeModelCatalogSource(cm.source) === "imported" ? "imported" : "custom",
           }));
 
         const allModels = [...aliasModels, ...customEntries];
@@ -195,7 +199,7 @@ export default function ModelSelectModal({
             name: cm.name || cm.id,
             value: `${nodePrefix}/${cm.id}`,
             isCustom: true,
-            source: cm.source === "api-sync" ? "api-sync" : "custom",
+            source: normalizeModelCatalogSource(cm.source) === "imported" ? "imported" : "custom",
           }));
 
         const allModels = [...nodeModels, ...fallbackEntries, ...customEntries];
@@ -228,7 +232,7 @@ export default function ModelSelectModal({
             name: cm.name || cm.id,
             value: `${alias}/${cm.id}`,
             isCustom: true,
-            source: cm.source === "api-sync" ? "api-sync" : "custom",
+            source: normalizeModelCatalogSource(cm.source) === "imported" ? "imported" : "custom",
           }));
 
         const allModels = [...systemEntries, ...customEntries];
@@ -283,10 +287,20 @@ export default function ModelSelectModal({
     return filtered;
   }, [groupedModels, searchQuery]);
 
+  const resolvedSelectedModels = multiSelect
+    ? selectedModels
+    : selectedModel
+      ? [selectedModel]
+      : [];
+
+  const isValueSelected = (value: string) => resolvedSelectedModels.includes(value);
+
   const handleSelect = (model: any) => {
     onSelect(model);
-    onClose();
-    setSearchQuery("");
+    if (!multiSelect) {
+      onClose();
+      setSearchQuery("");
+    }
   };
 
   return (
@@ -319,7 +333,7 @@ export default function ModelSelectModal({
       {/* Models grouped by provider - compact */}
       <div className="max-h-[300px] overflow-y-auto space-y-3">
         {/* Combos section - always first */}
-        {filteredCombos.length > 0 && (
+        {showCombos && filteredCombos.length > 0 && (
           <div>
             <div className="flex items-center gap-1.5 mb-1.5 sticky top-0 bg-surface py-0.5">
               <span className="material-symbols-outlined text-primary text-[14px]">layers</span>
@@ -328,7 +342,7 @@ export default function ModelSelectModal({
             </div>
             <div className="flex flex-wrap gap-1.5">
               {filteredCombos.map((combo) => {
-                const isSelected = selectedModel === combo.name;
+                const isSelected = isValueSelected(combo.name);
                 return (
                   <button
                     key={combo.id}
@@ -364,7 +378,7 @@ export default function ModelSelectModal({
 
             <div className="flex flex-wrap gap-1.5">
               {group.models.map((model) => {
-                const isSelected = selectedModel === model.value;
+                const isSelected = isValueSelected(model.value);
                 const isAdded = addedModelValues.includes(model.value);
                 return (
                   <button
@@ -402,6 +416,30 @@ export default function ModelSelectModal({
           </div>
         )}
       </div>
+      {multiSelect && (
+        <div className="mt-4 flex items-center justify-between gap-2 border-t border-border pt-3">
+          <span className="text-xs text-text-muted">{resolvedSelectedModels.length} selected</span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onSelect(null)}
+              className="px-2 py-1 text-xs rounded border border-border bg-surface hover:bg-primary/5"
+            >
+              {t("clear")}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                setSearchQuery("");
+              }}
+              className="px-2 py-1 text-xs rounded border border-border bg-surface hover:bg-primary/5"
+            >
+              {t("done")}
+            </button>
+          </div>
+        </div>
+      )}
     </Modal>
   );
 }
@@ -411,6 +449,7 @@ ModelSelectModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   selectedModel: PropTypes.string,
+  selectedModels: PropTypes.arrayOf(PropTypes.string),
   activeProviders: PropTypes.arrayOf(
     PropTypes.shape({
       provider: PropTypes.string.isRequired,
@@ -419,4 +458,6 @@ ModelSelectModal.propTypes = {
   title: PropTypes.string,
   modelAliases: PropTypes.object,
   addedModelValues: PropTypes.arrayOf(PropTypes.string),
+  multiSelect: PropTypes.bool,
+  showCombos: PropTypes.bool,
 };

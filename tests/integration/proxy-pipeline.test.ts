@@ -88,25 +88,25 @@ describe("Chat Pipeline — combo fallback support", () => {
     assert.match(src, /handleSingleModel.*handleSingleModelChat/s);
   });
 
-  it("should check model availability before attempting combo models", () => {
-    assert.match(src, /isModelAvailable/);
+  it("should preflight provider credentials before attempting combo models", () => {
+    assert.match(src, /getProviderCredentialsWithQuotaPreflight/);
   });
 });
 
 describe("Chat Pipeline — circuit breaker integration", () => {
   const helpersSrc = readSrc("sse/handlers/chatHelpers.ts");
 
-  it("should import CircuitBreakerOpenError", () => {
+  it("should import providerCircuitOpenResponse", () => {
     assert.ok(helpersSrc, "chatHelpers.ts should exist");
-    assert.match(helpersSrc, /CircuitBreakerOpenError/);
+    assert.match(helpersSrc, /providerCircuitOpenResponse/);
   });
 
-  it("should handle CircuitBreakerOpenError with retry-after", () => {
+  it("should handle circuit-open responses with retry-after", () => {
     assert.match(helpersSrc, /retryAfterMs/);
   });
 
-  it("should reject requests when circuit is open", () => {
-    assert.match(helpersSrc, /circuit breaker is open/i);
+  it("should reject requests when circuit is open via structured provider breaker response", () => {
+    assert.match(helpersSrc, /providerCircuitOpenResponse\(provider,\s*retryAfterSec\)/);
   });
 });
 
@@ -402,9 +402,12 @@ describe("CORS — centralized configuration", () => {
     assert.ok(existsSync(full), "shared/utils/cors.ts should exist");
   });
 
-  it("should export CORS_HEADERS and CORS_ORIGIN", () => {
+  it("should export CORS_HEADERS without a wildcard origin", () => {
     const src = readSrc("shared/utils/cors.ts");
     assert.match(src, /CORS_HEADERS/);
-    assert.match(src, /CORS_ORIGIN/);
+    // Extract the CORS_HEADERS object body (between { and }) to avoid matching JSDoc comments
+    const objMatch = src.match(/CORS_HEADERS\s*=\s*\{([^}]+)\}/);
+    assert.ok(objMatch, "CORS_HEADERS object should be found");
+    assert.doesNotMatch(objMatch[1], /Access-Control-Allow-Origin/);
   });
 });

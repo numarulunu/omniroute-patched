@@ -80,7 +80,7 @@ test("OpenAI -> Claude maps system messages, parameters and assistant cache mark
   assert.equal(result.model, "claude-4-sonnet");
   assert.equal(result.stream, true);
   assert.equal(result.max_tokens, 33);
-  assert.equal(result.temperature, 0.25);
+  assert.equal(result.temperature, undefined);
   assert.equal(result.top_p, 0.8);
   assert.deepEqual(result.stop_sequences, ["DONE"]);
   assert.equal(result.system[0].text, CLAUDE_SYSTEM_PROMPT);

@@ -6,9 +6,9 @@ import Card from "./Card";
 import RequestLoggerDetail from "./RequestLoggerDetail";
 import { copyToClipboard } from "@/shared/utils/clipboard";
 import {
-  PROTOCOL_COLORS,
   PROVIDER_COLORS,
   getHttpStatusStyle as getStatusStyle,
+  getProtocolColor,
 } from "@/shared/constants/colors";
 import {
   formatTime,
@@ -17,6 +17,7 @@ import {
   maskAccount,
   formatApiKeyLabel,
 } from "@/shared/utils/formatting";
+import useEmailPrivacyStore from "@/store/emailPrivacyStore";
 
 // Quick filter categories - status-based only (providers are dynamic from data)
 const STATUS_FILTERS = [
@@ -114,6 +115,7 @@ function getCacheSourceMeta(cacheSource: unknown) {
 
 export default function RequestLoggerV2() {
   const t = useTranslations("requestLogger");
+  const { emailsVisible } = useEmailPrivacyStore();
 
   // Get translated status filters
   const statusFilters = useMemo(
@@ -706,12 +708,7 @@ export default function RequestLoggerV2() {
                 {sortedLogs.map((log) => {
                   const statusStyle = getStatusStyle(log.status);
                   const protocolKey = log.sourceFormat || log.provider;
-                  const protocol = PROTOCOL_COLORS[protocolKey] ||
-                    PROTOCOL_COLORS[log.provider] || {
-                      bg: "#6B7280",
-                      text: "#fff",
-                      label: (protocolKey || log.provider || "-").toUpperCase(),
-                    };
+                  const protocol = getProtocolColor(protocolKey, log.provider);
                   const compatLabel = getProviderDisplayLabel(log.provider, providerNodes);
                   const providerColor = PROVIDER_COLORS[log.provider] || {
                     bg: "#374151",
@@ -800,7 +797,7 @@ export default function RequestLoggerV2() {
                           className="px-3 py-2 text-text-muted truncate max-w-[120px]"
                           title={log.account}
                         >
-                          {maskAccount(log.account)}
+                          {maskAccount(log.account, emailsVisible)}
                         </td>
                       )}
                       {visibleColumns.apiKey && (
@@ -888,6 +885,7 @@ export default function RequestLoggerV2() {
           log={selectedLog}
           detail={detailData}
           loading={detailLoading}
+          debugEnabled={detailLoggingEnabled}
           onClose={closeDetail}
           onCopy={copyToClipboard}
         />

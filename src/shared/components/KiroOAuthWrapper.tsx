@@ -10,7 +10,13 @@ import KiroSocialOAuthModal from "./KiroSocialOAuthModal";
  * Kiro OAuth Wrapper
  * Orchestrates between method selection, device code flow, and social login flow
  */
-export default function KiroOAuthWrapper({ isOpen, providerInfo, onSuccess, onClose }) {
+export default function KiroOAuthWrapper({
+  isOpen,
+  providerInfo,
+  onSuccess,
+  onClose,
+  reauthConnection,
+}) {
   const [authMethod, setAuthMethod] = useState(null); // null | "builder-id" | "idc" | "social" | "import"
   const [socialProvider, setSocialProvider] = useState(null); // "google" | "github"
   const [idcConfig, setIdcConfig] = useState(null);
@@ -55,8 +61,19 @@ export default function KiroOAuthWrapper({ isOpen, providerInfo, onSuccess, onCl
   };
 
   // Show method selection first
+  const oauthProviderId = providerInfo?.id || "kiro";
+  const providerLabel = providerInfo?.name || "Kiro";
+
   if (!authMethod) {
-    return <KiroAuthModal isOpen={isOpen} onMethodSelect={handleMethodSelect} onClose={onClose} />;
+    return (
+      <KiroAuthModal
+        isOpen={isOpen}
+        providerId={oauthProviderId}
+        providerLabel={providerLabel}
+        onMethodSelect={handleMethodSelect}
+        onClose={onClose}
+      />
+    );
   }
 
   // Show device code flow (Builder ID or IDC)
@@ -64,9 +81,10 @@ export default function KiroOAuthWrapper({ isOpen, providerInfo, onSuccess, onCl
     return (
       <OAuthModal
         isOpen={isOpen}
-        provider="kiro"
+        provider={oauthProviderId}
         providerInfo={providerInfo}
         onSuccess={handleDeviceSuccess}
+        reauthConnection={reauthConnection}
         onClose={handleBack}
         idcConfig={idcConfig}
       />
@@ -79,6 +97,7 @@ export default function KiroOAuthWrapper({ isOpen, providerInfo, onSuccess, onCl
       <KiroSocialOAuthModal
         isOpen={isOpen}
         provider={socialProvider}
+        providerLabel={providerLabel}
         onSuccess={handleSocialSuccess}
         onClose={handleBack}
       />
@@ -91,6 +110,7 @@ export default function KiroOAuthWrapper({ isOpen, providerInfo, onSuccess, onCl
 KiroOAuthWrapper.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   providerInfo: PropTypes.shape({
+    id: PropTypes.string,
     name: PropTypes.string,
   }),
   onSuccess: PropTypes.func,
