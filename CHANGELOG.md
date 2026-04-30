@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+---
+
+## [3.7.6] — 2026-04-30
+
 ### ✨ New Features
 
-- **feat:** ongoing development
+- **feat(api-keys):** add rename support in the permissions modal — editable key name field with validation (#1796)
 
 ---
 
