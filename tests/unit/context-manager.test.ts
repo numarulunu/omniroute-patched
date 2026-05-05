@@ -137,7 +137,31 @@ test("compressContext: Layer 3 — drops old messages to fit", () => {
   assert.equal(result.body.messages[0].role, "system");
 });
 
-// ─── fixToolPairs (Layer 3 tool pair integrity) ─────────────────────────────
+test("compressContext: Layer 3 preserves the latest 10 non-system messages", () => {
+  const recentMessages = Array.from({ length: 10 }, (_, i) => ({
+    role: i % 2 === 0 ? "user" : "assistant",
+    content: `Recent message ${i}`,
+  }));
+  const messages = [
+    { role: "system", content: "You are helpful" },
+    ...Array.from({ length: 20 }, (_, i) => ({
+      role: i % 2 === 0 ? "user" : "assistant",
+      content: `Old message ${i}: ${"context ".repeat(250)}`,
+    })),
+    ...recentMessages,
+  ];
+  const body = { model: "test", messages };
+  const result = compressContext(body, { maxTokens: 1100, reserveTokens: 0 });
+
+  assert.ok(result.compressed);
+  const contents = (result.body.messages as any[]).map((message) => message.content);
+  for (const message of recentMessages) {
+    assert.ok(contents.includes(message.content), `${message.content} should be preserved`);
+  }
+  assert.equal(contents[contents.length - 1], "Recent message 9");
+});
+
+// ─── fixToolPairs (Layer 3 tool pair integrity) ─────────────────────────
 
 test("Layer 3: removes orphaned tool_result (OpenAI format) when tool_use is dropped", () => {
   const messages = [

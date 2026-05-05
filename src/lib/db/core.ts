@@ -254,6 +254,36 @@ const SCHEMA_SQL = `
   CREATE INDEX IF NOT EXISTS idx_cl_timestamp ON call_logs(timestamp);
   CREATE INDEX IF NOT EXISTS idx_cl_status ON call_logs(status);
 
+  CREATE TABLE IF NOT EXISTS context_compaction_sessions (
+    prompt_cache_key_hash TEXT PRIMARY KEY,
+    provider TEXT NOT NULL,
+    model TEXT NOT NULL,
+    first_seen TEXT NOT NULL,
+    last_seen TEXT NOT NULL,
+    high_water_call_log_id TEXT NOT NULL,
+    high_water_tokens_in INTEGER NOT NULL,
+    high_water_noncached_input_tokens INTEGER NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS context_compaction_events (
+    id TEXT PRIMARY KEY,
+    timestamp TEXT NOT NULL,
+    prompt_cache_key_hash TEXT NOT NULL,
+    provider TEXT NOT NULL,
+    model TEXT NOT NULL,
+    previous_call_log_id TEXT NOT NULL,
+    current_call_log_id TEXT NOT NULL,
+    previous_tokens_in INTEGER NOT NULL,
+    current_tokens_in INTEGER NOT NULL,
+    previous_noncached_input_tokens INTEGER NOT NULL,
+    current_noncached_input_tokens INTEGER NOT NULL,
+    drop_pct REAL NOT NULL
+  );
+  CREATE INDEX IF NOT EXISTS idx_context_compaction_events_timestamp
+    ON context_compaction_events(timestamp);
+  CREATE INDEX IF NOT EXISTS idx_context_compaction_events_session
+    ON context_compaction_events(prompt_cache_key_hash, timestamp);
+
   CREATE TABLE IF NOT EXISTS proxy_logs (
     id TEXT PRIMARY KEY,
     timestamp TEXT NOT NULL,
@@ -1069,8 +1099,9 @@ export function getDbInstance(): SqliteDatabase {
   // Detect and handle old schema format — preserve data when possible (#146)
   // Uses a single probe connection that becomes the real connection when possible.
   if (fs.existsSync(sqliteFile)) {
+    let probe: SqliteDatabase | null = null;
     try {
-      const probe = new Database(sqliteFile, { readonly: true });
+      probe = new Database(sqliteFile, { readonly: true });
       const hasOldSchema = probe
         .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='schema_migrations'")
         .get();
@@ -1086,6 +1117,7 @@ export function getDbInstance(): SqliteDatabase {
           // Table might not exist at all — truly incompatible
         }
         probe.close();
+        probe = null;
 
         if (hasData) {
           console.log(
@@ -1117,10 +1149,17 @@ export function getDbInstance(): SqliteDatabase {
         }
       } else {
         probe.close();
+        probe = null;
       }
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : String(e);
       console.warn("[DB] Could not probe existing DB:", message);
+      try {
+        probe?.close();
+        probe = null;
+      } catch {
+        /* ok */
+      }
 
       // If the error is a Node module/ABI failure, throw it immediately to avoid renaming the database
       if (
@@ -1140,6 +1179,12 @@ export function getDbInstance(): SqliteDatabase {
         console.warn(`[DB] Renamed corrupt DB to ${path.basename(failedPath)}`);
         failedProbePath = failedPath;
         failedProbeMessage = message;
+      } catch {
+        /* ok */
+      }
+    } finally {
+      try {
+        probe?.close();
       } catch {
         /* ok */
       }

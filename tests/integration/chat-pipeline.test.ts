@@ -328,6 +328,37 @@ function buildOpenAIResponsesJson({
   );
 }
 
+function buildOpenAIResponsesCompactionJson({ model = "gpt-5.5" } = {}) {
+  return new Response(
+    JSON.stringify({
+      id: "resp_compact",
+      object: "response.compaction",
+      status: "completed",
+      model,
+      output: [
+        {
+          type: "compaction",
+          encrypted_content: "encrypted-summary",
+        },
+        {
+          type: "message",
+          role: "user",
+          content: [{ type: "input_text", text: "latest user request" }],
+        },
+      ],
+      usage: {
+        input_tokens: 90000,
+        output_tokens: 1200,
+        total_tokens: 91200,
+      },
+    }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+}
+
 async function resetStorage() {
   globalThis.fetch = originalFetch;
   process.env.REQUIRE_API_KEY = "false";
@@ -564,7 +595,7 @@ test("chat pipeline persists Codex responses cache and reasoning tokens to call 
   assert.equal(callLog.tokens.reasoning, 13);
 });
 
-test("chat pipeline treats Codex /responses/compact as non-streaming JSON", async () => {
+test("chat pipeline treats Codex /responses/compact as a dedicated non-cached lane", async () => {
   await seedConnection("codex", { apiKey: "sk-codex-compact" });
   const fetchCalls = [];
 
@@ -574,36 +605,54 @@ test("chat pipeline treats Codex /responses/compact as non-streaming JSON", asyn
       headers: toPlainHeaders(init.headers),
       body: init.body ? JSON.parse(String(init.body)) : null,
     });
-    return buildOpenAIResponsesJson();
+    return buildOpenAIResponsesCompactionJson();
+  };
+
+  const compactRequestBody = {
+    model: "codex/gpt-5.5",
+    temperature: 0,
+    input: "Compact this session",
   };
 
   const response = await handleChat(
     buildRequest({
       url: "http://localhost/v1/responses/compact",
       headers: { Accept: "text/event-stream" },
-      body: {
-        model: "codex/gpt-5.5",
-        input: "Compact this session",
-      },
+      body: compactRequestBody,
+    })
+  );
+  const repeatedResponse = await handleChat(
+    buildRequest({
+      url: "http://localhost/v1/responses/compact",
+      headers: { Accept: "text/event-stream" },
+      body: compactRequestBody,
     })
   );
 
-  const json = (await response.json()) as { object?: string; output_text?: string };
+  const json = (await response.json()) as {
+    object?: string;
+    output?: Array<Record<string, unknown>>;
+  };
+  await repeatedResponse.json();
   const callLog = await waitFor(() => getLatestCallLog());
 
   assert.equal(response.status, 200);
-  assert.equal(fetchCalls.length, 1);
+  assert.equal(repeatedResponse.status, 200);
+  assert.equal(fetchCalls.length, 2, "compact responses must not be semantic-cached");
   assert.match(fetchCalls[0].url, /\/responses\/compact$/);
+  assert.match(fetchCalls[1].url, /\/responses\/compact$/);
   assert.equal(fetchCalls[0].headers.Accept, "application/json");
   assert.equal(fetchCalls[0].body.stream, undefined);
   assert.equal(fetchCalls[0].body.store, undefined);
-  assert.equal(json.object, "response");
-  assert.equal(json.output_text, "responses compacted from codex");
+  assert.equal(json.object, "response.compaction");
+  assert.equal(json.output?.[0]?.type, "compaction");
+  assert.equal(json.output?.[0]?.encrypted_content, "encrypted-summary");
 
   assert.ok(callLog, "expected a compact call log row to be created");
   assert.equal(callLog.provider, "codex");
   assert.equal(callLog.path, "/v1/responses/compact");
   assert.equal(callLog.status, 200);
+  assert.equal(callLog.requestType, "responses_compact");
 });
 
 test("chat pipeline serves repeated /v1/responses requests as MISS then HIT and logs cache hits separately", async () => {

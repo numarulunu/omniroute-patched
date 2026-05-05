@@ -33,6 +33,7 @@ import {
   type CallLogArtifact,
   type CallLogDetailState,
 } from "./callLogArtifacts";
+import { recordContextCompactionCandidate } from "./contextCompactionEvents";
 
 type JsonRecord = Record<string, unknown>;
 
@@ -716,6 +717,20 @@ export async function saveCallLog(entry: any) {
       requestSummary,
     });
 
+    if (!noLogEnabled) {
+      recordContextCompactionCandidate(db, {
+        callLogId: logEntry.id,
+        timestamp: logEntry.timestamp,
+        path: logEntry.path,
+        status: logEntry.status,
+        provider: logEntry.provider,
+        model: logEntry.model,
+        tokensIn: logEntry.tokensIn,
+        tokensCacheRead: logEntry.tokensCacheRead,
+        requestBody: protectedRequestBody,
+      });
+    }
+
     rotateCallLogs();
   } catch (error) {
     console.error("[callLogs] Failed to save call log:", (error as Error).message);
@@ -823,9 +838,7 @@ export async function getCallLogById(id: string) {
        LEFT JOIN provider_nodes pn ON pn.id = cl.provider
        WHERE cl.id = ?`
     )
-    .get(id) as
-    | CallLogSummaryRow
-    | undefined;
+    .get(id) as CallLogSummaryRow | undefined;
   if (!row) return null;
 
   const entry = mapSummaryRow(row);

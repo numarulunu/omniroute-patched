@@ -91,7 +91,7 @@ export default function ProxyTab() {
       })
       .then((data) => {
         setDebugMode(data.debugMode === true);
-        const buf = typeof data.usageTokenBuffer === "number" ? data.usageTokenBuffer : 2000;
+        const buf = typeof data.usageTokenBuffer === "number" ? data.usageTokenBuffer : 100;
         setUsageTokenBuffer(buf);
         setBufferInput(String(buf));
         setLoading(false);

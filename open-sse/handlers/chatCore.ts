@@ -86,8 +86,8 @@ import {
   parseCodexQuotaHeaders,
   getCodexModelScope,
   getCodexDualWindowCooldownMs,
-  isCompactResponsesEndpoint,
 } from "../executors/codex.ts";
+import { classifyRequestIntent } from "./requestIntent.ts";
 import { invalidateCodexQuotaCache } from "../services/codexQuotaFetcher.ts";
 import { translateNonStreamingResponse } from "./responseTranslator.ts";
 import { extractUsageFromResponse } from "./usageExtractor.ts";
@@ -1038,8 +1038,26 @@ export async function handleChatCore({
   };
 
   // ── Phase 9.2: Idempotency check ──
-  const idempotencyKey = getIdempotencyKey(clientRawRequest?.headers);
-  const cachedIdemp = checkIdempotency(idempotencyKey);
+  const endpointPath = String(clientRawRequest?.endpoint || "");
+  const sourceFormat = detectFormatFromEndpoint(body, endpointPath);
+  const isResponsesEndpoint =
+    /\/responses(?=\/|$)/i.test(endpointPath) || /^responses(?=\/|$)/i.test(endpointPath);
+  const nativeCodexPassthrough = shouldUseNativeCodexPassthrough({
+    provider,
+    sourceFormat,
+    endpointPath,
+  });
+  const requestIntent = classifyRequestIntent({
+    provider,
+    sourceFormat,
+    endpointPath,
+    nativeCodexPassthrough,
+  });
+
+  const idempotencyKey = requestIntent.allowIdempotency
+    ? getIdempotencyKey(clientRawRequest?.headers)
+    : null;
+  const cachedIdemp = requestIntent.allowIdempotency ? checkIdempotency(idempotencyKey) : null;
   if (cachedIdemp) {
     log?.debug?.("IDEMPOTENCY", `Hit for key=${idempotencyKey?.slice(0, 12)}...`);
     const idempotentUsage =
@@ -1080,15 +1098,6 @@ export async function handleChatCore({
     credentials.connectionId = connectionId;
   }
 
-  const endpointPath = String(clientRawRequest?.endpoint || "");
-  const sourceFormat = detectFormatFromEndpoint(body, endpointPath);
-  const isResponsesEndpoint =
-    /\/responses(?=\/|$)/i.test(endpointPath) || /^responses(?=\/|$)/i.test(endpointPath);
-  const nativeCodexPassthrough = shouldUseNativeCodexPassthrough({
-    provider,
-    sourceFormat,
-    endpointPath,
-  });
   const isDroidCLI =
     userAgent?.toLowerCase().includes("droid") || userAgent?.toLowerCase().includes("codex-cli");
   const clientResponseFormat =
@@ -1272,6 +1281,7 @@ export async function handleChatCore({
         })
       ),
       error: error || null,
+      requestType: requestIntent.requestType,
       sourceFormat,
       targetFormat,
       comboName,
@@ -1342,15 +1352,13 @@ export async function handleChatCore({
     delete b.streaming;
   }
 
-  // Codex /responses/compact is JSON-only: Codex CLI does not send stream=false,
-  // so route shape must override the usual Accept/header fallback.
-  const stream =
-    nativeCodexPassthrough && isCompactResponsesEndpoint(endpointPath)
-      ? false
-      : resolveStreamFlag(body?.stream, acceptHeader);
+  const stream = requestIntent.forceNonStreamingJson
+    ? false
+    : resolveStreamFlag(body?.stream, acceptHeader);
   const settings = await getCachedSettings();
   setGeminiThoughtSignatureMode(settings.antigravitySignatureCacheMode);
-  const semanticCacheEnabled = settings.semanticCacheEnabled !== false;
+  const semanticCacheEnabled =
+    settings.semanticCacheEnabled !== false && requestIntent.allowSemanticCache;
 
   // Create request logger for this session: sourceFormat_targetFormat_model
   const reqLogger = await createRequestLogger(sourceFormat, targetFormat, model, {
@@ -1485,9 +1493,10 @@ export async function handleChatCore({
   }
 
   const memoryOwnerId = resolveMemoryOwnerId(apiKeyInfo as Record<string, unknown> | null);
-  const memorySettings = memoryOwnerId
-    ? await getMemorySettings().catch(() => DEFAULT_MEMORY_SETTINGS)
-    : null;
+  const memorySettings =
+    requestIntent.allowMemory && memoryOwnerId
+      ? await getMemorySettings().catch(() => DEFAULT_MEMORY_SETTINGS)
+      : null;
 
   if (
     memoryOwnerId &&
@@ -1518,7 +1527,7 @@ export async function handleChatCore({
     }
   }
 
-  if (memoryOwnerId && memorySettings?.skillsEnabled) {
+  if (requestIntent.allowSkills && memoryOwnerId && memorySettings?.skillsEnabled) {
     const existingTools = Array.isArray(body.tools) ? body.tools : [];
     const mergedTools = injectSkills({
       provider: getSkillsProviderForFormat(sourceFormat),
@@ -3156,24 +3165,26 @@ export async function handleChatCore({
     // Strips non-standard fields (x_groq, usage_breakdown, service_tier, etc.)
     // Extracts <think> and <thinking> tags into reasoning_content
     // Source format determines output shape. If we are outputting OpenAI shape or pseudo-OpenAI shape, sanitize.
-    if (clientResponseFormat === FORMATS.OPENAI_RESPONSES) {
+    if (clientResponseFormat === FORMATS.OPENAI_RESPONSES && requestIntent.allowResponseSanitizer) {
       translatedResponse = sanitizeResponsesApiResponse(translatedResponse);
     } else if (clientResponseFormat === FORMATS.OPENAI) {
       translatedResponse = sanitizeOpenAIResponse(translatedResponse);
     }
 
-    // Add buffer and filter usage for client (to prevent CLI context errors)
-    if (translatedResponse?.usage) {
-      const buffered = addBufferToUsage(translatedResponse.usage);
-      translatedResponse.usage = filterUsageForFormat(buffered, clientResponseFormat);
-    } else {
-      // Fallback: estimate usage when provider returned no usage block
-      const contentLength = JSON.stringify(
-        translatedResponse?.choices?.[0]?.message?.content || ""
-      ).length;
-      if (contentLength > 0) {
-        const estimated = estimateUsage(body, contentLength, clientResponseFormat);
-        translatedResponse.usage = filterUsageForFormat(estimated, clientResponseFormat);
+    // Add buffer and filter usage for client (to prevent CLI context errors).
+    if (requestIntent.allowUsageBuffer) {
+      if (translatedResponse?.usage) {
+        const buffered = addBufferToUsage(translatedResponse.usage);
+        translatedResponse.usage = filterUsageForFormat(buffered, clientResponseFormat);
+      } else {
+        // Fallback: estimate usage when provider returned no usage block
+        const contentLength = JSON.stringify(
+          translatedResponse?.choices?.[0]?.message?.content || ""
+        ).length;
+        if (contentLength > 0) {
+          const estimated = estimateUsage(body, contentLength, clientResponseFormat);
+          translatedResponse.usage = filterUsageForFormat(estimated, clientResponseFormat);
+        }
       }
     }
 
@@ -3190,8 +3201,11 @@ export async function handleChatCore({
     }
 
     const customSkillExecutionEnabled =
-      Boolean(memoryOwnerId) && memorySettings?.skillsEnabled === true;
-    const builtinToolNames = webSearchFallbackPlan.toolName ? [webSearchFallbackPlan.toolName] : [];
+      requestIntent.allowSkills && Boolean(memoryOwnerId) && memorySettings?.skillsEnabled === true;
+    const builtinToolNames =
+      requestIntent.allowSkills && webSearchFallbackPlan.toolName
+        ? [webSearchFallbackPlan.toolName]
+        : [];
     if (customSkillExecutionEnabled || builtinToolNames.length > 0) {
       const skillSessionId = pipelineSessionId;
 
@@ -3225,10 +3239,9 @@ export async function handleChatCore({
       stream: false,
       targetFormat: clientResponseFormat,
     } as const;
-    const postCallGuardrails = await guardrailRegistry.runPostCallHooks(
-      translatedResponse,
-      guardrailContext
-    );
+    const postCallGuardrails = requestIntent.allowPostCallGuardrails
+      ? await guardrailRegistry.runPostCallHooks(translatedResponse, guardrailContext)
+      : { blocked: false, response: translatedResponse, guardrail: null, message: null };
     translatedResponse = postCallGuardrails.response;
 
     const responseUsage =
@@ -3285,7 +3298,9 @@ export async function handleChatCore({
     }
 
     // ── Phase 9.2: Save for idempotency ──
-    saveIdempotency(idempotencyKey, translatedResponse, 200);
+    if (requestIntent.allowIdempotency) {
+      saveIdempotency(idempotencyKey, translatedResponse, 200);
+    }
     reqLogger.logConvertedResponse(translatedResponse);
     persistAttemptLogs({
       status: 200,

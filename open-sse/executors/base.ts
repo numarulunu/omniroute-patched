@@ -274,11 +274,15 @@ export class BaseExecutor {
       const cloned = { ...body } as Record<string, unknown>;
 
       if (Array.isArray(cloned.tools)) {
-        cloned.tools = cloned.tools.map((tool: any) => {
-          if (tool?.function && typeof tool.function === "object") {
-            const func = { ...tool.function };
+        cloned.tools = cloned.tools.map((tool: unknown) => {
+          if (!tool || typeof tool !== "object" || Array.isArray(tool)) return tool;
+
+          const toolRecord = tool as Record<string, unknown>;
+          const functionValue = toolRecord.function;
+          if (functionValue && typeof functionValue === "object" && !Array.isArray(functionValue)) {
+            const func = { ...functionValue };
             if (func.description === "") delete func.description;
-            return { ...tool, function: func };
+            return { ...toolRecord, function: func };
           }
           return tool;
         });

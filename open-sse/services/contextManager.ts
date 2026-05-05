@@ -46,6 +46,7 @@ function getReserveTokensOverride(): number | null {
 
 // Rough chars-per-token ratio for quick estimation
 const CHARS_PER_TOKEN = 4;
+const DEFAULT_MIN_RECENT_MESSAGES = 10;
 
 /**
  * Estimate token count from text length
@@ -110,7 +111,13 @@ export function getTokenLimit(provider: string, model: string | null = null): nu
  */
 export function compressContext(
   body: Record<string, unknown>,
-  options: { provider?: string; model?: string; maxTokens?: number; reserveTokens?: number } = {}
+  options: {
+    provider?: string;
+    model?: string;
+    maxTokens?: number;
+    reserveTokens?: number;
+    minRecentMessages?: number;
+  } = {}
 ) {
   if (!body || !body.messages || !Array.isArray(body.messages)) {
     return { body, compressed: false, stats: {} };
@@ -125,6 +132,7 @@ export function compressContext(
     Math.max(0, maxTokens - 1)
   );
   const targetTokens = Math.max(0, maxTokens - reserveTokens);
+  const minRecentMessages = normalizeMinRecentMessages(options.minRecentMessages);
 
   let messages = [...body.messages];
   let currentTokens = estimateTokens(JSON.stringify(messages));
@@ -161,8 +169,8 @@ export function compressContext(
     };
   }
 
-  // Layer 3: Aggressive purification — drop oldest messages keeping system + last N pairs
-  messages = purifyHistory(messages, targetTokens);
+  // Layer 3: Aggressive purification - drop oldest messages keeping system + recent tail
+  messages = purifyHistory(messages, targetTokens, minRecentMessages);
   currentTokens = estimateTokens(JSON.stringify(messages));
   stats.layers.push({ name: "purify_history", tokens: currentTokens });
 
@@ -256,19 +264,32 @@ function compressThinking(messages: Record<string, unknown>[]) {
 
 // ─── Layer 3: Aggressive Purification ───────────────────────────────────────
 
-function purifyHistory(messages: Record<string, unknown>[], targetTokens: number) {
-  // Keep system message(s) and the last N message pairs
+function normalizeMinRecentMessages(value: unknown): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) return DEFAULT_MIN_RECENT_MESSAGES;
+  return Math.max(0, Math.floor(value));
+}
+
+function purifyHistory(
+  messages: Record<string, unknown>[],
+  targetTokens: number,
+  minRecentMessages = DEFAULT_MIN_RECENT_MESSAGES
+) {
+  // Keep system message(s) and the recent tail so compaction does not erase the active thread.
   const system = messages.filter((m) => m.role === "system" || m.role === "developer");
   const nonSystem = messages.filter((m) => m.role !== "system" && m.role !== "developer");
+  const minKeep = Math.min(nonSystem.length, normalizeMinRecentMessages(minRecentMessages));
 
-  // Binary search for how many messages to keep from the end
+  // Search for how many messages to keep from the end, never below the recent-tail floor.
   let keep = nonSystem.length;
-  while (keep > 2) {
+  while (keep > minKeep) {
     let candidate = [...system, ...nonSystem.slice(-keep)];
     candidate = fixToolPairs(candidate);
     const tokens = estimateTokens(JSON.stringify(candidate));
     if (tokens <= targetTokens) break;
-    keep = Math.max(2, Math.floor(keep * 0.7)); // Drop 30% each iteration
+
+    const nextKeep = Math.max(minKeep, Math.floor(keep * 0.7));
+    if (nextKeep === keep) break;
+    keep = nextKeep;
   }
 
   let result = [...system, ...nonSystem.slice(-keep)];
