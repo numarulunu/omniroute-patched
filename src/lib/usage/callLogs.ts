@@ -33,6 +33,7 @@ import {
   type CallLogArtifact,
   type CallLogDetailState,
 } from "./callLogArtifacts";
+import { recordContextCompactionCandidate } from "./contextCompactionEvents";
 
 type JsonRecord = Record<string, unknown>;
 
@@ -725,6 +726,20 @@ export async function saveCallLog(entry: any) {
       hasPipelineDetails: protectedPipelinePayloads ? 1 : 0,
       requestSummary,
     });
+
+    if (!noLogEnabled) {
+      recordContextCompactionCandidate(db, {
+        callLogId: logEntry.id,
+        timestamp: logEntry.timestamp,
+        path: logEntry.path,
+        status: logEntry.status,
+        provider: logEntry.provider,
+        model: logEntry.model,
+        tokensIn: logEntry.tokensIn,
+        tokensCacheRead: logEntry.tokensCacheRead,
+        requestBody: protectedRequestBody,
+      });
+    }
 
     scheduleCallLogRotation();
   } catch (error) {

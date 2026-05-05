@@ -30,11 +30,11 @@ export const COLORS = {
  * Configurable via:
  *   - Settings API / Dashboard: `usageTokenBuffer` (persisted in DB)
  *   - Environment variable: `USAGE_TOKEN_BUFFER`
- *   - Defaults to 2000 if neither is set
+ *   - Defaults to 100 if neither is set
  *
  * Set to 0 to disable the buffer entirely (raw provider token counts).
  */
-const DEFAULT_BUFFER_TOKENS = 2000;
+const DEFAULT_BUFFER_TOKENS = 100;
 
 let _cachedBuffer: number | null = null;
 let _cacheTimestamp = 0;
