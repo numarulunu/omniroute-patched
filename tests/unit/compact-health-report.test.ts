@@ -153,4 +153,83 @@ describe("compact health report", () => {
       },
     ]);
   });
+
+  it("summarizes context pressure without exposing artifact content", () => {
+    const artifactDir = fs.mkdtempSync(path.join(os.tmpdir(), "omniroute-compact-health-"));
+    makeArtifact(artifactDir, "2026-05-05/a.json", "session-pressure-a");
+    makeArtifact(artifactDir, "2026-05-05/b.json", "session-pressure-b");
+    makeArtifact(artifactDir, "2026-05-05/c.json", "session-small-low-cache");
+
+    const report = buildCompactHealthReport({
+      artifactDir,
+      rows: [
+        {
+          timestamp: "2026-05-05T18:00:00.000Z",
+          path: "/v1/responses",
+          status: 200,
+          provider: "codex",
+          model: "gpt-5.5",
+          tokens_in: 130000,
+          tokens_out: 300,
+          tokens_cache_read: 70000,
+          artifact_relpath: "2026-05-05/a.json",
+        },
+        {
+          timestamp: "2026-05-05T18:01:00.000Z",
+          path: "/v1/responses",
+          status: 200,
+          provider: "codex",
+          model: "gpt-5.5",
+          tokens_in: 120000,
+          tokens_out: 300,
+          tokens_cache_read: 90000,
+          artifact_relpath: "2026-05-05/b.json",
+        },
+        {
+          timestamp: "2026-05-05T18:02:00.000Z",
+          path: "/v1/responses",
+          status: 200,
+          provider: "codex",
+          model: "gpt-5.5",
+          tokens_in: 20000,
+          tokens_out: 300,
+          tokens_cache_read: 1000,
+          artifact_relpath: "2026-05-05/c.json",
+        },
+      ],
+    });
+
+    assert.deepEqual(report.pressure.thresholds, {
+      highUncachedInputTokens: 50000,
+      lowCacheReadPct: 85,
+      minRawInputTokensForLowCacheRate: 100000,
+    });
+    assert.equal(report.pressure.eventCount, 2);
+    assert.equal(report.pressure.highUncachedInputEvents, 1);
+    assert.equal(report.pressure.lowCacheRateEvents, 1);
+    assert.deepEqual(
+      report.pressure.topEvents.map((event) => ({
+        reason: event.reason,
+        rawInputTokens: event.rawInputTokens,
+        cacheReadPct: event.cacheReadPct,
+        nonCachedInputTokens: event.nonCachedInputTokens,
+      })),
+      [
+        {
+          reason: "high_uncached_input",
+          rawInputTokens: 130000,
+          cacheReadPct: 53.8,
+          nonCachedInputTokens: 60000,
+        },
+        {
+          reason: "low_cache_rate",
+          rawInputTokens: 120000,
+          cacheReadPct: 75,
+          nonCachedInputTokens: 30000,
+        },
+      ]
+    );
+    assert.doesNotMatch(JSON.stringify(report.pressure), /session-pressure/);
+    assert.doesNotMatch(JSON.stringify(report.pressure), /secret prompt body/);
+  });
 });

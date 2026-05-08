@@ -301,6 +301,42 @@ test("CodexExecutor.transformRequest preserves store-enabled responses state whe
   assert.equal(result.store, true);
   assert.equal(result.previous_response_id, undefined);
 });
+test("CodexExecutor.transformRequest enriches compact requests with a bounded recent-tail handoff", () => {
+  const executor = new CodexExecutor();
+  const input = [
+    { type: "message", role: "developer", content: [{ type: "input_text", text: "system rules" }] },
+    ...Array.from({ length: 12 }, (_, i) => ({
+      type: "message",
+      role: i % 2 === 0 ? "user" : "assistant",
+      content: [{ type: i % 2 === 0 ? "input_text" : "output_text", text: `Turn ${i}` }],
+    })),
+  ];
+  const body = {
+    _nativeCodexPassthrough: true,
+    instructions: "keep this",
+    input,
+    store: true,
+    stream: false,
+  };
+
+  const result = executor.transformRequest("gpt-5.5", body, false, {
+    requestEndpointPath: "/responses/compact",
+    providerSpecificData: {
+      openaiStoreEnabled: true,
+    },
+  });
+
+  assert.equal(result.stream, undefined);
+  assert.equal(result.store, undefined);
+  assert.equal(result.input.length, input.length);
+  assert.match(result.instructions, /OmniRoute compact handoff/i);
+  assert.match(result.instructions, /keep this/);
+  assert.match(result.instructions, /Turn 2/);
+  assert.match(result.instructions, /Turn 11/);
+  assert.equal(result.instructions.includes(": Turn 0\n"), false);
+  assert.equal(result.instructions.includes(": Turn 1\n"), false);
+});
+
 test("CodexExecutor.transformRequest strips store from compact requests even when store is enabled", () => {
   const executor = new CodexExecutor();
   const body = {

@@ -46,6 +46,12 @@ type WreqWebSocket = {
 };
 type WebsocketFn = (url: string, opts?: Record<string, unknown>) => Promise<WreqWebSocket>;
 
+type CodexCompactItem = Record<string, unknown>;
+
+const CODEX_COMPACT_HANDOFF_MARKER = "OmniRoute compact handoff";
+const CODEX_COMPACT_RECENT_ITEM_COUNT = 10;
+const CODEX_COMPACT_HANDOFF_MAX_CHARS = 8_000;
+const CODEX_COMPACT_ITEM_MAX_CHARS = 1_200;
 let _websocketFn: WebsocketFn | null = null;
 let _wreqChecked = false;
 let _websocketOverride: WebsocketFn | null | undefined;
@@ -298,6 +304,115 @@ function convertSystemToDeveloperRole(body: Record<string, unknown>): void {
       item.role = "developer";
     }
   }
+}
+
+function isCodexCompactRecord(value: unknown): value is CodexCompactItem {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
+}
+
+function truncateCompactText(text: string, maxChars = CODEX_COMPACT_ITEM_MAX_CHARS): string {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxChars) return normalized;
+  if (maxChars <= 14) return normalized.slice(0, maxChars);
+  return normalized.slice(0, maxChars - 14).trimEnd() + " [truncated]";
+}
+
+function extractCompactText(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) {
+    return value.map(extractCompactText).filter(Boolean).join("\n");
+  }
+  if (!isCodexCompactRecord(value)) return "";
+
+  for (const key of ["text", "input_text", "output_text", "summary"]) {
+    const text = value[key];
+    if (typeof text === "string" && text.trim()) return text;
+  }
+
+  if ("content" in value) return extractCompactText(value.content);
+  return "";
+}
+
+function getCompactItemRole(item: CodexCompactItem): string {
+  const role = item.role;
+  if (typeof role === "string" && role.trim()) return role.trim().toLowerCase();
+  const type = item.type;
+  if (typeof type === "string" && type.trim()) return type.trim().toLowerCase();
+  return "item";
+}
+
+function shouldIncludeCompactTailItem(item: CodexCompactItem): boolean {
+  const role = getCompactItemRole(item);
+  if (role === "system" || role === "developer") return false;
+  return extractCompactText(item).trim().length > 0;
+}
+
+function formatCompactTailItem(item: CodexCompactItem): string {
+  const role = getCompactItemRole(item);
+  const text = truncateCompactText(extractCompactText(item));
+  return "- " + role + ": " + text;
+}
+
+function buildCodexCompactRecentTail(body: Record<string, unknown>, maxChars: number): string {
+  if (!Array.isArray(body.input) || maxChars <= 0) return "";
+
+  const lines: string[] = [];
+  let usedChars = 0;
+
+  for (
+    let i = body.input.length - 1;
+    i >= 0 && lines.length < CODEX_COMPACT_RECENT_ITEM_COUNT;
+    i--
+  ) {
+    const value = body.input[i];
+    if (!isCodexCompactRecord(value) || !shouldIncludeCompactTailItem(value)) continue;
+
+    let line = formatCompactTailItem(value);
+    if (line.length > maxChars) line = truncateCompactText(line, maxChars);
+
+    const nextUsedChars = usedChars + line.length + (lines.length > 0 ? 1 : 0);
+    if (nextUsedChars > maxChars) break;
+
+    lines.unshift(line);
+    usedChars = nextUsedChars;
+  }
+
+  return lines.join("\n");
+}
+
+function enrichCodexCompactHandoff(body: Record<string, unknown>): void {
+  const existingInstructions =
+    typeof body.instructions === "string" ? body.instructions.trim() : "";
+  if (existingInstructions.toLowerCase().includes(CODEX_COMPACT_HANDOFF_MARKER.toLowerCase())) {
+    return;
+  }
+
+  const baseBudget = Math.min(existingInstructions.length, 2_000);
+  const baseInstructions = existingInstructions
+    ? truncateCompactText(existingInstructions, baseBudget)
+    : "";
+  const handoffPrefix = [
+    CODEX_COMPACT_HANDOFF_MARKER + ":",
+    "Write a compact handoff, not a transcript.",
+    "Preserve the active task, current decisions, files touched, blockers, and next action.",
+    "Summarize older context. Keep only the bounded recent tail below for local continuity.",
+    "Do not keep the full old chat.",
+    "<omniroute_recent_tail>",
+  ].join("\n");
+  const handoffSuffix = "</omniroute_recent_tail>";
+  const tailBudget = Math.max(
+    0,
+    CODEX_COMPACT_HANDOFF_MAX_CHARS -
+      baseInstructions.length -
+      handoffPrefix.length -
+      handoffSuffix.length -
+      (baseInstructions ? 4 : 2)
+  );
+  const recentTail = buildCodexCompactRecentTail(body, tailBudget);
+  if (!recentTail) return;
+
+  const handoff = handoffPrefix + "\n" + recentTail + "\n" + handoffSuffix;
+  body.instructions = baseInstructions ? baseInstructions + "\n\n" + handoff : handoff;
 }
 
 function buildRecoveredToolContextMessage(
@@ -1312,6 +1427,10 @@ export class CodexExecutor extends BaseExecutor {
     // but the upstream Codex API strictly rejects them as unsupported parameters.
     delete body.session_id;
     delete body.conversation_id;
+
+    if (isCompactRequest && nativeCodexPassthrough) {
+      enrichCodexCompactHandoff(body);
+    }
 
     if (nativeCodexPassthrough) {
       return body;
