@@ -6,6 +6,7 @@ import Database from "better-sqlite3";
 import {
   ensureContextCompactionTables,
   recordContextCompactionCandidate,
+  recordContextPressureCandidate,
 } from "../../src/lib/usage/contextCompactionEvents.ts";
 
 function createDb() {
@@ -89,6 +90,100 @@ test("ignores explicit compact endpoint and failed rows for implicit compaction 
   assert.equal(explicit, null);
   assert.equal(failed, null);
   const count = db.prepare("SELECT COUNT(*) AS count FROM context_compaction_events").get() as {
+    count: number;
+  };
+  assert.equal(count.count, 0);
+});
+
+test("records metadata-only context pressure events for high uncached input", () => {
+  const db = createDb();
+
+  const event = recordContextPressureCandidate(db, {
+    callLogId: "call_pressure",
+    timestamp: "2026-05-05T18:02:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 130000,
+    tokensCacheRead: 70000,
+    requestBody: { prompt_cache_key: "conversation-secret-key", input: "do not store this" },
+  });
+
+  assert.ok(event);
+  assert.equal(event?.callLogId, "call_pressure");
+  assert.equal(event?.tokensIn, 130000);
+  assert.equal(event?.tokensCacheRead, 70000);
+  assert.equal(event?.nonCachedInputTokens, 60000);
+  assert.equal(event?.cacheReadPct, 53.8);
+  assert.equal(event?.reason, "high_uncached_input");
+
+  const stored = db.prepare("SELECT * FROM context_pressure_events").all() as Array<
+    Record<string, unknown>
+  >;
+  assert.equal(stored.length, 1);
+  assert.equal(stored[0].prompt_cache_key_hash, event?.promptCacheKeyHash);
+  assert.equal(JSON.stringify(stored).includes("conversation-secret-key"), false);
+  assert.equal(JSON.stringify(stored).includes("do not store this"), false);
+});
+
+test("records low cache-rate pressure only for large cached sessions", () => {
+  const db = createDb();
+
+  const smallLowCache = recordContextPressureCandidate(db, {
+    callLogId: "small_low_cache",
+    timestamp: "2026-05-05T18:02:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 20000,
+    tokensCacheRead: 1000,
+    requestBody: { prompt_cache_key: "conversation-secret-key" },
+  });
+
+  const largeLowCache = recordContextPressureCandidate(db, {
+    callLogId: "large_low_cache",
+    timestamp: "2026-05-05T18:03:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 120000,
+    tokensCacheRead: 90000,
+    requestBody: { prompt_cache_key: "conversation-secret-key" },
+  });
+
+  assert.equal(smallLowCache, null);
+  assert.ok(largeLowCache);
+  assert.equal(largeLowCache?.reason, "low_cache_rate");
+  assert.equal(largeLowCache?.nonCachedInputTokens, 30000);
+  assert.equal(largeLowCache?.cacheReadPct, 75);
+});
+
+test("ignores pressure candidates without successful responses prompt cache keys", () => {
+  const db = createDb();
+
+  for (const input of [
+    { path: "/v1/responses/compact", status: 200, requestBody: { prompt_cache_key: "key" } },
+    { path: "/v1/responses", status: 500, requestBody: { prompt_cache_key: "key" } },
+    { path: "/v1/responses", status: 200, requestBody: {} },
+  ]) {
+    assert.equal(
+      recordContextPressureCandidate(db, {
+        callLogId: `${input.path}-${input.status}`,
+        timestamp: "2026-05-05T18:04:00.000Z",
+        provider: "codex",
+        model: "gpt-5.5",
+        tokensIn: 200000,
+        tokensCacheRead: 0,
+        ...input,
+      }),
+      null
+    );
+  }
+
+  const count = db.prepare("SELECT COUNT(*) AS count FROM context_pressure_events").get() as {
     count: number;
   };
   assert.equal(count.count, 0);

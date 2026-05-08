@@ -8,6 +8,9 @@ import { fileURLToPath } from "node:url";
 
 const DEFAULT_HOURS = 3;
 const DEFAULT_MIN_HIGH_TOKENS = 100000;
+const DEFAULT_HIGH_UNCACHED_INPUT_TOKENS = 50000;
+const DEFAULT_LOW_CACHE_READ_PCT = 85;
+const DEFAULT_MIN_RAW_INPUT_TOKENS_FOR_LOW_CACHE_RATE = 100000;
 const DEFAULT_MAX_DROP_RATIO = 0.5;
 const HASH_LENGTH = 10;
 
@@ -85,6 +88,7 @@ function normalizeRow(row, artifactDir) {
     cacheReadTokens,
     cacheCreationTokens,
     reasoningTokens: toFiniteNumber(row.tokens_reasoning),
+    cacheReadPct: rawInputTokens > 0 ? round1((cacheReadTokens / rawInputTokens) * 100) : 0,
     nonCachedInputTokens,
     promptCacheKeyHash: readPromptCacheKeyHash(artifactDir, row.artifact_relpath),
   };
@@ -153,6 +157,69 @@ function buildSessionSummary(promptCacheKeyHash, rows, options) {
   };
 }
 
+function hasPromptCacheKeyHash(row) {
+  return (
+    typeof row.promptCacheKeyHash === "string" &&
+    row.promptCacheKeyHash.length > 0 &&
+    row.promptCacheKeyHash !== "no-key" &&
+    row.promptCacheKeyHash !== "artifact-unavailable"
+  );
+}
+
+function getPressureReason(row) {
+  if (row.nonCachedInputTokens >= DEFAULT_HIGH_UNCACHED_INPUT_TOKENS) {
+    return "high_uncached_input";
+  }
+
+  if (
+    row.rawInputTokens >= DEFAULT_MIN_RAW_INPUT_TOKENS_FOR_LOW_CACHE_RATE &&
+    row.cacheReadPct < DEFAULT_LOW_CACHE_READ_PCT
+  ) {
+    return "low_cache_rate";
+  }
+
+  return null;
+}
+
+function buildPressureReport(rows, topEvents = 20) {
+  const events = rows
+    .filter((row) => row.path === "/v1/responses" && hasPromptCacheKeyHash(row))
+    .map((row) => {
+      const reason = getPressureReason(row);
+      if (!reason) return null;
+      return {
+        timestamp: row.timestamp,
+        promptCacheKeyHash: row.promptCacheKeyHash,
+        provider: row.provider,
+        model: row.model,
+        rawInputTokens: row.rawInputTokens,
+        cacheReadTokens: row.cacheReadTokens,
+        nonCachedInputTokens: row.nonCachedInputTokens,
+        cacheReadPct: row.cacheReadPct,
+        reason,
+      };
+    })
+    .filter(Boolean)
+    .sort(
+      (a, b) =>
+        b.nonCachedInputTokens - a.nonCachedInputTokens ||
+        b.rawInputTokens - a.rawInputTokens ||
+        a.timestamp.localeCompare(b.timestamp)
+    );
+
+  return {
+    thresholds: {
+      highUncachedInputTokens: DEFAULT_HIGH_UNCACHED_INPUT_TOKENS,
+      lowCacheReadPct: DEFAULT_LOW_CACHE_READ_PCT,
+      minRawInputTokensForLowCacheRate: DEFAULT_MIN_RAW_INPUT_TOKENS_FOR_LOW_CACHE_RATE,
+    },
+    eventCount: events.length,
+    highUncachedInputEvents: events.filter((event) => event.reason === "high_uncached_input")
+      .length,
+    lowCacheRateEvents: events.filter((event) => event.reason === "low_cache_rate").length,
+    topEvents: events.slice(0, topEvents),
+  };
+}
 function parsePricingRows(pricingRows) {
   const layers = new Map();
   for (const row of pricingRows || []) {
@@ -261,6 +328,7 @@ export function buildCompactHealthReport({
       cacheReadPct: totalRawInput > 0 ? round1((totalCacheRead / totalRawInput) * 100) : 0,
     },
     sessions,
+    pressure: buildPressureReport(successfulRows, topSessions),
     pricing: buildPricingReport(successfulRows, pricingRows),
   };
 }
@@ -369,6 +437,23 @@ function printTextReport(report) {
   console.log(`  Cache read: ${report.totals.cacheReadTokens} (${report.totals.cacheReadPct}%)`);
   console.log(`  Noncached input: ${report.totals.nonCachedInputTokens}`);
   console.log(`  Output: ${report.totals.outputTokens}`);
+  console.log("");
+  console.log("Context Pressure");
+  console.log(
+    `  Events: ${report.pressure.eventCount} ` +
+      `(high_uncached=${report.pressure.highUncachedInputEvents}, low_cache_rate=${report.pressure.lowCacheRateEvents})`
+  );
+  console.log(
+    `  Thresholds: uncached>=${report.pressure.thresholds.highUncachedInputTokens}, ` +
+      `cache_read<${report.pressure.thresholds.lowCacheReadPct}% over raw>=${report.pressure.thresholds.minRawInputTokensForLowCacheRate}`
+  );
+  for (const event of report.pressure.topEvents) {
+    console.log(
+      `  ${event.timestamp} ${event.promptCacheKeyHash} ${event.reason}: ` +
+        `raw=${event.rawInputTokens} cache_read=${event.cacheReadPct}% noncached=${event.nonCachedInputTokens}`
+    );
+  }
+  if (report.pressure.topEvents.length === 0) console.log("  No context pressure events found.");
   console.log("");
   console.log("Pricing");
   for (const item of report.pricing) {

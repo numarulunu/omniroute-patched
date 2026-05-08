@@ -3,6 +3,9 @@ import crypto from "node:crypto";
 const HASH_LENGTH = 10;
 const DEFAULT_MIN_HIGH_TOKENS = 100000;
 const DEFAULT_MAX_DROP_RATIO = 0.5;
+const DEFAULT_HIGH_UNCACHED_INPUT_TOKENS = 50000;
+const DEFAULT_LOW_CACHE_READ_PCT = 85;
+const DEFAULT_MIN_RAW_INPUT_TOKENS_FOR_LOW_CACHE_RATE = 100000;
 
 type SqliteDatabase = {
   exec(sql: string): unknown;
@@ -36,6 +39,19 @@ export type ContextCompactionEvent = {
   dropPct: number;
 };
 
+export type ContextPressureReason = "high_uncached_input" | "low_cache_rate";
+
+export type ContextPressureEvent = {
+  id: string;
+  promptCacheKeyHash: string;
+  callLogId: string;
+  tokensIn: number;
+  tokensCacheRead: number;
+  nonCachedInputTokens: number;
+  cacheReadPct: number;
+  reason: ContextPressureReason;
+};
+
 type SessionRow = {
   prompt_cache_key_hash: string;
   high_water_call_log_id: string;
@@ -61,6 +77,15 @@ function extractPromptCacheKeyHash(requestBody: unknown): string | null {
 
 function isSuccessfulResponsesRow(input: RecordInput): boolean {
   return input.path === "/v1/responses" && input.status >= 200 && input.status < 300;
+}
+
+function roundPct(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
+function cacheReadPct(tokensIn: number, cacheRead: number | null): number {
+  if (tokensIn <= 0) return 0;
+  return roundPct((Math.max(0, cacheRead || 0) / tokensIn) * 100);
 }
 
 function roundDropPct(previous: number, current: number): number {
@@ -100,6 +125,27 @@ export function ensureContextCompactionTables(db: SqliteDatabase) {
       drop_pct REAL NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS context_pressure_events (
+      id TEXT PRIMARY KEY,
+      timestamp TEXT NOT NULL,
+      prompt_cache_key_hash TEXT NOT NULL,
+      provider TEXT NOT NULL,
+      model TEXT NOT NULL,
+      call_log_id TEXT NOT NULL,
+      tokens_in INTEGER NOT NULL,
+      tokens_cache_read INTEGER NOT NULL,
+      noncached_input_tokens INTEGER NOT NULL,
+      cache_read_pct REAL NOT NULL,
+      reason TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_context_pressure_events_timestamp
+      ON context_pressure_events(timestamp);
+    CREATE INDEX IF NOT EXISTS idx_context_pressure_events_session
+      ON context_pressure_events(prompt_cache_key_hash, timestamp);
+    CREATE INDEX IF NOT EXISTS idx_context_pressure_events_reason
+      ON context_pressure_events(reason, timestamp);
+
     CREATE INDEX IF NOT EXISTS idx_context_compaction_events_timestamp
       ON context_compaction_events(timestamp);
     CREATE INDEX IF NOT EXISTS idx_context_compaction_events_session
@@ -137,6 +183,73 @@ function upsertSession(
   );
 }
 
+function getPressureReason(
+  input: RecordInput,
+  tokensNonCached: number,
+  currentCacheReadPct: number
+): ContextPressureReason | null {
+  if (tokensNonCached >= DEFAULT_HIGH_UNCACHED_INPUT_TOKENS) {
+    return "high_uncached_input";
+  }
+
+  if (
+    input.tokensIn >= DEFAULT_MIN_RAW_INPUT_TOKENS_FOR_LOW_CACHE_RATE &&
+    currentCacheReadPct < DEFAULT_LOW_CACHE_READ_PCT
+  ) {
+    return "low_cache_rate";
+  }
+
+  return null;
+}
+
+export function recordContextPressureCandidate(
+  db: SqliteDatabase,
+  input: RecordInput
+): ContextPressureEvent | null {
+  ensureContextCompactionTables(db);
+
+  if (!isSuccessfulResponsesRow(input)) return null;
+  const promptCacheKeyHash = extractPromptCacheKeyHash(input.requestBody);
+  if (!promptCacheKeyHash) return null;
+
+  const tokensCacheRead = Math.max(0, input.tokensCacheRead || 0);
+  const tokensNonCached = nonCachedInput(input.tokensIn, input.tokensCacheRead);
+  const currentCacheReadPct = cacheReadPct(input.tokensIn, input.tokensCacheRead);
+  const reason = getPressureReason(input, tokensNonCached, currentCacheReadPct);
+  if (!reason) return null;
+
+  const event: ContextPressureEvent = {
+    id: crypto.randomUUID(),
+    promptCacheKeyHash,
+    callLogId: input.callLogId,
+    tokensIn: input.tokensIn,
+    tokensCacheRead,
+    nonCachedInputTokens: tokensNonCached,
+    cacheReadPct: currentCacheReadPct,
+    reason,
+  };
+
+  db.prepare(
+    `INSERT INTO context_pressure_events (
+       id, timestamp, prompt_cache_key_hash, provider, model,
+       call_log_id, tokens_in, tokens_cache_read, noncached_input_tokens, cache_read_pct, reason
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).run(
+    event.id,
+    input.timestamp,
+    event.promptCacheKeyHash,
+    input.provider,
+    input.model,
+    event.callLogId,
+    event.tokensIn,
+    event.tokensCacheRead,
+    event.nonCachedInputTokens,
+    event.cacheReadPct,
+    event.reason
+  );
+
+  return event;
+}
 export function recordContextCompactionCandidate(
   db: SqliteDatabase,
   input: RecordInput
