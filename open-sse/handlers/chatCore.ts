@@ -51,6 +51,8 @@ import {
   appendRequestLog,
   saveCallLog,
 } from "@/lib/usageDb";
+import { consumeContextPressureIntervention } from "@/lib/usage/contextCompactionEvents";
+import { getDbInstance } from "@/lib/db/core";
 import {
   getLoggedInputTokens,
   getLoggedOutputTokens,
@@ -2223,6 +2225,27 @@ export async function handleChatCore({
         const cacheKey = generatePromptCacheKey(bodyToSend.messages);
         if (cacheKey) {
           bodyToSend = { ...bodyToSend, prompt_cache_key: cacheKey };
+        }
+      }
+
+      if (provider === "codex" && nativeCodexPassthrough && endpointPath === "/v1/responses") {
+        try {
+          const intervention = consumeContextPressureIntervention(getDbInstance(), bodyToSend);
+          if (intervention) {
+            executionCredentials.contextPressureIntervention = intervention as unknown as Record<
+              string,
+              unknown
+            >;
+            log?.info?.(
+              "CONTEXT_PRESSURE",
+              `Applying Codex pressure trim for session ${intervention.promptCacheKeyHash} (${intervention.reason}, noncached=${intervention.lastNonCachedInputTokens})`
+            );
+          }
+        } catch (error) {
+          log?.warn?.(
+            "CONTEXT_PRESSURE",
+            `Failed to consume Codex pressure intervention: ${error instanceof Error ? error.message : String(error)}`
+          );
         }
       }
 

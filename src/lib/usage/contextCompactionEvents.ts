@@ -4,8 +4,11 @@ const HASH_LENGTH = 10;
 const DEFAULT_MIN_HIGH_TOKENS = 100000;
 const DEFAULT_MAX_DROP_RATIO = 0.5;
 const DEFAULT_HIGH_UNCACHED_INPUT_TOKENS = 50000;
+const DEFAULT_CRITICAL_UNCACHED_INPUT_TOKENS = 120000;
 const DEFAULT_LOW_CACHE_READ_PCT = 85;
 const DEFAULT_MIN_RAW_INPUT_TOKENS_FOR_LOW_CACHE_RATE = 100000;
+const DEFAULT_REPEATED_PRESSURE_WINDOW_MINUTES = 15;
+const DEFAULT_PENDING_INTERVENTION_TTL_MINUTES = 6 * 60;
 
 type SqliteDatabase = {
   exec(sql: string): unknown;
@@ -52,11 +55,38 @@ export type ContextPressureEvent = {
   reason: ContextPressureReason;
 };
 
+export type ContextPressureInterventionReason =
+  | "critical_high_uncached_input"
+  | "repeated_high_uncached_input";
+
+export type ContextPressureIntervention = {
+  promptCacheKeyHash: string;
+  reason: ContextPressureInterventionReason;
+  eventCount: number;
+  lastTokensIn: number;
+  lastNonCachedInputTokens: number;
+  lastCacheReadPct: number;
+  pendingSince: string;
+};
+
 type SessionRow = {
   prompt_cache_key_hash: string;
   high_water_call_log_id: string;
   high_water_tokens_in: number;
   high_water_noncached_input_tokens: number;
+};
+
+type PressureSessionRow = {
+  prompt_cache_key_hash: string;
+  pressure_event_count: number;
+  recent_high_uncached_event_count: number;
+  recent_high_uncached_window_start: string | null;
+  last_tokens_in: number;
+  last_noncached_input_tokens: number;
+  last_cache_read_pct: number;
+  pending_intervention: number;
+  pending_reason: string | null;
+  pending_since: string | null;
 };
 
 function toRecord(value: unknown): Record<string, unknown> {
@@ -95,6 +125,275 @@ function roundDropPct(previous: number, current: number): number {
 
 function nonCachedInput(tokensIn: number, cacheRead: number | null): number {
   return Math.max(0, tokensIn - Math.max(0, cacheRead || 0));
+}
+
+function minutesBetween(startIso: string | null | undefined, endIso: string): number {
+  if (!startIso) return Number.POSITIVE_INFINITY;
+  const start = new Date(startIso).getTime();
+  const end = new Date(endIso).getTime();
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return Number.POSITIVE_INFINITY;
+  return Math.max(0, (end - start) / 60000);
+}
+
+function isStalePendingPressureIntervention(row: PressureSessionRow, timestamp: string): boolean {
+  return (
+    row.pending_intervention === 1 &&
+    minutesBetween(row.pending_since, timestamp) > DEFAULT_PENDING_INTERVENTION_TTL_MINUTES
+  );
+}
+
+function clearStalePendingPressureIntervention(db: SqliteDatabase, promptCacheKeyHash: string) {
+  db.prepare(
+    `UPDATE context_pressure_sessions
+     SET pending_intervention = 0,
+         pending_reason = NULL,
+         pending_since = NULL,
+         recent_high_uncached_event_count = 0,
+         recent_high_uncached_window_start = NULL
+     WHERE prompt_cache_key_hash = ?
+       AND pending_intervention = 1`
+  ).run(promptCacheKeyHash);
+}
+
+function shouldMarkPressurePending(
+  reason: ContextPressureReason,
+  tokensNonCached: number,
+  previous: PressureSessionRow | undefined,
+  recentHighUncachedEventCount: number
+): ContextPressureInterventionReason | null {
+  if (reason !== "high_uncached_input") return null;
+  if (tokensNonCached >= DEFAULT_CRITICAL_UNCACHED_INPUT_TOKENS) {
+    return "critical_high_uncached_input";
+  }
+
+  const alreadyPending = previous?.pending_intervention === 1;
+  if (alreadyPending) return null;
+
+  if (recentHighUncachedEventCount >= 2) {
+    return "repeated_high_uncached_input";
+  }
+
+  return null;
+}
+
+function upsertPressureSession(
+  db: SqliteDatabase,
+  input: RecordInput,
+  event: ContextPressureEvent,
+  pendingReason: ContextPressureInterventionReason | null
+) {
+  let previous = db
+    .prepare(
+      `SELECT prompt_cache_key_hash, pressure_event_count, last_tokens_in,
+              last_noncached_input_tokens, last_cache_read_pct, pending_intervention,
+              pending_reason, pending_since, recent_high_uncached_event_count,
+              recent_high_uncached_window_start
+       FROM context_pressure_sessions
+       WHERE prompt_cache_key_hash = ?`
+    )
+    .get(event.promptCacheKeyHash) as PressureSessionRow | undefined;
+
+  if (previous && isStalePendingPressureIntervention(previous, input.timestamp)) {
+    clearStalePendingPressureIntervention(db, event.promptCacheKeyHash);
+    previous = {
+      ...previous,
+      recent_high_uncached_event_count: 0,
+      recent_high_uncached_window_start: null,
+      pending_intervention: 0,
+      pending_reason: null,
+      pending_since: null,
+    };
+  }
+
+  const isHighUncached = event.reason === "high_uncached_input";
+  const resetRecentWindow =
+    !previous ||
+    !isHighUncached ||
+    minutesBetween(previous.recent_high_uncached_window_start, input.timestamp) >
+      DEFAULT_REPEATED_PRESSURE_WINDOW_MINUTES;
+  const recentHighUncachedWindowStart = isHighUncached
+    ? resetRecentWindow
+      ? input.timestamp
+      : previous?.recent_high_uncached_window_start || input.timestamp
+    : previous?.recent_high_uncached_window_start || null;
+  const recentHighUncachedEventCount = isHighUncached
+    ? resetRecentWindow
+      ? 1
+      : (previous?.recent_high_uncached_event_count || 0) + 1
+    : previous?.recent_high_uncached_event_count || 0;
+
+  const resolvedPendingReason =
+    pendingReason ||
+    shouldMarkPressurePending(
+      event.reason,
+      event.nonCachedInputTokens,
+      previous,
+      recentHighUncachedEventCount
+    );
+  const pendingIntervention =
+    previous?.pending_intervention === 1 || !!resolvedPendingReason ? 1 : 0;
+  const pendingSince =
+    previous?.pending_intervention === 1
+      ? previous.pending_since
+      : resolvedPendingReason
+        ? input.timestamp
+        : null;
+  const pendingReasonValue =
+    previous?.pending_intervention === 1 ? previous.pending_reason : resolvedPendingReason;
+
+  db.prepare(
+    `INSERT INTO context_pressure_sessions (
+       prompt_cache_key_hash, provider, model, first_seen, last_seen,
+       pressure_event_count, high_uncached_event_count,
+       recent_high_uncached_event_count, recent_high_uncached_window_start,
+       last_call_log_id, last_reason, last_tokens_in, last_tokens_cache_read,
+       last_noncached_input_tokens, last_cache_read_pct,
+       pending_intervention, pending_reason, pending_since
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(prompt_cache_key_hash) DO UPDATE SET
+       provider = excluded.provider,
+       model = excluded.model,
+       last_seen = excluded.last_seen,
+       pressure_event_count = context_pressure_sessions.pressure_event_count + 1,
+       high_uncached_event_count = context_pressure_sessions.high_uncached_event_count + ?,
+       recent_high_uncached_event_count = excluded.recent_high_uncached_event_count,
+       recent_high_uncached_window_start = excluded.recent_high_uncached_window_start,
+       last_call_log_id = excluded.last_call_log_id,
+       last_reason = excluded.last_reason,
+       last_tokens_in = excluded.last_tokens_in,
+       last_tokens_cache_read = excluded.last_tokens_cache_read,
+       last_noncached_input_tokens = excluded.last_noncached_input_tokens,
+       last_cache_read_pct = excluded.last_cache_read_pct,
+       pending_intervention = excluded.pending_intervention,
+       pending_reason = excluded.pending_reason,
+       pending_since = excluded.pending_since`
+  ).run(
+    event.promptCacheKeyHash,
+    input.provider,
+    input.model,
+    input.timestamp,
+    input.timestamp,
+    1,
+    isHighUncached ? 1 : 0,
+    recentHighUncachedEventCount,
+    recentHighUncachedWindowStart,
+    input.callLogId,
+    event.reason,
+    event.tokensIn,
+    event.tokensCacheRead,
+    event.nonCachedInputTokens,
+    event.cacheReadPct,
+    pendingIntervention,
+    pendingReasonValue,
+    pendingSince,
+    isHighUncached ? 1 : 0
+  );
+}
+
+function pressureInterventionFromRow(row: PressureSessionRow): ContextPressureIntervention | null {
+  if (row.pending_intervention !== 1) return null;
+  const reason = row.pending_reason;
+  if (reason !== "critical_high_uncached_input" && reason !== "repeated_high_uncached_input") {
+    return null;
+  }
+  if (!row.pending_since) return null;
+
+  return {
+    promptCacheKeyHash: row.prompt_cache_key_hash,
+    reason,
+    eventCount: row.pressure_event_count,
+    lastTokensIn: row.last_tokens_in,
+    lastNonCachedInputTokens: row.last_noncached_input_tokens,
+    lastCacheReadPct: row.last_cache_read_pct,
+    pendingSince: row.pending_since,
+  };
+}
+
+export function getPendingContextPressureIntervention(
+  db: SqliteDatabase,
+  requestBody: unknown,
+  timestamp = new Date().toISOString()
+): ContextPressureIntervention | null {
+  ensureContextCompactionTables(db);
+  const promptCacheKeyHash = extractPromptCacheKeyHash(requestBody);
+  if (!promptCacheKeyHash) return null;
+
+  const row = db
+    .prepare(
+      `SELECT prompt_cache_key_hash, pressure_event_count, recent_high_uncached_event_count,
+              recent_high_uncached_window_start, last_tokens_in,
+              last_noncached_input_tokens, last_cache_read_pct, pending_intervention,
+              pending_reason, pending_since
+       FROM context_pressure_sessions
+       WHERE prompt_cache_key_hash = ?`
+    )
+    .get(promptCacheKeyHash) as PressureSessionRow | undefined;
+
+  if (!row) return null;
+  if (isStalePendingPressureIntervention(row, timestamp)) {
+    clearStalePendingPressureIntervention(db, promptCacheKeyHash);
+    return null;
+  }
+
+  return pressureInterventionFromRow(row);
+}
+
+export function consumeContextPressureIntervention(
+  db: SqliteDatabase,
+  requestBody: unknown,
+  timestamp = new Date().toISOString()
+): ContextPressureIntervention | null {
+  ensureContextCompactionTables(db);
+  const promptCacheKeyHash = extractPromptCacheKeyHash(requestBody);
+  if (!promptCacheKeyHash) return null;
+
+  const row = db
+    .prepare(
+      `SELECT prompt_cache_key_hash, pressure_event_count, recent_high_uncached_event_count,
+              recent_high_uncached_window_start, last_tokens_in,
+              last_noncached_input_tokens, last_cache_read_pct, pending_intervention,
+              pending_reason, pending_since
+       FROM context_pressure_sessions
+       WHERE prompt_cache_key_hash = ?`
+    )
+    .get(promptCacheKeyHash) as PressureSessionRow | undefined;
+  if (!row) return null;
+  if (isStalePendingPressureIntervention(row, timestamp)) {
+    clearStalePendingPressureIntervention(db, promptCacheKeyHash);
+    return null;
+  }
+
+  const intervention = pressureInterventionFromRow(row);
+  if (!intervention) return null;
+
+  db.prepare(
+    `UPDATE context_pressure_sessions
+     SET pending_intervention = 0,
+         pending_reason = NULL,
+         pending_since = NULL,
+         intervention_count = intervention_count + 1,
+         last_intervention_at = ?
+     WHERE prompt_cache_key_hash = ?`
+  ).run(timestamp, promptCacheKeyHash);
+
+  return intervention;
+}
+
+function clearPendingPressureIntervention(
+  db: SqliteDatabase,
+  promptCacheKeyHash: string,
+  timestamp: string
+) {
+  db.prepare(
+    `UPDATE context_pressure_sessions
+     SET pending_intervention = 0,
+         pending_reason = NULL,
+         pending_since = NULL,
+         recent_high_uncached_event_count = 0,
+         recent_high_uncached_window_start = NULL,
+         last_compaction_at = ?
+     WHERE prompt_cache_key_hash = ?`
+  ).run(timestamp, promptCacheKeyHash);
 }
 
 export function ensureContextCompactionTables(db: SqliteDatabase) {
@@ -139,12 +438,38 @@ export function ensureContextCompactionTables(db: SqliteDatabase) {
       reason TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS context_pressure_sessions (
+      prompt_cache_key_hash TEXT PRIMARY KEY,
+      provider TEXT NOT NULL,
+      model TEXT NOT NULL,
+      first_seen TEXT NOT NULL,
+      last_seen TEXT NOT NULL,
+      pressure_event_count INTEGER NOT NULL,
+      high_uncached_event_count INTEGER NOT NULL,
+      recent_high_uncached_event_count INTEGER NOT NULL,
+      recent_high_uncached_window_start TEXT,
+      last_call_log_id TEXT NOT NULL,
+      last_reason TEXT NOT NULL,
+      last_tokens_in INTEGER NOT NULL,
+      last_tokens_cache_read INTEGER NOT NULL,
+      last_noncached_input_tokens INTEGER NOT NULL,
+      last_cache_read_pct REAL NOT NULL,
+      pending_intervention INTEGER NOT NULL DEFAULT 0,
+      pending_reason TEXT,
+      pending_since TEXT,
+      intervention_count INTEGER NOT NULL DEFAULT 0,
+      last_intervention_at TEXT,
+      last_compaction_at TEXT
+    );
+
     CREATE INDEX IF NOT EXISTS idx_context_pressure_events_timestamp
       ON context_pressure_events(timestamp);
     CREATE INDEX IF NOT EXISTS idx_context_pressure_events_session
       ON context_pressure_events(prompt_cache_key_hash, timestamp);
     CREATE INDEX IF NOT EXISTS idx_context_pressure_events_reason
       ON context_pressure_events(reason, timestamp);
+    CREATE INDEX IF NOT EXISTS idx_context_pressure_sessions_pending
+      ON context_pressure_sessions(pending_intervention, pending_since);
 
     CREATE INDEX IF NOT EXISTS idx_context_compaction_events_timestamp
       ON context_compaction_events(timestamp);
@@ -248,6 +573,8 @@ export function recordContextPressureCandidate(
     event.reason
   );
 
+  upsertPressureSession(db, input, event, null);
+
   return event;
 }
 export function recordContextCompactionCandidate(
@@ -327,5 +654,6 @@ export function recordContextCompactionCandidate(
   );
 
   upsertSession(db, input, promptCacheKeyHash, currentNonCached);
+  clearPendingPressureIntervention(db, promptCacheKeyHash, input.timestamp);
   return event;
 }

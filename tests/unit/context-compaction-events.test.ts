@@ -4,7 +4,9 @@ import test from "node:test";
 import Database from "better-sqlite3";
 
 import {
+  consumeContextPressureIntervention,
   ensureContextCompactionTables,
+  getPendingContextPressureIntervention,
   recordContextCompactionCandidate,
   recordContextPressureCandidate,
 } from "../../src/lib/usage/contextCompactionEvents.ts";
@@ -187,4 +189,166 @@ test("ignores pressure candidates without successful responses prompt cache keys
     count: number;
   };
   assert.equal(count.count, 0);
+});
+
+test("marks repeated high-uncached sessions for one-shot pressure intervention", () => {
+  const db = createDb();
+  const requestBody = { prompt_cache_key: "conversation-secret-key" };
+
+  recordContextPressureCandidate(db, {
+    callLogId: "call_pressure_1",
+    timestamp: "2026-05-05T18:00:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 120000,
+    tokensCacheRead: 60000,
+    requestBody,
+  });
+
+  assert.equal(
+    getPendingContextPressureIntervention(db, requestBody, "2026-05-05T18:05:30.000Z"),
+    null
+  );
+
+  recordContextPressureCandidate(db, {
+    callLogId: "call_pressure_2",
+    timestamp: "2026-05-05T18:04:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 130000,
+    tokensCacheRead: 65000,
+    requestBody,
+  });
+
+  const pending = getPendingContextPressureIntervention(
+    db,
+    requestBody,
+    "2026-05-05T18:04:30.000Z"
+  );
+  assert.ok(pending);
+  assert.equal(pending?.reason, "repeated_high_uncached_input");
+  assert.equal(pending?.lastNonCachedInputTokens, 65000);
+
+  const consumed = consumeContextPressureIntervention(db, requestBody, "2026-05-05T18:05:00.000Z");
+  assert.ok(consumed);
+  assert.equal(
+    getPendingContextPressureIntervention(db, requestBody, "2026-05-05T18:05:30.000Z"),
+    null
+  );
+
+  const stored = db.prepare("SELECT * FROM context_pressure_sessions").get() as Record<
+    string,
+    unknown
+  >;
+  assert.equal(stored.pending_intervention, 0);
+  assert.equal(stored.intervention_count, 1);
+  assert.equal(JSON.stringify(stored).includes("conversation-secret-key"), false);
+});
+
+test("clears pending pressure intervention after a real compact-like drop", () => {
+  const db = createDb();
+  const requestBody = { prompt_cache_key: "conversation-secret-key" };
+
+  recordContextPressureCandidate(db, {
+    callLogId: "call_pressure_big",
+    timestamp: "2026-05-05T18:00:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 210000,
+    tokensCacheRead: 2000,
+    requestBody,
+  });
+
+  assert.ok(getPendingContextPressureIntervention(db, requestBody, "2026-05-05T18:00:30.000Z"));
+
+  recordContextCompactionCandidate(db, {
+    callLogId: "call_high",
+    timestamp: "2026-05-05T18:01:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 210000,
+    tokensCacheRead: 190000,
+    requestBody,
+  });
+
+  recordContextCompactionCandidate(db, {
+    callLogId: "call_low",
+    timestamp: "2026-05-05T18:02:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 30000,
+    tokensCacheRead: 10000,
+    requestBody,
+  });
+
+  assert.equal(
+    getPendingContextPressureIntervention(db, requestBody, "2026-05-05T18:05:30.000Z"),
+    null
+  );
+});
+test("marks a single 120k uncached spike for critical pressure intervention", () => {
+  const db = createDb();
+  const requestBody = { prompt_cache_key: "conversation-secret-key" };
+
+  recordContextPressureCandidate(db, {
+    callLogId: "call_pressure_120k",
+    timestamp: "2026-05-05T18:00:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 160000,
+    tokensCacheRead: 40000,
+    requestBody,
+  });
+
+  const pending = getPendingContextPressureIntervention(
+    db,
+    requestBody,
+    "2026-05-05T18:04:30.000Z"
+  );
+  assert.ok(pending);
+  assert.equal(pending.reason, "critical_high_uncached_input");
+  assert.equal(pending.lastNonCachedInputTokens, 120000);
+});
+
+test("expires stale pending pressure interventions instead of consuming them", () => {
+  const db = createDb();
+  const requestBody = { prompt_cache_key: "conversation-secret-key" };
+
+  recordContextPressureCandidate(db, {
+    callLogId: "call_pressure_stale",
+    timestamp: "2026-05-05T18:00:00.000Z",
+    path: "/v1/responses",
+    status: 200,
+    provider: "codex",
+    model: "gpt-5.5",
+    tokensIn: 210000,
+    tokensCacheRead: 2000,
+    requestBody,
+  });
+
+  assert.ok(getPendingContextPressureIntervention(db, requestBody, "2026-05-05T23:59:00.000Z"));
+  assert.equal(
+    consumeContextPressureIntervention(db, requestBody, "2026-05-06T00:01:00.000Z"),
+    null
+  );
+
+  const stored = db.prepare("SELECT * FROM context_pressure_sessions").get() as Record<
+    string,
+    unknown
+  >;
+  assert.equal(stored.pending_intervention, 0);
+  assert.equal(stored.intervention_count, 0);
+  assert.equal(stored.pending_reason, null);
 });

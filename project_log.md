@@ -1,5 +1,27 @@
 # Project Log
 
+## 2026-05-12 - Codex token tuning deployed
+
+- Summary: Tuned Codex pressure handling to reduce cold context spikes and added metadata-only MCP/tool payload telemetry.
+- Files touched: `src/lib/usage/contextCompactionEvents.ts`, `src/lib/usage/callLogs.ts`, `open-sse/handlers/chatCore.ts`, `open-sse/executors/codex.ts`, `open-sse/executors/base.ts`, `tests/unit/context-compaction-events.test.ts`, `tests/unit/call-log-cap.test.ts`, `tests/unit/executor-codex.test.ts`.
+- Verification: `node --import tsx/esm --test tests/unit/context-compaction-events.test.ts`; `node --import tsx/esm --test tests/unit/call-log-cap.test.ts`; `node --import tsx/esm --test tests/unit/executor-codex.test.ts --test-name-pattern "context pressure|pressure trim keeps function"`; `npm run typecheck:core`; `git diff --check`.
+- Deployment: Built VPS image `omniroute-local:codex-token-tune-base-20260512-014930` with Docker target `runner-base`, smoke-tested on temporary localhost port `20133`, then swapped production to container `omniroute-codex-token-tune-20260512-014930`.
+- Production verification: Docker health is healthy; local and public `https://omniroute.ionutrosu.xyz/api/health` return `401`; recent Codex calls return `200`; `toolPayload` request summaries are being recorded.
+- Incident: The first token-tune production container was launched with a different `STORAGE_ENCRYPTION_KEY` than the previous running container. That caused credential decryption failures and forced account re-auth. Future deploys must compare the running container's encryption-key fingerprint before any production swap and must not live-swap while Codex sessions are active.
+- Next step: Monitor cold input/day, pending pressure sessions, decryption failures, and `request_summary.toolPayload` size distributions after heavy usage.
+
+## 2026-05-09 - Codex pressure-aware context trimming
+
+- Summary: Added a one-shot Codex context-pressure intervention for sessions that produce critical or repeated high-uncached input. The intervention is metadata-triggered, preserves developer/system items plus the last 10 Responses input items, and only trims when the outgoing input is still large.
+- Files touched: `src/lib/usage/contextCompactionEvents.ts`, `open-sse/handlers/chatCore.ts`, `open-sse/executors/codex.ts`, `open-sse/executors/base.ts`, `tests/unit/context-compaction-events.test.ts`, `tests/unit/executor-codex.test.ts`.
+- Verification: `node --import tsx/esm --test tests/unit/context-compaction-events.test.ts`; `node --import tsx/esm --test tests/unit/executor-codex.test.ts --test-name-pattern "context pressure"`; `node --import tsx/esm --test tests/unit/context-manager.test.ts`; `npm run typecheck:core`; `git diff --check`.
+- Decision: Use pressure-aware per-session intervention instead of a global smaller context cap. Pending pressure is consumed once and cleared by real compact-like drops.
+- Deployment: Built VPS image `omniroute-local:pressure-trim-base-20260510-132343` with Docker target `runner-base`, smoke-tested it in a disposable container, then swapped production to container `omniroute-pressure-trim-20260510-132343`.
+- Production verification: Docker health is healthy; local and public `https://omniroute.ionutrosu.xyz/api/health` return `401`; previous container `omniroute-context-pressure-20260508-050657` is stopped and kept available for rollback.
+- Regression fix: User reported Codex 400s for orphan `function_call_output` call IDs after the first pressure-trim deploy. Root cause was pressure trim running after tool-pair repair and splitting `function_call` / `function_call_output` pairs. Production was rolled back to `omniroute-context-pressure-20260508-050657`, then a fixed image `omniroute-local:pressure-trim-fix-base-20260510-193753` was built and deployed as `omniroute-pressure-trim-fix-20260510-193753`. The fix repairs function-call pairs after pressure trimming and drops orphaned tool items instead of sending invalid payloads.
+- Regression verification: `node --import tsx/esm --test tests/unit/executor-codex.test.ts --test-name-pattern "pressure trim keeps function"`; `node --import tsx/esm --test tests/unit/executor-codex.test.ts --test-name-pattern "context pressure"`; `node --import tsx/esm --test tests/unit/context-compaction-events.test.ts`; `npm run typecheck:core`; corrected production container is healthy and local/public `/api/health` return `401`.
+- Next step: Monitor `context_pressure_sessions.intervention_count`, pending sessions, cache-read %, and high-uncached requests after a heavy-use window.
+
 ## 2026-05-08 - Context pressure monitoring deployed
 
 - Summary: Added observe-only context pressure monitoring for Codex `/v1/responses` usage. The detector stores hashed prompt-cache-key metadata only, recording high uncached input spikes and low cache-read rates without request or response bodies.

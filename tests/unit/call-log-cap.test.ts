@@ -705,6 +705,47 @@ test("saveCallLog logs and returns when sqlite persistence throws unexpectedly",
   assert.match(consoleCalls[0], /simulated sqlite prepare failure/);
 });
 
+test("saveCallLog records metadata-only tool payload size summary", async () => {
+  const toolDescription = "x".repeat(4096);
+  await callLogs.saveCallLog({
+    id: "tool-payload-summary",
+    timestamp: "2026-05-12T10:00:00.000Z",
+    method: "POST",
+    path: "/v1/responses",
+    status: 200,
+    model: "gpt-5.5",
+    provider: "codex",
+    requestBody: {
+      input: [{ role: "user", content: "hello" }],
+      tools: [
+        {
+          type: "namespace",
+          name: "mcp__context_mode__",
+          description: "Context tools",
+          tools: [
+            { type: "function", name: "ctx_search", description: toolDescription },
+            { type: "function", name: "ctx_execute", description: toolDescription },
+          ],
+        },
+        { type: "web_search" },
+      ],
+    },
+    responseBody: { id: "resp_tool_summary" },
+  });
+
+  const db = core.getDbInstance();
+  const row = db
+    .prepare("SELECT request_summary FROM call_logs WHERE id = ?")
+    .get("tool-payload-summary") as { request_summary: string | null };
+  assert.equal(typeof row.request_summary, "string");
+
+  const summary = JSON.parse(row.request_summary as string);
+  assert.equal(summary.toolPayload.toolCount, 2);
+  assert.equal(summary.toolPayload.namespaceCount, 1);
+  assert.equal(summary.toolPayload.nestedToolCount, 2);
+  assert.equal(summary.toolPayload.approxTokens > 1000, true);
+  assert.equal(JSON.stringify(summary).includes(toolDescription), false);
+});
 test("getCallLogs and getCallLogById expose combo target identifiers", async () => {
   await callLogs.saveCallLog({
     id: "combo-target-log",

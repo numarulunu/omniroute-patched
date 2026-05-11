@@ -52,6 +52,9 @@ const CODEX_COMPACT_HANDOFF_MARKER = "OmniRoute compact handoff";
 const CODEX_COMPACT_RECENT_ITEM_COUNT = 10;
 const CODEX_COMPACT_HANDOFF_MAX_CHARS = 8_000;
 const CODEX_COMPACT_ITEM_MAX_CHARS = 1_200;
+const CODEX_PRESSURE_MARKER = "OmniRoute context pressure";
+const CODEX_PRESSURE_RECENT_ITEM_COUNT = 10;
+const CODEX_PRESSURE_MIN_INPUT_CHARS = 200_000;
 let _websocketFn: WebsocketFn | null = null;
 let _wreqChecked = false;
 let _websocketOverride: WebsocketFn | null | undefined;
@@ -378,6 +381,79 @@ function buildCodexCompactRecentTail(body: Record<string, unknown>, maxChars: nu
   }
 
   return lines.join("\n");
+}
+
+function isPressurePreservedItem(item: CodexCompactItem): boolean {
+  const role = getCompactItemRole(item);
+  return role === "system" || role === "developer";
+}
+
+function buildPressureMarker(intervention: Record<string, unknown>): Record<string, unknown> {
+  const lastNonCached =
+    typeof intervention.lastNonCachedInputTokens === "number"
+      ? Math.max(0, Math.floor(intervention.lastNonCachedInputTokens))
+      : null;
+  const reason =
+    typeof intervention.reason === "string" && intervention.reason.trim()
+      ? intervention.reason.trim()
+      : "high_uncached_input";
+  const text =
+    CODEX_PRESSURE_MARKER +
+    ": older context was trimmed after repeated high uncached input" +
+    (lastNonCached !== null ? ` (${lastNonCached} noncached input tokens last seen)` : "") +
+    `. Reason: ${reason}. Continue from the preserved recent tail; ask for missing details only if required.`;
+
+  return {
+    type: "message",
+    role: "user",
+    content: [{ type: "input_text", text }],
+  };
+}
+
+function repairCodexFunctionCallPairs(input: unknown[]): unknown[] {
+  const functionCallIds = new Set<string>();
+  const functionCallOutputIds = new Set<string>();
+
+  for (const item of input) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) continue;
+    const record = item as Record<string, unknown>;
+    const callId = typeof record.call_id === "string" ? record.call_id : "";
+    if (!callId) continue;
+    if (record.type === "function_call") functionCallIds.add(callId);
+    if (record.type === "function_call_output") functionCallOutputIds.add(callId);
+  }
+
+  return input.filter((item) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) return true;
+    const record = item as Record<string, unknown>;
+    const callId = typeof record.call_id === "string" ? record.call_id : "";
+    if (!callId) return true;
+    if (record.type === "function_call") return functionCallOutputIds.has(callId);
+    if (record.type === "function_call_output") return functionCallIds.has(callId);
+    return true;
+  });
+}
+
+function applyCodexContextPressureIntervention(body: Record<string, unknown>, credentials): void {
+  if (!Array.isArray(body.input) || body.input.length <= CODEX_PRESSURE_RECENT_ITEM_COUNT) return;
+  try {
+    if (JSON.stringify(body.input).length < CODEX_PRESSURE_MIN_INPUT_CHARS) return;
+  } catch {
+    return;
+  }
+  const intervention =
+    credentials?.contextPressureIntervention ||
+    credentials?.providerSpecificData?._omnirouteContextPressureIntervention;
+  if (!intervention || typeof intervention !== "object" || Array.isArray(intervention)) return;
+
+  const preserved = body.input.filter(
+    (item) => isCodexCompactRecord(item) && isPressurePreservedItem(item)
+  );
+  const tail = body.input
+    .filter((item) => !isCodexCompactRecord(item) || !isPressurePreservedItem(item))
+    .slice(-CODEX_PRESSURE_RECENT_ITEM_COUNT);
+  const marker = buildPressureMarker(intervention as Record<string, unknown>);
+  body.input = repairCodexFunctionCallPairs([...preserved, marker, ...tail]);
 }
 
 function enrichCodexCompactHandoff(body: Record<string, unknown>): void {
@@ -1427,6 +1503,10 @@ export class CodexExecutor extends BaseExecutor {
     // but the upstream Codex API strictly rejects them as unsupported parameters.
     delete body.session_id;
     delete body.conversation_id;
+
+    if (!isCompactRequest && nativeCodexPassthrough) {
+      applyCodexContextPressureIntervention(body, credentials);
+    }
 
     if (isCompactRequest && nativeCodexPassthrough) {
       enrichCodexCompactHandoff(body);

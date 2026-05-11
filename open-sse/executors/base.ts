@@ -59,6 +59,7 @@ export type ProviderCredentials = {
   maxConcurrent?: number | null;
   providerSpecificData?: JsonRecord;
   requestEndpointPath?: string;
+  contextPressureIntervention?: JsonRecord | null;
 };
 
 export type ExecutorLog = {
