@@ -195,22 +195,120 @@ function protectPipelinePayloads(payloads: unknown): RequestPipelinePayloads | n
   return Object.keys(protectedPayloads).length > 0 ? protectedPayloads : null;
 }
 
-function buildRequestSummary(requestType: string | null, requestBody: unknown): string | null {
-  if (requestType !== "search") return null;
+function safeJsonLength(value: unknown): number {
+  try {
+    return JSON.stringify(value).length;
+  } catch {
+    return 0;
+  }
+}
 
+function toolNameFromRecord(tool: JsonRecord): string | null {
+  if (typeof tool.name === "string" && tool.name.trim().length > 0) {
+    return truncateText(sanitizePII(tool.name.trim()).text, 120);
+  }
+  const fn = asRecord(tool.function);
+  if (typeof fn.name === "string" && fn.name.trim().length > 0) {
+    return truncateText(sanitizePII(fn.name.trim()).text, 120);
+  }
+  return null;
+}
+
+function toolTypeFromRecord(tool: JsonRecord): string {
+  return typeof tool.type === "string" && tool.type.trim().length > 0
+    ? truncateText(tool.type.trim(), 80)
+    : "unknown";
+}
+
+function buildToolPayloadSummary(requestBody: unknown): JsonRecord | null {
+  const body = asRecord(requestBody);
+  if (!Array.isArray(body.tools) || body.tools.length === 0) return null;
+
+  const topLevelTypeCounts: Record<string, number> = {};
+  const namespaceNames: string[] = [];
+  let namespaceCount = 0;
+  let nestedToolCount = 0;
+  let functionToolCount = 0;
+  let hostedToolCount = 0;
+  let largestTopLevelTool: JsonRecord | null = null;
+  let largestTopLevelToolChars = -1;
+
+  body.tools.forEach((toolValue, index) => {
+    const tool = asRecord(toolValue);
+    const type = toolTypeFromRecord(tool);
+    const name = toolNameFromRecord(tool);
+    const chars = safeJsonLength(toolValue);
+    const nestedTools = Array.isArray(tool.tools) ? tool.tools : [];
+
+    topLevelTypeCounts[type] = (topLevelTypeCounts[type] || 0) + 1;
+    if (type === "namespace") {
+      namespaceCount += 1;
+      if (name && namespaceNames.length < 20) namespaceNames.push(name);
+    } else if (type === "function" || tool.function) {
+      functionToolCount += 1;
+    } else {
+      hostedToolCount += 1;
+    }
+
+    nestedToolCount += nestedTools.length;
+    for (const nestedToolValue of nestedTools) {
+      const nestedTool = asRecord(nestedToolValue);
+      if (toolTypeFromRecord(nestedTool) === "function" || nestedTool.function) {
+        functionToolCount += 1;
+      }
+    }
+
+    if (chars > largestTopLevelToolChars) {
+      largestTopLevelToolChars = chars;
+      largestTopLevelTool = {
+        index,
+        type,
+        name,
+        approxChars: chars,
+        approxTokens: Math.ceil(chars / 4),
+        nestedToolCount: nestedTools.length,
+      };
+    }
+  });
+
+  const approxChars = safeJsonLength(body.tools);
+  return {
+    toolCount: body.tools.length,
+    namespaceCount,
+    nestedToolCount,
+    functionToolCount,
+    hostedToolCount,
+    approxChars,
+    approxTokens: Math.ceil(approxChars / 4),
+    topLevelTypeCounts,
+    namespaceNames,
+    largestTopLevelTool,
+  };
+}
+
+function buildRequestSummary(requestType: string | null, requestBody: unknown): string | null {
   const body = asRecord(requestBody);
   if (Object.keys(body).length === 0) return null;
 
   const summary: JsonRecord = {};
-  if (typeof body.query === "string" && body.query.trim().length > 0) {
-    summary.query = sanitizePII(body.query).text;
+  if (requestType === "search") {
+    if (typeof body.query === "string" && body.query.trim().length > 0) {
+      summary.query = sanitizePII(body.query).text;
+    }
+
+    const filters = Object.fromEntries(
+      Object.entries(body).filter(
+        ([key]) => key !== "query" && key !== "provider" && key !== "tools"
+      )
+    );
+    if (Object.keys(filters).length > 0) {
+      summary.filters = filters;
+    }
   }
 
-  const filters = Object.fromEntries(
-    Object.entries(body).filter(([key]) => key !== "query" && key !== "provider")
-  );
-  if (Object.keys(filters).length > 0) {
-    summary.filters = filters;
+  const toolPayload = buildToolPayloadSummary(body);
+  if (toolPayload) {
+    summary.toolPayload = toolPayload;
   }
 
   if (Object.keys(summary).length === 0) return null;

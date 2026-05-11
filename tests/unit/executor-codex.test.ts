@@ -376,6 +376,99 @@ test("CodexExecutor.transformRequest strips store from compact requests even whe
   assert.equal(result.instructions, "keep this");
 });
 
+test("CodexExecutor.transformRequest trims old Responses input when context pressure is pending", () => {
+  const executor = new CodexExecutor();
+  const input = [
+    { type: "message", role: "developer", content: [{ type: "input_text", text: "rules" }] },
+    ...Array.from({ length: 14 }, (_, i) => ({
+      type: "message",
+      role: i % 2 === 0 ? "user" : "assistant",
+      content: [
+        {
+          type: i % 2 === 0 ? "input_text" : "output_text",
+          text: `Turn ${i} ${"x".repeat(16_000)}`,
+        },
+      ],
+    })),
+  ];
+  const body = {
+    _nativeCodexPassthrough: true,
+    instructions: "keep this",
+    input,
+    prompt_cache_key: "session-1",
+  };
+
+  const result = executor.transformRequest("gpt-5.5", body, true, {
+    requestEndpointPath: "/responses",
+    providerSpecificData: {
+      _omnirouteContextPressureIntervention: {
+        reason: "repeated_high_uncached_input",
+        lastNonCachedInputTokens: 200000,
+      },
+    },
+  });
+
+  assert.equal(result.input.length, 12);
+  assert.equal(result.input[0].role, "developer");
+  assert.match(result.input[1].content[0].text, /OmniRoute context pressure/i);
+  assert.deepEqual(
+    result.input.slice(2).map((item: any) => item.content[0].text.slice(0, 6)),
+    Array.from({ length: 10 }, (_, i) => `Turn ${i + 4}`.slice(0, 6))
+  );
+  assert.equal(JSON.stringify(result.input).includes("Turn 0"), false);
+  assert.equal(JSON.stringify(result.input).includes("Turn 3"), false);
+});
+
+test("CodexExecutor.transformRequest pressure trim keeps function call outputs paired", () => {
+  const executor = new CodexExecutor();
+  const bulkyMessage = (i: number) => ({
+    type: "message",
+    role: i % 2 === 0 ? "user" : "assistant",
+    content: [
+      {
+        type: i % 2 === 0 ? "input_text" : "output_text",
+        text: `Turn ${i} ${"x".repeat(25_000)}`,
+      },
+    ],
+  });
+  const body = {
+    _nativeCodexPassthrough: true,
+    instructions: "keep this",
+    prompt_cache_key: "session-with-tools",
+    input: [
+      { type: "message", role: "developer", content: [{ type: "input_text", text: "rules" }] },
+      bulkyMessage(0),
+      {
+        type: "function_call",
+        call_id: "call_pressure_pair_123",
+        name: "workspace_read_file",
+        arguments: '{"path":"README.md"}',
+      },
+      ...Array.from({ length: 9 }, (_, i) => bulkyMessage(i + 1)),
+      {
+        type: "function_call_output",
+        call_id: "call_pressure_pair_123",
+        output: '{"ok":true}',
+      },
+    ],
+  };
+
+  const result = executor.transformRequest("gpt-5.5", body, true, {
+    requestEndpointPath: "/responses",
+    providerSpecificData: {
+      _omnirouteContextPressureIntervention: {
+        reason: "critical_high_uncached_input",
+        lastNonCachedInputTokens: 210000,
+      },
+    },
+  });
+
+  assert.match(result.input[1].content[0].text, /OmniRoute context pressure/i);
+  const outputs = result.input.filter((item: any) => item.type === "function_call_output");
+  assert.equal(outputs.length, 0);
+  assert.equal(JSON.stringify(result.input).includes("call_pressure_pair_123"), false);
+});
+
 test("CodexExecutor.transformRequest expands remembered conversation state for stateful tool outputs", () => {
   const executor = new CodexExecutor();
   rememberResponseConversationState(
