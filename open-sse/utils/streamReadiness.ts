@@ -69,13 +69,25 @@ function hasUsefulJsonPayload(payload: unknown): boolean {
 function hasAcceptedStreamStartPayload(payload: unknown, eventType = ""): boolean {
   if (!isRecord(payload)) return false;
 
-  // Anthropic/Claude streams can legitimately start with lifecycle frames and
-  // then spend a long time thinking before the first text/tool delta arrives.
-  // Treating the start frame as readiness prevents false 504s while ping-only
-  // zombie streams still fail below.
+  // Some providers send lifecycle frames before text/tool deltas while the model
+  // is still thinking. Treat those frames as stream readiness so active streams
+  // are not converted into false 504s. Ping-only streams still fail below.
   const type = typeof payload.type === "string" ? payload.type : eventType;
   if (type === "message_start" && isRecord(payload.message)) return true;
   if (type === "content_block_start" && isRecord(payload.content_block)) return true;
+  if (
+    (type === "response.created" || type === "response.in_progress") &&
+    isRecord(payload.response)
+  ) {
+    return true;
+  }
+  if (type === "response.output_item.added" && isRecord(payload.item)) return true;
+  if (
+    (type === "response.content_part.added" || type === "response.reasoning_summary_part.added") &&
+    isRecord(payload.part)
+  ) {
+    return true;
+  }
 
   return false;
 }

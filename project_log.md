@@ -48,3 +48,11 @@
 - Verification: Red tests reproduced the unbounded replay snapshot and missing retry persistence; after the fix, `node --import tsx/esm --test tests/unit/token-health-check.test.ts tests/unit/executor-codex.test.ts` passed with 47/47 tests, `npm run typecheck:core` exited 0, and `git diff --check` exited 0.
 - Decision: Did not deploy from this local pass. Production changes still need the compose-based, no-`docker run` deploy path with image tag update and health/smoke monitoring.
 - Next step: Deploy through Coolify compose only after explicit approval, then monitor heap/RSS and Codex request logs for at least a heavy-use window.
+
+## 2026-05-12 - Codex stream readiness false 504 fix
+
+- Summary: Fixed false `504 STREAM_READINESS_TIMEOUT` responses on Codex/OpenAI Responses streams where lifecycle frames such as `response.created` arrive before text/tool deltas during long model thinking.
+- Files touched: `open-sse/utils/streamReadiness.ts`, `tests/unit/stream-readiness.test.ts`.
+- Verification: Added failing OpenAI Responses lifecycle regression tests first; after the fix, `node --import tsx/esm --test tests/unit/stream-readiness.test.ts tests/unit/combo-stream-readiness-fallback.test.ts` passed with 13/13 tests, `node --import tsx/esm --test tests/unit/executor-codex.test.ts` passed with 40/40 tests, `npm run typecheck:core` exited 0, and `git diff --check` exited 0.
+- Note: `tests/unit/chat-cooldown-aware-retry.test.ts` still shows two Node test-runner `cancelledByParent` timer cancellations locally; that appears tied to the test's mocked timer harness and was not used as deploy evidence for this stream parser change.
+- Next step: Deploy through Coolify compose only, then watch for `Stream produced no useful content` and `Controller is already closed` logs under live Codex traffic.

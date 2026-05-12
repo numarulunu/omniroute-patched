@@ -61,6 +61,42 @@ function delayedClaudeStartStream(): ReadableStream<Uint8Array> {
   });
 }
 
+function delayedResponsesStartStream(): ReadableStream<Uint8Array> {
+  return new ReadableStream<Uint8Array>({
+    async start(controller) {
+      controller.enqueue(
+        encoder.encode(
+          [
+            "event: response.created",
+            `data: ${JSON.stringify({
+              type: "response.created",
+              response: {
+                id: "resp_1",
+                object: "response",
+                status: "in_progress",
+                output: [],
+              },
+            })}`,
+            "",
+          ].join("\n")
+        )
+      );
+
+      await new Promise((resolve) => setTimeout(resolve, 30));
+      controller.enqueue(
+        encoder.encode(
+          [
+            "event: response.output_text.delta",
+            `data: ${JSON.stringify({ type: "response.output_text.delta", delta: "slow hello" })}`,
+            "",
+          ].join("\n")
+        )
+      );
+      controller.close();
+    },
+  });
+}
+
 test("hasUsefulStreamContent ignores keepalives and lifecycle-only chunks", () => {
   assert.equal(hasUsefulStreamContent(": keepalive\n\n"), false);
   assert.equal(hasUsefulStreamContent("event: ping\ndata: {}\n\n"), false);
@@ -125,10 +161,6 @@ test("hasStreamReadinessSignal accepts Claude stream start events", () => {
   assert.equal(hasStreamReadinessSignal(": keepalive\n\n"), false);
   assert.equal(hasStreamReadinessSignal("event: ping\ndata: {}\n\n"), false);
   assert.equal(
-    hasStreamReadinessSignal(`data: ${JSON.stringify({ type: "response.created" })}\n\n`),
-    false
-  );
-  assert.equal(
     hasStreamReadinessSignal(
       `event: message_start\ndata: ${JSON.stringify({
         type: "message_start",
@@ -160,6 +192,27 @@ test("hasStreamReadinessSignal accepts Claude stream start events", () => {
       `event: content_block_start\ndata: ${JSON.stringify({
         index: 0,
         content_block: { type: "text", text: "" },
+      })}\n\n`
+    ),
+    true
+  );
+});
+
+test("hasStreamReadinessSignal accepts OpenAI Responses stream start events", () => {
+  assert.equal(
+    hasStreamReadinessSignal(
+      `event: response.created\ndata: ${JSON.stringify({
+        type: "response.created",
+        response: { id: "resp_1", status: "in_progress", output: [] },
+      })}\n\n`
+    ),
+    true
+  );
+  assert.equal(
+    hasStreamReadinessSignal(
+      `event: response.output_item.added\ndata: ${JSON.stringify({
+        type: "response.output_item.added",
+        item: { id: "msg_1", type: "message", content: [] },
       })}\n\n`
     ),
     true
@@ -198,6 +251,23 @@ test("ensureStreamReadiness hands off long Claude streams after message_start", 
   assert.equal(result.ok, true);
   const text = await result.response.text();
   assert.match(text, /message_start/);
+  assert.match(text, /slow hello/);
+});
+
+test("ensureStreamReadiness hands off long OpenAI Responses streams after response.created", async () => {
+  const response = new Response(delayedResponsesStartStream(), {
+    status: 200,
+    headers: { "Content-Type": "text/event-stream" },
+  });
+
+  const result = await ensureStreamReadiness(response, {
+    timeoutMs: 10,
+    provider: "codex",
+    model: "gpt-5.5-medium",
+  });
+  assert.equal(result.ok, true);
+  const text = await result.response.text();
+  assert.match(text, /response\.created/);
   assert.match(text, /slow hello/);
 });
 
