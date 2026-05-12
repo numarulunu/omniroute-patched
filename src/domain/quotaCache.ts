@@ -17,7 +17,11 @@ import { getUsageForProvider } from "@omniroute/open-sse/services/usage.ts";
 import { getProviderConnectionById, resolveProxyForConnection } from "@/lib/localDb";
 import { runWithProxyContext } from "@omniroute/open-sse/utils/proxyFetch.ts";
 import { safePercentage } from "@/shared/utils/formatting";
-import { saveQuotaSnapshot, cleanupOldSnapshots } from "@/lib/db/quotaSnapshots";
+import {
+  saveQuotaSnapshot,
+  cleanupOldSnapshots,
+  getLatestQuotaSnapshotsForConnection,
+} from "@/lib/db/quotaSnapshots";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -173,6 +177,80 @@ function normalizeQuotas(rawQuotas: Record<string, any>): Record<string, QuotaIn
 
 // ─── Public API ─────────────────────────────────────────────────────────────
 
+function snapshotString(
+  row: Record<string, unknown>,
+  camelKey: string,
+  snakeKey: string
+): string | null {
+  const value = row[camelKey] ?? row[snakeKey];
+  return typeof value === "string" && value.length > 0 ? value : null;
+}
+
+function snapshotNumber(
+  row: Record<string, unknown>,
+  camelKey: string,
+  snakeKey: string
+): number | null {
+  const value = row[camelKey] ?? row[snakeKey];
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function hydrateQuotaCacheFromSnapshots(connectionId: string): QuotaCacheEntry | null {
+  const rows = getLatestQuotaSnapshotsForConnection(connectionId);
+  if (rows.length === 0) return null;
+
+  const quotas: Record<string, QuotaInfo> = {};
+  let provider = "unknown";
+  let latestCreatedAt = 0;
+  let windowDurationMs: number | null = null;
+
+  for (const row of rows) {
+    const snapshot = row as unknown as Record<string, unknown>;
+    const windowKey = snapshotString(snapshot, "windowKey", "window_key");
+    const remainingPercentage = snapshotNumber(
+      snapshot,
+      "remainingPercentage",
+      "remaining_percentage"
+    );
+
+    if (!windowKey || remainingPercentage === null || quotas[windowKey]) continue;
+
+    quotas[windowKey] = {
+      remainingPercentage,
+      resetAt: snapshotString(snapshot, "nextResetAt", "next_reset_at"),
+    };
+
+    const snapshotProvider = snapshotString(snapshot, "provider", "provider");
+    if (snapshotProvider && provider === "unknown") provider = snapshotProvider;
+
+    if (windowDurationMs === null) {
+      windowDurationMs = snapshotNumber(snapshot, "windowDurationMs", "window_duration_ms");
+    }
+
+    const createdAt = snapshotString(snapshot, "createdAt", "created_at");
+    if (createdAt) {
+      const createdMs = parseDate(createdAt);
+      if (createdMs !== null && createdMs > latestCreatedAt) latestCreatedAt = createdMs;
+    }
+  }
+
+  if (Object.keys(quotas).length === 0) return null;
+
+  const exhausted = isExhausted(quotas);
+  const entry: QuotaCacheEntry = {
+    connectionId,
+    provider,
+    quotas,
+    fetchedAt: latestCreatedAt || Date.now(),
+    exhausted,
+    nextResetAt: exhausted ? earliestResetAt(quotas) : null,
+    windowDurationMs,
+  };
+
+  cache.set(connectionId, entry);
+  return entry;
+}
+
 /**
  * Store quota data for a connection (called by usage endpoint and background refresh).
  */
@@ -263,7 +341,7 @@ export function getQuotaWindowStatus(
   windowName: string,
   thresholdPercent = DEFAULT_QUOTA_THRESHOLD_PERCENT
 ): QuotaWindowStatus | null {
-  const entry = cache.get(connectionId);
+  const entry = cache.get(connectionId) || hydrateQuotaCacheFromSnapshots(connectionId);
   if (!entry) return null;
 
   const now = Date.now();

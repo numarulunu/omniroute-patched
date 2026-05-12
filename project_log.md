@@ -63,3 +63,11 @@
 - Files touched: `src/sse/services/auth.ts`, `tests/unit/quota-policy-generalization.test.ts`.
 - Verification: Added failing quota-policy coverage first; after the fix, `node --import tsx/esm --test tests/unit/quota-policy-generalization.test.ts` passed with 10/10 tests, `node --import tsx/esm --test tests/unit/codex-connection-defaults.test.ts` passed with 2/2 tests, `node --import tsx/esm --test tests/unit/executor-codex.test.ts` passed with 40/40 tests, `npm run typecheck:core` exited 0, and `git diff --check` exited 0. `tests/unit/sse-auth.test.ts` was attempted but hit a local Redis test harness timeout/noise and was not used as evidence.
 - Next step: Deploy through Coolify compose only and confirm live logs filter accounts at `session usage 95%+` instead of waiting for `100%`.
+
+## 2026-05-12 - Codex persisted quota fallback
+
+- Summary: Added a persisted quota snapshot fallback so Codex routing still respects the 95% warning buffer after process restarts or cache misses.
+- Files touched: src/domain/quotaCache.ts, src/lib/db/quotaSnapshots.ts, tests/unit/quota-policy-persisted-snapshots.test.ts.
+- Verification: new persisted quota regression test passed after red/green; quota policy generalization, db quota snapshots, Codex defaults, Codex executor, typecheck:core, and git diff --check passed.
+- Decision: hydrate the in-memory quota cache from the latest SQLite snapshots on first quota-window lookup instead of relying only on volatile process memory.
+- Next step: deploy via the existing Coolify docker compose stack and verify quota_filtered logs after restart.

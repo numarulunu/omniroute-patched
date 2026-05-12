@@ -84,6 +84,32 @@ export function getQuotaSnapshots(opts: {
   }
 }
 
+export function getLatestQuotaSnapshotsForConnection(
+  connectionId: string,
+  limit = 50
+): QuotaSnapshotRow[] {
+  const db = getDbInstance() as unknown as DbLike;
+  const safeLimit = Math.max(1, Math.min(500, Math.floor(Number(limit) || 50)));
+
+  try {
+    const rows = db
+      .prepare(
+        `SELECT * FROM quota_snapshots
+         WHERE connection_id = ?
+         ORDER BY created_at DESC, id DESC
+         LIMIT ?`
+      )
+      .all(connectionId, safeLimit);
+
+    return rows.map((r) => rowToCamel(r) as unknown as QuotaSnapshotRow);
+  } catch (err: any) {
+    if (err?.message?.includes("no such table")) {
+      return [];
+    }
+    throw err;
+  }
+}
+
 export function getAggregatedSnapshots(opts: {
   provider?: string;
   since: string;
