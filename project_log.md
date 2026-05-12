@@ -32,3 +32,11 @@
 - Rollback: Previous container `yj7526rpmiup0dbzd1lb9967-105231058753` (`539446f63f54`) using image `omniroute-local:compact-tail-base-20260507-033716` is stopped and kept available.
 - Decision: Do not force a smaller max context yet. The useful next data is which prompt-cache-key sessions create uncached spikes despite the overall 94% cache-read rate.
 - Next step: After another heavy-use window, compare `context_pressure_events` with compact drops and decide whether to lower max context, improve compact timing, or leave behavior unchanged.
+
+## 2026-05-12 - Repatched on upstream 3.8.0
+
+- Summary: Rebased the OmniRoute/Codex compaction patch stack onto upstream release/v3.8.0 and added the missing model availability domain wrapper required by the new resilience cooldown API route.
+- Files touched: patch stack files plus `src/domain/modelAvailability.ts`.
+- Verification: targeted Codex/compaction unit tests passed (86 tests, 0 failures); `tests/integration/chat-pipeline.test.ts` reached 26 ok tests but the process stayed alive on Redis retry handles; `npm run typecheck:core` passed; `npm run build` passed after adding the wrapper; `git diff --check` passed.
+- Deployment: No VPS deploy or live container swap was performed. GitHub branch update only, to avoid interrupting active Codex sessions.
+- Next step: Deploy only through a side-by-side candidate container and a quiet-window/live-session check with matching encryption-key fingerprint.
