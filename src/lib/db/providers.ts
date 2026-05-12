@@ -214,6 +214,8 @@ export async function createProviderConnection(data: JsonRecord) {
     "projectId",
     "apiKey",
     "testStatus",
+    "expiredRetryCount",
+    "expiredRetryAt",
     "lastTested",
     "lastError",
     "lastErrorAt",
@@ -253,7 +255,8 @@ function _insertConnectionRow(db: DbLike, conn: JsonRecord) {
     INSERT INTO provider_connections (
       id, provider, auth_type, name, email, priority, is_active,
       access_token, refresh_token, expires_at, token_expires_at,
-      scope, project_id, test_status, error_code, last_error,
+      scope, project_id, test_status, expired_retry_count, expired_retry_at,
+      error_code, last_error,
       last_error_at, last_error_type, last_error_source, backoff_level,
       rate_limited_until, health_check_interval, last_health_check_at,
       last_tested, api_key, id_token, provider_specific_data,
@@ -263,7 +266,8 @@ function _insertConnectionRow(db: DbLike, conn: JsonRecord) {
     ) VALUES (
       @id, @provider, @authType, @name, @email, @priority, @isActive,
       @accessToken, @refreshToken, @expiresAt, @tokenExpiresAt,
-      @scope, @projectId, @testStatus, @errorCode, @lastError,
+      @scope, @projectId, @testStatus, @expiredRetryCount, @expiredRetryAt,
+      @errorCode, @lastError,
       @lastErrorAt, @lastErrorType, @lastErrorSource, @backoffLevel,
       @rateLimitedUntil, @healthCheckInterval, @lastHealthCheckAt,
       @lastTested, @apiKey, @idToken, @providerSpecificData,
@@ -287,6 +291,8 @@ function _insertConnectionRow(db: DbLike, conn: JsonRecord) {
     scope: conn.scope || null,
     projectId: conn.projectId || null,
     testStatus: conn.testStatus || null,
+    expiredRetryCount: conn.expiredRetryCount ?? 0,
+    expiredRetryAt: conn.expiredRetryAt || null,
     errorCode: conn.errorCode || null,
     lastError: conn.lastError || null,
     lastErrorAt: conn.lastErrorAt || null,
@@ -326,7 +332,9 @@ function _updateConnectionRow(db: DbLike, id: string, data: JsonRecord) {
       provider = @provider, auth_type = @authType, name = @name, email = @email,
       priority = @priority, is_active = @isActive, access_token = @accessToken,
       refresh_token = @refreshToken, expires_at = @expiresAt, token_expires_at = @tokenExpiresAt,
-      scope = @scope, project_id = @projectId, test_status = @testStatus, error_code = @errorCode,
+      scope = @scope, project_id = @projectId, test_status = @testStatus,
+      expired_retry_count = @expiredRetryCount, expired_retry_at = @expiredRetryAt,
+      error_code = @errorCode,
       last_error = @lastError, last_error_at = @lastErrorAt, last_error_type = @lastErrorType,
       last_error_source = @lastErrorSource, backoff_level = @backoffLevel,
       rate_limited_until = @rateLimitedUntil, health_check_interval = @healthCheckInterval,
@@ -357,6 +365,8 @@ function _updateConnectionRow(db: DbLike, id: string, data: JsonRecord) {
     scope: data.scope || null,
     projectId: data.projectId || null,
     testStatus: data.testStatus || null,
+    expiredRetryCount: data.expiredRetryCount ?? 0,
+    expiredRetryAt: data.expiredRetryAt || null,
     errorCode: data.errorCode || null,
     lastError: data.lastError || null,
     lastErrorAt: data.lastErrorAt || null,
@@ -442,9 +452,9 @@ export async function deleteProviderConnections(ids: string[]): Promise<number> 
   const deletedCount = db.transaction(() => {
     const placeholders = ids.map(() => "?").join(",");
     db.prepare(`DELETE FROM quota_snapshots WHERE connection_id IN (${placeholders})`).run(...ids);
-    const result = db.prepare(
-      `DELETE FROM provider_connections WHERE id IN (${placeholders})`
-    ).run(...ids);
+    const result = db
+      .prepare(`DELETE FROM provider_connections WHERE id IN (${placeholders})`)
+      .run(...ids);
     return result.changes ?? 0;
   })();
 

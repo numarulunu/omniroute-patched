@@ -40,3 +40,11 @@
 - Verification: targeted Codex/compaction unit tests passed (86 tests, 0 failures); `tests/integration/chat-pipeline.test.ts` reached 26 ok tests but the process stayed alive on Redis retry handles; `npm run typecheck:core` passed; `npm run build` passed after adding the wrapper; `git diff --check` passed.
 - Deployment: No VPS deploy or live container swap was performed. GitHub branch update only, to avoid interrupting active Codex sessions.
 - Next step: Deploy only through a side-by-side candidate container and a quiet-window/live-session check with matching encryption-key fingerprint.
+
+## 2026-05-12 - Codex OOM and expired retry safeguards
+
+- Summary: Added safeguards for the post-incident Codex path: bounded in-memory Responses replay snapshots by item count and byte budget, and persisted expired OAuth retry bookkeeping so health checks can actually back off instead of re-logging attempt 1.
+- Files touched: `open-sse/services/responsesToolCallState.ts`, `src/lib/db/core.ts`, `src/lib/db/providers.ts`, `src/lib/db/migrationRunner.ts`, `src/lib/db/migrations/055_provider_connection_expired_retries.sql`, `tests/unit/executor-codex.test.ts`, `tests/unit/token-health-check.test.ts`.
+- Verification: Red tests reproduced the unbounded replay snapshot and missing retry persistence; after the fix, `node --import tsx/esm --test tests/unit/token-health-check.test.ts tests/unit/executor-codex.test.ts` passed with 47/47 tests, `npm run typecheck:core` exited 0, and `git diff --check` exited 0.
+- Decision: Did not deploy from this local pass. Production changes still need the compose-based, no-`docker run` deploy path with image tag update and health/smoke monitoring.
+- Next step: Deploy through Coolify compose only after explicit approval, then monitor heap/RSS and Codex request logs for at least a heavy-use window.

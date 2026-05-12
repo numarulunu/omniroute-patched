@@ -200,6 +200,37 @@ test("buildRefreshFailureUpdate preserves expired retry tracking", () => {
   assert.equal(update.expiredRetryCount, 3);
   assert.equal(update.expiredRetryAt, now);
 });
+test("provider connection persists expired retry state for health check backoff", async () => {
+  await resetStorage();
+
+  const firstRetryAt = "2026-04-09T04:42:00.000Z";
+  const connection = await providersDb.createProviderConnection({
+    provider: "codex",
+    authType: "oauth",
+    name: "codex-expired-retry-state",
+    apiKey: null,
+    accessToken: "codex-access",
+    refreshToken: "codex-refresh",
+    isActive: true,
+    testStatus: "expired",
+    expiredRetryCount: 1,
+    expiredRetryAt: firstRetryAt,
+  });
+
+  let saved = await providersDb.getProviderConnectionById(connection.id);
+  assert.equal(saved.expiredRetryCount, 1);
+  assert.equal(saved.expiredRetryAt, firstRetryAt);
+
+  const secondRetryAt = "2026-04-09T04:47:00.000Z";
+  await providersDb.updateProviderConnection(connection.id, {
+    expiredRetryCount: 2,
+    expiredRetryAt: secondRetryAt,
+  });
+
+  saved = await providersDb.getProviderConnectionById(connection.id);
+  assert.equal(saved.expiredRetryCount, 2);
+  assert.equal(saved.expiredRetryAt, secondRetryAt);
+});
 
 test("checkConnection uses the resolved proxy payload when refreshing tokens", async () => {
   await resetStorage();

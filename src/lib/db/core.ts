@@ -165,6 +165,8 @@ const SCHEMA_SQL = `
     scope TEXT,
     project_id TEXT,
     test_status TEXT,
+    expired_retry_count INTEGER DEFAULT 0,
+    expired_retry_at TEXT,
     error_code TEXT,
     last_error TEXT,
     last_error_at TEXT,
@@ -539,6 +541,14 @@ function ensureProviderConnectionsColumns(db: SqliteDatabase) {
     if (!columnNames.has("max_concurrent")) {
       db.exec("ALTER TABLE provider_connections ADD COLUMN max_concurrent INTEGER");
       console.log("[DB] Added provider_connections.max_concurrent column");
+    }
+    if (!columnNames.has("expired_retry_count")) {
+      db.exec("ALTER TABLE provider_connections ADD COLUMN expired_retry_count INTEGER DEFAULT 0");
+      console.log("[DB] Added provider_connections.expired_retry_count column");
+    }
+    if (!columnNames.has("expired_retry_at")) {
+      db.exec("ALTER TABLE provider_connections ADD COLUMN expired_retry_at TEXT");
+      console.log("[DB] Added provider_connections.expired_retry_at column");
     }
     db.exec(
       "CREATE INDEX IF NOT EXISTS idx_pc_max_concurrent ON provider_connections(provider, max_concurrent)"

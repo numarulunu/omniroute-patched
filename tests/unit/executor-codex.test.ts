@@ -14,6 +14,7 @@ import {
 } from "../../open-sse/executors/codex.ts";
 import {
   clearRememberedResponseFunctionCallsForTesting,
+  getRememberedResponseConversationItems,
   rememberResponseConversationState,
   rememberResponseFunctionCalls,
 } from "../../open-sse/services/responsesToolCallState.ts";
@@ -43,6 +44,46 @@ test.afterEach(() => {
   setThinkingBudgetConfig(DEFAULT_THINKING_CONFIG);
   __setCodexWebSocketTransportForTesting(undefined);
   clearRememberedResponseFunctionCallsForTesting();
+});
+test("responses replay cache caps remembered conversation snapshots by bytes", () => {
+  const hugeText = "x".repeat(80_000);
+
+  for (let i = 0; i < 80; i++) {
+    rememberResponseConversationState(
+      `resp_big_${i}`,
+      [
+        {
+          type: "message",
+          role: "developer",
+          content: [{ type: "input_text", text: "Persistent developer instruction." }],
+        },
+        ...Array.from({ length: 12 }, (_, itemIndex) => ({
+          type: "message",
+          role: itemIndex % 2 === 0 ? "user" : "assistant",
+          content: [
+            {
+              type: itemIndex % 2 === 0 ? "input_text" : "output_text",
+              text: `entry-${i}-item-${itemIndex} ${hugeText}`,
+            },
+          ],
+        })),
+      ],
+      [
+        {
+          type: "message",
+          role: "assistant",
+          content: [{ type: "output_text", text: `entry-${i}-final` }],
+        },
+      ]
+    );
+  }
+
+  const newest = getRememberedResponseConversationItems("resp_big_79");
+  const newestChars = JSON.stringify(newest).length;
+
+  assert.ok(newestChars <= 70_000, `newest replay snapshot used ${newestChars} chars`);
+  assert.ok(JSON.stringify(newest).includes("entry-79-final"));
+  assert.equal(getRememberedResponseConversationItems("resp_big_0").length, 0);
 });
 
 async function withEnv<T>(entries: Record<string, string | undefined>, fn: () => T | Promise<T>) {

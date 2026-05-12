@@ -21,7 +21,12 @@ type RememberedFunctionCallByIdState = RememberedFunctionCall & {
 };
 
 const RESPONSE_TOOL_CALL_TTL_MS = 30 * 60 * 1000;
-const RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES = 512;
+const RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES = 128;
+const RESPONSE_CONVERSATION_RECENT_ITEM_COUNT = 10;
+const RESPONSE_CONVERSATION_PRESERVED_ITEM_COUNT = 8;
+const RESPONSE_CONVERSATION_ENTRY_MAX_CHARS = 64_000;
+const RESPONSE_CONVERSATION_TOTAL_MAX_CHARS = 1_000_000;
+const RESPONSE_CONVERSATION_STRING_MAX_CHARS = 4_000;
 
 const rememberedResponseToolCalls = new Map<string, RememberedResponseToolState>();
 const rememberedFunctionCallsById = new Map<string, RememberedFunctionCallByIdState>();
@@ -30,8 +35,106 @@ function toRecord(value: unknown): JsonRecord | null {
   return value && typeof value === "object" && !Array.isArray(value) ? (value as JsonRecord) : null;
 }
 
-function sanitizeRememberedConversationItems(items: readonly unknown[]): unknown[] {
-  return sanitizeResponsesInputItems(items);
+function safeJsonLength(value: unknown): number {
+  try {
+    return JSON.stringify(value).length;
+  } catch {
+    return 0;
+  }
+}
+
+function truncateRememberedString(value: string): string {
+  if (value.length <= RESPONSE_CONVERSATION_STRING_MAX_CHARS) return value;
+  return value.slice(0, RESPONSE_CONVERSATION_STRING_MAX_CHARS - 14).trimEnd() + " [truncated]";
+}
+
+function truncateRememberedValue(value: unknown): unknown {
+  if (typeof value === "string") return truncateRememberedString(value);
+  if (Array.isArray(value)) return value.map(truncateRememberedValue);
+  const record = toRecord(value);
+  if (!record) return value;
+
+  return Object.fromEntries(
+    Object.entries(record).map(([key, childValue]) => [key, truncateRememberedValue(childValue)])
+  );
+}
+
+function getConversationItemRole(item: unknown): string {
+  const record = toRecord(item);
+  const role = typeof record?.role === "string" ? record.role : "";
+  const type = typeof record?.type === "string" ? record.type : "";
+  return (role || type).trim().toLowerCase();
+}
+
+function isPreservedConversationItem(item: unknown): boolean {
+  const role = getConversationItemRole(item);
+  return role === "system" || role === "developer";
+}
+
+function compactRememberedConversationItems(items: readonly unknown[]): unknown[] {
+  const sanitized = sanitizeResponsesInputItems(items);
+  const preserved: unknown[] = [];
+  const replayable: unknown[] = [];
+
+  for (const item of sanitized) {
+    const compactItem = truncateRememberedValue(item);
+    if (
+      isPreservedConversationItem(compactItem) &&
+      preserved.length < RESPONSE_CONVERSATION_PRESERVED_ITEM_COUNT
+    ) {
+      preserved.push(compactItem);
+      continue;
+    }
+    replayable.push(compactItem);
+  }
+
+  const compacted = [...preserved, ...replayable.slice(-RESPONSE_CONVERSATION_RECENT_ITEM_COUNT)];
+
+  while (
+    safeJsonLength(compacted) > RESPONSE_CONVERSATION_ENTRY_MAX_CHARS &&
+    compacted.length > 0
+  ) {
+    const dropIndex = compacted.findIndex((item) => !isPreservedConversationItem(item));
+    if (dropIndex < 0) break;
+    compacted.splice(dropIndex, 1);
+  }
+
+  return compacted;
+}
+
+function getConversationItemsChars(entry: RememberedResponseToolState): number {
+  return safeJsonLength(entry.conversationItems);
+}
+
+function enforceRememberedResponseToolCallLimits() {
+  let totalConversationChars = 0;
+  for (const entry of rememberedResponseToolCalls.values()) {
+    totalConversationChars += getConversationItemsChars(entry);
+  }
+
+  if (
+    rememberedResponseToolCalls.size <= RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES &&
+    totalConversationChars <= RESPONSE_CONVERSATION_TOTAL_MAX_CHARS
+  ) {
+    return;
+  }
+
+  const oldestEntries = [...rememberedResponseToolCalls.entries()].sort(
+    (a, b) => a[1].updatedAt - b[1].updatedAt
+  );
+
+  while (
+    oldestEntries.length > 0 &&
+    (rememberedResponseToolCalls.size > RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES ||
+      totalConversationChars > RESPONSE_CONVERSATION_TOTAL_MAX_CHARS)
+  ) {
+    const oldest = oldestEntries.shift();
+    if (!oldest) break;
+    const [responseId, entry] = oldest;
+    if (rememberedResponseToolCalls.delete(responseId)) {
+      totalConversationChars -= getConversationItemsChars(entry);
+    }
+  }
 }
 
 function cleanupRememberedResponseToolCalls(now: number = Date.now()) {
@@ -47,23 +150,7 @@ function cleanupRememberedResponseToolCalls(now: number = Date.now()) {
     }
   }
 
-  if (rememberedResponseToolCalls.size <= RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES) {
-    if (rememberedFunctionCallsById.size <= RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES) {
-      return;
-    }
-  }
-
-  if (rememberedResponseToolCalls.size > RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES) {
-    const oldestEntries = [...rememberedResponseToolCalls.entries()].sort(
-      (a, b) => a[1].updatedAt - b[1].updatedAt
-    );
-
-    while (rememberedResponseToolCalls.size > RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES) {
-      const oldest = oldestEntries.shift();
-      if (!oldest) break;
-      rememberedResponseToolCalls.delete(oldest[0]);
-    }
-  }
+  enforceRememberedResponseToolCallLimits();
 
   if (rememberedFunctionCallsById.size > RESPONSE_TOOL_CALL_CACHE_MAX_ENTRIES) {
     const oldestCallEntries = [...rememberedFunctionCallsById.entries()].sort(
@@ -99,8 +186,8 @@ export function rememberResponseFunctionCalls(
     const name = typeof record.name === "string" ? record.name.trim() : "";
     const argumentsValue =
       typeof record.arguments === "string"
-        ? record.arguments
-        : JSON.stringify(record.arguments ?? {});
+        ? truncateRememberedString(record.arguments)
+        : truncateRememberedString(JSON.stringify(record.arguments ?? {}));
 
     if (!callId || !name) continue;
 
@@ -128,10 +215,11 @@ export function rememberResponseFunctionCalls(
 
   rememberedResponseToolCalls.set(normalizedResponseId, {
     functionCalls,
-    conversationItems: sanitizeRememberedConversationItems(existingEntry?.conversationItems || []),
+    conversationItems: compactRememberedConversationItems(existingEntry?.conversationItems || []),
     updatedAt: now,
     expiresAt: now + RESPONSE_TOOL_CALL_TTL_MS,
   });
+  enforceRememberedResponseToolCallLimits();
 }
 
 export function rememberResponseConversationState(
@@ -146,7 +234,7 @@ export function rememberResponseConversationState(
 
   const normalizedRequestInput = Array.isArray(requestInput) ? requestInput : [];
   const normalizedOutputItems = Array.isArray(outputItems) ? outputItems : [];
-  const conversationItems = sanitizeRememberedConversationItems([
+  const conversationItems = compactRememberedConversationItems([
     ...normalizedRequestInput,
     ...normalizedOutputItems,
   ]);
@@ -157,12 +245,14 @@ export function rememberResponseConversationState(
   cleanupRememberedResponseToolCalls();
 
   const existingEntry = rememberedResponseToolCalls.get(normalizedResponseId);
+  const now = Date.now();
   rememberedResponseToolCalls.set(normalizedResponseId, {
     functionCalls: existingEntry?.functionCalls?.map((functionCall) => ({ ...functionCall })) || [],
     conversationItems,
-    updatedAt: Date.now(),
-    expiresAt: Date.now() + RESPONSE_TOOL_CALL_TTL_MS,
+    updatedAt: now,
+    expiresAt: now + RESPONSE_TOOL_CALL_TTL_MS,
   });
+  enforceRememberedResponseToolCallLimits();
 }
 
 export function getRememberedResponseFunctionCalls(responseId: unknown): RememberedFunctionCall[] {
@@ -194,7 +284,7 @@ export function getRememberedResponseConversationItems(responseId: unknown): unk
     return [];
   }
 
-  return sanitizeRememberedConversationItems(entry.conversationItems);
+  return compactRememberedConversationItems(entry.conversationItems);
 }
 
 export function getRememberedFunctionCallsByIds(
