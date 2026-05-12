@@ -6,6 +6,7 @@ import { createKeySchema } from "@/shared/validation/schemas";
 import { isValidationFailure, validateBody } from "@/shared/validation/helpers";
 import { isApiKeyRevealEnabled, maskStoredApiKey } from "@/lib/apiKeyExposure";
 import { requireManagementAuth } from "@/lib/api/requireManagementAuth";
+import { getDefaultApiKeyPolicySnapshot } from "@/shared/constants/apiKeyRateLimits";
 import * as log from "@/sse/utils/logger";
 
 function parsePagination(request: Request) {
@@ -42,6 +43,7 @@ export async function GET(request: Request) {
       keys: pagedKeys,
       total: maskedKeys.length,
       allowKeyReveal: isApiKeyRevealEnabled(),
+      defaultRateLimitPolicy: getDefaultApiKeyPolicySnapshot(),
     });
   } catch (error) {
     log.error("keys", "Error fetching keys", error);
@@ -81,6 +83,9 @@ export async function POST(request) {
         id: apiKey.id,
         machineId: apiKey.machineId,
         noLog: noLog === true,
+        rateLimits: apiKey.rateLimits,
+        maxRequestsPerDay: apiKey.maxRequestsPerDay,
+        maxRequestsPerMinute: apiKey.maxRequestsPerMinute,
       },
       { status: 201 }
     );

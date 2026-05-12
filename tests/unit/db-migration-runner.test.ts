@@ -1086,3 +1086,46 @@ test(
     }
   }
 );
+
+test("056_api_key_default_rate_limits backfills invisible NULL API key policies", () => {
+  const sql = fs.readFileSync(
+    path.resolve("src/lib/db/migrations/056_api_key_default_rate_limits.sql"),
+    "utf8"
+  );
+  const db = createDb();
+
+  try {
+    db.exec(`
+      CREATE TABLE api_keys (
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        max_requests_per_day INTEGER,
+        max_requests_per_minute INTEGER,
+        rate_limits TEXT
+      );
+      INSERT INTO api_keys (id, name, max_requests_per_day, max_requests_per_minute, rate_limits)
+      VALUES ('null-policy', 'null policy', NULL, NULL, NULL);
+      INSERT INTO api_keys (id, name, max_requests_per_day, max_requests_per_minute, rate_limits)
+      VALUES ('custom-policy', 'custom policy', NULL, NULL, '[{"limit":7,"window":60}]');
+    `);
+
+    db.exec(sql);
+    db.exec(sql);
+
+    const nullPolicy = db.prepare("SELECT * FROM api_keys WHERE id = ?").get("null-policy") as any;
+    const customPolicy = db
+      .prepare("SELECT * FROM api_keys WHERE id = ?")
+      .get("custom-policy") as any;
+
+    assert.equal(nullPolicy.max_requests_per_day, 100000);
+    assert.equal(nullPolicy.max_requests_per_minute, 600);
+    assert.deepEqual(JSON.parse(nullPolicy.rate_limits), [
+      { limit: 100000, window: 86400 },
+      { limit: 500000, window: 604800 },
+      { limit: 2000000, window: 2592000 },
+    ]);
+    assert.equal(customPolicy.rate_limits, '[{"limit":7,"window":60}]');
+  } finally {
+    db.close();
+  }
+});

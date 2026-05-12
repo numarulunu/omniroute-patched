@@ -8,6 +8,15 @@ import { useTranslations } from "next-intl";
 // Constants for validation
 const MAX_KEY_NAME_LENGTH = 200;
 const MAX_SELECTED_MODELS = 500;
+const DEFAULT_RATE_LIMIT_POLICY_FALLBACK: DefaultRateLimitPolicy = {
+  rateLimits: [
+    { limit: 100000, window: 86400 },
+    { limit: 500000, window: 604800 },
+    { limit: 2000000, window: 2592000 },
+  ],
+  maxRequestsPerDay: 100000,
+  maxRequestsPerMinute: 600,
+};
 
 // Debounce hook for search optimization
 function useDebouncedValue<T>(value: T, delay: number): T {
@@ -32,6 +41,36 @@ function sanitizeInput(input: string): string {
 }
 
 // Validate key name
+function formatCompactNumber(value: number): string {
+  return new Intl.NumberFormat("en", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value);
+}
+
+function formatWindowLabel(seconds: number): string {
+  if (seconds === 60) return "min";
+  if (seconds === 3600) return "hour";
+  if (seconds === 86400) return "day";
+  if (seconds === 604800) return "week";
+  if (seconds === 2592000) return "month";
+  return `${seconds}s`;
+}
+
+function formatRateLimitRule(rule: RateLimitRule | undefined): string {
+  if (!rule) return "No limit";
+  return `${formatCompactNumber(rule.limit)}/${formatWindowLabel(rule.window)}`;
+}
+
+function formatRateLimitSummary(rules: RateLimitRule[] | null | undefined): string {
+  if (!Array.isArray(rules) || rules.length === 0) return "No request limits";
+  return rules.map(formatRateLimitRule).join(", ");
+}
+
+function cloneRateLimits(rules: RateLimitRule[]): RateLimitRule[] {
+  return rules.map((rule) => ({ ...rule }));
+}
+
 function validateKeyName(
   name: string,
   t: (key: string, values?: Record<string, unknown>) => string
@@ -60,6 +99,17 @@ interface AccessSchedule {
   tz: string;
 }
 
+interface RateLimitRule {
+  limit: number;
+  window: number;
+}
+
+interface DefaultRateLimitPolicy {
+  rateLimits: RateLimitRule[];
+  maxRequestsPerDay: number;
+  maxRequestsPerMinute: number;
+}
+
 interface ApiKey {
   id: string;
   name: string;
@@ -73,7 +123,7 @@ interface ApiKey {
   expiresAt?: string | null;
   maxSessions?: number;
   accessSchedule?: AccessSchedule | null;
-  rateLimits?: Array<{ limit: number; window: number }> | null;
+  rateLimits?: RateLimitRule[] | null;
   scopes?: string[];
   createdAt: string;
 }
@@ -118,6 +168,9 @@ export default function ApiManagerPageClient() {
   const [usageStats, setUsageStats] = useState<Record<string, KeyUsageStats>>({});
   const [sessionCounts, setSessionCounts] = useState<Record<string, number>>({});
   const [allowKeyReveal, setAllowKeyReveal] = useState(false);
+  const [defaultRateLimitPolicy, setDefaultRateLimitPolicy] = useState<DefaultRateLimitPolicy>(
+    DEFAULT_RATE_LIMIT_POLICY_FALLBACK
+  );
 
   const { copied, copy } = useCopyToClipboard();
 
@@ -158,6 +211,12 @@ export default function ApiManagerPageClient() {
         const data = await res.json();
         setKeys(data.keys || []);
         setAllowKeyReveal(data.allowKeyReveal === true);
+        if (data.defaultRateLimitPolicy?.rateLimits) {
+          setDefaultRateLimitPolicy({
+            ...DEFAULT_RATE_LIMIT_POLICY_FALLBACK,
+            ...data.defaultRateLimitPolicy,
+          });
+        }
         // Fetch usage stats after keys are loaded
         fetchUsageStats(data.keys || []);
         fetchSessionCounts(data.keys || []);
@@ -361,7 +420,7 @@ export default function ApiManagerPageClient() {
     expiresAt: string | null,
     maxSessions: number,
     accessSchedule: AccessSchedule | null,
-    rateLimits: Array<{ limit: number; window: number }> | null,
+    rateLimits: RateLimitRule[] | null,
     scopes: string[]
   ) => {
     if (!editingKey || !editingKey.id) return;
@@ -631,6 +690,12 @@ export default function ApiManagerPageClient() {
               const hasSessionLimit = maxSessions > 0;
               const activeSessions = sessionCounts[key.id] || 0;
               const hasSchedule = key.accessSchedule?.enabled === true;
+              const hasExplicitRatePolicy =
+                Array.isArray(key.rateLimits) && key.rateLimits.length > 0;
+              const effectiveRateLimits = hasExplicitRatePolicy
+                ? key.rateLimits || []
+                : defaultRateLimitPolicy.rateLimits;
+              const rateLimitSummary = formatRateLimitSummary(effectiveRateLimits);
               return (
                 <div
                   key={key.id}
@@ -712,6 +777,19 @@ export default function ApiManagerPageClient() {
                           Auto-Resolve
                         </span>
                       )}
+                      <button
+                        onClick={() => handleOpenPermissions(key)}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-medium hover:bg-emerald-500/20 transition-colors"
+                        title={
+                          hasExplicitRatePolicy
+                            ? `Rate policy: ${rateLimitSummary}`
+                            : `Default policy: ${rateLimitSummary}`
+                        }
+                      >
+                        <span className="material-symbols-outlined text-[12px]">speed</span>
+                        {hasExplicitRatePolicy ? "Limits" : "Default"}:{" "}
+                        {formatRateLimitRule(effectiveRateLimits[0])}
+                      </button>
                       {hasSessionLimit && (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[11px] font-medium">
                           <span className="material-symbols-outlined text-[12px]">group</span>
@@ -857,6 +935,12 @@ export default function ApiManagerPageClient() {
             />
             <p className="text-xs text-text-muted mt-1.5">{t("keyNameDesc")}</p>
           </div>
+          <div className="rounded-lg border border-border bg-surface/40 p-3">
+            <p className="text-xs font-semibold text-text-main">Default rate policy</p>
+            <p className="text-xs text-text-muted mt-1">
+              New keys are created with {formatRateLimitSummary(defaultRateLimitPolicy.rateLimits)}.
+            </p>
+          </div>
           {createError && (
             <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/30">
               <span className="material-symbols-outlined text-red-500 text-sm">error</span>
@@ -935,6 +1019,7 @@ export default function ApiManagerPageClient() {
           allConnections={allConnections}
           searchModel={searchModel}
           onSearchChange={setSearchModel}
+          defaultRateLimitPolicy={defaultRateLimitPolicy}
           onSave={handleUpdatePermissions}
         />
       )}
@@ -953,6 +1038,7 @@ const PermissionsModal = memo(function PermissionsModal({
   allConnections,
   searchModel,
   onSearchChange,
+  defaultRateLimitPolicy,
   onSave,
 }: {
   isOpen: boolean;
@@ -963,6 +1049,7 @@ const PermissionsModal = memo(function PermissionsModal({
   allConnections: ProviderConnection[];
   searchModel: string;
   onSearchChange: (v: string) => void;
+  defaultRateLimitPolicy: DefaultRateLimitPolicy;
   onSave: (
     name: string,
     models: string[],
@@ -974,7 +1061,7 @@ const PermissionsModal = memo(function PermissionsModal({
     expiresAt: string | null,
     maxSessions: number,
     accessSchedule: AccessSchedule | null,
-    rateLimits: Array<{ limit: number; window: number }> | null,
+    rateLimits: RateLimitRule[] | null,
     scopes: string[]
   ) => void;
 }) {
@@ -1009,9 +1096,11 @@ const PermissionsModal = memo(function PermissionsModal({
   const [scheduleTz, setScheduleTz] = useState(
     apiKey?.accessSchedule?.tz ?? Intl.DateTimeFormat().resolvedOptions().timeZone
   );
-  const [rateLimits, setRateLimits] = useState<Array<{ limit: number; window: number }>>(
-    Array.isArray(apiKey?.rateLimits) ? apiKey.rateLimits : []
-  );
+  const initialRateLimits =
+    Array.isArray(apiKey?.rateLimits) && apiKey.rateLimits.length > 0
+      ? apiKey.rateLimits
+      : defaultRateLimitPolicy.rateLimits;
+  const [rateLimits, setRateLimits] = useState<RateLimitRule[]>(cloneRateLimits(initialRateLimits));
   const [nameError, setNameError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [selectedConnections, setSelectedConnections] = useState<string[]>(initialConnections);
@@ -1310,17 +1399,30 @@ const PermissionsModal = memo(function PermissionsModal({
             <div className="flex flex-col gap-1">
               <p className="text-sm font-medium text-text-main">Custom Rate Limits</p>
               <p className="text-xs text-text-muted">
-                Override global default limits. Leave empty to use defaults.
+                Stored on this key. Clear all rows to inherit the global default.
+              </p>
+              <p className="text-xs text-text-muted">
+                Global default: {formatRateLimitSummary(defaultRateLimitPolicy.rateLimits)}.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => setRateLimits((prev) => [...prev, { limit: 100, window: 60 }])}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold bg-primary/10 text-primary hover:bg-primary/20 transition-colors shrink-0"
-            >
-              <span className="material-symbols-outlined text-[14px]">add</span>
-              Add Limit
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => setRateLimits(cloneRateLimits(defaultRateLimitPolicy.rateLimits))}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold bg-surface text-text-main border border-border hover:bg-surface/80 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[14px]">restart_alt</span>
+                Reset
+              </button>
+              <button
+                type="button"
+                onClick={() => setRateLimits((prev) => [...prev, { limit: 100, window: 60 }])}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[14px]">add</span>
+                Add Limit
+              </button>
+            </div>
           </div>
           {rateLimits.length > 0 && (
             <div className="flex flex-col gap-2 pt-2">

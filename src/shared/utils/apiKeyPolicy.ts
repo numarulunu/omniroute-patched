@@ -14,13 +14,8 @@ import { checkBudget } from "@/domain/costRules";
 import { errorResponse } from "@omniroute/open-sse/utils/error.ts";
 import { HTTP_STATUS } from "@omniroute/open-sse/config/constants.ts";
 import * as log from "@/sse/utils/logger";
-import { checkRateLimit, RateLimitRule } from "./rateLimiter";
-
-const DEFAULT_RATE_LIMITS: RateLimitRule[] = [
-  { limit: 1000, window: 86400 },     // 1000 per day
-  { limit: 5000, window: 604800 },    // 5000 per week
-  { limit: 20000, window: 2592000 }   // 20000 per month
-];
+import { getDefaultApiKeyRateLimits } from "@/shared/constants/apiKeyRateLimits";
+import { checkRateLimit, RateLimitResult, RateLimitRule } from "./rateLimiter";
 
 interface AccessSchedule {
   enabled: boolean;
@@ -125,6 +120,54 @@ export interface ApiKeyPolicyResult {
   apiKeyInfo: ApiKeyMetadata | null;
   /** If set, the request should be rejected with this Response */
   rejection: Response | null;
+  /** Human-readable rejection reason for logs and diagnostics */
+  rejectionReason?: string;
+  /** Rate-limit diagnostics when the rejection was caused by request policy */
+  rateLimit?: {
+    count: number;
+    limit: number;
+    window: number;
+    retryAfter?: number;
+    resetAt?: number;
+  };
+}
+
+function buildRateLimitRejectionReason(result: RateLimitResult): string {
+  const window = result.failedWindow ?? 0;
+  const count = result.count ?? 0;
+  const limit = result.limit ?? 0;
+
+  if (window > 0 && limit > 0) {
+    return `Request limit exceeded: ${count}/${limit} requests in ${window}s window. Please try again later.`;
+  }
+
+  const failedWindowStr = window > 0 ? ` (${window}s window)` : "";
+  return `Request limit exceeded${failedWindowStr}. Please try again later.`;
+}
+
+function mergeRateLimitRule(rules: RateLimitRule[], rule: RateLimitRule): void {
+  const existing = rules.find((entry) => entry.window === rule.window);
+  if (existing) {
+    existing.limit = Math.min(existing.limit, rule.limit);
+    return;
+  }
+
+  rules.push({ ...rule });
+}
+
+function rateLimitErrorResponse(reason: string, result: RateLimitResult): Response {
+  const response = errorResponse(HTTP_STATUS.RATE_LIMITED, reason);
+  const retryAfter = Math.max(1, Math.ceil(result.retryAfter ?? result.failedWindow ?? 1));
+  const limit = Math.max(0, Math.floor(result.limit ?? 0));
+  const remaining = Math.max(0, Math.floor(result.remaining ?? 0));
+
+  response.headers.set("Retry-After", String(retryAfter));
+  if (limit > 0) response.headers.set("X-RateLimit-Limit", String(limit));
+  response.headers.set("X-RateLimit-Remaining", String(remaining));
+  if (result.failedWindow) response.headers.set("X-RateLimit-Window", String(result.failedWindow));
+  if (result.resetAt) response.headers.set("X-RateLimit-Reset", String(result.resetAt));
+
+  return response;
 }
 
 /**
@@ -187,7 +230,10 @@ export async function enforceApiKeyPolicy(
     return {
       apiKey,
       apiKeyInfo,
-      rejection: errorResponse(HTTP_STATUS.FORBIDDEN, "This API key is banned due to policy violations"),
+      rejection: errorResponse(
+        HTTP_STATUS.FORBIDDEN,
+        "This API key is banned due to policy violations"
+      ),
     };
   }
 
@@ -260,29 +306,33 @@ export async function enforceApiKeyPolicy(
 
   // ── Check 5: Generic Multi-Window Rate Limits ──
   if (apiKeyInfo.id) {
-    const rulesToApply = (apiKeyInfo.rateLimits && apiKeyInfo.rateLimits.length > 0)
-      ? [...apiKeyInfo.rateLimits]
-      : [...DEFAULT_RATE_LIMITS];
+    const rulesToApply =
+      apiKeyInfo.rateLimits && apiKeyInfo.rateLimits.length > 0
+        ? apiKeyInfo.rateLimits.map((rule) => ({ ...rule }))
+        : getDefaultApiKeyRateLimits();
 
-    // Combine with legacy limits if they exist and custom rate limits aren't set
-    if (!apiKeyInfo.rateLimits || apiKeyInfo.rateLimits.length === 0) {
-      if (apiKeyInfo.maxRequestsPerDay) {
-        rulesToApply.push({ limit: apiKeyInfo.maxRequestsPerDay, window: 86400 });
-      }
-      if (apiKeyInfo.maxRequestsPerMinute) {
-        rulesToApply.push({ limit: apiKeyInfo.maxRequestsPerMinute, window: 60 });
-      }
+    if (apiKeyInfo.maxRequestsPerDay) {
+      mergeRateLimitRule(rulesToApply, { limit: apiKeyInfo.maxRequestsPerDay, window: 86400 });
+    }
+    if (apiKeyInfo.maxRequestsPerMinute) {
+      mergeRateLimitRule(rulesToApply, { limit: apiKeyInfo.maxRequestsPerMinute, window: 60 });
     }
 
     const rateLimitResult = await checkRateLimit(apiKeyInfo.id, rulesToApply);
     if (!rateLimitResult.allowed) {
-      const failedWindowStr = rateLimitResult.failedWindow 
-        ? ` (${rateLimitResult.failedWindow}s window)` 
-        : "";
+      const rejectionReason = buildRateLimitRejectionReason(rateLimitResult);
       return {
         apiKey,
         apiKeyInfo,
-        rejection: errorResponse(HTTP_STATUS.RATE_LIMITED, `Request limit exceeded${failedWindowStr}. Please try again later.`),
+        rejection: rateLimitErrorResponse(rejectionReason, rateLimitResult),
+        rejectionReason,
+        rateLimit: {
+          count: rateLimitResult.count ?? 0,
+          limit: rateLimitResult.limit ?? 0,
+          window: rateLimitResult.failedWindow ?? 0,
+          retryAfter: rateLimitResult.retryAfter,
+          resetAt: rateLimitResult.resetAt,
+        },
       };
     }
   }

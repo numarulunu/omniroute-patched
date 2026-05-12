@@ -223,10 +223,12 @@ export async function handleChat(request: any, clientRawRequest: any = null) {
   telemetry.startPhase("policy");
   const policy = await enforceApiKeyPolicy(request, modelStr);
   if (policy.rejection) {
-    log.warn(
-      "POLICY",
-      `API key policy rejected: ${modelStr} (key=${policy.apiKeyInfo?.id || "unknown"})`
-    );
+    const keyId = policy.apiKeyInfo?.id || "unknown";
+    const detail = policy.rejectionReason ? ` | ${policy.rejectionReason}` : "";
+    const reset = policy.rateLimit?.retryAfter
+      ? ` | retryAfter=${policy.rateLimit.retryAfter}s`
+      : "";
+    log.warn("POLICY", `API key ${keyId} rejected: ${modelStr}${detail}${reset}`);
     return policy.rejection;
   }
   const apiKeyInfo = policy.apiKeyInfo;

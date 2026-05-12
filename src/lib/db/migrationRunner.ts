@@ -358,9 +358,50 @@ function isSchemaAlreadyApplied(
         hasColumn(db, "provider_connections", "expired_retry_count") &&
         hasColumn(db, "provider_connections", "expired_retry_at")
       );
+    case "056":
+      return isApiKeyDefaultRateLimitsMigrationApplied(db);
     default:
       return false;
   }
+}
+
+function isApiKeyDefaultRateLimitsMigrationApplied(db: Database.Database): boolean {
+  if (!hasColumn(db, "api_keys", "max_requests_per_day")) return false;
+  if (!hasColumn(db, "api_keys", "max_requests_per_minute")) return false;
+  if (!hasColumn(db, "api_keys", "rate_limits")) return false;
+
+  const row = db
+    .prepare(
+      "SELECT COUNT(*) AS count FROM api_keys WHERE rate_limits IS NULL AND max_requests_per_day IS NULL AND max_requests_per_minute IS NULL"
+    )
+    .get() as { count?: number } | undefined;
+  return Number(row?.count ?? 0) === 0;
+}
+
+function applyApiKeyDefaultRateLimitsMigration(db: Database.Database): void {
+  ensureColumn(
+    db,
+    "api_keys",
+    "max_requests_per_day",
+    "ALTER TABLE api_keys ADD COLUMN max_requests_per_day INTEGER"
+  );
+  ensureColumn(
+    db,
+    "api_keys",
+    "max_requests_per_minute",
+    "ALTER TABLE api_keys ADD COLUMN max_requests_per_minute INTEGER"
+  );
+  ensureColumn(db, "api_keys", "rate_limits", "ALTER TABLE api_keys ADD COLUMN rate_limits TEXT");
+
+  db.exec(`
+    UPDATE api_keys
+    SET max_requests_per_day = 100000,
+        max_requests_per_minute = 600,
+        rate_limits = '[{"limit":100000,"window":86400},{"limit":500000,"window":604800},{"limit":2000000,"window":2592000}]'
+    WHERE rate_limits IS NULL
+      AND max_requests_per_day IS NULL
+      AND max_requests_per_minute IS NULL;
+  `);
 }
 
 function applyApiKeyLifecycleMigration(db: Database.Database): void {
@@ -834,6 +875,8 @@ export function runMigrations(db: Database.Database, options?: { isNewDb?: boole
         applyCompressionReceiptsMigration(db);
       } else if (migration.version === "042") {
         applyCompressionCombosMigration(db, migration.path);
+      } else if (migration.version === "056") {
+        applyApiKeyDefaultRateLimitsMigration(db);
       } else {
         const sql = fs.readFileSync(migration.path, "utf-8");
         db.exec(sql);

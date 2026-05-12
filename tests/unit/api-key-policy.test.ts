@@ -24,6 +24,7 @@ import { pathToFileURL } from "node:url";
 const TEST_DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "omniroute-api-key-policy-"));
 process.env.DATA_DIR = TEST_DATA_DIR;
 process.env.API_KEY_SECRET = process.env.API_KEY_SECRET || "task-607-api-key-secret";
+process.env.DISABLE_SQLITE_AUTO_BACKUP = "true";
 
 const coreDb = await import("../../src/lib/db/core.ts");
 const apiKeysDb = await import("../../src/lib/db/apiKeys.ts");
@@ -481,4 +482,34 @@ test("enforceApiKeyPolicy enforces request-per-minute limits and returns success
   );
   assert.equal(second.rejection.status, 429);
   assert.match(await readErrorMessage(second.rejection), /Request limit exceeded/);
+});
+
+test("enforceApiKeyPolicy returns diagnostic rate-limit headers when rejecting", async () => {
+  const limitedKey = await createKeyWithPolicy({
+    allowedModels: ["openai/*"],
+    rateLimits: [{ limit: 1, window: 60 }],
+  });
+  const policy = await loadPolicy("rate-limit-diagnostics");
+
+  const first = await policy.enforceApiKeyPolicy(
+    makePolicyRequest(limitedKey.key),
+    "openai/gpt-4.1"
+  );
+  assert.equal(first.rejection, null);
+
+  const second = await policy.enforceApiKeyPolicy(
+    makePolicyRequest(limitedKey.key),
+    "openai/gpt-4.1"
+  );
+
+  assert.equal(second.rejection.status, 429);
+  assert.equal(second.rejection.headers.get("Retry-After") !== null, true);
+  assert.equal(second.rejection.headers.get("X-RateLimit-Limit"), "1");
+  assert.equal(second.rejection.headers.get("X-RateLimit-Remaining"), "0");
+  assert.equal(second.rejection.headers.get("X-RateLimit-Window"), "60");
+  assert.equal(second.rateLimit?.count, 1);
+  assert.equal(second.rateLimit?.limit, 1);
+  assert.equal(second.rateLimit?.window, 60);
+  assert.match(second.rejectionReason, new RegExp("1/1 requests in 60s window"));
+  assert.match(await readErrorMessage(second.rejection), new RegExp("1/1 requests in 60s window"));
 });

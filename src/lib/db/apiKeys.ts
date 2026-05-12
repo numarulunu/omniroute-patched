@@ -4,6 +4,11 @@
 
 import { createHash } from "crypto";
 import { v4 as uuidv4 } from "uuid";
+import {
+  getDefaultApiKeyMaxRequestsPerDay,
+  getDefaultApiKeyMaxRequestsPerMinute,
+  getDefaultApiKeyRateLimits,
+} from "@/shared/constants/apiKeyRateLimits";
 import { getDbInstance, rowToCamel } from "./core";
 import { backupDbFile } from "./backup";
 import { registerDbStateResetter } from "./stateReset";
@@ -302,7 +307,7 @@ function getPreparedStatements(db: ApiKeysDbLike): ApiKeysStatements {
       "SELECT id, name, machine_id, allowed_models, allowed_connections, no_log, auto_resolve, is_active, access_schedule, max_requests_per_day, max_requests_per_minute, max_sessions, revoked_at, expires_at, ip_allowlist, scopes, rate_limits, is_banned, key_hash FROM api_keys WHERE key = ? OR key_hash = ?"
     );
     _stmtInsertKey = db.prepare(
-      "INSERT INTO api_keys (id, name, key, machine_id, allowed_models, no_log, created_at, key_prefix, key_hash, scopes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      "INSERT INTO api_keys (id, name, key, machine_id, allowed_models, no_log, created_at, key_prefix, key_hash, scopes, rate_limits, max_requests_per_day, max_requests_per_minute) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     _stmtDeleteKey = db.prepare("DELETE FROM api_keys WHERE id = ?");
   }
@@ -517,6 +522,9 @@ export async function createApiKey(name: string, machineId: string, scopes: stri
     noLog: false,
     createdAt: now,
     scopes,
+    rateLimits: getDefaultApiKeyRateLimits(),
+    maxRequestsPerDay: getDefaultApiKeyMaxRequestsPerDay(),
+    maxRequestsPerMinute: getDefaultApiKeyMaxRequestsPerMinute(),
   };
 
   const stmt = getPreparedStatements(db);
@@ -530,7 +538,10 @@ export async function createApiKey(name: string, machineId: string, scopes: stri
     apiKey.createdAt,
     apiKey.key.slice(0, 12),
     await hashKey(apiKey.key),
-    JSON.stringify(scopes)
+    JSON.stringify(scopes),
+    JSON.stringify(apiKey.rateLimits),
+    apiKey.maxRequestsPerDay,
+    apiKey.maxRequestsPerMinute
   );
   setNoLog(apiKey.id, false);
 

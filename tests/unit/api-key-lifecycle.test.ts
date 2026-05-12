@@ -7,6 +7,7 @@ import path from "node:path";
 const TEST_DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "omr-apikey-lifecycle-"));
 process.env.DATA_DIR = TEST_DATA_DIR;
 process.env.API_KEY_SECRET = "test-secret";
+process.env.DISABLE_SQLITE_AUTO_BACKUP = "true";
 
 const core = await import("../../src/lib/db/core.ts");
 const apiKeysDb = await import("../../src/lib/db/apiKeys.ts");
@@ -28,6 +29,8 @@ test.beforeEach(() => {
 });
 
 test.after(() => {
+  core.resetDbInstance();
+  apiKeysDb.resetApiKeyState();
   fs.rmSync(TEST_DATA_DIR, { recursive: true, force: true });
   if (ORIGINAL_OMNIROUTE_API_KEY === undefined) delete process.env.OMNIROUTE_API_KEY;
   else process.env.OMNIROUTE_API_KEY = ORIGINAL_OMNIROUTE_API_KEY;
@@ -116,4 +119,18 @@ test("validateApiKey updates last_used_at for persisted keys", async () => {
 
   assert.ok(row?.last_used_at, "last_used_at should be set on successful validation");
   assert.ok(Date.parse(row.last_used_at) > 0, "last_used_at should be an ISO timestamp");
+});
+
+test("createApiKey stores visible default rate limits on new keys", async () => {
+  const created = await makeKey();
+  const md = await apiKeysDb.getApiKeyMetadata(created.key);
+
+  assert.ok(md);
+  assert.deepEqual(md!.rateLimits, [
+    { limit: 100000, window: 86400 },
+    { limit: 500000, window: 604800 },
+    { limit: 2000000, window: 2592000 },
+  ]);
+  assert.equal(md!.maxRequestsPerDay, 100000);
+  assert.equal(md!.maxRequestsPerMinute, 600);
 });

@@ -1,5 +1,13 @@
 # Project Log
 
+## 2026-05-12 - API-key default policy hardening
+
+- Summary: Replaced the hidden 1k/day API-key fallback with explicit self-host defaults, made new and migrated keys store their rate policy visibly, added diagnostic 429 headers/log details, and surfaced/reset the policy in the API Keys dashboard.
+- Files touched: `src/shared/constants/apiKeyRateLimits.ts`, `src/shared/utils/apiKeyPolicy.ts`, `src/shared/utils/rateLimiter.ts`, `src/lib/db/apiKeys.ts`, `src/lib/db/migrationRunner.ts`, `src/lib/db/migrations/056_api_key_default_rate_limits.sql`, `src/app/api/keys/route.ts`, `src/app/(dashboard)/dashboard/api-manager/ApiManagerPageClient.tsx`, `src/sse/handlers/chat.ts`, and focused unit tests.
+- Verification: `tests/unit/api-key-lifecycle.test.ts` passed 10/10; `tests/unit/api-key-policy.test.ts` passed 33/33; migration 056 focused test passed; `npm run typecheck:core` passed; `git diff --check` passed.
+- Note: Full `npm run test:unit` still fails in pre-existing `tests/unit/cc-compatible-provider.test.ts` at `handleChatCore forces SSE upstream...` (expected prompt_tokens 2007, actual 107). That failure is outside this API-key policy change and remains a separate test-suite blocker.
+- Next step: Commit/push these code hardening changes, then deploy only through the Coolify compose path after explicit approval.
+
 ## 2026-05-12 - Codex token tuning deployed
 
 - Summary: Tuned Codex pressure handling to reduce cold context spikes and added metadata-only MCP/tool payload telemetry.
