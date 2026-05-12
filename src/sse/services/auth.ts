@@ -94,6 +94,7 @@ interface CooldownInspectionState {
 
 const MIN_QUOTA_THRESHOLD_PERCENT = 1;
 const MAX_QUOTA_THRESHOLD_PERCENT = 100;
+const CODEX_DEFAULT_QUOTA_THRESHOLD_PERCENT = 95;
 const NON_RETRYABLE_MODEL_LOCKOUT_REASONS = new Set(["not_found", "not_found_local"]);
 
 function asRecord(value: unknown): JsonRecord {
@@ -406,7 +407,10 @@ export function resolveQuotaLimitPolicy(
 
     return {
       enabled,
-      thresholdPercent: normalizeQuotaThreshold(rawPolicy.thresholdPercent),
+      thresholdPercent: normalizeQuotaThreshold(
+        rawPolicy.thresholdPercent,
+        CODEX_DEFAULT_QUOTA_THRESHOLD_PERCENT
+      ),
       windows: defaultWindows,
     };
   }

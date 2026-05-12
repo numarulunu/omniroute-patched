@@ -18,7 +18,7 @@ test("resolveQuotaLimitPolicy keeps codex legacy defaults when generic policy is
 
   assert.equal(policy.enabled, true);
   assert.deepEqual(policy.windows, ["session"]);
-  assert.equal(policy.thresholdPercent, 99);
+  assert.equal(policy.thresholdPercent, 95);
 });
 
 test("resolveQuotaLimitPolicy enforces codex weekly window when weekly toggle is enabled", () => {
@@ -78,6 +78,43 @@ test("evaluateQuotaLimitPolicy blocks when configured window reaches threshold",
   assert.equal(result.reasons.length, 1);
   assert.match(result.reasons[0], /daily usage/i);
   assert.equal(result.resetAt, resetAt);
+});
+
+test("evaluateQuotaLimitPolicy blocks codex accounts at the 5h warning buffer by default", () => {
+  const resetAt = new Date(Date.now() + 60_000).toISOString();
+  quotaCache.setQuotaCache("conn-policy-codex-warning-buffer", "codex", {
+    "session (5h)": { remainingPercentage: 5, resetAt },
+  });
+
+  const result = auth.evaluateQuotaLimitPolicy(
+    "codex",
+    buildConnection("conn-policy-codex-warning-buffer", {
+      codexLimitPolicy: { use5h: true, useWeekly: false },
+    })
+  );
+
+  assert.equal(result.blocked, true);
+  assert.equal(result.reasons.length, 1);
+  assert.match(result.reasons[0], /session usage 95%/i);
+  assert.equal(result.resetAt, resetAt);
+});
+
+test("evaluateQuotaLimitPolicy keeps codex accounts above the 5h warning buffer eligible", () => {
+  const resetAt = new Date(Date.now() + 60_000).toISOString();
+  quotaCache.setQuotaCache("conn-policy-codex-above-warning-buffer", "codex", {
+    "session (5h)": { remainingPercentage: 6, resetAt },
+  });
+
+  const result = auth.evaluateQuotaLimitPolicy(
+    "codex",
+    buildConnection("conn-policy-codex-above-warning-buffer", {
+      codexLimitPolicy: { use5h: true, useWeekly: false },
+    })
+  );
+
+  assert.equal(result.blocked, false);
+  assert.deepEqual(result.reasons, []);
+  assert.equal(result.resetAt, null);
 });
 
 test("evaluateQuotaLimitPolicy matches canonical weekly window against labeled cache keys", () => {

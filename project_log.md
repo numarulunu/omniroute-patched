@@ -56,3 +56,10 @@
 - Verification: Added failing OpenAI Responses lifecycle regression tests first; after the fix, `node --import tsx/esm --test tests/unit/stream-readiness.test.ts tests/unit/combo-stream-readiness-fallback.test.ts` passed with 13/13 tests, `node --import tsx/esm --test tests/unit/executor-codex.test.ts` passed with 40/40 tests, `npm run typecheck:core` exited 0, and `git diff --check` exited 0.
 - Note: `tests/unit/chat-cooldown-aware-retry.test.ts` still shows two Node test-runner `cancelledByParent` timer cancellations locally; that appears tied to the test's mocked timer harness and was not used as deploy evidence for this stream parser change.
 - Next step: Deploy through Coolify compose only, then watch for `Stream produced no useful content` and `Controller is already closed` logs under live Codex traffic.
+
+## 2026-05-12 - Codex 5h quota warning buffer
+
+- Summary: Changed Codex's default quota policy buffer from 99% used to 95% used so routing rotates away from an account before the Codex CLI shows the `<5% of 5h limit left` warning. Existing session affinity now drops naturally because quota filtering runs before affinity selection.
+- Files touched: `src/sse/services/auth.ts`, `tests/unit/quota-policy-generalization.test.ts`.
+- Verification: Added failing quota-policy coverage first; after the fix, `node --import tsx/esm --test tests/unit/quota-policy-generalization.test.ts` passed with 10/10 tests, `node --import tsx/esm --test tests/unit/codex-connection-defaults.test.ts` passed with 2/2 tests, `node --import tsx/esm --test tests/unit/executor-codex.test.ts` passed with 40/40 tests, `npm run typecheck:core` exited 0, and `git diff --check` exited 0. `tests/unit/sse-auth.test.ts` was attempted but hit a local Redis test harness timeout/noise and was not used as evidence.
+- Next step: Deploy through Coolify compose only and confirm live logs filter accounts at `session usage 95%+` instead of waiting for `100%`.
