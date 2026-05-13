@@ -46,7 +46,7 @@ test.after(() => {
   fs.rmSync(TEST_DATA_DIR, { recursive: true, force: true });
 });
 
-test("evaluateQuotaLimitPolicy blocks Codex from persisted 5h snapshot after cache miss", () => {
+test("evaluateQuotaLimitPolicy keeps Codex eligible from persisted 5h warning-buffer snapshot", () => {
   const resetAt = new Date(Date.now() + 60_000).toISOString();
   saveCodexSnapshot("conn-persisted-warning-buffer", 5, resetAt);
 
@@ -57,19 +57,34 @@ test("evaluateQuotaLimitPolicy blocks Codex from persisted 5h snapshot after cac
     })
   );
 
-  assert.equal(result.blocked, true);
-  assert.equal(result.reasons.length, 1);
-  assert.match(result.reasons[0], /session usage 95%/i);
-  assert.equal(result.resetAt, resetAt);
+  assert.equal(result.blocked, false);
+  assert.deepEqual(result.reasons, []);
+  assert.equal(result.resetAt, null);
 });
 
-test("evaluateQuotaLimitPolicy keeps Codex eligible from persisted snapshot above warning buffer", () => {
+test("evaluateQuotaLimitPolicy blocks Codex from persisted 5h snapshot once fully used", () => {
   const resetAt = new Date(Date.now() + 60_000).toISOString();
-  saveCodexSnapshot("conn-persisted-above-buffer", 6, resetAt);
+  saveCodexSnapshot("conn-persisted-fully-used", 0, resetAt);
 
   const result = auth.evaluateQuotaLimitPolicy(
     "codex",
-    buildConnection("conn-persisted-above-buffer", {
+    buildConnection("conn-persisted-fully-used", {
+      codexLimitPolicy: { use5h: true, useWeekly: false },
+    })
+  );
+
+  assert.equal(result.blocked, true);
+  assert.equal(result.reasons.length, 1);
+  assert.match(result.reasons[0], /session usage 100%/i);
+  assert.equal(result.resetAt, resetAt);
+});
+test("evaluateQuotaLimitPolicy keeps Codex eligible from persisted snapshot with remaining quota", () => {
+  const resetAt = new Date(Date.now() + 60_000).toISOString();
+  saveCodexSnapshot("conn-persisted-with-remaining-quota", 1, resetAt);
+
+  const result = auth.evaluateQuotaLimitPolicy(
+    "codex",
+    buildConnection("conn-persisted-with-remaining-quota", {
       codexLimitPolicy: { use5h: true, useWeekly: false },
     })
   );

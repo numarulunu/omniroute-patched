@@ -1,3 +1,10 @@
+## 2026-05-13 - Codex full-quota routing restored
+
+- Summary: Changed Codex's default quota threshold from 95% used to 100% used so OmniRoute keeps accounts eligible until the relevant Codex quota window is fully used. Separately set local Codex config `[notice].hide_rate_limit_model_nudge = true` so the CLI stops showing the lower-cost model reminder.
+- Files touched: `src/sse/services/auth.ts`, `tests/unit/quota-policy-generalization.test.ts`, `tests/unit/quota-policy-persisted-snapshots.test.ts`.
+- Verification: Red-phase tests failed against the old 95% behavior; after the fix, `node --import tsx/esm --test tests/unit/quota-policy-generalization.test.ts tests/unit/quota-policy-persisted-snapshots.test.ts` passed 15/15, `npm run typecheck:core` exited 0, and `git diff --check` exited 0. Focused `tests/unit/sse-auth.test.ts --test-name-pattern "resolveQuotaLimitPolicy|evaluateQuotaLimitPolicy"` was attempted but timed out in the existing long-running test harness and was not used as evidence.
+- Next step: Build and deploy via the Coolify compose stack, then verify live logs no longer filter accounts at 95-99% usage.
+
 # Project Log
 
 ## 2026-05-12 - API-key default policy hardening
