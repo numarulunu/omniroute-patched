@@ -5,6 +5,7 @@ import { pathToFileURL } from "node:url";
 
 const modulePath = path.join(process.cwd(), "next.config.mjs");
 const originalNextDistDir = process.env.NEXT_DIST_DIR;
+const originalMaxLlmBodySizeBytes = process.env.MAX_LLM_BODY_SIZE_BYTES;
 
 async function loadNextConfig(label) {
   return import(`${pathToFileURL(modulePath).href}?case=${label}-${Date.now()}`);
@@ -15,6 +16,12 @@ test.afterEach(() => {
     delete process.env.NEXT_DIST_DIR;
   } else {
     process.env.NEXT_DIST_DIR = originalNextDistDir;
+  }
+
+  if (originalMaxLlmBodySizeBytes === undefined) {
+    delete process.env.MAX_LLM_BODY_SIZE_BYTES;
+  } else {
+    process.env.MAX_LLM_BODY_SIZE_BYTES = originalMaxLlmBodySizeBytes;
   }
 });
 
@@ -56,6 +63,21 @@ test("next config exposes standalone build settings and canonical rewrites", asy
       destination: "/api/v1/models",
     },
   ]);
+});
+
+test("next config keeps proxy body buffering aligned with LLM body limits", async () => {
+  delete process.env.MAX_LLM_BODY_SIZE_BYTES;
+  const { default: nextConfig } = await loadNextConfig("proxy-body-default");
+
+  assert.equal(nextConfig.experimental.proxyClientMaxBodySize, 64 * 1024 * 1024);
+  assert.equal(nextConfig.experimental.serverActions.bodySizeLimit, "50mb");
+});
+
+test("next config lets deployments override the LLM proxy body limit", async () => {
+  process.env.MAX_LLM_BODY_SIZE_BYTES = String(32 * 1024 * 1024);
+  const { default: nextConfig } = await loadNextConfig("proxy-body-env");
+
+  assert.equal(nextConfig.experimental.proxyClientMaxBodySize, 32 * 1024 * 1024);
 });
 
 test("next config declares Turbopack aliases, runtime assets and server externals", async () => {

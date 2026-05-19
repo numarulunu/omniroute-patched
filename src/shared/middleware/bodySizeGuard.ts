@@ -20,6 +20,14 @@ import {
   requestBodyLimitMbToBytes,
 } from "../constants/bodySize";
 
+const DEFAULT_LLM_BODY_LIMIT_MB = 64;
+
+/** Larger limit for LLM chat/responses payloads before context compaction can run: 64 MB */
+export const MAX_BODY_BYTES_LLM = parseRequestBodyLimitBytes(
+  process.env.MAX_LLM_BODY_SIZE_BYTES ||
+    String(requestBodyLimitMbToBytes(DEFAULT_LLM_BODY_LIMIT_MB))
+);
+
 /** Larger limit for backup/import routes: 100 MB */
 export const MAX_BODY_BYTES_IMPORT = 100 * 1024 * 1024;
 
@@ -29,11 +37,23 @@ export const MAX_BODY_BYTES_AUDIO = 100 * 1024 * 1024;
 /** Configured limit — reads from env or falls back to 10 MB */
 export const MAX_BODY_BYTES = parseRequestBodyLimitBytes(process.env.MAX_BODY_SIZE_BYTES);
 
-type BodySizeRule = { prefix: string; limit: number };
+type BodySizeRule = { prefix: string; limit: number; match?: (pathname: string) => boolean };
+
+const PROVIDER_CHAT_COMPLETIONS_PATH = /^\/api\/v1\/providers\/[^/]+\/chat\/completions(?:\/|$)/;
 
 const ROUTE_LIMITS: BodySizeRule[] = [
   { prefix: "/api/db-backups/import", limit: MAX_BODY_BYTES_IMPORT },
   { prefix: "/api/v1/audio/transcriptions", limit: MAX_BODY_BYTES_AUDIO },
+  { prefix: "/api/v1/responses", limit: MAX_BODY_BYTES_LLM },
+  { prefix: "/api/v1/chat/completions", limit: MAX_BODY_BYTES_LLM },
+  { prefix: "/api/v1/completions", limit: MAX_BODY_BYTES_LLM },
+  { prefix: "/api/v1/messages", limit: MAX_BODY_BYTES_LLM },
+  { prefix: "/api/v1/api/chat", limit: MAX_BODY_BYTES_LLM },
+  {
+    prefix: "/api/v1/providers/",
+    limit: MAX_BODY_BYTES_LLM,
+    match: (pathname) => PROVIDER_CHAT_COMPLETIONS_PATH.test(pathname),
+  },
 ];
 
 export function getDefaultRequestBodyLimitMb(): number {
@@ -50,7 +70,9 @@ export function getConfiguredBodySizeLimitBytes(settings?: Record<string, unknow
  */
 export function getBodySizeLimit(pathname: string, settings?: Record<string, unknown>): number {
   const configuredLimit = getConfiguredBodySizeLimitBytes(settings);
-  const customRule = ROUTE_LIMITS.find((rule) => pathname.startsWith(rule.prefix));
+  const customRule = ROUTE_LIMITS.find(
+    (rule) => pathname.startsWith(rule.prefix) && (rule.match ? rule.match(pathname) : true)
+  );
   return customRule ? Math.max(customRule.limit, configuredLimit) : configuredLimit;
 }
 

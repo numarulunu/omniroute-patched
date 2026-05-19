@@ -86,3 +86,20 @@
 - Verification: new persisted quota regression test passed after red/green; quota policy generalization, db quota snapshots, Codex defaults, Codex executor, typecheck:core, and git diff --check passed.
 - Decision: hydrate the in-memory quota cache from the latest SQLite snapshots on first quota-window lookup instead of relying only on volatile process memory.
 - Next step: deploy via the existing Coolify docker compose stack and verify quota_filtered logs after restart.
+
+## 2026-05-19 - LLM request body guard raised for Codex payloads
+
+- Summary: Fixed `/v1/responses` 413 failures where large Codex threads were rejected by the global 10 MB body guard before OmniRoute could run Codex compaction/pressure trimming.
+- Files touched: `src/shared/middleware/bodySizeGuard.ts`, `tests/unit/body-size-guard.test.ts`.
+- Decision: Keep the configured/default API body guard for normal routes, but treat LLM chat/responses-style endpoints as having a 64 MB floor via `MAX_LLM_BODY_SIZE_BYTES`. User-configured body-size settings can still raise that limit, and dedicated backup/import/audio upload floors remain unchanged.
+- Verification: `node --import tsx/esm --test tests/unit/body-size-guard.test.ts`; `npm run typecheck:core`; `npx prettier --write src/shared/middleware/bodySizeGuard.ts tests/unit/body-size-guard.test.ts`.
+- Deployment: Deployed to VPS via Coolify compose only as image `omniroute-local:llm-body-limit-de8f93d3-20260519-212659`; compose backup `docker-compose.yaml.bak-20260519T183622Z-llm-body-limit`; public `/api/health` returned 401; an 11 MB unauthenticated `/v1/responses` payload returned 401 instead of 413.
+
+## 2026-05-19 - Next proxy body buffer raised for large Codex JSON
+
+- Summary: Fixed follow-up `/v1/responses` `Invalid JSON body` failures for large Codex payloads after the LLM body guard was raised.
+- Files touched: `next.config.mjs`, `tests/unit/next-config.test.ts`, `project_log.md`.
+- Decision: Set Next.js `experimental.proxyClientMaxBodySize` to the same 64 MB default floor used by the LLM body guard, with `MAX_LLM_BODY_SIZE_BYTES` as the deployment override. Without this, Next.js truncates proxied/rewrite request bodies at 10 MB before the route handler calls `request.json()`.
+- Verification: `node --import tsx/esm --test tests/unit/body-size-guard.test.ts tests/unit/next-config.test.ts`; `npm run typecheck:core`; `npm run build`; remote Docker build showed `proxyClientMaxBodySize: 67108864`; public 11 MB `/v1/responses` JSON smoke returned 401 auth-required instead of 400/413; filtered logs showed no Next 10 MB truncation warning and no `Invalid JSON body`.
+- Deployment: Deployed to VPS via Coolify compose only as image `omniroute-local:next-proxy-body-20260519-220541`; compose backup `docker-compose.yaml.bak-20260519T221413Z-next-proxy-body`; encryption-key fingerprint matched before swap; container is healthy.
+- Next step: Monitor normal authenticated Codex requests for any remaining large-body failures.
