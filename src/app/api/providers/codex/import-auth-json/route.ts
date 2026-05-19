@@ -17,6 +17,7 @@ import {
   updateProviderConnection,
 } from "@/lib/db/providers";
 import { codex } from "@/lib/oauth/providers/codex";
+import { resetProviderRefreshBreaker } from "@omniroute/open-sse/services/tokenRefresh";
 
 // OpenAI ChatGPT Codex access tokens live ~28 days; refresh handled by
 // OmniRoute's health-check loop once the token approaches expiry.
@@ -131,6 +132,10 @@ export async function POST(request: Request) {
         testStatus: "active",
       });
     }
+
+    // Fresh credentials just landed — clear any tripped refresh breaker so the
+    // next token refresh for this provider isn't skipped by a stale 30-min block.
+    resetProviderRefreshBreaker("codex");
 
     return NextResponse.json({
       success: true,

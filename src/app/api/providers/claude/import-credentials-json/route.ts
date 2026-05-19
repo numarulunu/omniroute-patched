@@ -17,6 +17,7 @@ import {
   getProviderConnections,
   updateProviderConnection,
 } from "@/lib/db/providers";
+import { resetProviderRefreshBreaker } from "@omniroute/open-sse/services/tokenRefresh";
 
 interface ClaudeCredentialsBody {
   claudeAiOauth?: {
@@ -110,6 +111,10 @@ export async function POST(request: Request) {
         testStatus: "active",
       });
     }
+
+    // Fresh credentials just landed — clear any tripped refresh breaker so the
+    // next token refresh for this provider isn't skipped by a stale 30-min block.
+    resetProviderRefreshBreaker("claude");
 
     return NextResponse.json({
       success: true,

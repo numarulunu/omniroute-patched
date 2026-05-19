@@ -1056,8 +1056,16 @@ export async function getAllAccessTokens(userInfo, log) {
 
 // ─── Circuit Breaker State ──────────────────────────────────────────────────
 const _circuitBreaker: Record<string, { failures: number; blockedUntil: number }> = {};
-const CIRCUIT_BREAKER_THRESHOLD = 5; // consecutive failures before tripping
-const CIRCUIT_BREAKER_COOLDOWN = 30 * 60 * 1000; // 30 minutes
+// Env-tunable so a single bad-token batch can't lock out an entire provider.
+// Set TOKEN_REFRESH_BREAKER_THRESHOLD=999 to effectively disable.
+const CIRCUIT_BREAKER_THRESHOLD = (() => {
+  const raw = Number(process.env.TOKEN_REFRESH_BREAKER_THRESHOLD);
+  return Number.isFinite(raw) && raw > 0 ? Math.floor(raw) : 5;
+})();
+const CIRCUIT_BREAKER_COOLDOWN = (() => {
+  const raw = Number(process.env.TOKEN_REFRESH_BREAKER_BLOCK_MS);
+  return Number.isFinite(raw) && raw > 0 ? Math.floor(raw) : 30 * 60 * 1000;
+})();
 const REFRESH_TIMEOUT_MS = 30_000; // 30s max per refresh attempt
 
 interface CircuitBreakerStatusEntry {
@@ -1121,6 +1129,20 @@ function recordSuccess(provider: string) {
   if (_circuitBreaker[provider]) {
     delete _circuitBreaker[provider];
   }
+}
+
+/**
+ * Externally reset the refresh circuit breaker for a provider.
+ * Called when fresh credentials are imported (import-auth-json /
+ * import-credentials-json), so the next refresh isn't blocked by a stale trip.
+ */
+export function resetProviderRefreshBreaker(provider: string): boolean {
+  if (!provider) return false;
+  if (_circuitBreaker[provider]) {
+    delete _circuitBreaker[provider];
+    return true;
+  }
+  return false;
 }
 
 /**
