@@ -1,3 +1,11 @@
+## 2026-05-20 - Codex refresh-token invalidation hardening
+
+- Summary: Production evidence showed four expired Codex rows returning direct ChatGPT quota `401 token_invalidated` while two rows still authenticated. Hardened the refresh path so `refresh_token_invalidated` is treated as unrecoverable, unrecoverable refresh results are not retried, Codex executor surfaces terminal refresh results to the retry wrapper, and background/test refresh paths pass `connectionId` so rotating-token mutex and DB staleness checks can work.
+- Files touched: `open-sse/services/tokenRefresh.ts`, `open-sse/executors/codex.ts`, `src/lib/tokenHealthCheck.ts`, `src/app/api/providers/[id]/test/route.ts`, `tests/unit/codex-refresh-invalidated.test.ts`.
+- Verification: `node --import tsx/esm --test tests/unit/codex-refresh-invalidated.test.ts`; `node --import tsx/esm --test tests/unit/codex-import-auth-json.test.ts`; `node --import tsx/esm --test tests/unit/auth-terminal-status.test.ts`; `npm run typecheck:core`; `git diff --check`.
+- Decision: Do not retry account-specific unrecoverable refresh failures because retries with one-time-use refresh tokens produce `refresh_token_reused` noise and can trip global breaker logic. This does not revive already invalidated OpenAI sessions; those require one clean re-login/import per account.
+- Next step: Deploy via Coolify compose, then re-import the four `cor*` accounts once with no local Codex process using those auth files and verify direct quota `200` plus `test_status="active"` after 2+ minutes.
+
 ## 2026-05-20 - Codex OAuth import expiry and fresh-401 guard
 
 - Summary: Fixed Codex auth.json import to persist the real access-token expiry from the JWT `exp` claim instead of assuming a 28-day access-token lifetime. Added a one-use, 5-minute fresh-import guard so the first Codex upstream 401 after import becomes a short `unavailable` cooldown instead of permanent `expired`; a second 401 still terminalises the connection.

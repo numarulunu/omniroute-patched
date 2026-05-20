@@ -275,11 +275,13 @@ async function refreshOAuthToken(connection: any) {
   try {
     // Kiro needs extra fields the generic function expects
     const credentials = {
+      connectionId: connection.id,
       refreshToken,
       providerSpecificData: connection.providerSpecificData || {},
     };
 
     const result = await getAccessToken(provider, credentials, console);
+    if (result && typeof result === "object" && "error" in result) return null;
     return result; // { accessToken, expiresIn, refreshToken } or null
   } catch (err) {
     console.log(`Error refreshing ${provider} token:`, (err as any).message);
@@ -291,7 +293,7 @@ async function refreshOAuthToken(connection: any) {
  * Check if token is expired or about to expire (within 5 minutes)
  */
 function isTokenExpired(connection: any) {
-  const expiresAtValue = connection.expiresAt || connection.tokenExpiresAt;
+  const expiresAtValue = connection.tokenExpiresAt || connection.expiresAt;
   if (!expiresAtValue) return false;
   const expiresAt = new Date(expiresAtValue).getTime();
   const buffer = 5 * 60 * 1000; // 5 minutes
@@ -659,7 +661,9 @@ export async function testSingleConnection(connectionId: string, validationModel
       updateData.refreshToken = result.newTokens.refreshToken;
     }
     if (result.newTokens.expiresIn) {
-      updateData.expiresAt = new Date(Date.now() + result.newTokens.expiresIn * 1000).toISOString();
+      const expiresAt = new Date(Date.now() + result.newTokens.expiresIn * 1000).toISOString();
+      updateData.expiresAt = expiresAt;
+      updateData.tokenExpiresAt = expiresAt;
     }
   }
 

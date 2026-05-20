@@ -458,6 +458,7 @@ export async function refreshCodexToken(refreshToken, log, proxyConfig: unknown 
 
       if (
         errorCode === "refresh_token_reused" ||
+        errorCode === "refresh_token_invalidated" ||
         errorCode === "invalid_grant" ||
         errorCode === "token_expired" ||
         errorCode === "invalid_token"
@@ -1208,6 +1209,13 @@ export async function refreshWithRetry(
 
     try {
       const result = await withTimeout(refreshFn, REFRESH_TIMEOUT_MS);
+      if (isUnrecoverableRefreshError(result)) {
+        log?.warn?.("TOKEN_REFRESH", `Unrecoverable refresh error for ${provider}; not retrying`, {
+          error: result.error,
+          code: result.code,
+        });
+        return result;
+      }
       if (result) {
         recordSuccess(provider);
         return result;
