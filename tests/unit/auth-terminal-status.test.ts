@@ -137,6 +137,106 @@ test("markAccountUnavailable marks 401 connections as expired without adding coo
   assert.ok(!after.rateLimitedUntil);
 });
 
+test("markAccountUnavailable defers Codex fresh-import 401 terminalisation", async () => {
+  await resetStorage();
+
+  const conn = await providersDb.createProviderConnection({
+    provider: "codex",
+    authType: "oauth",
+    accessToken: "codex-access",
+    refreshToken: "codex-refresh",
+    isActive: true,
+    testStatus: "active",
+  });
+
+  const result = await auth.markAccountUnavailable(
+    (conn as any).id,
+    401,
+    "unauthorized",
+    "codex",
+    "gpt-5.1-codex"
+  );
+  const after = await providersDb.getProviderConnectionById((conn as any).id);
+
+  assert.equal(result.shouldFallback, true);
+  assert.ok(result.cooldownMs > 0);
+  assert.equal(after.testStatus, "unavailable");
+  assert.ok(after.rateLimitedUntil);
+  assert.ok(after.providerSpecificData.codexFreshImportGraceUsedAt);
+});
+
+test("markAccountUnavailable consumes the Codex fresh-import grace after one 401", async () => {
+  await resetStorage();
+
+  const conn = await providersDb.createProviderConnection({
+    provider: "codex",
+    authType: "oauth",
+    accessToken: "codex-access",
+    refreshToken: "codex-refresh",
+    isActive: true,
+    testStatus: "active",
+  });
+
+  await auth.markAccountUnavailable(
+    (conn as any).id,
+    401,
+    "unauthorized",
+    "codex",
+    "gpt-5.1-codex"
+  );
+  const db = core.getDbInstance() as any;
+  db.prepare("UPDATE provider_connections SET rate_limited_until = NULL WHERE id = ?").run(
+    (conn as any).id
+  );
+
+  const result = await auth.markAccountUnavailable(
+    (conn as any).id,
+    401,
+    "unauthorized",
+    "codex",
+    "gpt-5.1-codex"
+  );
+  const after = await providersDb.getProviderConnectionById((conn as any).id);
+
+  assert.equal(result.shouldFallback, true);
+  assert.equal(result.cooldownMs, 0);
+  assert.equal(after.testStatus, "expired");
+  assert.ok(!after.rateLimitedUntil);
+});
+
+test("markAccountUnavailable expires Codex 401s after the fresh-import grace window", async () => {
+  await resetStorage();
+
+  const conn = await providersDb.createProviderConnection({
+    provider: "codex",
+    authType: "oauth",
+    accessToken: "codex-access",
+    refreshToken: "codex-refresh",
+    isActive: true,
+    testStatus: "active",
+  });
+  const oldUpdatedAt = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+  const db = core.getDbInstance() as any;
+  db.prepare("UPDATE provider_connections SET updated_at = ? WHERE id = ?").run(
+    oldUpdatedAt,
+    (conn as any).id
+  );
+
+  const result = await auth.markAccountUnavailable(
+    (conn as any).id,
+    401,
+    "unauthorized",
+    "codex",
+    "gpt-5.1-codex"
+  );
+  const after = await providersDb.getProviderConnectionById((conn as any).id);
+
+  assert.equal(result.shouldFallback, true);
+  assert.equal(result.cooldownMs, 0);
+  assert.equal(after.testStatus, "expired");
+  assert.ok(!after.rateLimitedUntil);
+});
+
 test("markAccountUnavailable marks 402 connections as credits_exhausted without adding cooldown", async () => {
   await resetStorage();
 

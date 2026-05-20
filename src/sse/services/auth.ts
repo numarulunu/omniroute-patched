@@ -54,6 +54,7 @@ interface ProviderConnectionView {
   refreshToken: string | null;
   tokenExpiresAt: string | null;
   expiresAt: string | null;
+  updatedAt: string | null;
   projectId: string | null;
   providerSpecificData: JsonRecord;
   lastUsedAt: string | null;
@@ -132,6 +133,7 @@ function toProviderConnection(value: unknown): ProviderConnectionView {
     refreshToken: toStringOrNull(row.refreshToken),
     tokenExpiresAt: toStringOrNull(row.tokenExpiresAt),
     expiresAt: toStringOrNull(row.expiresAt),
+    updatedAt: toStringOrNull(row.updatedAt),
     projectId: toStringOrNull(row.projectId),
     providerSpecificData: asRecord(row.providerSpecificData),
     lastUsedAt: toStringOrNull(row.lastUsedAt),
@@ -728,6 +730,8 @@ let selectionMutex = Promise.resolve();
 // Prevents multiple concurrent requests from marking the same connection
 // unavailable in parallel, which was the root cause of cascading 502 lockouts.
 const markMutexes = new Map<string, Promise<void>>();
+const CODEX_FRESH_IMPORT_GRACE_MS = 5 * 60 * 1000;
+const CODEX_FRESH_IMPORT_GRACE_USED_AT_KEY = "codexFreshImportGraceUsedAt";
 
 // Strict-Random shuffle deck moved to src/shared/utils/shuffleDeck.ts
 // auth.ts uses getNextFromDeckSync (already inside selectionMutex).
@@ -1519,7 +1523,33 @@ export async function markAccountUnavailable(
       result as { permanent?: boolean; creditsExhausted?: boolean },
       providerErrorType
     );
-    const cooldownMs = terminalStatus ? 0 : rawCooldownMs;
+    const updatedAtMs = conn?.updatedAt ? new Date(conn.updatedAt).getTime() : Number.NaN;
+    const hasConsumedFreshImportGrace = Boolean(
+      conn?.providerSpecificData?.[CODEX_FRESH_IMPORT_GRACE_USED_AT_KEY]
+    );
+    const isFreshCodexImport401 =
+      provider === "codex" &&
+      terminalStatus === "expired" &&
+      !hasConsumedFreshImportGrace &&
+      Number.isFinite(updatedAtMs) &&
+      Date.now() - updatedAtMs < CODEX_FRESH_IMPORT_GRACE_MS;
+    const effectiveTerminalStatus = isFreshCodexImport401 ? null : terminalStatus;
+    const freshImportCooldownMs =
+      rawCooldownMs > 0
+        ? rawCooldownMs
+        : (effectiveProviderProfile?.baseCooldownMs ?? COOLDOWN_MS.transient);
+    const cooldownMs = effectiveTerminalStatus
+      ? 0
+      : isFreshCodexImport401
+        ? freshImportCooldownMs
+        : rawCooldownMs;
+
+    if (isFreshCodexImport401) {
+      log.warn(
+        "AUTH",
+        `${connectionId.slice(0, 8)} got 401 within fresh-import grace; deferring terminalisation`
+      );
+    }
 
     // ── 404 model-only lockout: connection stays active ──
     // For local providers (detected by URL), a 404 means the specific model
@@ -1596,6 +1626,14 @@ export async function markAccountUnavailable(
       errorCode: status,
       lastErrorAt: new Date().toISOString(),
       backoffLevel: newBackoffLevel ?? backoffLevel,
+      ...(isFreshCodexImport401 && conn
+        ? {
+            providerSpecificData: {
+              ...conn.providerSpecificData,
+              [CODEX_FRESH_IMPORT_GRACE_USED_AT_KEY]: new Date().toISOString(),
+            },
+          }
+        : {}),
     };
 
     if (cooldownMs > 0) {
@@ -1608,7 +1646,7 @@ export async function markAccountUnavailable(
       await updateProviderConnection(connectionId, {
         ...baseUpdate,
         rateLimitedUntil: null,
-        ...(terminalStatus ? { testStatus: terminalStatus } : {}),
+        ...(effectiveTerminalStatus ? { testStatus: effectiveTerminalStatus } : {}),
       });
     }
 

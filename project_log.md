@@ -1,3 +1,11 @@
+## 2026-05-20 - Codex OAuth import expiry and fresh-401 guard
+
+- Summary: Fixed Codex auth.json import to persist the real access-token expiry from the JWT `exp` claim instead of assuming a 28-day access-token lifetime. Added a one-use, 5-minute fresh-import guard so the first Codex upstream 401 after import becomes a short `unavailable` cooldown instead of permanent `expired`; a second 401 still terminalises the connection.
+- Files touched: `src/app/api/providers/codex/import-auth-json/route.ts`, `src/sse/services/auth.ts`, `tests/unit/codex-import-auth-json.test.ts`, `tests/unit/auth-terminal-status.test.ts`.
+- Verification: Red tests reproduced the wrong 28-day expiry and fresh-import terminalisation; after the fix, `node --import tsx/esm --test tests/unit/codex-import-auth-json.test.ts`, `node --import tsx/esm --test tests/unit/auth-terminal-status.test.ts`, `npm run typecheck:core`, `npx prettier --write ...`, and `git diff --check` passed.
+- Decision: Use access-token `exp` as source of truth, fall back to a one-hour opaque-token lifetime, and consume the fresh-import 401 grace only once to avoid masking truly invalid or rotated ChatGPT sessions.
+- Next step: Deploy through the Coolify compose image swap only after the production encryption-key fingerprint matches, then have the user re-import one account once and probe for `test_status="active"` after 90+ seconds.
+
 ## 2026-05-13 - Codex full-quota routing restored
 
 - Summary: Changed Codex's default quota threshold from 95% used to 100% used so OmniRoute keeps accounts eligible until the relevant Codex quota window is fully used. Separately set local Codex config `[notice].hide_rate_limit_model_nudge = true` so the CLI stops showing the lower-cost model reminder.

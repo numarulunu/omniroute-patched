@@ -19,9 +19,7 @@ import {
 import { codex } from "@/lib/oauth/providers/codex";
 import { resetProviderRefreshBreaker } from "@omniroute/open-sse/services/tokenRefresh";
 
-// OpenAI ChatGPT Codex access tokens live ~28 days; refresh handled by
-// OmniRoute's health-check loop once the token approaches expiry.
-const CODEX_ACCESS_TOKEN_LIFETIME_S = 28 * 24 * 60 * 60;
+const CODEX_ACCESS_TOKEN_FALLBACK_LIFETIME_S = 60 * 60;
 
 interface AuthJsonBody {
   auth_mode?: string;
@@ -39,12 +37,34 @@ function badRequest(message: string, code = "invalid_request") {
   return NextResponse.json({ error: message, code }, { status: 400 });
 }
 
-function computeExpiresIn(lastRefresh: string | undefined): number {
-  if (!lastRefresh) return CODEX_ACCESS_TOKEN_LIFETIME_S;
+function parseJwtExp(token: string | undefined): number | null {
+  if (!token) return null;
+  const parts = token.split(".");
+  if (parts.length < 2) return null;
+
+  try {
+    const payload = JSON.parse(Buffer.from(parts[1], "base64url").toString("utf8"));
+    return typeof payload.exp === "number" && Number.isFinite(payload.exp) ? payload.exp : null;
+  } catch {
+    return null;
+  }
+}
+
+function computeExpiresIn(
+  accessToken: string | undefined,
+  lastRefresh: string | undefined
+): number {
+  const jwtExp = parseJwtExp(accessToken);
+  if (jwtExp) {
+    const remaining = jwtExp - Math.floor(Date.now() / 1000);
+    return remaining > 60 ? remaining : 60;
+  }
+
+  if (!lastRefresh) return CODEX_ACCESS_TOKEN_FALLBACK_LIFETIME_S;
   const lastMs = Date.parse(lastRefresh);
-  if (Number.isNaN(lastMs)) return CODEX_ACCESS_TOKEN_LIFETIME_S;
+  if (Number.isNaN(lastMs)) return CODEX_ACCESS_TOKEN_FALLBACK_LIFETIME_S;
   const elapsed = Math.floor((Date.now() - lastMs) / 1000);
-  const remaining = CODEX_ACCESS_TOKEN_LIFETIME_S - elapsed;
+  const remaining = CODEX_ACCESS_TOKEN_FALLBACK_LIFETIME_S - elapsed;
   // Min 60s so the next health-check refreshes it if the uploaded file is old.
   return remaining > 60 ? remaining : 60;
 }
@@ -85,7 +105,7 @@ export async function POST(request: Request) {
     id_token: t.id_token,
     access_token: t.access_token,
     refresh_token: t.refresh_token,
-    expires_in: computeExpiresIn(body.last_refresh),
+    expires_in: computeExpiresIn(t.access_token, body.last_refresh),
   };
 
   const extra = await codex.postExchange(syntheticTokens);
