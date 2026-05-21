@@ -119,3 +119,11 @@
 - Verification: `node --import tsx/esm --test tests/unit/body-size-guard.test.ts tests/unit/next-config.test.ts`; `npm run typecheck:core`; `npm run build`; remote Docker build showed `proxyClientMaxBodySize: 67108864`; public 11 MB `/v1/responses` JSON smoke returned 401 auth-required instead of 400/413; filtered logs showed no Next 10 MB truncation warning and no `Invalid JSON body`.
 - Deployment: Deployed to VPS via Coolify compose only as image `omniroute-local:next-proxy-body-20260519-220541`; compose backup `docker-compose.yaml.bak-20260519T221413Z-next-proxy-body`; encryption-key fingerprint matched before swap; container is healthy.
 - Next step: Monitor normal authenticated Codex requests for any remaining large-body failures.
+
+## 2026-05-21 - OmniRoute Codex patch branch preserved and VPS runtime decommissioned
+
+- Summary: Preserved the final Codex/OmniRoute patch stack on GitHub after moving local Codex usage back to direct OpenAI/ChatGPT auth.
+- Files touched: `project_log.md`.
+- Decision: Keep `origin/ionut-patches-v3.8.0-cherry` as the source of record for the OmniRoute work instead of continuing production use on the VPS. Do not delete the SQLite data directory or Coolify app configuration during decommission, so rollback remains possible.
+- Verification: `git push origin HEAD:ionut-patches-v3.8.0-cherry` reported up to date at `9b28d4107082dcce5e701e52ef199f7946270cfb` before this log entry; VPS compose runtime for `yj7526rpmiup0dbzd1lb9967-105231058753` was stopped/removed; current image `omniroute-local:refresh-hardening-9b28d410-20260520-105224` was removed; old OmniRoute rollback containers/images and `/opt/omniroute-builds/omniroute-*` build clones were removed; local port `127.0.0.1:20128` returned no HTTP service.
+- Deployment state: Coolify app directory, `.env`, SQLite data, and compose backup `docker-compose.yaml.bak-20260521T153614Z-decommission` remain on the VPS for audit/rollback.
